@@ -269,7 +269,7 @@ export default function StandingsTab({
                     )
                   }
                 >
-                  {i + 1}. {team.team}
+                {team.team}
                 </button>
 
                 <span className="winText">
