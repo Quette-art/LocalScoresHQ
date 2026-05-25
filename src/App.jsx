@@ -567,35 +567,40 @@ function AppContent() {
         </div>
       )}
 
-      {activeTab !== "home" && (
-        <div className="topControls">
-          <div className="sportsBar">
-            {sports.map((sport) => (
-              <button
-                key={sport.name}
-                style={{
-                  order: sport.priority,
-                }}
-                className={`sportPill ${
-                  selectedSport ===
-                  sport.name
-                    ? "sportPillActive"
-                    : ""
-                }`}
-                onClick={() =>
-                  handleSportClick(
-                    sport.name
-                  )
-                }
-              >
-                {sport.icon}{" "}
-                {sport.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
+      <div className="topControls">
+  <div className="sportsBar">
+    {sports.map((sport) => (
+      <button
+        key={sport.name}
+        style={{
+          order: sport.priority,
+        }}
+        className={`sportPill ${
+          selectedSport === sport.name
+            ? "sportPillActive"
+            : ""
+        }`}
+        ref={(el) => {
+          if (
+            el &&
+            selectedSport === sport.name
+          ) {
+            el.scrollIntoView({
+              behavior: "smooth",
+              inline: "center",
+              block: "nearest",
+            });
+          }
+        }}
+        onClick={() =>
+          handleSportClick(sport.name)
+        }
+      >
+        {sport.icon} {sport.name}
+      </button>
+    ))}
+  </div>
+</div>
       <Routes>
         <Route
           path="/game"

@@ -3010,3 +3010,45 @@ body {
     flex: 0 0 auto !important;
   }
 }
+/* MOBILE SPORTS PILL FIX */
+.sportPill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: fit-content;
+  padding: 14px 22px !important;
+
+  border-radius: 999px;
+
+  font-size: 18px !important;
+  font-weight: 700;
+
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sportPillActive {
+  background: linear-gradient(
+    90deg,
+    #1493d1,
+    #33d2ff
+  ) !important;
+
+  color: #000 !important;
+}
+
+/* FIX BOTTOM NAV SHIFT */
+body {
+  overflow-x: hidden;
+}
+
+.bottomNav,
+.tabNavigation,
+.bottom-tabs {
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
