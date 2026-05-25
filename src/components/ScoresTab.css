@@ -3190,3 +3190,35 @@ html,
 body {
   overflow-x: hidden !important;
 }
+/* PERFECT MOBILE TAB BAR CENTER FIX */
+
+.bottomNav,
+.tabNavigation,
+.bottom-tabs {
+  position: fixed !important;
+
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  bottom: 0 !important;
+
+  width: 100% !important;
+  max-width: 430px !important;
+
+  margin: 0 auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  box-sizing: border-box !important;
+
+  display: flex !important;
+  justify-content: space-evenly !important;
+  align-items: center !important;
+}
+
+/* PREVENT SIDE SHIFT */
+html,
+body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
