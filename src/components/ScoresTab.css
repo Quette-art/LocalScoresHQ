@@ -3222,3 +3222,40 @@ body {
   overflow-x: hidden !important;
   width: 100% !important;
 }
+/* HARD MOBILE WIDTH RESET */
+
+#root,
+.appShell,
+.mainContent,
+body,
+html {
+  width: 100% !important;
+  max-width: 100% !important;
+
+  overflow-x: hidden !important;
+}
+
+/* FORCE TAB BAR CENTER */
+
+.bottomNav,
+.tabNavigation,
+.bottom-tabs {
+  position: fixed !important;
+
+  left: 50% !important;
+  bottom: 0 !important;
+
+  transform: translateX(-50%) !important;
+
+  width: 100vw !important;
+  max-width: 430px !important;
+
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+
+  margin: 0 auto !important;
+  padding: 0 !important;
+
+  box-sizing: border-box !important;
+}
