@@ -32,6 +32,7 @@ import IphoneInstallTip from "./components/IphoneInstallTip";
 import { upcomingGames } from "./data/games";
 
 import "./components/ScoresTab.css";
+
 function ScrollToTop() {
   const { pathname, search } = useLocation();
 
@@ -41,6 +42,7 @@ function ScrollToTop() {
 
   return null;
 }
+
 function TeamProfileRoute({ games }) {
   const navigate = useNavigate();
 
@@ -112,25 +114,47 @@ function AppContent() {
 
   const isAdmin = !!adminUser;
 
- const baseSports = [
-  { name: "Soccer", icon: "⚽", priority: 1 },
-  { name: "Flag Football", icon: "🚩", priority: 2 },
-  { name: "Basketball", icon: "🏀", priority: 3 },
-  { name: "Baseball", icon: "⚾", priority: 4 },
-  { name: "Football", icon: "🏈", priority: 5 },
-];
+  const baseSports = [
+    {
+      name: "Soccer",
+      icon: "⚽",
+      priority: 1,
+    },
+    {
+      name: "Flag Football",
+      icon: "🚩",
+      priority: 2,
+    },
+    {
+      name: "Basketball",
+      icon: "🏀",
+      priority: 3,
+    },
+    {
+      name: "Baseball",
+      icon: "⚾",
+      priority: 4,
+    },
+    {
+      name: "Football",
+      icon: "🏈",
+      priority: 5,
+    },
+  ];
 
-const sports = [...baseSports].sort((a, b) => {
-  return a.priority - b.priority;
-});
+  const sports = [...baseSports].sort(
+    (a, b) =>
+      a.priority - b.priority
+  );
 
-const sportIcons = {
-  Baseball: "⚾",
-  Soccer: "⚽",
-  Basketball: "🏀",
-  Football: "🏈",
-  "Flag Football": "🚩",
-};
+  const sportIcons = {
+    Baseball: "⚾",
+    Soccer: "⚽",
+    Basketball: "🏀",
+    Football: "🏈",
+    "Flag Football": "🚩",
+  };
+
   useEffect(() => {
     const unsubscribeAuth =
       onAuthStateChanged(auth, (user) => {
@@ -404,7 +428,8 @@ const sportIcons = {
               className="close-search-btn"
               onClick={() => {
                 setShowGlobalSearch(
-                  false);
+                  false
+                );
 
                 setSearchTerm("");
               }}
@@ -544,40 +569,29 @@ const sportIcons = {
 
       {activeTab !== "home" && (
         <div className="topControls">
-          <div
-  className="sportsBar"
-  ref={(el) => {
-    if (el) el.scrollLeft = 0;
-  }}
->
- {sports.map((sport) => (
- <button
-  key={sport.name}
-  style={{ order: sport.priority }}
-  ref={(el) => {
-    if (el && selectedSport === sport.name) {
-      el.scrollIntoView({
-        behavior: "smooth",
-        inline: "start",
-        block: "nearest",
-      });
-    }
-  }}
-  className={`sportPill ${
-    selectedSport === sport.name
-      ? "sportPillActive"
-      : ""
-  }`}
-  onClick={() =>
-    handleSportClick(
-      sport.name
-    )
-  }
->
-  {sport.icon}{" "}
-  {sport.name}
-</button>
+          <div className="sportsBar">
+            {sports.map((sport) => (
+              <button
+                key={sport.name}
+                style={{
+                  order: sport.priority,
+                }}
+                className={`sportPill ${
+                  selectedSport ===
+                  sport.name
+                    ? "sportPillActive"
+                    : ""
+                }`}
+                onClick={() =>
+                  handleSportClick(
+                    sport.name
+                  )
                 }
+              >
+                {sport.icon}{" "}
+                {sport.name}
+              </button>
+            ))}
           </div>
         </div>
       )}
@@ -704,8 +718,8 @@ const sportIcons = {
 export default function App() {
   return (
     <BrowserRouter>
-  <ScrollToTop />
-  <AppContent />
-</BrowserRouter>
+      <ScrollToTop />
+      <AppContent />
+    </BrowserRouter>
   );
 }
