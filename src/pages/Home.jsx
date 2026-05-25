@@ -37,126 +37,82 @@ const formatDate = (dateString) => {
 };
 
 const Home = ({ games = [], openGameDetails }) => {
-  const [selectedTeam, setSelectedTeam] =
-    useState(null);
+  const [selectedTeam, setSelectedTeam] = useState(null);
+
+  const [showUpcoming, setShowUpcoming] = useState(true);
+
+  const [showFinals, setShowFinals] = useState(true);
 
   const favoriteTeams = useMemo(() => {
-    return (
-      JSON.parse(
-        localStorage.getItem(
-          "favoriteTeams"
-        )
-      ) || []
-    );
+    return JSON.parse(localStorage.getItem("favoriteTeams")) || [];
   }, []);
 
   const allGames = useMemo(
     () =>
       games.map((game) => ({
         ...game,
-        sport:
-          game.sport || "Soccer",
+        sport: game.sport || "Soccer",
       })),
     [games]
   );
 
   const finalGames = useMemo(() => {
-    return allGames.filter((game) =>
-      hasScore(game)
-    );
+    return allGames.filter((game) => hasScore(game));
   }, [allGames]);
 
   const upcomingGames = useMemo(() => {
-    return allGames.filter(
-      (game) => !hasScore(game)
-    );
+    return allGames.filter((game) => !hasScore(game));
   }, [allGames]);
 
   const favoriteGames = useMemo(() => {
-    return upcomingGames.filter(
-      (game) => {
-        const team1Key = `${game.team1}-${game.division}`;
-
-        const team2Key = `${game.team2}-${game.division}`;
-
-        return (
-          favoriteTeams.includes(
-            team1Key
-          ) ||
-          favoriteTeams.includes(
-            team2Key
-          )
-        );
-      }
-    );
-  }, [
-    upcomingGames,
-    favoriteTeams,
-  ]);
-
-  const nextFavoriteGames =
-    useMemo(() => {
-      return Object.values(
-        favoriteGames.reduce(
-          (acc, game) => {
-            const team1Key = `${game.team1}-${game.division}`;
-
-            const team2Key = `${game.team2}-${game.division}`;
-
-            const favoriteKey =
-              favoriteTeams.includes(
-                team1Key
-              )
-                ? team1Key
-                : team2Key;
-
-            if (!acc[favoriteKey]) {
-              acc[favoriteKey] = game;
-            }
-
-            return acc;
-          },
-          {}
-        )
-      );
-    }, [
-      favoriteGames,
-      favoriteTeams,
-    ]);
-
-  const featuredGame =
-    upcomingGames.find(
-      (game) =>
-        game.featured === true
-    ) ||
-    upcomingGames.find((game) => {
+    return upcomingGames.filter((game) => {
       const team1Key = `${game.team1}-${game.division}`;
-
       const team2Key = `${game.team2}-${game.division}`;
 
       return (
-        !favoriteTeams.includes(
-          team1Key
-        ) &&
-        !favoriteTeams.includes(
-          team2Key
-        )
+        favoriteTeams.includes(team1Key) ||
+        favoriteTeams.includes(team2Key)
+      );
+    });
+  }, [upcomingGames, favoriteTeams]);
+
+  const nextFavoriteGames = useMemo(() => {
+    return Object.values(
+      favoriteGames.reduce((acc, game) => {
+        const team1Key = `${game.team1}-${game.division}`;
+        const team2Key = `${game.team2}-${game.division}`;
+
+        const favoriteKey = favoriteTeams.includes(team1Key)
+          ? team1Key
+          : team2Key;
+
+        if (!acc[favoriteKey]) {
+          acc[favoriteKey] = game;
+        }
+
+        return acc;
+      }, {})
+    );
+  }, [favoriteGames, favoriteTeams]);
+
+  const featuredGame =
+    upcomingGames.find((game) => game.featured === true) ||
+    upcomingGames.find((game) => {
+      const team1Key = `${game.team1}-${game.division}`;
+      const team2Key = `${game.team2}-${game.division}`;
+
+      return (
+        !favoriteTeams.includes(team1Key) &&
+        !favoriteTeams.includes(team2Key)
       );
     }) ||
     finalGames[0];
 
-  const openTeam = (
-    game,
-    teamName
-  ) => {
+  const openTeam = (game, teamName) => {
     setSelectedTeam({
       teamName,
-
-      division:
-        game.division || "Unknown",
-
-      ageGroup:
-        getAgeGroup(game),
+      division: game.division || "Unknown",
+      ageGroup: getAgeGroup(game),
     });
   };
 
@@ -169,19 +125,11 @@ const Home = ({ games = [], openGameDetails }) => {
   if (selectedTeam) {
     return (
       <TeamProfile
-        teamName={
-          selectedTeam.teamName
-        }
-        division={
-          selectedTeam.division
-        }
-        ageGroup={
-          selectedTeam.ageGroup
-        }
+        teamName={selectedTeam.teamName}
+        division={selectedTeam.division}
+        ageGroup={selectedTeam.ageGroup}
         games={allGames}
-        onBack={() =>
-          setSelectedTeam(null)
-        }
+        onBack={() => setSelectedTeam(null)}
       />
     );
   }
@@ -190,28 +138,17 @@ const Home = ({ games = [], openGameDetails }) => {
     <div className="home-page">
       <div className="home-feed-header">
         <div>
-          <p className="home-kicker">
-            LOCALSCORESHQ
-          </p>
+          <p className="home-kicker">LOCALSCORESHQ</p>
 
-          <h1>
-            Today’s Local
-            Scoreboard
-          </h1>
+          <h1>Today’s Local Scoreboard</h1>
 
           <span>
-            {
-              upcomingGames.length
-            }{" "}
-            upcoming •{" "}
-            {finalGames.length} finals
+            {upcomingGames.length} upcoming • {finalGames.length} finals
           </span>
         </div>
 
         <div className="home-mini-stat">
-          <strong>
-            {allGames.length}
-          </strong>
+          <strong>{allGames.length}</strong>
 
           <span>Total Games</span>
         </div>
@@ -220,24 +157,14 @@ const Home = ({ games = [], openGameDetails }) => {
       {featuredGame && (
         <div
           className="home-featured-card"
-          onClick={() =>
-            openGame(
-              featuredGame
-            )
-          }
+          onClick={() => openGame(featuredGame)}
         >
           <div className="featured-top">
             <div>
-              <p className="home-kicker">
-                FEATURED MATCHUP
-              </p>
+              <p className="home-kicker">FEATURED MATCHUP</p>
 
               <span className="featured-status">
-                {hasScore(
-                  featuredGame
-                )
-                  ? "FINAL"
-                  : "UPCOMING"}
+                {hasScore(featuredGame) ? "FINAL" : "UPCOMING"}
               </span>
             </div>
           </div>
@@ -246,28 +173,18 @@ const Home = ({ games = [], openGameDetails }) => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-
-                openTeam(
-                  featuredGame,
-                  featuredGame.team1
-                );
+                openTeam(featuredGame, featuredGame.team1);
               }}
             >
               {featuredGame.team1}
             </button>
 
-            <span className="vs-text">
-              VS
-            </span>
+            <span className="vs-text">VS</span>
 
             <button
               onClick={(e) => {
                 e.stopPropagation();
-
-                openTeam(
-                  featuredGame,
-                  featuredGame.team2
-                );
+                openTeam(featuredGame, featuredGame.team2);
               }}
             >
               {featuredGame.team2}
@@ -275,307 +192,197 @@ const Home = ({ games = [], openGameDetails }) => {
           </div>
 
           <p className="featured-details">
-            {
-              getSportIcon(
-                featuredGame.sport
-              )
-            }{" "}
-            {featuredGame.sport} •{" "}
-            {formatDate(
-              featuredGame.date
-            )}{" "}
-            • {featuredGame.time} •{" "}
+            {getSportIcon(featuredGame.sport)} {featuredGame.sport} •{" "}
+            {formatDate(featuredGame.date)} • {featuredGame.time} •{" "}
             {featuredGame.location}
           </p>
         </div>
       )}
 
-      {nextFavoriteGames.length >
-        0 && (
+      {nextFavoriteGames.length > 0 && (
         <div className="home-section-card">
           <div className="section-header">
-            <h2>
-              ⭐ Favorite Teams
-            </h2>
+            <h2>⭐ Favorite Teams</h2>
 
-            <span>
-              {
-                nextFavoriteGames.length
-              }{" "}
-              Teams
-            </span>
+            <span>{nextFavoriteGames.length} Teams</span>
           </div>
 
           <div className="favorite-strip">
-            {nextFavoriteGames.map(
-              (game) => {
-                const team1Favorite =
-                  favoriteTeams.includes(
-                    `${game.team1}-${game.division}`
-                  );
+            {nextFavoriteGames.map((game) => {
+              const team1Favorite = favoriteTeams.includes(
+                `${game.team1}-${game.division}`
+              );
 
-                const team2Favorite =
-                  favoriteTeams.includes(
-                    `${game.team2}-${game.division}`
-                  );
+              const team2Favorite = favoriteTeams.includes(
+                `${game.team2}-${game.division}`
+              );
 
-                return (
-                  <div
-                    className="favorite-mini-card"
-                    key={game.id}
-                    onClick={() =>
-                      openGame(
-                        game
-                      )
-                    }
-                  >
-                    <div className="favorite-card-top">
-                      <span>
-                        {getSportIcon(
-                          game.sport
-                        )}{" "}
-                        {
-                          game.sport
-                        }
-                      </span>
+              return (
+                <div
+                  className="favorite-mini-card"
+                  key={game.id}
+                  onClick={() => openGame(game)}
+                >
+                  <div className="favorite-card-top">
+                    <span>
+                      {getSportIcon(game.sport)} {game.sport}
+                    </span>
 
-                      <span>
-                        {formatDate(
-                          game.date
-                        )}
-                      </span>
-                    </div>
-
-                    <div className="favorite-card-matchup">
-                      <button
-                        onClick={(
-                          e
-                        ) => {
-                          e.stopPropagation();
-
-                          openTeam(
-                            game,
-                            game.team1
-                          );
-                        }}
-                      >
-                        {team1Favorite
-                          ? "⭐ "
-                          : ""}
-                        {game.team1}
-                      </button>
-
-                      <span>
-                        VS
-                      </span>
-
-                      <button
-                        onClick={(
-                          e
-                        ) => {
-                          e.stopPropagation();
-
-                          openTeam(
-                            game,
-                            game.team2
-                          );
-                        }}
-                      >
-                        {team2Favorite
-                          ? "⭐ "
-                          : ""}
-                        {game.team2}
-                      </button>
-                    </div>
-
-                    <p>
-                      {game.time}
-                    </p>
+                    <span>{formatDate(game.date)}</span>
                   </div>
-                );
-              }
-            )}
+
+                  <div className="favorite-card-matchup">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openTeam(game, game.team1);
+                      }}
+                    >
+                      {team1Favorite ? "⭐ " : ""}
+                      {game.team1}
+                    </button>
+
+                    <span>VS</span>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openTeam(game, game.team2);
+                      }}
+                    >
+                      {team2Favorite ? "⭐ " : ""}
+                      {game.team2}
+                    </button>
+                  </div>
+
+                  <p>{game.time}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
 
       <div className="home-feed-grid">
         <div className="home-section-card">
-          <div className="section-header">
-            <h2>
-              Upcoming Games
-            </h2>
+          <div
+            className="section-header collapsible-section-header"
+            onClick={() => setShowUpcoming(!showUpcoming)}
+          >
+            <h2>Upcoming Games</h2>
 
-            <span>
-              {
-                upcomingGames.length
-              }
-            </span>
+            <span>{showUpcoming ? "−" : "+"}</span>
           </div>
 
-          {upcomingGames.length ===
-          0 ? (
-            <p className="home-muted">
-              No upcoming games.
-            </p>
-          ) : (
-            upcomingGames
-              .slice(0, 8)
-              .map((game) => (
-                <div
-                  className="home-game-feed-row"
-                  key={game.id}
-                  onClick={() =>
-                    openGame(game)
-                  }
-                >
-                  <div className="feed-sport-icon">
-                    {getSportIcon(
-                      game.sport
-                    )}
-                  </div>
-
-                  <div className="feed-game-info">
-                    <span className="feed-game-meta">
-                      {game.sport} •{" "}
-                      {formatDate(
-                        game.date
-                      )}{" "}
-                      •{" "}
-                      {game.time}
-                    </span>
-
-                    <div className="feed-matchup">
-                      <button
-                        onClick={(
-                          e
-                        ) => {
-                          e.stopPropagation();
-
-                          openTeam(
-                            game,
-                            game.team1
-                          );
-                        }}
-                      >
-                        {game.team1}
-                      </button>
-
-                      <span>
-                        VS
-                      </span>
-
-                      <button
-                        onClick={(
-                          e
-                        ) => {
-                          e.stopPropagation();
-
-                          openTeam(
-                            game,
-                            game.team2
-                          );
-                        }}
-                      >
-                        {game.team2}
-                      </button>
+          {showUpcoming && (
+            <>
+              {upcomingGames.length === 0 ? (
+                <p className="home-muted">No upcoming games.</p>
+              ) : (
+                upcomingGames.slice(0, 4).map((game) => (
+                  <div
+                    className="home-game-feed-row"
+                    key={game.id}
+                    onClick={() => openGame(game)}
+                  >
+                    <div className="feed-sport-icon">
+                      {getSportIcon(game.sport)}
                     </div>
 
-                    <p>
-                      {
-                        game.location
-                      }
-                    </p>
-                  </div>
+                    <div className="feed-game-info">
+                      <span className="feed-game-meta">
+                        {game.sport} • {formatDate(game.date)} • {game.time}
+                      </span>
 
-                  <span className="upcoming-status">
-                    UPCOMING
-                  </span>
-                </div>
-              ))
+                      <div className="feed-matchup">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openTeam(game, game.team1);
+                          }}
+                        >
+                          {game.team1}
+                        </button>
+
+                        <span>VS</span>
+
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openTeam(game, game.team2);
+                          }}
+                        >
+                          {game.team2}
+                        </button>
+                      </div>
+
+                      <p>{game.location}</p>
+                    </div>
+
+                    <span className="upcoming-status">UPCOMING</span>
+                  </div>
+                ))
+              )}
+            </>
           )}
         </div>
 
         <div className="home-section-card">
-          <div className="section-header">
-            <h2>
-              Recent Finals
-            </h2>
+          <div
+            className="section-header collapsible-section-header"
+            onClick={() => setShowFinals(!showFinals)}
+          >
+            <h2>Recent Finals</h2>
 
-            <span>
-              {finalGames.length}
-            </span>
+            <span>{showFinals ? "−" : "+"}</span>
           </div>
 
-          {finalGames.length ===
-          0 ? (
-            <p className="home-muted">
-              No finals yet.
-            </p>
-          ) : (
-            finalGames
-              .slice(0, 7)
-              .map((game) => (
-                <div
-                  className="home-final-row"
-                  key={game.id}
-                  onClick={() =>
-                    openGame(game)
-                  }
-                >
-                  <div className="home-final-info">
-                    <span>
-                      {getSportIcon(
-                        game.sport
-                      )}{" "}
-                      {
-                        game.sport
-                      }
-                    </span>
-
-                    <div className="home-final-matchup">
-                      <button
-                        onClick={(
-                          e
-                        ) => {
-                          e.stopPropagation();
-
-                          openTeam(
-                            game,
-                            game.team1
-                          );
-                        }}
-                      >
-                        {game.team1}
-                      </button>
-
+          {showFinals && (
+            <>
+              {finalGames.length === 0 ? (
+                <p className="home-muted">No finals yet.</p>
+              ) : (
+                finalGames.slice(0, 4).map((game) => (
+                  <div
+                    className="home-final-row"
+                    key={game.id}
+                    onClick={() => openGame(game)}
+                  >
+                    <div className="home-final-info">
                       <span>
-                        VS
+                        {getSportIcon(game.sport)} {game.sport}
                       </span>
 
-                      <button
-                        onClick={(
-                          e
-                        ) => {
-                          e.stopPropagation();
+                      <div className="home-final-matchup">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openTeam(game, game.team1);
+                          }}
+                        >
+                          {game.team1}
+                        </button>
 
-                          openTeam(
-                            game,
-                            game.team2
-                          );
-                        }}
-                      >
-                        {game.team2}
-                      </button>
+                        <span>VS</span>
+
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openTeam(game, game.team2);
+                          }}
+                        >
+                          {game.team2}
+                        </button>
+                      </div>
                     </div>
-                  </div>
 
-                  <b className="score-display">
-                    {game.score1} -{" "}
-                    {game.score2}
-                  </b>
-                </div>
-              ))
+                    <b className="score-display">
+                      {game.score1} - {game.score2}
+                    </b>
+                  </div>
+                ))
+              )}
+            </>
           )}
         </div>
       </div>

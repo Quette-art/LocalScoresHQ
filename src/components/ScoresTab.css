@@ -2147,3 +2147,866 @@ button {
     gap: 10px !important;
   }
 }
+/* HOME PAGE POLISH */
+@media (max-width: 700px) {
+  .home-page {
+    padding-bottom: 110px !important;
+  }
+
+  .home-feed-header {
+    padding: 18px !important;
+    border-radius: 20px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .home-feed-header h1 {
+    font-size: 40px !important;
+    line-height: 0.95 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .home-mini-stat {
+    min-width: 92px !important;
+    padding: 12px !important;
+  }
+
+  .home-mini-stat strong {
+    font-size: 34px !important;
+  }
+
+  .home-featured-card {
+    padding: 18px !important;
+    border-radius: 20px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .home-featured-teams {
+    font-size: 18px !important;
+    gap: 10px !important;
+    margin: 14px 0 !important;
+  }
+
+  .featured-details {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  .home-feed-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .home-section-card {
+    padding: 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .home-game-feed-row,
+  .home-final-row {
+    padding: 10px 0 !important;
+  }
+
+  .feed-matchup,
+  .home-final-matchup {
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+  }
+
+  .compactBottomNav {
+    height: 76px !important;
+    padding-bottom: 10px !important;
+  }
+}
+/* FINAL BOTTOM NAV POLISH */
+@media (max-width: 700px) {
+  .compactBottomNav {
+    position: fixed !important;
+    bottom: 10px !important;
+    left: 12px !important;
+    right: 12px !important;
+
+    height: 68px !important;
+
+    border-radius: 22px !important;
+
+    background: rgba(3, 10, 30, 0.92) !important;
+
+    backdrop-filter: blur(18px) !important;
+
+    border: 1px solid rgba(0, 170, 255, 0.15) !important;
+
+    box-shadow:
+      0 8px 30px rgba(0,0,0,0.45) !important;
+
+    z-index: 9999 !important;
+  }
+
+  .compactBottomNav button {
+    gap: 3px !important;
+    font-size: 12px !important;
+    padding: 8px 0 !important;
+  }
+
+  .compactBottomNav button span {
+    font-size: 11px !important;
+  }
+
+  .compactBottomNav .active {
+    border-radius: 18px !important;
+    margin: 6px !important;
+  }
+}
+/* MOBILE HEADER POLISH */
+@media (max-width: 700px) {
+  .topControls {
+    top: 10px !important;
+    padding: 0 14px !important;
+    gap: 10px !important;
+  }
+
+  .headerLogo {
+    max-width: 150px !important;
+  }
+
+  .headerLogo img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .topControlButton {
+    width: 54px !important;
+    height: 54px !important;
+
+    border-radius: 18px !important;
+
+    font-size: 24px !important;
+  }
+
+  .sportsTabs {
+    gap: 10px !important;
+    padding: 0 14px !important;
+    margin-top: 12px !important;
+  }
+
+  .sportPill {
+    min-width: unset !important;
+    flex: 1 !important;
+
+    height: 58px !important;
+
+    border-radius: 18px !important;
+
+    font-size: 16px !important;
+    font-weight: 700 !important;
+  }
+}
+/* SPORTS TABS FINAL POLISH */
+@media (max-width: 700px) {
+  .sportsTabs {
+    display: flex !important;
+    overflow-x: auto !important;
+
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+
+    padding-bottom: 4px !important;
+  }
+
+  .sportsTabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .sportPill {
+    flex: 0 0 auto !important;
+
+    min-width: 135px !important;
+
+    white-space: nowrap !important;
+
+    padding: 0 18px !important;
+
+    transition: all 0.2s ease !important;
+  }
+
+  .sportPill.active {
+    transform: scale(1.02) !important;
+
+    box-shadow:
+      0 0 18px rgba(0, 200, 255, 0.28) !important;
+  }
+}
+/* ========================================
+   SCORES PAGE - MOBILE ESPN POLISH
+======================================== */
+@media (max-width: 700px) {
+  .scores-tab {
+    padding-bottom: 120px !important;
+  }
+
+  .scores-header {
+    margin-bottom: 10px !important;
+  }
+
+  .scores-header h2 {
+    font-size: 34px !important;
+    letter-spacing: -1px !important;
+  }
+
+  .date-scroll {
+    gap: 8px !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 10px !important;
+
+    scrollbar-width: none !important;
+  }
+
+  .date-scroll::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .date-btn {
+    min-width: 82px !important;
+    height: 46px !important;
+
+    border-radius: 14px !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+
+    padding: 0 14px !important;
+  }
+
+  .divisionSelect {
+    height: 52px !important;
+    border-radius: 16px !important;
+    font-size: 14px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .games-list {
+    gap: 12px !important;
+  }
+
+  .game-card {
+    padding: 14px !important;
+
+    border-radius: 22px !important;
+
+    border: 1px solid rgba(148, 163, 184, 0.16) !important;
+
+    background:
+      radial-gradient(
+        circle at right,
+        rgba(34, 211, 238, 0.06),
+        transparent 35%
+      ),
+      #0f172a !important;
+
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, 0.18) !important;
+  }
+
+  .game-info {
+    font-size: 11px !important;
+
+    opacity: 0.72 !important;
+
+    margin-bottom: 10px !important;
+  }
+
+  .mobile-matchup {
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      42px;
+
+    row-gap: 10px !important;
+    column-gap: 12px !important;
+
+    align-items: center !important;
+  }
+
+  .mobile-team {
+    font-size: 15px !important;
+    line-height: 1.15 !important;
+
+    text-align: left !important;
+
+    font-weight: 900 !important;
+
+    overflow-wrap: break-word !important;
+  }
+
+  .mobile-score {
+    width: 42px !important;
+    height: 42px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-radius: 12px !important;
+
+    background: #020617 !important;
+
+    border: 1px solid rgba(148, 163, 184, 0.15) !important;
+
+    font-size: 18px !important;
+    font-weight: 1000 !important;
+  }
+
+  .mobile-status {
+    grid-column: 1 / -1 !important;
+
+    width: fit-content !important;
+
+    margin-top: 2px !important;
+
+    padding: 6px 12px !important;
+
+    border-radius: 999px !important;
+
+    font-size: 10px !important;
+    font-weight: 1000 !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .game-division {
+    margin-top: 12px !important;
+
+    font-size: 11px !important;
+
+    opacity: 0.75 !important;
+
+    line-height: 1.35 !important;
+  }
+
+  .report-score-btn {
+    margin-top: 12px !important;
+
+    width: 100% !important;
+
+    height: 44px !important;
+
+    border-radius: 14px !important;
+
+    font-size: 13px !important;
+    font-weight: 900 !important;
+  }
+}
+/* ========================================
+   PREMIUM APP ANIMATIONS
+======================================== */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.game-card,
+.home-featured-card,
+.home-section-card,
+.favorite-mini-card,
+.standingsRow {
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.game-card:active,
+.home-featured-card:active,
+.favorite-mini-card:active,
+.standingsRow:active {
+  transform: scale(0.985);
+}
+
+.game-card:hover,
+.home-featured-card:hover,
+.favorite-mini-card:hover,
+.standingsRow:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.22);
+}
+
+.bottomNavButton,
+.sportPill,
+.date-btn,
+.report-score-btn,
+button {
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease,
+    background 0.15s ease;
+}
+
+.bottomNavButton:active,
+.sportPill:active,
+.date-btn:active,
+.report-score-btn:active,
+button:active {
+  transform: scale(0.96);
+}
+
+.mobile-score,
+.score-display {
+  animation: scoreFade 0.35s ease;
+}
+
+@keyframes scoreFade {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scores-tab,
+.home-page,
+.standingsPage,
+.team-profile-page,
+.game-details-page {
+  animation: pageFade 0.25s ease;
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ========================================
+   LOADING / SKELETON POLISH
+======================================== */
+.skeleton-card {
+  height: 92px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    #0f172a 0%,
+    #162033 45%,
+    #0f172a 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonMove 1.2s infinite linear;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+@keyframes skeletonMove {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.loading-text {
+  color: #94a3b8;
+  font-weight: 800;
+  text-align: center;
+  padding: 20px;
+}
+/* ========================================
+   PREMIUM MOBILE BOTTOM NAV
+======================================== */
+@media (max-width: 700px) {
+  .compactBottomNav {
+    height: 72px !important;
+
+    padding-bottom: env(safe-area-inset-bottom) !important;
+
+    border-radius: 24px 24px 0 0 !important;
+
+    background: rgba(2, 6, 23, 0.92) !important;
+
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+
+    border-top: 1px solid rgba(148, 163, 184, 0.12) !important;
+
+    box-shadow:
+      0 -10px 30px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .bottomNavButton {
+    height: 54px !important;
+
+    border-radius: 18px !important;
+
+    font-size: 12px !important;
+
+    gap: 2px !important;
+  }
+
+  .bottomNavButton.active {
+    background: linear-gradient(
+      135deg,
+      #0891b2,
+      #22d3ee
+    ) !important;
+
+    color: white !important;
+  }
+
+  .bottomNavIcon {
+    font-size: 22px !important;
+  }
+}
+/* ========================================
+   TEAM PROFILE MOBILE POLISH
+======================================== */
+@media (max-width: 700px) {
+  .team-profile {
+    padding-bottom: 120px !important;
+  }
+
+  .teamProfileTopBar {
+    margin-bottom: 14px !important;
+  }
+
+  .back-btn,
+  .alert-btn,
+  .favorite-btn {
+    height: 46px !important;
+
+    border-radius: 14px !important;
+
+    font-size: 14px !important;
+    font-weight: 900 !important;
+  }
+
+  .team-header {
+    padding: 18px !important;
+
+    border-radius: 24px !important;
+
+    margin-bottom: 14px !important;
+
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(34, 211, 238, 0.08),
+        transparent 35%
+      ),
+      #0f172a !important;
+
+    border: 1px solid rgba(148, 163, 184, 0.16) !important;
+  }
+
+  .team-logo {
+    width: 72px !important;
+    height: 72px !important;
+
+    font-size: 24px !important;
+
+    border-radius: 20px !important;
+  }
+
+  .team-header-info h1 {
+    font-size: 28px !important;
+
+    line-height: 1 !important;
+
+    margin-bottom: 6px !important;
+  }
+
+  .team-header-info span {
+    font-size: 13px !important;
+
+    opacity: 0.72 !important;
+  }
+
+  .team-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+
+    gap: 10px !important;
+
+    margin-bottom: 14px !important;
+  }
+
+  .stat-card {
+    padding: 14px !important;
+
+    border-radius: 18px !important;
+
+    background: #0f172a !important;
+
+    border: 1px solid rgba(148, 163, 184, 0.14) !important;
+  }
+
+  .stat-card span {
+    font-size: 11px !important;
+
+    opacity: 0.7 !important;
+  }
+
+  .stat-card strong {
+    font-size: 24px !important;
+  }
+
+  .team-section {
+    padding: 16px !important;
+
+    border-radius: 22px !important;
+
+    margin-bottom: 14px !important;
+
+    background: #0f172a !important;
+
+    border: 1px solid rgba(148, 163, 184, 0.14) !important;
+  }
+
+  .team-section h2 {
+    font-size: 22px !important;
+
+    margin-bottom: 14px !important;
+  }
+
+  .last5-row {
+    gap: 10px !important;
+  }
+
+  .result-circle {
+    width: 46px !important;
+    height: 46px !important;
+
+    font-size: 18px !important;
+  }
+
+  .game-row {
+    padding: 12px 0 !important;
+
+    gap: 10px !important;
+  }
+
+  .game-row strong {
+    font-size: 14px !important;
+
+    line-height: 1.2 !important;
+  }
+
+  .game-row p {
+    font-size: 11px !important;
+
+    margin-top: 4px !important;
+
+    opacity: 0.72 !important;
+  }
+
+  .game-result {
+    min-width: 58px !important;
+
+    text-align: right !important;
+  }
+
+  .game-result strong {
+    font-size: 18px !important;
+  }
+
+  .status.upcoming {
+    padding: 6px 10px !important;
+
+    border-radius: 999px !important;
+
+    font-size: 10px !important;
+
+    font-weight: 1000 !important;
+  }
+
+  .alertsSheet {
+    border-radius: 28px 28px 0 0 !important;
+
+    padding: 24px 20px !important;
+  }
+
+  .alertRow {
+    padding: 14px 0 !important;
+  }
+
+  .toggleBtn,
+  .closeAlertsBtn {
+    height: 46px !important;
+
+    border-radius: 14px !important;
+  }
+}
+/* ========================================
+   APP SMOOTHNESS + SCROLL POLISH
+======================================== */
+
+html,
+body {
+  overscroll-behavior-y: none;
+
+  scroll-behavior: smooth;
+
+  background: #020617;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+
+  text-rendering: optimizeLegibility;
+}
+
+.appShell {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(34, 211, 238, 0.06),
+      transparent 28%
+    ),
+    #020617;
+}
+
+.mainContent {
+  animation: appFade 0.22s ease;
+}
+
+@keyframes appFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.games-list,
+.home-feed-grid,
+.standingsTable {
+  will-change: transform;
+}
+/* GAME DETAILS MOBILE PREMIUM POLISH */
+@media (max-width: 700px) {
+  .game-details-page {
+    padding: 12px 10px 125px !important;
+  }
+
+  .profile-back-link {
+    height: 42px !important;
+    padding: 0 14px !important;
+    border-radius: 999px !important;
+    font-size: 13px !important;
+  }
+
+  .game-details-hero {
+    border-radius: 22px !important;
+    padding: 16px !important;
+  }
+
+  .game-details-top-row {
+    margin-bottom: 14px !important;
+  }
+
+  .game-details-teams {
+    gap: 10px !important;
+  }
+
+  .game-details-team {
+    min-height: 62px !important;
+    border-radius: 16px !important;
+    font-size: 15px !important;
+  }
+
+  .game-details-score {
+    border-radius: 16px !important;
+    min-height: 54px !important;
+  }
+
+  .game-details-score strong {
+    font-size: 22px !important;
+  }
+
+  .game-details-grid {
+    gap: 10px !important;
+  }
+
+  .game-info-tile {
+    border-radius: 16px !important;
+    padding: 12px !important;
+  }
+}
+/* ========================================
+   PREMIUM EMPTY STATES
+======================================== */
+
+.no-games,
+.home-muted {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 110px;
+
+  text-align: center;
+
+  padding: 20px;
+
+  border-radius: 22px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(34, 211, 238, 0.05),
+      transparent 40%
+    ),
+    #0f172a;
+
+  border: 1px dashed rgba(148, 163, 184, 0.18);
+
+  color: #94a3b8;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  line-height: 1.5;
+}
+/* FORCE MOBILE SPORTS ORDER + NO SIDE SCROLL */
+@media (max-width: 700px) {
+  .sportsBar {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    overflow: visible !important;
+  }
+
+  .sportPill {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
+/* FORCE SPORT ORDER ON MOBILE */
+@media (max-width: 700px) {
+  .sportsBar {
+    display: flex !important;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+  }
+
+  .sportPill {
+    flex: 0 0 auto !important;
+  }
+}

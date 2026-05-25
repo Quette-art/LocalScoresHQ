@@ -174,13 +174,22 @@ export default function ScoresTab({
 
       <div className="date-scroll">
         {uniqueDates.map((date) => (
-          <button
-            key={date}
-            className={`date-btn ${
-              selectedDate === date ? "active" : ""
-            }`}
-            onClick={() => setSelectedDate(date)}
-          >
+         <button
+  key={date}
+  ref={(el) => {
+    if (el && selectedDate === date) {
+      el.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }}
+  className={`date-btn ${
+    selectedDate === date ? "active" : ""
+  }`}
+  onClick={() => setSelectedDate(date)}
+>
             {new Date(date + "T00:00:00").toLocaleDateString(
               "en-US",
               {
@@ -206,8 +215,12 @@ export default function ScoresTab({
 
       <div className="games-list">
         {filteredGames.length === 0 ? (
-          <p className="no-games">No games found.</p>
-        ) : (
+  <div className="loadingWrapper">
+    <div className="skeleton-card"></div>
+    <div className="skeleton-card"></div>
+    <div className="skeleton-card"></div>
+  </div>
+) : (
           filteredGames.map((game) => {
             const isFinal =
               game.score1 != null && game.score2 != null;

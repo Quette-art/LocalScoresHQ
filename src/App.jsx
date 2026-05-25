@@ -5,6 +5,7 @@ import {
   Route,
   useNavigate,
   useSearchParams,
+  useLocation,
 } from "react-router-dom";
 
 import { collection, onSnapshot } from "firebase/firestore";
@@ -31,7 +32,15 @@ import IphoneInstallTip from "./components/IphoneInstallTip";
 import { upcomingGames } from "./data/games";
 
 import "./components/ScoresTab.css";
+function ScrollToTop() {
+  const { pathname, search } = useLocation();
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, search]);
+
+  return null;
+}
 function TeamProfileRoute({ games }) {
   const navigate = useNavigate();
 
@@ -103,36 +112,25 @@ function AppContent() {
 
   const isAdmin = !!adminUser;
 
-  const sports = [
-    { name: "Baseball", icon: "⚾" },
+ const baseSports = [
+  { name: "Soccer", icon: "⚽", priority: 1 },
+  { name: "Flag Football", icon: "🚩", priority: 2 },
+  { name: "Basketball", icon: "🏀", priority: 3 },
+  { name: "Baseball", icon: "⚾", priority: 4 },
+  { name: "Football", icon: "🏈", priority: 5 },
+];
 
-    { name: "Soccer", icon: "⚽" },
+const sports = [...baseSports].sort((a, b) => {
+  return a.priority - b.priority;
+});
 
-    {
-      name: "Basketball",
-      icon: "🏀",
-    },
-
-    { name: "Football", icon: "🏈" },
-
-    {
-      name: "Flag Football",
-      icon: "🚩",
-    },
-  ];
-
-  const sportIcons = {
-    Baseball: "⚾",
-
-    Soccer: "⚽",
-
-    Basketball: "🏀",
-
-    Football: "🏈",
-
-    "Flag Football": "🚩",
-  };
-
+const sportIcons = {
+  Baseball: "⚾",
+  Soccer: "⚽",
+  Basketball: "🏀",
+  Football: "🏈",
+  "Flag Football": "🚩",
+};
   useEffect(() => {
     const unsubscribeAuth =
       onAuthStateChanged(auth, (user) => {
@@ -546,26 +544,40 @@ function AppContent() {
 
       {activeTab !== "home" && (
         <div className="topControls">
-          <div className="sportsBar">
-            {sports.map((sport) => (
-              <button
-                key={sport.name}
-                className={`sportPill ${
-                  selectedSport ===
-                  sport.name
-                    ? "sportPillActive"
-                    : ""
-                }`}
-                onClick={() =>
-                  handleSportClick(
-                    sport.name
-                  )
+          <div
+  className="sportsBar"
+  ref={(el) => {
+    if (el) el.scrollLeft = 0;
+  }}
+>
+ {sports.map((sport) => (
+ <button
+  key={sport.name}
+  style={{ order: sport.priority }}
+  ref={(el) => {
+    if (el && selectedSport === sport.name) {
+      el.scrollIntoView({
+        behavior: "smooth",
+        inline: "start",
+        block: "nearest",
+      });
+    }
+  }}
+  className={`sportPill ${
+    selectedSport === sport.name
+      ? "sportPillActive"
+      : ""
+  }`}
+  onClick={() =>
+    handleSportClick(
+      sport.name
+    )
+  }
+>
+  {sport.icon}{" "}
+  {sport.name}
+</button>
                 }
-              >
-                {sport.icon}{" "}
-                {sport.name}
-              </button>
-            ))}
           </div>
         </div>
       )}
@@ -692,7 +704,8 @@ function AppContent() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+  <ScrollToTop />
+  <AppContent />
+</BrowserRouter>
   );
 }
