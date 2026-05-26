@@ -1655,3 +1655,16 @@ button, input, select { font-family: inherit; }
   .home-final-row  { grid-template-columns: 1fr; gap: 6px; }
   .score-display   { justify-self: start; }
 }
+.home-featured-teams button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  padding: 0;
+}
+
+.home-featured-teams button:hover {
+  color: #22d3ee;
+}

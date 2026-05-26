@@ -355,3 +355,8 @@ select {
 .home-top-right small {
   color: #94a3b8;
 }
+.home-featured-teams button {
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
+}

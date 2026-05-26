@@ -567,7 +567,7 @@ function AppContent() {
         </div>
       )}
 
-      <div className="topControls">
+      <div className={`topControls${activeTab === "home" ? " sports-bar-hidden" : ""}`}>
   <div className="sportsBar">
     {sports.map((sport) => (
       <button
