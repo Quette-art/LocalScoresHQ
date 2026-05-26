@@ -1668,3 +1668,21 @@ button, input, select { font-family: inherit; }
 .home-featured-teams button:hover {
   color: #22d3ee;
 }
+/* Hide mobile matchup on desktop */
+.mobile-matchup {
+  display: none;
+}
+
+/* Hide desktop matchup on mobile, show mobile one */
+@media (max-width: 768px) {
+  .desktop-matchup {
+    display: none;
+  }
+  .mobile-matchup {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 42px;
+    row-gap: 10px;
+    column-gap: 12px;
+    align-items: center;
+  }
+}
