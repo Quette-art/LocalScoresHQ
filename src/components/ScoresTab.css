@@ -1686,3 +1686,210 @@ button, input, select { font-family: inherit; }
     align-items: center;
   }
 }
+/* ================================================
+   HOME PAGE MOBILE REDESIGN
+================================================ */
+@media (max-width: 768px) {
+
+  /* HERO CARD - compact single row */
+  .home-feed-header {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 16px !important;
+    gap: 12px !important;
+  }
+
+  .home-feed-header h1 {
+    font-size: 22px !important;
+    line-height: 1.15 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .home-feed-header > div:first-child span {
+    font-size: 12px !important;
+    color: #94a3b8 !important;
+  }
+
+  .home-mini-stat {
+    min-width: 80px !important;
+    flex-shrink: 0 !important;
+    padding: 10px !important;
+    text-align: center !important;
+    border-radius: 14px !important;
+  }
+
+  .home-mini-stat strong {
+    font-size: 26px !important;
+    line-height: 1 !important;
+  }
+
+  .home-mini-stat span {
+    font-size: 10px !important;
+    color: #94a3b8 !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+  }
+
+  /* FEATURED MATCHUP - clean pill style */
+  .home-featured-card {
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .home-featured-teams {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    margin: 10px 0 !important;
+  }
+
+  .home-featured-teams button {
+    flex: 1 !important;
+    background: #111827 !important;
+    border: 1px solid #263244 !important;
+    border-radius: 12px !important;
+    color: white !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    padding: 10px 8px !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    cursor: pointer !important;
+  }
+
+  .vs-text {
+    flex-shrink: 0 !important;
+    color: #22d3ee !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+  }
+
+  .featured-details {
+    font-size: 12px !important;
+    color: #94a3b8 !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+  }
+
+  /* UPCOMING GAMES - compact ESPN-style rows */
+  .home-game-feed-row {
+    display: grid !important;
+    grid-template-columns: 32px 1fr auto !important;
+    gap: 10px !important;
+    align-items: center !important;
+    padding: 11px 0 !important;
+  }
+
+  .feed-sport-icon {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+  }
+
+  .feed-game-meta {
+    font-size: 11px !important;
+    margin-bottom: 3px !important;
+    opacity: 0.7 !important;
+  }
+
+  .feed-matchup {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .feed-matchup button {
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 110px !important;
+  }
+
+  .feed-matchup span {
+    font-size: 11px !important;
+    color: #22d3ee !important;
+    flex-shrink: 0 !important;
+  }
+
+  .feed-game-info p {
+    display: none !important;
+  }
+
+  .upcoming-status {
+    font-size: 9px !important;
+    padding: 4px 8px !important;
+    white-space: nowrap !important;
+    align-self: center !important;
+    justify-self: end !important;
+  }
+
+  /* RECENT FINALS - score inline on right */
+  .home-final-row {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 11px 0 !important;
+  }
+
+  .home-final-info > span {
+    font-size: 11px !important;
+    opacity: 0.7 !important;
+    margin-bottom: 3px !important;
+    display: block !important;
+  }
+
+  .home-final-matchup {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .home-final-matchup button {
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 110px !important;
+  }
+
+  .home-final-matchup span {
+    font-size: 11px !important;
+    color: #22d3ee !important;
+    flex-shrink: 0 !important;
+  }
+
+  .score-display {
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    color: #22d3ee !important;
+    white-space: nowrap !important;
+    align-self: center !important;
+  }
+
+  /* Stack sections vertically not grid */
+  .home-feed-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .home-section-card {
+    padding: 14px !important;
+    border-radius: 18px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .home-section-card h2 {
+    font-size: 20px !important;
+    margin-bottom: 4px !important;
+  }
+}
