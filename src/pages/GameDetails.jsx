@@ -174,13 +174,37 @@ const GameDetails = ({
 
   return (
     <div className="game-details-page">
-      <button
-        type="button"
-        className="profile-back-link"
-        onClick={onBack}
-      >
-        ← Back
-      </button>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" }}>
+        <button
+          type="button"
+          className="profile-back-link"
+          onClick={onBack}
+        >
+          ← Back
+        </button>
+
+        <button
+          type="button"
+          className="profile-back-link"
+          onClick={() => {
+            const text = `${localGame.team1} vs ${localGame.team2} • ${localGame.sport} • ${localGame.date} • ${localGame.time} • ${localGame.location}`;
+            if (navigator.share) {
+              navigator.share({
+                title: `${localGame.team1} vs ${localGame.team2}`,
+                text: text,
+                url: window.location.href,
+              });
+            } else {
+              navigator.clipboard.writeText(
+                `${text}\n${window.location.href}`
+              );
+              alert("Copied to clipboard!");
+            }
+          }}
+        >
+          Share 📤
+        </button>
+      </div>
 
       <section className="game-details-hero">
         <div className="game-details-top-row">
