@@ -17,7 +17,7 @@ import {
 } from "firebase/auth";
 
 import { db, auth } from "./firebase";
-
+import { requestNotificationPermission } from "./notifications";
 import Home from "./pages/Home";
 import TeamProfile from "./pages/TeamProfile";
 import GameDetails from "./pages/GameDetails";
@@ -163,6 +163,9 @@ function AppContent() {
 
     return () => unsubscribeAuth();
   }, []);
+  useEffect(() => {
+  requestNotificationPermission();
+}, []);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
