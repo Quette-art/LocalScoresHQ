@@ -223,69 +223,24 @@ const GameDetails = ({
         </div>
 
         <div className="game-details-teams">
-          <button
-            type="button"
-            className={`game-details-team ${
-              team1Won ? "winner" : ""
-            }`}
-            onClick={() =>
-              onTeamClick?.(
-                localGame,
-                localGame.team1
-              )
-            }
-          >
-            <span>{localGame.team1}</span>
+         <button
+  type="button"
+  className={`game-details-team ${team1Won ? "winner" : ""}`}
+  onClick={() => onTeamClick?.(localGame, localGame.team1)}
+>
+  <span>{localGame.team1}{team1Won && <small> ◀ W</small>}</span>
+  {isFinal && <strong style={{ fontSize: "24px", fontWeight: 800, color: team1Won ? "#22d3ee" : "white" }}>{localGame.score1}</strong>}
+</button>
 
-            {team1Won && (
-              <small>Winner</small>
-            )}
-          </button>
-
-          <div className="game-details-score">
-            {isFinal ? (
-              <>
-                <strong>
-                  {localGame.score1}
-                </strong>
-
-                <span>
-                  {isTie ? "TIE" : "FINAL"}
-                </span>
-
-                <strong>
-                  {localGame.score2}
-                </strong>
-              </>
-            ) : (
-              <>
-                <strong>-</strong>
-                <span>VS</span>
-                <strong>-</strong>
-              </>
-            )}
-          </div>
-
-          <button
-            type="button"
-            className={`game-details-team ${
-              team2Won ? "winner" : ""
-            }`}
-            onClick={() =>
-              onTeamClick?.(
-                localGame,
-                localGame.team2
-              )
-            }
-          >
-            <span>{localGame.team2}</span>
-
-            {team2Won && (
-              <small>Winner</small>
-            )}
-          </button>
-        </div>
-
+<button
+  type="button"
+  className={`game-details-team ${team2Won ? "winner" : ""}`}
+  onClick={() => onTeamClick?.(localGame, localGame.team2)}
+>
+  <span>{localGame.team2}{team2Won && <small> ◀ W</small>}</span>
+  {isFinal && <strong style={{ fontSize: "24px", fontWeight: 800, color: team2Won ? "#22d3ee" : "white" }}>{localGame.score2}</strong>}
+</button>
+</div>
         {isAdmin && (
           <button
             type="button"

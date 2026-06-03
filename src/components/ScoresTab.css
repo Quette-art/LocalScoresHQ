@@ -2284,3 +2284,179 @@ button, input, select { font-family: inherit; }
     color: #94a3b8 !important;
   }
 }
+/* ================================================
+   ESPN-V2 GAME DETAILS REDESIGN
+================================================ */
+
+.game-details-page {
+  background: var(--bg-base) !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+.game-details-page > div:first-child {
+  padding: 12px 16px !important;
+  border-bottom: 1px solid #1a2744 !important;
+  margin-bottom: 0 !important;
+}
+
+.profile-back-link {
+  background: transparent !important;
+  border: none !important;
+  color: #22d3ee !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* HERO SECTION */
+.game-details-hero {
+  background: var(--bg-base) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* TOP ROW - FINAL pill + sport */
+.game-details-top-row {
+  padding: 14px 16px 10px !important;
+  border-bottom: 1px solid #1a2744 !important;
+  margin-bottom: 0 !important;
+}
+
+.game-details-pill {
+  background: #dc2626 !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+  padding: 4px 10px !important;
+}
+
+.game-details-sport-pill {
+  background: transparent !important;
+  border: 1px solid #1a2744 !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #94a3b8 !important;
+}
+
+/* DATE/TIME */
+.game-details-meta {
+  padding: 10px 16px !important;
+  font-size: 12px !important;
+  color: #64748b !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid #1a2744 !important;
+  margin-bottom: 0 !important;
+}
+
+/* TEAMS + SCORE - ESPN vertical style */
+.game-details-teams {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  grid-template-columns: unset !important;
+}
+
+.game-details-team {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid #1a2744 !important;
+  border-radius: 0 !important;
+  min-height: 64px !important;
+  padding: 14px 16px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  text-align: left !important;
+  color: var(--text) !important;
+  cursor: pointer !important;
+  gap: 0 !important;
+}
+
+.game-details-team.winner {
+  border-color: #1a2744 !important;
+  box-shadow: none !important;
+  color: white !important;
+}
+
+.game-details-team.winner span {
+  font-weight: 800 !important;
+}
+
+.game-details-team small {
+  font-size: 10px !important;
+  color: #22c55e !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  margin-left: 8px !important;
+}
+
+/* Score inside team row */
+.game-details-score {
+  display: none !important;
+}
+
+/* We'll show scores inside team buttons using CSS */
+.game-details-team span:first-child {
+  flex: 1 !important;
+  text-align: left !important;
+}
+
+/* INFO TILES - ESPN list rows */
+.game-details-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  margin-top: 16px !important;
+  border-top: 1px solid #1a2744 !important;
+}
+
+.game-info-tile {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid #1a2744 !important;
+  border-radius: 0 !important;
+  min-height: 0 !important;
+  padding: 14px 16px !important;
+}
+
+.game-info-tile span {
+  color: #64748b !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 0 !important;
+}
+
+.game-info-tile strong {
+  color: var(--text) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-align: right !important;
+}
+
+/* REPORT SCORE BTN */
+.game-details-report-btn {
+  margin: 16px 16px 0 !important;
+  width: calc(100% - 32px) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #0891b2, #22d3ee) !important;
+  color: #020617 !important;
+  font-weight: 800 !important;
+}
+
