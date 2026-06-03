@@ -1893,3 +1893,127 @@ button, input, select { font-family: inherit; }
     margin-bottom: 4px !important;
   }
 }
+/* ================================================
+   ESPN-V2 SCORES TAB IMPROVEMENTS
+================================================ */
+
+/* Flatter game cards - less boxy */
+.game-card {
+  background: var(--bg-surface) !important;
+  border: none !important;
+  border-bottom: 1px solid #1a2744 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 16px 0 !important;
+  margin: 0 !important;
+}
+
+.game-card:hover {
+  transform: none !important;
+  border-color: #1a2744 !important;
+  box-shadow: none !important;
+  background: #0d1a2e !important;
+}
+
+.games-list {
+  gap: 0 !important;
+  border-top: 1px solid #1a2744;
+}
+
+/* Game info row - time left, location right */
+.game-info {
+  font-size: 11px !important;
+  color: #64748b !important;
+  margin-bottom: 10px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.4px !important;
+}
+
+/* Desktop - team name left, score right, bold */
+.matchup {
+  grid-template-columns: 1fr auto auto auto 1fr auto !important;
+  gap: 8px !important;
+}
+
+.team-name {
+  font-size: 17px !important;
+  font-weight: 700 !important;
+}
+
+.score {
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  min-width: 36px !important;
+  text-align: center !important;
+}
+
+.game-status.final {
+  background: transparent !important;
+  border: none !important;
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+}
+
+.game-status.upcoming {
+  background: transparent !important;
+  border: 1px solid #263244 !important;
+  color: #94a3b8 !important;
+  font-size: 11px !important;
+}
+
+/* Mobile - ESPN two row style */
+@media (max-width: 768px) {
+  .game-card {
+    padding: 14px 4px !important;
+  }
+
+  .mobile-matchup {
+    display: grid !important;
+    grid-template-columns: 1fr 44px !important;
+    row-gap: 6px !important;
+    column-gap: 8px !important;
+  }
+
+  .mobile-team {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    padding: 4px 0 !important;
+  }
+
+  .mobile-score {
+    width: 44px !important;
+    height: 34px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    color: var(--text) !important;
+    justify-content: flex-end !important;
+  }
+
+  .mobile-status.final {
+    background: transparent !important;
+    color: #64748b !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    padding: 0 !important;
+  }
+
+  .mobile-status.upcoming {
+    background: transparent !important;
+    border: 1px solid #263244 !important;
+    color: #94a3b8 !important;
+    padding: 3px 8px !important;
+    border-radius: 4px !important;
+  }
+
+  .game-division {
+    font-size: 10px !important;
+    color: #334155 !important;
+    margin-top: 8px !important;
+  }
+}
