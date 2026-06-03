@@ -2270,5 +2270,17 @@ button, input, select { font-family: inherit; }
   }
 
   /* Bolder FINAL / UPCOMING */
-  .mobile-status.final {
+    .mobile-status.final {
     font-size: 11px !important;
+    font-weight: 800 !important;
+    color: #7a8fa8 !important;
+    letter-spacing: 1px !important;
+  }
+
+  .mobile-status.upcoming {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    border: 1px solid #2a3a52 !important;
+    color: #94a3b8 !important;
+  }
+}
