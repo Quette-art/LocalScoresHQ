@@ -2225,3 +2225,50 @@ button, input, select { font-family: inherit; }
     font-weight: 800 !important;
   }
 }
+/* ================================================
+   ESPN-V2 BLEED FIX + BOLDER TEXT
+================================================ */
+
+@media (max-width: 768px) {
+
+  /* Remove ALL padding from main content on scores */
+  .scores-tab .mainContent,
+  .mainContent {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Game cards truly full width */
+  .game-card {
+    margin: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Bolder divider between games */
+  .game-card {
+    border-bottom: 1px solid #2a3a52 !important;
+  }
+
+  /* Bolder date text */
+  .game-info {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    color: #7a8fa8 !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  /* Bolder division text */
+  .game-division {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    color: #5a7090 !important;
+    letter-spacing: 0.5px !important;
+    margin-top: 8px !important;
+  }
+
+  /* Bolder FINAL / UPCOMING */
+  .mobile-status.final {
+    font-size: 11px !important;
