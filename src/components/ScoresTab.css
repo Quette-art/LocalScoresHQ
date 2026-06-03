@@ -2017,3 +2017,50 @@ button, input, select { font-family: inherit; }
     margin-top: 8px !important;
   }
 }
+/* ESPN-V2 FIX CUTOFF + COMPACT */
+.game-card {
+  padding: 12px 16px !important;
+}
+
+.scores-tab {
+  padding: 0 !important;
+}
+
+.mainContent {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+.team-name {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+
+.score {
+  font-size: 22px !important;
+  font-weight: 800 !important;
+}
+
+.game-info {
+  font-size: 10px !important;
+  margin-bottom: 8px !important;
+}
+
+.game-division {
+  font-size: 10px !important;
+  margin-top: 6px !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-team {
+    font-size: 14px !important;
+  }
+
+  .mobile-score {
+    font-size: 17px !important;
+  }
+
+  .game-card {
+    padding: 12px 14px !important;
+  }
+}
