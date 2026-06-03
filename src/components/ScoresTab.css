@@ -811,3 +811,52 @@ body {
   animation: pageFade 0.2s ease;
 }
 
+
+
+/* RESTORE NAVY BACKGROUND */
+body, .scores-tab, .home-page, .standingsPage, .mobileAppHeader, .topControls, .sportsBar, .date-scroll, .games-list, .game-card {
+  background: #020617 !important;
+}
+
+/* SCORES TAB - match standings style */
+.game-card {
+  background: #020617 !important;
+  border: none !important;
+  border-bottom: 1px solid #1a2744 !important;
+  border-radius: 0 !important;
+  padding: 14px 16px !important;
+  box-shadow: none !important;
+}
+
+.game-card:hover {
+  background: #0a1628 !important;
+}
+
+.bottomNavWrapper,
+.compactBottomNav {
+  background: #020617 !important;
+  border-top: 1px solid #1a2744 !important;
+}
+
+.standingsPage,
+.standingsRow {
+  background: #020617 !important;
+}
+
+.date-btn.active {
+  color: #22d3ee !important;
+  border-bottom-color: #22d3ee !important;
+}
+
+.sportPillActive {
+  background: linear-gradient(135deg, #0891b2, #22d3ee) !important;
+  color: #020617 !important;
+  border-color: #22d3ee !important;
+}
+
+.home-kicker { color: #22d3ee !important; }
+.home-mini-stat strong { color: #22d3ee !important; }
+.points { color: #22d3ee !important; }
+.standingsRow span:nth-child(9) { color: #22d3ee !important; }
+.saveScoreBtn { background: #0891b2 !important; }
+.submit-score-btn { background: #0891b2 !important; }
