@@ -2136,3 +2136,56 @@ button, input, select { font-family: inherit; }
     box-shadow: none !important;
   }
 }
+/* ================================================
+   ESPN-V2 REMOVE TITLE + ROUND EDGES + BLEED
+================================================ */
+
+/* Hide sport title */
+.scores-header {
+  display: none !important;
+}
+
+/* Game list container - rounded top and bottom */
+@media (max-width: 768px) {
+  .games-list {
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    margin: 0 12px !important;
+  }
+
+  /* First card rounded top */
+  .game-card:first-child {
+    border-radius: 18px 18px 0 0 !important;
+  }
+
+  /* Last card rounded bottom */
+  .game-card:last-child {
+    border-radius: 0 0 18px 18px !important;
+    border-bottom: none !important;
+  }
+
+  /* Only one card */
+  .game-card:only-child {
+    border-radius: 18px !important;
+  }
+
+  /* Background bleeds to screen edges */
+  .scores-tab {
+    background: var(--bg-base) !important;
+  }
+
+  .mainContent {
+    background: var(--bg-base) !important;
+  }
+
+  /* Date and division keep their padding */
+  .date-scroll {
+    margin: 0 !important;
+    padding: 0 4px !important;
+  }
+
+  .divisionSelect {
+    margin: 10px 12px !important;
+    width: calc(100% - 24px) !important;
+  }
+}
