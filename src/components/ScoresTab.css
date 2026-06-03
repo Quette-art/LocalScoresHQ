@@ -2189,3 +2189,39 @@ button, input, select { font-family: inherit; }
     width: calc(100% - 24px) !important;
   }
 }
+/* ================================================
+   ESPN-V2 FULL BLEED + BIGGER DATE
+================================================ */
+
+@media (max-width: 768px) {
+
+  /* Remove side margins - full bleed */
+  .games-list {
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .game-card:first-child {
+    border-radius: 0 !important;
+  }
+
+  .game-card:last-child {
+    border-radius: 0 !important;
+  }
+
+  .game-card:only-child {
+    border-radius: 0 !important;
+  }
+
+  /* Bigger date buttons */
+  .date-btn {
+    font-size: 14px !important;
+    padding: 12px 20px !important;
+    min-width: 72px !important;
+  }
+
+  .date-btn.active {
+    font-size: 14px !important;
+    font-weight: 800 !important;
+  }
+}
