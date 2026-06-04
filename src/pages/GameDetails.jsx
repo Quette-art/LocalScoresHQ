@@ -16,15 +16,9 @@ const GameDetails = ({
 
     try {
       const stored = sessionStorage.getItem("selectedGame");
-
       if (!stored) return null;
-
       const parsed = JSON.parse(stored);
-
-      const freshMatch = games.find(
-        (g) => g.id === parsed.id
-      );
-
+      const freshMatch = games.find((g) => g.id === parsed.id);
       return freshMatch || parsed;
     } catch {
       return null;
@@ -32,17 +26,13 @@ const GameDetails = ({
   }, [game, games]);
 
   const [localGame, setLocalGame] = useState(savedGame);
-
-  const [showScoreModal, setShowScoreModal] =
-    useState(false);
-
+  const [showScoreModal, setShowScoreModal] = useState(false);
   const [team1Score, setTeam1Score] = useState("");
   const [team2Score, setTeam2Score] = useState("");
 
   useEffect(() => {
     if (savedGame) {
       setLocalGame(savedGame);
-
       setTeam1Score(savedGame.score1 ?? "");
       setTeam2Score(savedGame.score2 ?? "");
     }
@@ -51,24 +41,14 @@ const GameDetails = ({
   if (!localGame) {
     return (
       <div className="game-details-page">
-        <button
-          type="button"
-          className="profile-back-link"
-          onClick={onBack}
-        >
+        <button type="button" className="profile-back-link" onClick={onBack}>
           ← Back
         </button>
-
         <div className="game-details-hero">
-          <div className="game-details-pill">
-            GAME NOT FOUND
-          </div>
-
+          <div className="game-details-pill">GAME NOT FOUND</div>
           <h1>No game selected</h1>
-
           <p className="game-details-sub">
-            This can happen if the page was refreshed
-            before a game was opened.
+            This can happen if the page was refreshed before a game was opened.
           </p>
         </div>
       </div>
@@ -76,10 +56,7 @@ const GameDetails = ({
   }
 
   const formatDate = (dateString) => {
-    const date = new Date(
-      dateString + "T00:00:00"
-    );
-
+    const date = new Date(dateString + "T00:00:00");
     return date.toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
@@ -88,50 +65,25 @@ const GameDetails = ({
   };
 
   const getAgeGroup = (gameData) => {
-    if (gameData.ageGroup)
-      return gameData.ageGroup;
-
+    if (gameData.ageGroup) return gameData.ageGroup;
     if (gameData.division) {
-      return (
-        gameData.division.split(" / ")[0] ||
-        gameData.division.split(" ")[0]
-      );
+      return gameData.division.split(" / ")[0] || gameData.division.split(" ")[0];
     }
-
     return "Unknown";
   };
 
-  const isFinal =
-    localGame.score1 != null &&
-    localGame.score2 != null;
-
-  const team1Won =
-    isFinal &&
-    Number(localGame.score1) >
-      Number(localGame.score2);
-
-  const team2Won =
-    isFinal &&
-    Number(localGame.score2) >
-      Number(localGame.score1);
-
-  const isTie =
-    isFinal &&
-    Number(localGame.score1) ===
-      Number(localGame.score2);
+  const isFinal = localGame.score1 != null && localGame.score2 != null;
+  const team1Won = isFinal && Number(localGame.score1) > Number(localGame.score2);
+  const team2Won = isFinal && Number(localGame.score2) > Number(localGame.score1);
 
   const openScoreModal = () => {
     setTeam1Score(localGame.score1 ?? "");
     setTeam2Score(localGame.score2 ?? "");
-
     setShowScoreModal(true);
   };
 
   const saveScore = async () => {
-    if (
-      team1Score === "" ||
-      team2Score === ""
-    ) {
+    if (team1Score === "" || team2Score === "") {
       alert("Please enter both scores.");
       return;
     }
@@ -144,12 +96,7 @@ const GameDetails = ({
 
     try {
       setLocalGame(updatedGame);
-
-      sessionStorage.setItem(
-        "selectedGame",
-        JSON.stringify(updatedGame)
-      );
-
+      sessionStorage.setItem("selectedGame", JSON.stringify(updatedGame));
       onScoreSaved?.(updatedGame);
 
       await setDoc(
@@ -164,7 +111,6 @@ const GameDetails = ({
       );
 
       setShowScoreModal(false);
-
       alert("Score saved.");
     } catch (error) {
       console.error(error);
@@ -174,12 +120,9 @@ const GameDetails = ({
 
   return (
     <div className="game-details-page">
+      {/* Top bar — Back + Share */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" }}>
-        <button
-          type="button"
-          className="profile-back-link"
-          onClick={onBack}
-        >
+        <button type="button" className="profile-back-link" onClick={onBack}>
           ← Back
         </button>
 
@@ -195,9 +138,7 @@ const GameDetails = ({
                 url: window.location.href,
               });
             } else {
-              navigator.clipboard.writeText(
-                `${text}\n${window.location.href}`
-              );
+              navigator.clipboard.writeText(`${text}\n${window.location.href}`);
               alert("Copied to clipboard!");
             }
           }}
@@ -207,156 +148,122 @@ const GameDetails = ({
       </div>
 
       <section className="game-details-hero">
+        {/* Status + Sport pills */}
         <div className="game-details-top-row">
           <div className="game-details-pill">
             {isFinal ? "FINAL" : "UPCOMING"}
           </div>
-
           <div className="game-details-sport-pill">
             {localGame.sport || "Soccer"}
           </div>
         </div>
 
+        {/* Date + Time */}
         <div className="game-details-meta">
-          {formatDate(localGame.date)} •{" "}
-          {localGame.time || "TBD"}
+          {formatDate(localGame.date)} • {localGame.time || "TBD"}
         </div>
 
-        <div className="game-details-teams">
-         <button
-  type="button"
-  className={`game-details-team ${team1Won ? "winner" : ""}`}
-  onClick={() => onTeamClick?.(localGame, localGame.team1)}
->
-  <span>{localGame.team1}{team1Won && <small> ◀ W</small>}</span>
-  {isFinal && <strong style={{ fontSize: "24px", fontWeight: 800, color: team1Won ? "#22d3ee" : "white" }}>{localGame.score1}</strong>}
-</button>
+        {/* Teams — ESPN style: name left, score right */}
+        <div style={{ background: "#0f172a", border: "1px solid #1e293b", borderRadius: "16px", overflow: "hidden", margin: "16px 0" }}>
+          {/* Team 1 */}
+          <button
+            type="button"
+            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", background: "transparent", border: "none", color: "white", padding: "14px 16px", cursor: "pointer", textAlign: "left", gap: "12px" }}
+            onClick={() => onTeamClick?.(localGame, localGame.team1)}
+          >
+            <span style={{ flex: 1, fontSize: "16px", fontWeight: team1Won ? 900 : 700, color: "white", lineHeight: 1.3 }}>
+              {localGame.team1}
+              {team1Won && <small style={{ color: "#22d3ee", fontSize: "12px" }}> ◀</small>}
+            </span>
+            <strong style={{ fontSize: "22px", fontWeight: 900, minWidth: "32px", textAlign: "right", color: team1Won ? "#22d3ee" : "white" }}>
+              {isFinal ? localGame.score1 : "–"}
+            </strong>
+          </button>
 
-<button
-  type="button"
-  className={`game-details-team ${team2Won ? "winner" : ""}`}
-  onClick={() => onTeamClick?.(localGame, localGame.team2)}
->
-  <span>{localGame.team2}{team2Won && <small> ◀ W</small>}</span>
-  {isFinal && <strong style={{ fontSize: "24px", fontWeight: 800, color: team2Won ? "#22d3ee" : "white" }}>{localGame.score2}</strong>}
-</button>
-</div>
+          {/* Divider */}
+          <div style={{ height: "1px", background: "#1e293b", margin: "0 16px" }} />
+
+          {/* Team 2 */}
+          <button
+            type="button"
+            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", background: "transparent", border: "none", color: "white", padding: "14px 16px", cursor: "pointer", textAlign: "left", gap: "12px" }}
+            onClick={() => onTeamClick?.(localGame, localGame.team2)}
+          >
+            <span style={{ flex: 1, fontSize: "16px", fontWeight: team2Won ? 900 : 700, color: "white", lineHeight: 1.3 }}>
+              {localGame.team2}
+              {team2Won && <small style={{ color: "#22d3ee", fontSize: "12px" }}> ◀</small>}
+            </span>
+            <strong style={{ fontSize: "22px", fontWeight: 900, minWidth: "32px", textAlign: "right", color: team2Won ? "#22d3ee" : "white" }}>
+              {isFinal ? localGame.score2 : "–"}
+            </strong>
+          </button>
+        </div>
+
+        {/* Admin score button */}
         {isAdmin && (
           <button
             type="button"
             className="report-score-btn game-details-report-btn"
             onClick={openScoreModal}
           >
-            {isFinal
-              ? "Edit Score"
-              : "Report Score"}
+            {isFinal ? "Edit Score" : "Report Score"}
           </button>
         )}
 
+        {/* Info grid */}
         <div className="game-details-grid">
           <div className="game-info-tile">
             <span>Location</span>
-
-            <strong>
-              {localGame.location || "TBD"}
-            </strong>
+            <strong>{localGame.location || "TBD"}</strong>
           </div>
-
           <div className="game-info-tile">
             <span>Division</span>
-
-            <strong>
-              {localGame.division ||
-                "Unknown"}
-            </strong>
+            <strong>{localGame.division || "Unknown"}</strong>
           </div>
-
           <div className="game-info-tile">
             <span>Age Group</span>
-
-            <strong>
-              {getAgeGroup(localGame)}
-            </strong>
+            <strong>{getAgeGroup(localGame)}</strong>
           </div>
-
           <div className="game-info-tile">
             <span>Status</span>
-
-            <strong>
-              {isFinal
-                ? "Final"
-                : "Scheduled"}
-            </strong>
+            <strong>{isFinal ? "Final" : "Scheduled"}</strong>
           </div>
         </div>
       </section>
 
+      {/* Score modal */}
       {showScoreModal && (
         <div className="scoreModalOverlay">
           <div className="scoreModal">
-            <h2>
-              {isFinal
-                ? "Edit Score"
-                : "Report Score"}
-            </h2>
-
-            <p>
-              {localGame.team1} vs{" "}
-              {localGame.team2}
-            </p>
+            <h2>{isFinal ? "Edit Score" : "Report Score"}</h2>
+            <p>{localGame.team1} vs {localGame.team2}</p>
 
             <div className="scoreInputs">
               <label>
-                <span>
-                  {localGame.team1}
-                </span>
-
+                <span>{localGame.team1}</span>
                 <input
                   type="number"
                   inputMode="numeric"
                   value={team1Score}
-                  onChange={(e) =>
-                    setTeam1Score(
-                      e.target.value
-                    )
-                  }
+                  onChange={(e) => setTeam1Score(e.target.value)}
                 />
               </label>
-
               <label>
-                <span>
-                  {localGame.team2}
-                </span>
-
+                <span>{localGame.team2}</span>
                 <input
                   type="number"
                   inputMode="numeric"
                   value={team2Score}
-                  onChange={(e) =>
-                    setTeam2Score(
-                      e.target.value
-                    )
-                  }
+                  onChange={(e) => setTeam2Score(e.target.value)}
                 />
               </label>
             </div>
 
             <div className="scoreModalButtons">
-              <button
-                type="button"
-                className="cancelScoreBtn"
-                onClick={() =>
-                  setShowScoreModal(false)
-                }
-              >
+              <button type="button" className="cancelScoreBtn" onClick={() => setShowScoreModal(false)}>
                 Cancel
               </button>
-
-              <button
-                type="button"
-                className="saveScoreBtn"
-                onClick={saveScore}
-              >
+              <button type="button" className="saveScoreBtn" onClick={saveScore}>
                 Save Score
               </button>
             </div>
