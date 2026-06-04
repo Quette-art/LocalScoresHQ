@@ -309,15 +309,11 @@ function AppContent() {
 
   const openGameDetails = (game) => {
     setSelectedGame(game);
-
-    sessionStorage.setItem(
-      "selectedGame",
-      JSON.stringify(game)
-    );
-
+    sessionStorage.setItem("selectedGame", JSON.stringify(game));
+    sessionStorage.setItem("prevTab", activeTab);
     navigate("/game");
   };
-
+  
   const teamMap = {};
 
   games.forEach((game) => {
@@ -612,9 +608,11 @@ function AppContent() {
               game={selectedGame}
               games={games}
               isAdmin={isAdmin}
-              onBack={() =>
-                navigate("/")
-              }
+              onBack={() => {
+  const prev = sessionStorage.getItem("prevTab") || "scores";
+  setActiveTab(prev);
+  navigate("/");
+}}
               onScoreSaved={(
                 updatedGame
               ) => {
