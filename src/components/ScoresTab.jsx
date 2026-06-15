@@ -16,18 +16,13 @@ export default function ScoresTab({
   const [team1Score, setTeam1Score] = useState("");
   const [team2Score, setTeam2Score] = useState("");
   const [showAddGame, setShowAddGame] = useState(false);
+  const [editGame, setEditGame] = useState(null);
+  const [saving, setSaving] = useState(false);
   const [newGame, setNewGame] = useState({
-    team1: "",
-    team2: "",
-    score1: "",
-    score2: "",
-    date: selectedDate || "",
-    time: "",
-    location: "",
-    division: "",
+    team1: "", team2: "", score1: "", score2: "",
+    date: "", time: "", location: "", division: "",
     sport: selectedSport || "Soccer",
   });
-  const [saving, setSaving] = useState(false);
 
   const favoriteTeams = useMemo(() => {
     return JSON.parse(localStorage.getItem("favoriteTeams")) || [];
@@ -79,25 +74,14 @@ export default function ScoresTab({
     });
 
     return [...gamesForDateAndDivision].sort((a, b) => {
-      const aTeam1Key = `${a.team1}-${a.division}`;
-      const aTeam2Key = `${a.team2}-${a.division}`;
-      const bTeam1Key = `${b.team1}-${b.division}`;
-      const bTeam2Key = `${b.team2}-${b.division}`;
-
       const aFavoriteCount =
-        (favoriteTeams.includes(aTeam1Key) ? 1 : 0) +
-        (favoriteTeams.includes(aTeam2Key) ? 1 : 0);
+        (favoriteTeams.includes(`${a.team1}-${a.division}`) ? 1 : 0) +
+        (favoriteTeams.includes(`${a.team2}-${a.division}`) ? 1 : 0);
       const bFavoriteCount =
-        (favoriteTeams.includes(bTeam1Key) ? 1 : 0) +
-        (favoriteTeams.includes(bTeam2Key) ? 1 : 0);
-
-      if (bFavoriteCount !== aFavoriteCount) {
-        return bFavoriteCount - aFavoriteCount;
-      }
-      return (
-        new Date(`${a.date} ${a.time}`) -
-        new Date(`${b.date} ${b.time}`)
-      );
+        (favoriteTeams.includes(`${b.team1}-${b.division}`) ? 1 : 0) +
+        (favoriteTeams.includes(`${b.team2}-${b.division}`) ? 1 : 0);
+      if (bFavoriteCount !== aFavoriteCount) return bFavoriteCount - aFavoriteCount;
+      return new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`);
     });
   }, [sportGames, selectedDate, divisionFilter, favoriteTeams]);
 
@@ -138,12 +122,7 @@ export default function ScoresTab({
     try {
       await setDoc(
         doc(db, "scores", selectedGame.id),
-        {
-          ...selectedGame,
-          gameId: selectedGame.id,
-          score1: Number(team1Score),
-          score2: Number(team2Score),
-        },
+        { ...selectedGame, gameId: selectedGame.id, score1: Number(team1Score), score2: Number(team2Score) },
         { merge: true }
       );
       closeScoreModal();
@@ -161,7 +140,7 @@ export default function ScoresTab({
     }
     setSaving(true);
     try {
-      const gameData = {
+      await addDoc(collection(db, "games"), {
         team1: newGame.team1.trim(),
         team2: newGame.team2.trim(),
         score1: newGame.score1 !== "" ? Number(newGame.score1) : null,
@@ -173,22 +152,9 @@ export default function ScoresTab({
         sport: newGame.sport || selectedSport,
         ageGroup: newGame.division.split(" / ")[0] || "Unknown",
         createdAt: new Date().toISOString(),
-      };
-
-      await addDoc(collection(db, "games"), gameData);
-
-      setShowAddGame(false);
-      setNewGame({
-        team1: "",
-        team2: "",
-        score1: "",
-        score2: "",
-        date: selectedDate,
-        time: "",
-        location: "",
-        division: "",
-        sport: selectedSport,
       });
+      setShowAddGame(false);
+      setNewGame({ team1: "", team2: "", score1: "", score2: "", date: selectedDate, time: "", location: "", division: "", sport: selectedSport });
       alert("Game added!");
     } catch (error) {
       console.error(error);
@@ -197,10 +163,55 @@ export default function ScoresTab({
     setSaving(false);
   };
 
-  if (
-    selectedSport !== "Soccer" &&
-    selectedSport !== "Flag Football"
-  ) {
+  const openEditGame = (game) => {
+    setEditGame({
+      id: game.id,
+      team1: game.team1 || "",
+      team2: game.team2 || "",
+      score1: game.score1 ?? "",
+      score2: game.score2 ?? "",
+      date: game.date || "",
+      time: game.time || "",
+      location: game.location || "",
+      division: game.division || "",
+      sport: game.sport || selectedSport,
+    });
+  };
+
+  const saveEditGame = async () => {
+    if (!editGame.team1 || !editGame.team2 || !editGame.date || !editGame.division) {
+      alert("Please fill in Team 1, Team 2, Date and Division at minimum.");
+      return;
+    }
+    setSaving(true);
+    try {
+      await setDoc(
+        doc(db, "games", editGame.id),
+        {
+          team1: editGame.team1.trim(),
+          team2: editGame.team2.trim(),
+          score1: editGame.score1 !== "" ? Number(editGame.score1) : null,
+          score2: editGame.score2 !== "" ? Number(editGame.score2) : null,
+          date: editGame.date,
+          time: editGame.time || "TBD",
+          location: editGame.location.trim() || "TBD",
+          division: editGame.division.trim(),
+          sport: editGame.sport || selectedSport,
+          ageGroup: editGame.division.split(" / ")[0] || "Unknown",
+          updatedAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+      setEditGame(null);
+      alert("Game updated!");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update game");
+    }
+    setSaving(false);
+  };
+
+  if (selectedSport !== "Soccer" && selectedSport !== "Flag Football") {
     return (
       <div className="scores-tab">
         <div className="comingSoonPage">
@@ -223,20 +234,13 @@ export default function ScoresTab({
             key={date}
             ref={(el) => {
               if (el && selectedDate === date) {
-                el.scrollIntoView({
-                  behavior: "smooth",
-                  inline: "center",
-                  block: "nearest",
-                });
+                el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
               }
             }}
             className={`date-btn ${selectedDate === date ? "active" : ""}`}
             onClick={() => setSelectedDate(date)}
           >
-            {new Date(date + "T00:00:00").toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-            })}
+            {new Date(date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}
           </button>
         ))}
       </div>
@@ -259,111 +263,28 @@ export default function ScoresTab({
           <button
             onClick={() => setShowAddGame(!showAddGame)}
             style={{
-              width: "100%",
-              padding: "12px",
-              borderRadius: "10px",
-              border: "1px dashed #22d3ee",
-              background: "transparent",
-              color: "#22d3ee",
-              fontWeight: 800,
-              fontSize: "14px",
-              cursor: "pointer",
+              width: "100%", padding: "12px", borderRadius: "10px",
+              border: "1px dashed #22d3ee", background: "transparent",
+              color: "#22d3ee", fontWeight: 800, fontSize: "14px", cursor: "pointer",
             }}
           >
             {showAddGame ? "✕ Cancel" : "+ Add Game"}
           </button>
 
-          {/* ADD GAME FORM */}
           {showAddGame && (
-            <div style={{
-              marginTop: "12px",
-              background: "#0f172a",
-              border: "1px solid #1a2744",
-              borderRadius: "14px",
-              padding: "16px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-            }}>
-              <p style={{ margin: 0, color: "#94a3b8", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                New Game
-              </p>
-
-              <input
-                placeholder="Team 1 *"
-                value={newGame.team1}
-                onChange={(e) => setNewGame({ ...newGame, team1: e.target.value })}
-                style={inputStyle}
-              />
-
-              <input
-                placeholder="Team 2 *"
-                value={newGame.team2}
-                onChange={(e) => setNewGame({ ...newGame, team2: e.target.value })}
-                style={inputStyle}
-              />
-
+            <div style={{ marginTop: "12px", background: "#0f172a", border: "1px solid #1a2744", borderRadius: "14px", padding: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+              <p style={{ margin: 0, color: "#94a3b8", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>New Game</p>
+              <input placeholder="Team 1 *" value={newGame.team1} onChange={(e) => setNewGame({ ...newGame, team1: e.target.value })} style={inputStyle} />
+              <input placeholder="Team 2 *" value={newGame.team2} onChange={(e) => setNewGame({ ...newGame, team2: e.target.value })} style={inputStyle} />
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
-                <input
-                  placeholder="Score 1"
-                  type="number"
-                  value={newGame.score1}
-                  onChange={(e) => setNewGame({ ...newGame, score1: e.target.value })}
-                  style={inputStyle}
-                />
-                <input
-                  placeholder="Score 2"
-                  type="number"
-                  value={newGame.score2}
-                  onChange={(e) => setNewGame({ ...newGame, score2: e.target.value })}
-                  style={inputStyle}
-                />
+                <input placeholder="Score 1" type="number" value={newGame.score1} onChange={(e) => setNewGame({ ...newGame, score1: e.target.value })} style={inputStyle} />
+                <input placeholder="Score 2" type="number" value={newGame.score2} onChange={(e) => setNewGame({ ...newGame, score2: e.target.value })} style={inputStyle} />
               </div>
-
-              <input
-                placeholder="Date (YYYY-MM-DD) *"
-                value={newGame.date}
-                onChange={(e) => setNewGame({ ...newGame, date: e.target.value })}
-                style={inputStyle}
-              />
-
-              <input
-                placeholder="Time (e.g. 10:00 AM - 11:00 AM)"
-                value={newGame.time}
-                onChange={(e) => setNewGame({ ...newGame, time: e.target.value })}
-                style={inputStyle}
-              />
-
-              <input
-                placeholder="Location"
-                value={newGame.location}
-                onChange={(e) => setNewGame({ ...newGame, location: e.target.value })}
-                style={inputStyle}
-              />
-
-              <input
-                placeholder="Division (e.g. 6U Division / American) *"
-                value={newGame.division}
-                onChange={(e) => setNewGame({ ...newGame, division: e.target.value })}
-                style={inputStyle}
-              />
-
-              <button
-                onClick={saveNewGame}
-                disabled={saving}
-                style={{
-                  width: "100%",
-                  padding: "13px",
-                  borderRadius: "10px",
-                  border: "none",
-                  background: "linear-gradient(135deg, #0891b2, #22d3ee)",
-                  color: "#020617",
-                  fontWeight: 800,
-                  fontSize: "15px",
-                  cursor: saving ? "not-allowed" : "pointer",
-                  opacity: saving ? 0.7 : 1,
-                }}
-              >
+              <input placeholder="Date (YYYY-MM-DD) *" value={newGame.date} onChange={(e) => setNewGame({ ...newGame, date: e.target.value })} style={inputStyle} />
+              <input placeholder="Time (e.g. 10:00 AM - 11:00 AM)" value={newGame.time} onChange={(e) => setNewGame({ ...newGame, time: e.target.value })} style={inputStyle} />
+              <input placeholder="Location" value={newGame.location} onChange={(e) => setNewGame({ ...newGame, location: e.target.value })} style={inputStyle} />
+              <input placeholder="Division (e.g. 6U Division / American) *" value={newGame.division} onChange={(e) => setNewGame({ ...newGame, division: e.target.value })} style={inputStyle} />
+              <button onClick={saveNewGame} disabled={saving} style={{ width: "100%", padding: "13px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #0891b2, #22d3ee)", color: "#020617", fontWeight: 800, fontSize: "15px", cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.7 : 1 }}>
                 {saving ? "Saving..." : "Save Game"}
               </button>
             </div>
@@ -380,16 +301,11 @@ export default function ScoresTab({
           </div>
         ) : (
           filteredGames.map((game) => {
-            const isFinal =
-              game.score1 != null && game.score2 != null;
-            const team1Won =
-              isFinal && Number(game.score1) > Number(game.score2);
-            const team2Won =
-              isFinal && Number(game.score2) > Number(game.score1);
-            const team1Key = `${game.team1}-${game.division}`;
-            const team2Key = `${game.team2}-${game.division}`;
-            const team1Favorite = favoriteTeams.includes(team1Key);
-            const team2Favorite = favoriteTeams.includes(team2Key);
+            const isFinal = game.score1 != null && game.score2 != null;
+            const team1Won = isFinal && Number(game.score1) > Number(game.score2);
+            const team2Won = isFinal && Number(game.score2) > Number(game.score1);
+            const team1Favorite = favoriteTeams.includes(`${game.team1}-${game.division}`);
+            const team2Favorite = favoriteTeams.includes(`${game.team2}-${game.division}`);
 
             return (
               <div
@@ -403,28 +319,14 @@ export default function ScoresTab({
                 </div>
 
                 <div className="matchup desktop-matchup">
-                  <button
-                    className={`team-name ${team1Won ? "winner" : ""}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openTeamProfile(game, game.team1);
-                    }}
-                  >
-                    {team1Favorite ? "⭐ " : ""}
-                    {game.team1}
+                  <button className={`team-name ${team1Won ? "winner" : ""}`} onClick={(e) => { e.stopPropagation(); openTeamProfile(game, game.team1); }}>
+                    {team1Favorite ? "⭐ " : ""}{game.team1}
                   </button>
                   <span className="score">{isFinal ? game.score1 : "-"}</span>
                   <span className="vs">vs</span>
                   <span className="score">{isFinal ? game.score2 : "-"}</span>
-                  <button
-                    className={`team-name ${team2Won ? "winner" : ""}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openTeamProfile(game, game.team2);
-                    }}
-                  >
-                    {team2Favorite ? "⭐ " : ""}
-                    {game.team2}
+                  <button className={`team-name ${team2Won ? "winner" : ""}`} onClick={(e) => { e.stopPropagation(); openTeamProfile(game, game.team2); }}>
+                    {team2Favorite ? "⭐ " : ""}{game.team2}
                   </button>
                   <span className={`game-status ${isFinal ? "final" : "upcoming"}`}>
                     {isFinal ? "FINAL" : "UPCOMING"}
@@ -432,26 +334,12 @@ export default function ScoresTab({
                 </div>
 
                 <div className="mobile-matchup">
-                  <button
-                    className={`mobile-team ${team1Won ? "winner" : ""}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openTeamProfile(game, game.team1);
-                    }}
-                  >
-                    {team1Favorite ? "⭐ " : ""}
-                    {game.team1}
+                  <button className={`mobile-team ${team1Won ? "winner" : ""}`} onClick={(e) => { e.stopPropagation(); openTeamProfile(game, game.team1); }}>
+                    {team1Favorite ? "⭐ " : ""}{game.team1}
                   </button>
                   <span className="mobile-score">{isFinal ? game.score1 : "-"}</span>
-                  <button
-                    className={`mobile-team ${team2Won ? "winner" : ""}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openTeamProfile(game, game.team2);
-                    }}
-                  >
-                    {team2Favorite ? "⭐ " : ""}
-                    {game.team2}
+                  <button className={`mobile-team ${team2Won ? "winner" : ""}`} onClick={(e) => { e.stopPropagation(); openTeamProfile(game, game.team2); }}>
+                    {team2Favorite ? "⭐ " : ""}{game.team2}
                   </button>
                   <span className="mobile-score">{isFinal ? game.score2 : "-"}</span>
                   <span className={`mobile-status ${isFinal ? "final" : "upcoming"}`}>
@@ -460,23 +348,26 @@ export default function ScoresTab({
                 </div>
 
                 <div className="game-division">
-                  {new Date(game.date + "T00:00:00").toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })}{" "}
-                  • {game.division}
+                  {new Date(game.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })} • {game.division}
                 </div>
 
                 {isAdmin && (
-                  <button
-                    className="report-score-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openScoreModal(game);
-                    }}
-                  >
-                    {isFinal ? "Edit Score" : "Report Score"}
-                  </button>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginTop: "12px" }}>
+                    <button
+                      className="report-score-btn"
+                      style={{ margin: 0 }}
+                      onClick={(e) => { e.stopPropagation(); openScoreModal(game); }}
+                    >
+                      {isFinal ? "Edit Score" : "Report Score"}
+                    </button>
+                    <button
+                      className="report-score-btn"
+                      style={{ margin: 0, background: "#1e3a5f" }}
+                      onClick={(e) => { e.stopPropagation(); openEditGame(game); }}
+                    >
+                      ✏️ Edit Game
+                    </button>
+                  </div>
                 )}
               </div>
             );
@@ -484,33 +375,45 @@ export default function ScoresTab({
         )}
       </div>
 
+      {/* SCORE MODAL */}
       {selectedGame && (
         <div className="scoreModalOverlay">
           <div className="scoreModal">
-            <h2>
-              {selectedGame.score1 != null ? "Edit Score" : "Report Score"}
-            </h2>
+            <h2>{selectedGame.score1 != null ? "Edit Score" : "Report Score"}</h2>
             <p>{selectedGame.team1} vs {selectedGame.team2}</p>
             <div className="scoreInputs">
-              <input
-                type="number"
-                placeholder={selectedGame.team1}
-                value={team1Score}
-                onChange={(e) => setTeam1Score(e.target.value)}
-              />
-              <input
-                type="number"
-                placeholder={selectedGame.team2}
-                value={team2Score}
-                onChange={(e) => setTeam2Score(e.target.value)}
-              />
+              <input type="number" placeholder={selectedGame.team1} value={team1Score} onChange={(e) => setTeam1Score(e.target.value)} />
+              <input type="number" placeholder={selectedGame.team2} value={team2Score} onChange={(e) => setTeam2Score(e.target.value)} />
             </div>
             <div className="scoreModalButtons">
-              <button className="cancelScoreBtn" onClick={closeScoreModal}>
-                Cancel
-              </button>
-              <button className="saveScoreBtn" onClick={saveScore}>
-                Save Score
+              <button className="cancelScoreBtn" onClick={closeScoreModal}>Cancel</button>
+              <button className="saveScoreBtn" onClick={saveScore}>Save Score</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* EDIT GAME MODAL */}
+      {editGame && (
+        <div className="scoreModalOverlay">
+          <div className="scoreModal" style={{ maxHeight: "90vh", overflowY: "auto" }}>
+            <h2>✏️ Edit Game</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "12px" }}>
+              <input placeholder="Team 1 *" value={editGame.team1} onChange={(e) => setEditGame({ ...editGame, team1: e.target.value })} style={inputStyle} />
+              <input placeholder="Team 2 *" value={editGame.team2} onChange={(e) => setEditGame({ ...editGame, team2: e.target.value })} style={inputStyle} />
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                <input placeholder="Score 1" type="number" value={editGame.score1} onChange={(e) => setEditGame({ ...editGame, score1: e.target.value })} style={inputStyle} />
+                <input placeholder="Score 2" type="number" value={editGame.score2} onChange={(e) => setEditGame({ ...editGame, score2: e.target.value })} style={inputStyle} />
+              </div>
+              <input placeholder="Date (YYYY-MM-DD) *" value={editGame.date} onChange={(e) => setEditGame({ ...editGame, date: e.target.value })} style={inputStyle} />
+              <input placeholder="Time" value={editGame.time} onChange={(e) => setEditGame({ ...editGame, time: e.target.value })} style={inputStyle} />
+              <input placeholder="Location" value={editGame.location} onChange={(e) => setEditGame({ ...editGame, location: e.target.value })} style={inputStyle} />
+              <input placeholder="Division *" value={editGame.division} onChange={(e) => setEditGame({ ...editGame, division: e.target.value })} style={inputStyle} />
+            </div>
+            <div className="scoreModalButtons" style={{ marginTop: "16px" }}>
+              <button className="cancelScoreBtn" onClick={() => setEditGame(null)}>Cancel</button>
+              <button className="saveScoreBtn" onClick={saveEditGame} disabled={saving}>
+                {saving ? "Saving..." : "Save Changes"}
               </button>
             </div>
           </div>
