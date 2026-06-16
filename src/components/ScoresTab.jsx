@@ -210,6 +210,32 @@ export default function ScoresTab({
     }
     setSaving(false);
   };
+  const updateGameStatus = async (game, status) => {
+  const label = status === "cancelled" ? "CANCELLED" : "POSTPONED";
+  if (!window.confirm(`Mark this game as ${label}?`)) return;
+  try {
+    await setDoc(
+      doc(db, "gameStatus", game.id),
+      { status, gameId: game.id },
+      { merge: true }
+    );
+    alert(`Game marked as ${label}`);
+  } catch (error) {
+    console.error(error);
+    alert("Failed to update status");
+  }
+};
+const deleteGame = async (game) => {
+  if (!window.confirm(`Delete this game permanently? This cannot be undone.`)) return;
+  try {
+    const { deleteDoc } = await import("firebase/firestore");
+    await deleteDoc(doc(db, "games", game.id));
+    alert("Game deleted");
+  } catch (error) {
+    console.error(error);
+    alert("Failed to delete game. Note: only Firebase-added games can be deleted.");
+  }
+};
 
   if (selectedSport !== "Soccer" && selectedSport !== "Flag Football") {
     return (
@@ -328,9 +354,15 @@ export default function ScoresTab({
                   <button className={`team-name ${team2Won ? "winner" : ""}`} onClick={(e) => { e.stopPropagation(); openTeamProfile(game, game.team2); }}>
                     {team2Favorite ? "⭐ " : ""}{game.team2}
                   </button>
-                  <span className={`game-status ${isFinal ? "final" : "upcoming"}`}>
-                    {isFinal ? "FINAL" : "UPCOMING"}
-                  </span>
+                 <span className={`game-status ${
+  game.status === "cancelled" ? "cancelled" :
+  game.status === "postponed" ? "postponed" :
+  isFinal ? "final" : "upcoming"
+}`}>
+  {game.status === "cancelled" ? "CANCELLED" :
+   game.status === "postponed" ? "POSTPONED" :
+   isFinal ? "FINAL" : "UPCOMING"}
+</span>
                 </div>
 
                 <div className="mobile-matchup">
@@ -342,9 +374,15 @@ export default function ScoresTab({
                     {team2Favorite ? "⭐ " : ""}{game.team2}
                   </button>
                   <span className="mobile-score">{isFinal ? game.score2 : "-"}</span>
-                  <span className={`mobile-status ${isFinal ? "final" : "upcoming"}`}>
-                    {isFinal ? "FINAL" : "UPCOMING"}
-                  </span>
+                  <span className={`mobile-status ${
+  game.status === "cancelled" ? "cancelled" :
+  game.status === "postponed" ? "postponed" :
+  isFinal ? "final" : "upcoming"
+}`}>
+  {game.status === "cancelled" ? "CANCELLED" :
+   game.status === "postponed" ? "POSTPONED" :
+   isFinal ? "FINAL" : "UPCOMING"}
+</span>
                 </div>
 
                 <div className="game-division">
@@ -352,23 +390,57 @@ export default function ScoresTab({
                 </div>
 
                 {isAdmin && (
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginTop: "12px" }}>
-                    <button
-                      className="report-score-btn"
-                      style={{ margin: 0 }}
-                      onClick={(e) => { e.stopPropagation(); openScoreModal(game); }}
-                    >
-                      {isFinal ? "Edit Score" : "Report Score"}
-                    </button>
-                    <button
-                      className="report-score-btn"
-                      style={{ margin: 0, background: "#1e3a5f" }}
-                      onClick={(e) => { e.stopPropagation(); openEditGame(game); }}
-                    >
-                      ✏️ Edit Game
-                    </button>
-                  </div>
-                )}
+  <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "12px" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+      <button
+        className="report-score-btn"
+        style={{ margin: 0 }}
+        onClick={(e) => { e.stopPropagation(); openScoreModal(game); }}
+      >
+        {isFinal ? "Edit Score" : "Report Score"}
+      </button>
+      <button
+        className="report-score-btn"
+        style={{ margin: 0, background: "#1e3a5f" }}
+        onClick={(e) => { e.stopPropagation(); openEditGame(game); }}
+      >
+        ✏️ Edit Game
+      </button>
+    </div>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "8px" }}>
+      <button
+        className="report-score-btn"
+        style={{ margin: 0, background: "#7f1d1d", fontSize: "12px" }}
+        onClick={(e) => {
+          e.stopPropagation();
+          updateGameStatus(game, "cancelled");
+        }}
+      >
+        🚫 Cancel
+      </button>
+      <button
+        className="report-score-btn"
+        style={{ margin: 0, background: "#78350f", fontSize: "12px" }}
+        onClick={(e) => {
+          e.stopPropagation();
+          updateGameStatus(game, "postponed");
+        }}
+      >
+        ⏸️ Postpone
+      </button>
+      <button
+        className="report-score-btn"
+        style={{ margin: 0, background: "#14532d", fontSize: "12px" }}
+        onClick={(e) => {
+          e.stopPropagation();
+          deleteGame(game);
+        }}
+      >
+        🗑️ Delete
+      </button>
+    </div>
+  </div>
+)}
               </div>
             );
           })
