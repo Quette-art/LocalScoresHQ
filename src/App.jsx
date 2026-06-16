@@ -89,7 +89,6 @@ function AppContent() {
     "Flag Football": "🚩",
   };
 
-  // Auth listener
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       setAdminUser(user);
@@ -97,34 +96,37 @@ function AppContent() {
     return () => unsubscribeAuth();
   }, []);
 
-  // Notifications
   useEffect(() => {
     requestNotificationPermission();
   }, []);
 
-  // ── MAIN DATA MERGE ──
-  // Listen to Firebase scores AND Firebase games collections
-  // Merge with local games from JS files
   useEffect(() => {
     let firebaseScores = {};
     let firebaseGames = [];
+    let gameStatuses = {};
 
     const buildMerged = () => {
-      // Start with local games
       const localWithScores = upcomingGames.map((game) => {
         const savedScore = firebaseScores[game.id];
-        if (!savedScore) return game;
-        return { ...game, score1: savedScore.score1, score2: savedScore.score2 };
+        const status = gameStatuses[game.id];
+        return {
+          ...game,
+          ...(savedScore ? { score1: savedScore.score1, score2: savedScore.score2 } : {}),
+          ...(status ? { status } : {}),
+        };
       });
 
-      // Add Firebase-added games (deduplicate by id)
       const localIds = new Set(upcomingGames.map((g) => g.id));
-      const newFirebaseGames = firebaseGames.filter((g) => !localIds.has(g.id));
+      const newFirebaseGames = firebaseGames
+        .filter((g) => !localIds.has(g.id))
+        .map((game) => {
+          const status = gameStatuses[game.id];
+          return { ...game, ...(status ? { status } : {}) };
+        });
 
       const merged = [...localWithScores, ...newFirebaseGames];
       setGames(merged);
 
-      // Update selectedGame if open
       if (selectedGame) {
         const updated = merged.find((g) => g.id === selectedGame.id);
         if (updated) {
@@ -134,7 +136,6 @@ function AppContent() {
       }
     };
 
-    // Listen to scores collection
     const unsubscribeScores = onSnapshot(
       collection(db, "scores"),
       (snapshot) => {
@@ -150,7 +151,6 @@ function AppContent() {
       }
     );
 
-    // Listen to games collection (admin-added games)
     const unsubscribeGames = onSnapshot(
       collection(db, "games"),
       (snapshot) => {
@@ -169,7 +169,19 @@ function AppContent() {
             score1: data.score1 ?? null,
             score2: data.score2 ?? null,
             location: data.location || "TBD",
+            status: data.status || null,
           });
+        });
+        buildMerged();
+      }
+    );
+
+    const unsubscribeStatus = onSnapshot(
+      collection(db, "gameStatus"),
+      (snapshot) => {
+        gameStatuses = {};
+        snapshot.forEach((docSnap) => {
+          gameStatuses[docSnap.id] = docSnap.data().status;
         });
         buildMerged();
       }
@@ -178,6 +190,7 @@ function AppContent() {
     return () => {
       unsubscribeScores();
       unsubscribeGames();
+      unsubscribeStatus();
     };
   }, [selectedGame]);
 
