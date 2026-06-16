@@ -3,6 +3,70 @@ import { doc, setDoc, collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import "./ScoresTab.css";
 
+// Team autocomplete input component
+function TeamAutocomplete({ placeholder, value, onChange, allTeams, style }) {
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const suggestions = useMemo(() => {
+    if (!value.trim()) return [];
+    return allTeams
+      .filter((t) => t.toLowerCase().includes(value.toLowerCase()) && t.toLowerCase() !== value.toLowerCase())
+      .slice(0, 6);
+  }, [value, allTeams]);
+
+  return (
+    <div style={{ position: "relative" }}>
+      <input
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => { onChange(e.target.value); setShowSuggestions(true); }}
+        onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+        onFocus={() => setShowSuggestions(true)}
+        style={style}
+      />
+      {showSuggestions && suggestions.length > 0 && (
+        <div style={{
+          position: "absolute",
+          top: "100%",
+          left: 0,
+          right: 0,
+          background: "#0f172a",
+          border: "1px solid #263244",
+          borderRadius: "10px",
+          zIndex: 9999,
+          overflow: "hidden",
+          marginTop: "4px",
+        }}>
+          {suggestions.map((team) => (
+            <button
+              key={team}
+              type="button"
+              onMouseDown={() => { onChange(team); setShowSuggestions(false); }}
+              style={{
+                width: "100%",
+                padding: "10px 14px",
+                background: "transparent",
+                border: "none",
+                borderBottom: "1px solid #1a2744",
+                color: "white",
+                fontSize: "14px",
+                fontWeight: 600,
+                textAlign: "left",
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+              onMouseEnter={(e) => e.target.style.background = "#1e293b"}
+              onMouseLeave={(e) => e.target.style.background = "transparent"}
+            >
+              {team}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ScoresTab({
   games = [],
   selectedSport,
@@ -31,6 +95,21 @@ export default function ScoresTab({
   const sportGames = useMemo(() => {
     return games.filter((game) => game.sport === selectedSport);
   }, [games, selectedSport]);
+
+  // All unique team names for autocomplete
+  const allTeamNames = useMemo(() => {
+    const names = new Set();
+    sportGames.forEach((game) => {
+      if (game.team1) names.add(game.team1);
+      if (game.team2) names.add(game.team2);
+    });
+    return [...names].sort();
+  }, [sportGames]);
+
+  // All unique divisions for autocomplete
+  const allDivisions = useMemo(() => {
+    return [...new Set(sportGames.map((g) => g.division || "Unknown"))].sort();
+  }, [sportGames]);
 
   const uniqueDates = useMemo(() => {
     return [...new Set(sportGames.map((g) => g.date))].sort();
@@ -210,32 +289,34 @@ export default function ScoresTab({
     }
     setSaving(false);
   };
+
   const updateGameStatus = async (game, status) => {
-  const label = status === "cancelled" ? "CANCELLED" : "POSTPONED";
-  if (!window.confirm(`Mark this game as ${label}?`)) return;
-  try {
-    await setDoc(
-      doc(db, "gameStatus", game.id),
-      { status, gameId: game.id },
-      { merge: true }
-    );
-    alert(`Game marked as ${label}`);
-  } catch (error) {
-    console.error(error);
-    alert("Failed to update status");
-  }
-};
-const deleteGame = async (game) => {
-  if (!window.confirm(`Delete this game permanently? This cannot be undone.`)) return;
-  try {
-    const { deleteDoc } = await import("firebase/firestore");
-    await deleteDoc(doc(db, "games", game.id));
-    alert("Game deleted");
-  } catch (error) {
-    console.error(error);
-    alert("Failed to delete game. Note: only Firebase-added games can be deleted.");
-  }
-};
+    const label = status === "cancelled" ? "CANCELLED" : "POSTPONED";
+    if (!window.confirm(`Mark this game as ${label}?`)) return;
+    try {
+      await setDoc(
+        doc(db, "gameStatus", game.id),
+        { status, gameId: game.id },
+        { merge: true }
+      );
+      alert(`Game marked as ${label}`);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update status");
+    }
+  };
+
+  const deleteGame = async (game) => {
+    if (!window.confirm(`Delete this game permanently? This cannot be undone.`)) return;
+    try {
+      const { deleteDoc } = await import("firebase/firestore");
+      await deleteDoc(doc(db, "games", game.id));
+      alert("Game deleted");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete game. Note: only Firebase-added games can be deleted.");
+    }
+  };
 
   if (selectedSport !== "Soccer" && selectedSport !== "Flag Football") {
     return (
@@ -300,16 +381,40 @@ const deleteGame = async (game) => {
           {showAddGame && (
             <div style={{ marginTop: "12px", background: "#0f172a", border: "1px solid #1a2744", borderRadius: "14px", padding: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
               <p style={{ margin: 0, color: "#94a3b8", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>New Game</p>
-              <input placeholder="Team 1 *" value={newGame.team1} onChange={(e) => setNewGame({ ...newGame, team1: e.target.value })} style={inputStyle} />
-              <input placeholder="Team 2 *" value={newGame.team2} onChange={(e) => setNewGame({ ...newGame, team2: e.target.value })} style={inputStyle} />
+
+              <TeamAutocomplete
+                placeholder="Team 1 *"
+                value={newGame.team1}
+                onChange={(val) => setNewGame({ ...newGame, team1: val })}
+                allTeams={allTeamNames}
+                style={inputStyle}
+              />
+
+              <TeamAutocomplete
+                placeholder="Team 2 *"
+                value={newGame.team2}
+                onChange={(val) => setNewGame({ ...newGame, team2: val })}
+                allTeams={allTeamNames}
+                style={inputStyle}
+              />
+
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
                 <input placeholder="Score 1" type="number" value={newGame.score1} onChange={(e) => setNewGame({ ...newGame, score1: e.target.value })} style={inputStyle} />
                 <input placeholder="Score 2" type="number" value={newGame.score2} onChange={(e) => setNewGame({ ...newGame, score2: e.target.value })} style={inputStyle} />
               </div>
+
               <input placeholder="Date (YYYY-MM-DD) *" value={newGame.date} onChange={(e) => setNewGame({ ...newGame, date: e.target.value })} style={inputStyle} />
               <input placeholder="Time (e.g. 10:00 AM - 11:00 AM)" value={newGame.time} onChange={(e) => setNewGame({ ...newGame, time: e.target.value })} style={inputStyle} />
               <input placeholder="Location" value={newGame.location} onChange={(e) => setNewGame({ ...newGame, location: e.target.value })} style={inputStyle} />
-              <input placeholder="Division (e.g. 6U Division / American) *" value={newGame.division} onChange={(e) => setNewGame({ ...newGame, division: e.target.value })} style={inputStyle} />
+
+              <TeamAutocomplete
+                placeholder="Division *"
+                value={newGame.division}
+                onChange={(val) => setNewGame({ ...newGame, division: val })}
+                allTeams={allDivisions}
+                style={inputStyle}
+              />
+
               <button onClick={saveNewGame} disabled={saving} style={{ width: "100%", padding: "13px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #0891b2, #22d3ee)", color: "#020617", fontWeight: 800, fontSize: "15px", cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.7 : 1 }}>
                 {saving ? "Saving..." : "Save Game"}
               </button>
@@ -354,15 +459,15 @@ const deleteGame = async (game) => {
                   <button className={`team-name ${team2Won ? "winner" : ""}`} onClick={(e) => { e.stopPropagation(); openTeamProfile(game, game.team2); }}>
                     {team2Favorite ? "⭐ " : ""}{game.team2}
                   </button>
-                 <span className={`game-status ${
-  game.status === "cancelled" ? "cancelled" :
-  game.status === "postponed" ? "postponed" :
-  isFinal ? "final" : "upcoming"
-}`}>
-  {game.status === "cancelled" ? "CANCELLED" :
-   game.status === "postponed" ? "POSTPONED" :
-   isFinal ? "FINAL" : "UPCOMING"}
-</span>
+                  <span className={`game-status ${
+                    game.status === "cancelled" ? "cancelled" :
+                    game.status === "postponed" ? "postponed" :
+                    isFinal ? "final" : "upcoming"
+                  }`}>
+                    {game.status === "cancelled" ? "CANCELLED" :
+                     game.status === "postponed" ? "POSTPONED" :
+                     isFinal ? "FINAL" : "UPCOMING"}
+                  </span>
                 </div>
 
                 <div className="mobile-matchup">
@@ -375,14 +480,14 @@ const deleteGame = async (game) => {
                   </button>
                   <span className="mobile-score">{isFinal ? game.score2 : "-"}</span>
                   <span className={`mobile-status ${
-  game.status === "cancelled" ? "cancelled" :
-  game.status === "postponed" ? "postponed" :
-  isFinal ? "final" : "upcoming"
-}`}>
-  {game.status === "cancelled" ? "CANCELLED" :
-   game.status === "postponed" ? "POSTPONED" :
-   isFinal ? "FINAL" : "UPCOMING"}
-</span>
+                    game.status === "cancelled" ? "cancelled" :
+                    game.status === "postponed" ? "postponed" :
+                    isFinal ? "final" : "upcoming"
+                  }`}>
+                    {game.status === "cancelled" ? "CANCELLED" :
+                     game.status === "postponed" ? "POSTPONED" :
+                     isFinal ? "FINAL" : "UPCOMING"}
+                  </span>
                 </div>
 
                 <div className="game-division">
@@ -390,57 +495,28 @@ const deleteGame = async (game) => {
                 </div>
 
                 {isAdmin && (
-  <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "12px" }}>
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-      <button
-        className="report-score-btn"
-        style={{ margin: 0 }}
-        onClick={(e) => { e.stopPropagation(); openScoreModal(game); }}
-      >
-        {isFinal ? "Edit Score" : "Report Score"}
-      </button>
-      <button
-        className="report-score-btn"
-        style={{ margin: 0, background: "#1e3a5f" }}
-        onClick={(e) => { e.stopPropagation(); openEditGame(game); }}
-      >
-        ✏️ Edit Game
-      </button>
-    </div>
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "8px" }}>
-      <button
-        className="report-score-btn"
-        style={{ margin: 0, background: "#7f1d1d", fontSize: "12px" }}
-        onClick={(e) => {
-          e.stopPropagation();
-          updateGameStatus(game, "cancelled");
-        }}
-      >
-        🚫 Cancel
-      </button>
-      <button
-        className="report-score-btn"
-        style={{ margin: 0, background: "#78350f", fontSize: "12px" }}
-        onClick={(e) => {
-          e.stopPropagation();
-          updateGameStatus(game, "postponed");
-        }}
-      >
-        ⏸️ Postpone
-      </button>
-      <button
-        className="report-score-btn"
-        style={{ margin: 0, background: "#14532d", fontSize: "12px" }}
-        onClick={(e) => {
-          e.stopPropagation();
-          deleteGame(game);
-        }}
-      >
-        🗑️ Delete
-      </button>
-    </div>
-  </div>
-)}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "12px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+                      <button className="report-score-btn" style={{ margin: 0 }} onClick={(e) => { e.stopPropagation(); openScoreModal(game); }}>
+                        {isFinal ? "Edit Score" : "Report Score"}
+                      </button>
+                      <button className="report-score-btn" style={{ margin: 0, background: "#1e3a5f" }} onClick={(e) => { e.stopPropagation(); openEditGame(game); }}>
+                        ✏️ Edit Game
+                      </button>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "8px" }}>
+                      <button className="report-score-btn" style={{ margin: 0, background: "#7f1d1d", fontSize: "12px" }} onClick={(e) => { e.stopPropagation(); updateGameStatus(game, "cancelled"); }}>
+                        🚫 Cancel
+                      </button>
+                      <button className="report-score-btn" style={{ margin: 0, background: "#78350f", fontSize: "12px" }} onClick={(e) => { e.stopPropagation(); updateGameStatus(game, "postponed"); }}>
+                        ⏸️ Postpone
+                      </button>
+                      <button className="report-score-btn" style={{ margin: 0, background: "#14532d", fontSize: "12px" }} onClick={(e) => { e.stopPropagation(); deleteGame(game); }}>
+                        🗑️ Delete
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             );
           })
@@ -471,8 +547,20 @@ const deleteGame = async (game) => {
           <div className="scoreModal" style={{ maxHeight: "90vh", overflowY: "auto" }}>
             <h2>✏️ Edit Game</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "12px" }}>
-              <input placeholder="Team 1 *" value={editGame.team1} onChange={(e) => setEditGame({ ...editGame, team1: e.target.value })} style={inputStyle} />
-              <input placeholder="Team 2 *" value={editGame.team2} onChange={(e) => setEditGame({ ...editGame, team2: e.target.value })} style={inputStyle} />
+              <TeamAutocomplete
+                placeholder="Team 1 *"
+                value={editGame.team1}
+                onChange={(val) => setEditGame({ ...editGame, team1: val })}
+                allTeams={allTeamNames}
+                style={inputStyle}
+              />
+              <TeamAutocomplete
+                placeholder="Team 2 *"
+                value={editGame.team2}
+                onChange={(val) => setEditGame({ ...editGame, team2: val })}
+                allTeams={allTeamNames}
+                style={inputStyle}
+              />
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
                 <input placeholder="Score 1" type="number" value={editGame.score1} onChange={(e) => setEditGame({ ...editGame, score1: e.target.value })} style={inputStyle} />
                 <input placeholder="Score 2" type="number" value={editGame.score2} onChange={(e) => setEditGame({ ...editGame, score2: e.target.value })} style={inputStyle} />
@@ -480,7 +568,13 @@ const deleteGame = async (game) => {
               <input placeholder="Date (YYYY-MM-DD) *" value={editGame.date} onChange={(e) => setEditGame({ ...editGame, date: e.target.value })} style={inputStyle} />
               <input placeholder="Time" value={editGame.time} onChange={(e) => setEditGame({ ...editGame, time: e.target.value })} style={inputStyle} />
               <input placeholder="Location" value={editGame.location} onChange={(e) => setEditGame({ ...editGame, location: e.target.value })} style={inputStyle} />
-              <input placeholder="Division *" value={editGame.division} onChange={(e) => setEditGame({ ...editGame, division: e.target.value })} style={inputStyle} />
+              <TeamAutocomplete
+                placeholder="Division *"
+                value={editGame.division}
+                onChange={(val) => setEditGame({ ...editGame, division: val })}
+                allTeams={allDivisions}
+                style={inputStyle}
+              />
             </div>
             <div className="scoreModalButtons" style={{ marginTop: "16px" }}>
               <button className="cancelScoreBtn" onClick={() => setEditGame(null)}>Cancel</button>
