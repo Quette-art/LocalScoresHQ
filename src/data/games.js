@@ -1,7 +1,7 @@
 import { soccerGames } from "./soccerGames.js";
-import { flagFootballGames } from "./flagFootballGames.js";
+import { flagFootballGames, flagFootballPlayoffGames } from "./flagFootballGames.js";
 
-export const games = [...soccerGames, ...flagFootballGames];
+export const games = [...soccerGames, ...flagFootballGames, ...flagFootballPlayoffGames];
 
 export const upcomingGames = games;
 
