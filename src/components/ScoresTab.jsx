@@ -496,9 +496,23 @@ export default function ScoresTab({
                 </div>
 
                 <div className="game-division">
-                  {new Date(game.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })} • {game.division}
-                </div>
-
+  {new Date(game.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })} • {game.division}
+  {game.division?.toLowerCase().includes("playoff") && (
+    <span style={{
+      marginLeft: "8px",
+      background: "linear-gradient(135deg, #b45309, #f59e0b)",
+      color: "#000",
+      fontSize: "10px",
+      fontWeight: 900,
+      padding: "2px 7px",
+      borderRadius: "20px",
+      letterSpacing: "0.5px",
+      textTransform: "uppercase",
+    }}>
+      🏆 Playoffs
+    </span>
+  )}
+</div>
                 {isAdmin && (
                   <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "12px" }}>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
