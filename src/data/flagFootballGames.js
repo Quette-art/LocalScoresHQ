@@ -4070,3 +4070,69 @@ export const flagFootballGames = [
   ...coed14UGames,
   ...girls14UGames,
 ];
+const flagFootballPlayoffGames = [
+
+  // ── 5U PLAYOFFS ──
+  { id: "ff-5u-playoff-semi1", sport: "Flag Football", division: "Coed / 5U Playoffs", ageGroup: "5U", date: "2026-06-20", time: "11:00 AM", location: "Bladensburg High School", team1: "Oxon Hill Roadrunners", team2: "NDO Jaguars", score1: null, score2: null },
+  { id: "ff-5u-playoff-semi2", sport: "Flag Football", division: "Coed / 5U Playoffs", ageGroup: "5U", date: "2026-06-20", time: "11:00 AM", location: "Bladensburg High School", team1: "DMV Outlaws", team2: "Beltsville Bulls", score1: null, score2: null },
+  { id: "ff-5u-playoff-final", sport: "Flag Football", division: "Coed / 5U Playoffs", ageGroup: "5U", date: "2026-06-21", time: "10:00 AM", location: "Bladensburg High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 6U PLAYOFFS ──
+  { id: "ff-6u-playoff-qf1", sport: "Flag Football", division: "Coed / 6U Playoffs", ageGroup: "6U", date: "2026-06-14", time: "TBD", location: "TBD", team1: "Laurel Wildcats", team2: "Lamond Riggs Steelers", score1: 6, score2: 12 },
+  { id: "ff-6u-playoff-qf2", sport: "Flag Football", division: "Coed / 6U Playoffs", ageGroup: "6U", date: "2026-06-14", time: "TBD", location: "TBD", team1: "Forestville Falcons", team2: "Marshall Heights Bisons", score1: 33, score2: 18 },
+  { id: "ff-6u-playoff-semi1", sport: "Flag Football", division: "Coed / 6U Playoffs", ageGroup: "6U", date: "2026-06-20", time: "10:00 AM", location: "Eleanor Roosevelt High School", team1: "South County Tribe", team2: "Lamond Riggs Steelers", score1: null, score2: null },
+  { id: "ff-6u-playoff-semi2", sport: "Flag Football", division: "Coed / 6U Playoffs", ageGroup: "6U", date: "2026-06-20", time: "11:00 AM", location: "Eleanor Roosevelt High School", team1: "DMV Outlaws", team2: "Forestville Falcons", score1: null, score2: null },
+  { id: "ff-6u-playoff-final", sport: "Flag Football", division: "Coed / 6U Playoffs", ageGroup: "6U", date: "2026-06-21", time: "3:00 PM", location: "Fairmont Heights High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 7U PLAYOFFS ──
+  { id: "ff-7u-playoff-semi1", sport: "Flag Football", division: "Coed / 7U Playoffs", ageGroup: "7U", date: "2026-06-20", time: "10:00 AM", location: "Charles Herbert Flowers High School", team1: "DMV Outlaws", team2: "NDO Jaguars", score1: null, score2: null },
+  { id: "ff-7u-playoff-semi2", sport: "Flag Football", division: "Coed / 7U Playoffs", ageGroup: "7U", date: "2026-06-20", time: "11:00 AM", location: "Charles Herbert Flowers High School", team1: "Clinton Jets", team2: "KLM Cougars", score1: null, score2: null },
+  { id: "ff-7u-playoff-final", sport: "Flag Football", division: "Coed / 7U Playoffs", ageGroup: "7U", date: "2026-06-21", time: "1:45 PM", location: "Fairmont Heights High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 8U PLAYOFFS ──
+  { id: "ff-8u-playoff-qf1", sport: "Flag Football", division: "Coed / 8U Playoffs", ageGroup: "8U", date: "2026-06-17", time: "6:00 PM", location: "Woodmore Turf Field", team1: "Lamond Riggs Steelers", team2: "Landover Seminoles", score1: null, score2: null },
+  { id: "ff-8u-playoff-qf2", sport: "Flag Football", division: "Coed / 8U Playoffs", ageGroup: "8U", date: "2026-06-17", time: "7:00 PM", location: "Woodmore Turf Field", team1: "KLM Cougars", team2: "S.O.L.Y.D.", score1: null, score2: null },
+  { id: "ff-8u-playoff-semi1", sport: "Flag Football", division: "Coed / 8U Playoffs", ageGroup: "8U", date: "2026-06-20", time: "12:00 PM", location: "Eleanor Roosevelt High School", team1: "DMV Outlaws", team2: "TBD", score1: null, score2: null },
+  { id: "ff-8u-playoff-semi2", sport: "Flag Football", division: "Coed / 8U Playoffs", ageGroup: "8U", date: "2026-06-20", time: "1:00 PM", location: "Eleanor Roosevelt High School", team1: "Ft. Washington Cannons #2", team2: "TBD", score1: null, score2: null },
+  { id: "ff-8u-playoff-final", sport: "Flag Football", division: "Coed / 8U Playoffs", ageGroup: "8U", date: "2026-06-21", time: "11:15 AM", location: "Bladensburg High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 9U PLAYOFFS ──
+  { id: "ff-9u-playoff-semi1", sport: "Flag Football", division: "Coed / 9U Playoffs", ageGroup: "9U", date: "2026-06-20", time: "12:00 PM", location: "Charles Herbert Flowers High School", team1: "Marlboro Mustangs", team2: "Baller University", score1: null, score2: null },
+  { id: "ff-9u-playoff-semi2", sport: "Flag Football", division: "Coed / 9U Playoffs", ageGroup: "9U", date: "2026-06-20", time: "1:00 PM", location: "Charles Herbert Flowers High School", team1: "Laurel Wildcats", team2: "Forestville Falcons #1", score1: null, score2: null },
+  { id: "ff-9u-playoff-final", sport: "Flag Football", division: "Coed / 9U Playoffs", ageGroup: "9U", date: "2026-06-21", time: "12:30 PM", location: "Fairmont Heights High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 10U PLAYOFFS ──
+  { id: "ff-10u-playoff-qf1", sport: "Flag Football", division: "Coed / 10U Playoffs", ageGroup: "10U", date: "2026-06-17", time: "6:00 PM", location: "Potomac High School", team1: "Peppermill Pirates", team2: "KLM Cougars", score1: null, score2: null },
+  { id: "ff-10u-playoff-qf2", sport: "Flag Football", division: "Coed / 10U Playoffs", ageGroup: "10U", date: "2026-06-17", time: "7:00 PM", location: "Potomac High School", team1: "DMV Outlaws", team2: "Baller University", score1: null, score2: null },
+  { id: "ff-10u-playoff-semi1", sport: "Flag Football", division: "Coed / 10U Playoffs", ageGroup: "10U", date: "2026-06-20", time: "2:00 PM", location: "Eleanor Roosevelt High School", team1: "Marlboro Mustangs", team2: "TBD", score1: null, score2: null },
+  { id: "ff-10u-playoff-semi2", sport: "Flag Football", division: "Coed / 10U Playoffs", ageGroup: "10U", date: "2026-06-20", time: "3:00 PM", location: "Eleanor Roosevelt High School", team1: "NDO Jaguars", team2: "TBD", score1: null, score2: null },
+  { id: "ff-10u-playoff-final", sport: "Flag Football", division: "Coed / 10U Playoffs", ageGroup: "10U", date: "2026-06-21", time: "12:30 PM", location: "Bladensburg High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 11U PLAYOFFS ──
+  { id: "ff-11u-playoff-semi1", sport: "Flag Football", division: "Coed / 11U Playoffs", ageGroup: "11U", date: "2026-06-20", time: "2:00 PM", location: "Bladensburg High School", team1: "Laurel Wildcats", team2: "KLM Cougars", score1: null, score2: null },
+  { id: "ff-11u-playoff-semi2", sport: "Flag Football", division: "Coed / 11U Playoffs", ageGroup: "11U", date: "2026-06-20", time: "3:00 PM", location: "Bladensburg High School", team1: "Peppermill Pirates", team2: "Marlboro Mustangs", score1: null, score2: null },
+  { id: "ff-11u-playoff-final", sport: "Flag Football", division: "Coed / 11U Playoffs", ageGroup: "11U", date: "2026-06-21", time: "11:15 AM", location: "Fairmont Heights High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 12U PLAYOFFS ──
+  { id: "ff-12u-playoff-qf1", sport: "Flag Football", division: "Coed / 12U Playoffs", ageGroup: "12U", date: "2026-06-17", time: "7:00 PM", location: "PGCBGC Sports Park", team1: "Beltsville Bulls", team2: "Ft. Washington Cannons", score1: null, score2: null },
+  { id: "ff-12u-playoff-qf2", sport: "Flag Football", division: "Coed / 12U Playoffs", ageGroup: "12U", date: "2026-06-17", time: "6:00 PM", location: "PGCBGC Sports Park", team1: "Seat Pleasant Bobcats", team2: "Baller University", score1: null, score2: null },
+  { id: "ff-12u-playoff-semi1", sport: "Flag Football", division: "Coed / 12U Playoffs", ageGroup: "12U", date: "2026-06-20", time: "12:00 PM", location: "Bladensburg High School", team1: "Laurel Wildcats", team2: "TBD", score1: null, score2: null },
+  { id: "ff-12u-playoff-semi2", sport: "Flag Football", division: "Coed / 12U Playoffs", ageGroup: "12U", date: "2026-06-20", time: "1:00 PM", location: "Bladensburg High School", team1: "KLM Cougars", team2: "TBD", score1: null, score2: null },
+  { id: "ff-12u-playoff-final", sport: "Flag Football", division: "Coed / 12U Playoffs", ageGroup: "12U", date: "2026-06-21", time: "1:45 PM", location: "Bladensburg High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 13U PLAYOFFS ──
+  { id: "ff-13u-playoff-semi1", sport: "Flag Football", division: "Coed / 13U Playoffs", ageGroup: "13U", date: "2026-06-20", time: "10:00 AM", location: "Laurel High School", team1: "LBE Knights", team2: "NDO Jaguars", score1: null, score2: null },
+  { id: "ff-13u-playoff-semi2", sport: "Flag Football", division: "Coed / 13U Playoffs", ageGroup: "13U", date: "2026-06-20", time: "12:00 PM", location: "Laurel High School", team1: "KLM Cougars", team2: "Ft. Washington Cannons", score1: null, score2: null },
+  { id: "ff-13u-playoff-final", sport: "Flag Football", division: "Coed / 13U Playoffs", ageGroup: "13U", date: "2026-06-21", time: "10:00 AM", location: "Fairmont Heights High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 14U COED PLAYOFFS ──
+  { id: "ff-14u-playoff-semi1", sport: "Flag Football", division: "Coed / 14U Playoffs", ageGroup: "14U", date: "2026-06-20", time: "11:00 AM", location: "Laurel High School", team1: "Seat Pleasant Bobcats", team2: "DMV Outlaws", score1: null, score2: null },
+  { id: "ff-14u-playoff-semi2", sport: "Flag Football", division: "Coed / 14U Playoffs", ageGroup: "14U", date: "2026-06-20", time: "1:00 PM", location: "Laurel High School", team1: "Greenbelt Gators", team2: "Ft. Washington Cannons", score1: null, score2: null },
+  { id: "ff-14u-playoff-final", sport: "Flag Football", division: "Coed / 14U Playoffs", ageGroup: "14U", date: "2026-06-21", time: "3:00 PM", location: "Bladensburg High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+
+  // ── 14U GIRLS PLAYOFFS ──
+  { id: "ff-14u-girls-playoff-semi1", sport: "Flag Football", division: "Girls / 14U Playoffs", ageGroup: "14U", date: "2026-06-20", time: "10:00 AM", location: "Bladensburg High School", team1: "Beltsville Bulls", team2: "Lady Commandhers", score1: null, score2: null },
+  { id: "ff-14u-girls-playoff-semi2", sport: "Flag Football", division: "Girls / 14U Playoffs", ageGroup: "14U", date: "2026-06-20", time: "10:00 AM", location: "Bladensburg High School", team1: "NDO Jaguars", team2: "Ft. Washington Cannons", score1: null, score2: null },
+  { id: "ff-14u-girls-playoff-final", sport: "Flag Football", division: "Girls / 14U Playoffs", ageGroup: "14U", date: "2026-06-21", time: "4:15 PM", location: "Bladensburg High School", team1: "TBD", team2: "TBD", score1: null, score2: null },
+];
+export { flagFootballGames, flagFootballPlayoffGames };
