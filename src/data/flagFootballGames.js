@@ -4053,7 +4053,7 @@ export const girls14UGames = [
     location: "Walker Mill Regional Park (Field 2)",
   },
 ];
-export const flagFootballGames = [
+const flagFootballGames = [
   ...coed5UGames,
   ...coed6UAmericanGames,
   ...coed6UNationalGames,
