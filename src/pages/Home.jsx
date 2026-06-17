@@ -301,8 +301,21 @@ const upcomingGames = useMemo(() => {
 
                     <div className="feed-game-info">
                       <span className="feed-game-meta">
-                        {game.sport} • {formatDate(game.date)} • {game.time}
-                      </span>
+  {game.sport} • {game.division}
+  {game.division?.toLowerCase().includes("playoff") && (
+    <span style={{
+      marginLeft: "6px",
+      background: "linear-gradient(135deg, #b45309, #f59e0b)",
+      color: "#000",
+      fontSize: "10px",
+      fontWeight: 900,
+      padding: "2px 7px",
+      borderRadius: "20px",
+      letterSpacing: "0.5px",
+      textTransform: "uppercase",
+    }}>🏆 Playoffs</span>
+  )} • {formatDate(game.date)} • {game.time}
+</span>
 
                       <div className="feed-matchup">
                         <button
@@ -359,9 +372,22 @@ const upcomingGames = useMemo(() => {
                     onClick={() => openGame(game)}
                   >
                     <div className="home-final-info">
-                      <span>
-                        {getSportIcon(game.sport)} {game.sport}
-                      </span>
+  <span>
+    {getSportIcon(game.sport)} {game.sport} • {game.division}
+    {game.division?.toLowerCase().includes("playoff") && (
+      <span style={{
+        marginLeft: "6px",
+        background: "linear-gradient(135deg, #b45309, #f59e0b)",
+        color: "#000",
+        fontSize: "10px",
+        fontWeight: 900,
+        padding: "2px 7px",
+        borderRadius: "20px",
+        letterSpacing: "0.5px",
+        textTransform: "uppercase",
+      }}>🏆 Playoffs</span>
+    )}
+  </span>
 
                       <div className="home-final-matchup">
                         <button
