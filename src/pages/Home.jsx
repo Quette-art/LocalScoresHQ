@@ -57,12 +57,16 @@ const Home = ({ games = [], openGameDetails }) => {
   );
 
   const finalGames = useMemo(() => {
-    return allGames.filter((game) => hasScore(game));
-  }, [allGames]);
+  return allGames
+    .filter((game) => hasScore(game))
+    .sort((a, b) => new Date(b.date + "T" + (b.time || "00:00")) - new Date(a.date + "T" + (a.time || "00:00")));
+}, [allGames]);
 
   const upcomingGames = useMemo(() => {
-    return allGames.filter((game) => !hasScore(game));
-  }, [allGames]);
+  return allGames
+    .filter((game) => !hasScore(game))
+    .sort((a, b) => new Date(a.date + "T" + (a.time || "00:00")) - new Date(b.date + "T" + (b.time || "00:00")));
+}, [allGames]);
 
   const favoriteGames = useMemo(() => {
     return upcomingGames.filter((game) => {
