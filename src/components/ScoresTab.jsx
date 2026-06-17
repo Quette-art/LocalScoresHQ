@@ -128,6 +128,7 @@ export default function ScoresTab({
 
   useEffect(() => {
     setSelectedDate(defaultDate);
+    setDivisionFilter("ALL");
   }, [defaultDate, selectedSport]);
 
   useEffect(() => {
@@ -139,9 +140,13 @@ export default function ScoresTab({
   }, [selectedDate, selectedSport]);
 
   const divisions = useMemo(() => {
-    const list = [...new Set(sportGames.map((g) => g.division || "Unknown"))];
+    const list = [...new Set(
+      sportGames
+        .filter((g) => g.date === selectedDate)
+        .map((g) => g.division || "Unknown")
+    )];
     return ["ALL", ...list];
-  }, [sportGames]);
+  }, [sportGames, selectedDate]);
 
   const filteredGames = useMemo(() => {
     const gamesForDateAndDivision = sportGames.filter((game) => {
@@ -345,7 +350,7 @@ export default function ScoresTab({
               }
             }}
             className={`date-btn ${selectedDate === date ? "active" : ""}`}
-            onClick={() => setSelectedDate(date)}
+            onClick={() => { setSelectedDate(date); setDivisionFilter("ALL"); }}
           >
             {new Date(date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}
           </button>
@@ -567,7 +572,7 @@ export default function ScoresTab({
               </div>
               <input placeholder="Date (YYYY-MM-DD) *" value={editGame.date} onChange={(e) => setEditGame({ ...editGame, date: e.target.value })} style={inputStyle} />
               <input placeholder="Time" value={editGame.time} onChange={(e) => setEditGame({ ...editGame, time: e.target.value })} style={inputStyle} />
-              <input placeholder="Location" value={editGame.location} onChange={(e) => setEditGame({ ...editGame, location: e.target.value })} style={inputStyle} />
+              <input placeholder="Location" value={editGame.location} onChange={(e) => setEditGame({ ...editGame.location, location: e.target.value })} style={inputStyle} />
               <TeamAutocomplete
                 placeholder="Division *"
                 value={editGame.division}
