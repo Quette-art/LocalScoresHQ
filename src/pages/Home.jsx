@@ -56,16 +56,22 @@ const Home = ({ games = [], openGameDetails }) => {
     [games]
   );
 
-  const finalGames = useMemo(() => {
+ const finalGames = useMemo(() => {
   return allGames
     .filter((game) => hasScore(game))
-    .sort((a, b) => new Date(b.date + "T" + (b.time || "00:00")) - new Date(a.date + "T" + (a.time || "00:00")));
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 }, [allGames]);
 
-  const upcomingGames = useMemo(() => {
+const upcomingGames = useMemo(() => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   return allGames
-    .filter((game) => !hasScore(game))
-    .sort((a, b) => new Date(a.date + "T" + (a.time || "00:00")) - new Date(b.date + "T" + (b.time || "00:00")));
+    .filter((game) => {
+      if (hasScore(game)) return false;
+      const gameDate = new Date(game.date + "T00:00:00");
+      return gameDate >= today;
+    })
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 }, [allGames]);
 
   const favoriteGames = useMemo(() => {
