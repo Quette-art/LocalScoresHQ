@@ -33,6 +33,17 @@ const flagFootballFilters = [
   "Coed / 13U",
   "Coed / 14U",
   "Girls / 14U",
+  "Coed / 5U Playoffs",
+  "Coed / 6U Playoffs",
+  "Coed / 7U Playoffs",
+  "Coed / 8U Playoffs",
+  "Coed / 9U Playoffs",
+  "Coed / 10U Playoffs",
+  "Coed / 11U Playoffs",
+  "Coed / 12U Playoffs",
+  "Coed / 13U Playoffs",
+  "Coed / 14U Playoffs",
+  "Girls / 14U Playoffs",
 ];
 
 export default function StandingsTab({
