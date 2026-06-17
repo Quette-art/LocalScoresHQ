@@ -99,7 +99,7 @@ export default function StandingsTab({
       teams.forEach((team) => {
         if (!team.name) return;
 
-        const key = `${team.name}-${game.division}-${game.ageGroup || ""}`;
+        const key = `${team.name}-${game.division}`;
 
         if (!table[key]) {
           table[key] = {
