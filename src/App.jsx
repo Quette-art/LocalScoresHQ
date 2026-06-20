@@ -18,6 +18,7 @@ import TeamProfile from "./pages/TeamProfile";
 import GameDetails from "./pages/GameDetails";
 import ScoresTab from "./components/ScoresTab";
 import StandingsTab from "./components/StandingsTab";
+import FavoritesTab from "./components/FavoritesTab";
 import TabNavigation from "./components/TabNavigation";
 import InstallAppButton from "./components/InstallAppButton";
 import IphoneInstallTip from "./components/IphoneInstallTip";
@@ -106,24 +107,25 @@ function AppContent() {
     let gameStatuses = {};
 
     const buildMerged = () => {
-     const localWithScores = upcomingGames.map((game) => {
-  const savedScore = firebaseScores[game.id];
-  const status = gameStatuses[game.id];
-  const firebaseOverride = firebaseGames.find((g) => g.id === game.id);
-  return {
-    ...game,
-    ...(firebaseOverride ? {
-      team1: firebaseOverride.team1 || game.team1,
-      team2: firebaseOverride.team2 || game.team2,
-      date: firebaseOverride.date || game.date,
-      time: firebaseOverride.time || game.time,
-      location: firebaseOverride.location || game.location,
-      division: firebaseOverride.division || game.division,
-    } : {}),
-    ...(savedScore ? { score1: savedScore.score1, score2: savedScore.score2 } : {}),
-    ...(status ? { status } : {}),
-  };
-});
+      const localWithScores = upcomingGames.map((game) => {
+        const savedScore = firebaseScores[game.id];
+        const status = gameStatuses[game.id];
+        const firebaseOverride = firebaseGames.find((g) => g.id === game.id);
+        return {
+          ...game,
+          ...(firebaseOverride ? {
+            team1: firebaseOverride.team1 || game.team1,
+            team2: firebaseOverride.team2 || game.team2,
+            date: firebaseOverride.date || game.date,
+            time: firebaseOverride.time || game.time,
+            location: firebaseOverride.location || game.location,
+            division: firebaseOverride.division || game.division,
+          } : {}),
+          ...(savedScore ? { score1: savedScore.score1, score2: savedScore.score2 } : {}),
+          ...(status ? { status } : {}),
+        };
+      });
+
       const localIds = new Set(upcomingGames.map((g) => g.id));
       const newFirebaseGames = firebaseGames
         .filter((g) => !localIds.has(g.id))
@@ -423,6 +425,12 @@ function AppContent() {
                 <StandingsTab
                   games={games}
                   selectedSport={selectedSport}
+                  openTeamRoute={openTeamRoute}
+                />
+              )}
+              {activeTab === "favorites" && (
+                <FavoritesTab
+                  games={games}
                   openTeamRoute={openTeamRoute}
                 />
               )}

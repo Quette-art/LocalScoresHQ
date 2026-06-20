@@ -20,6 +20,11 @@ export default function TabNavigation({
       label: "Standings",
       icon: "🏆",
     },
+    {
+      key: "favorites",
+      label: "Favorites",
+      icon: "⭐",
+    },
   ];
 
   return (
