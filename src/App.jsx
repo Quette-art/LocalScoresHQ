@@ -315,12 +315,61 @@ const sports = [...baseSports].sort((a, b) => {
     });
   });
 
-  const searchResults =
-    searchTerm.trim() === ""
-      ? []
-      : Object.values(teamMap)
-          .filter((team) => team.teamName.toLowerCase().includes(searchTerm.toLowerCase()))
-          .sort((a, b) => a.teamName.localeCompare(b.teamName));
+  const normalize = (str) =>
+  str.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+const levenshtein = (a, b) => {
+  const matrix = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i - 1] === b[j - 1]) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = 1 + Math.min(matrix[i - 1][j], matrix[i][j - 1], matrix[i - 1][j - 1]);
+      }
+    }
+  }
+  return matrix[a.length][b.length];
+};
+
+const favoriteTeamsList = JSON.parse(localStorage.getItem("favoriteTeams")) || [];
+
+const isFavoriteTeam = (team) =>
+  favoriteTeamsList.includes(`${team.teamName}-${team.division}`);
+
+const allTeamsSorted = Object.values(teamMap).sort((a, b) => {
+  const aFav = isFavoriteTeam(a);
+  const bFav = isFavoriteTeam(b);
+  if (aFav && !bFav) return -1;
+  if (bFav && !aFav) return 1;
+  return a.teamName.localeCompare(b.teamName);
+});
+
+const searchResults =
+  searchTerm.trim() === ""
+    ? allTeamsSorted
+    : allTeamsSorted
+        .map((team) => {
+          const normTeam = normalize(team.teamName);
+          const normQuery = normalize(searchTerm);
+
+          let score;
+          if (normTeam.includes(normQuery)) {
+            score = 0; // direct substring match, best priority
+          } else {
+            score = levenshtein(normTeam, normQuery);
+          }
+          return { team, score };
+        })
+        .filter(({ score, team }) => {
+          const normQuery = normalize(searchTerm);
+          // allow typos proportional to query length
+          const maxDistance = Math.max(2, Math.floor(normQuery.length * 0.4));
+          return score <= maxDistance;
+        })
+        .sort((a, b) => a.score - b.score || a.team.teamName.localeCompare(b.team.teamName))
+        .map(({ team }) => team);
 
   return (
     <div className="appShell">
@@ -350,11 +399,9 @@ const sports = [...baseSports].sort((a, b) => {
             <button className="close-search-btn" onClick={() => { setShowGlobalSearch(false); setSearchTerm(""); }}>×</button>
           </div>
           <div className="search-results-panel">
-            {searchTerm.trim() === "" ? (
-              <p className="no-games">Type a team name to search.</p>
-            ) : searchResults.length === 0 ? (
-              <p className="no-games">No teams found.</p>
-            ) : (
+            {searchResults.length === 0 ? (
+  <p className="no-games">No teams found.</p>
+) : (
               <div className="team-search-list">
                 {searchResults.map((team) => (
                   <button
