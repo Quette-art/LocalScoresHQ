@@ -9,12 +9,15 @@ const SPORTS = [
   { name: "Football", icon: "🏈" },
 ];
 
+const LEAGUE_NAME = "Prince George's County Boys & Girls Club Inc.";
+
 export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, setSelectedSport }) {
   const [favoriteTeams, setFavoriteTeams] = useState(() => {
     return JSON.parse(localStorage.getItem("favoriteTeams")) || [];
   });
   const [showAddModal, setShowAddModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [expandedSport, setExpandedSport] = useState(null);
 
   const getSportIcon = (sport) => {
     if (sport === "Baseball") return "⚾";
@@ -78,6 +81,10 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
   const goToSport = (sportName) => {
     setSelectedSport(sportName);
     setActiveTab("scores");
+  };
+
+  const toggleSport = (sportName) => {
+    setExpandedSport(expandedSport === sportName ? null : sportName);
   };
 
   return (
@@ -201,30 +208,68 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
           ALL SPORTS
         </p>
         <div style={{ background: "#0f172a", border: "1px solid #1a2744", borderRadius: "14px", overflow: "hidden" }}>
-          {SPORTS.map((sport, i) => (
-            <button
-              key={sport.name}
-              onClick={() => goToSport(sport.name)}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "100%",
-                background: "transparent",
-                border: "none",
-                borderBottom: i < SPORTS.length - 1 ? "1px solid #1a2744" : "none",
-                color: "white",
-                padding: "16px",
-                cursor: "pointer",
-                textAlign: "left",
-              }}
-            >
-              <span style={{ fontSize: "15px", fontWeight: 700, display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ fontSize: "20px" }}>{sport.icon}</span> {sport.name}
-              </span>
-              <span style={{ color: "#475569", fontSize: "20px" }}>›</span>
-            </button>
-          ))}
+          {SPORTS.map((sport, i) => {
+            const isExpanded = expandedSport === sport.name;
+            return (
+              <div key={sport.name} style={{ borderBottom: i < SPORTS.length - 1 ? "1px solid #1a2744" : "none" }}>
+                <button
+                  onClick={() => toggleSport(sport.name)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    background: "transparent",
+                    border: "none",
+                    color: "white",
+                    padding: "16px",
+                    cursor: "pointer",
+                    textAlign: "left",
+                  }}
+                >
+                  <span style={{ fontSize: "15px", fontWeight: 700, display: "flex", alignItems: "center", gap: "10px" }}>
+                    <span style={{ fontSize: "20px" }}>{sport.icon}</span> {sport.name}
+                  </span>
+                  <span
+                    style={{
+                      color: "#475569",
+                      fontSize: "16px",
+                      transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
+                      transition: "transform 0.15s ease",
+                    }}
+                  >
+                    ›
+                  </span>
+                </button>
+
+                {isExpanded && (
+                  <div style={{ padding: "0 16px 14px" }}>
+                    <button
+                      onClick={() => goToSport(sport.name)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        width: "100%",
+                        background: "#020617",
+                        border: "1px solid #1a2744",
+                        borderRadius: "10px",
+                        color: "#cbd5e1",
+                        padding: "12px 14px",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        fontSize: "13px",
+                        fontWeight: 700,
+                      }}
+                    >
+                      {LEAGUE_NAME}
+                      <span style={{ color: "#22d3ee", fontSize: "16px" }}>›</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 
