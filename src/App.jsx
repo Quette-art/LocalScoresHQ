@@ -72,15 +72,60 @@ function AppContent() {
 
   const isAdmin = !!adminUser;
 
-  const baseSports = [
-    { name: "Soccer", icon: "⚽", priority: 1 },
-    { name: "Flag Football", icon: "🚩", priority: 2 },
-    { name: "Basketball", icon: "🏀", priority: 3 },
-    { name: "Baseball", icon: "⚾", priority: 4 },
-    { name: "Football", icon: "🏈", priority: 5 },
-  ];
+ const baseSports = [
+  { name: "Soccer", icon: "⚽" },
+  { name: "Flag Football", icon: "🚩" },
+  { name: "Basketball", icon: "🏀" },
+  { name: "Baseball", icon: "⚾" },
+  { name: "Football", icon: "🏈" },
+];
 
-  const sports = [...baseSports].sort((a, b) => a.priority - b.priority);
+const hasScore = (game) =>
+  game.score1 !== null && game.score1 !== undefined &&
+  game.score2 !== null && game.score2 !== undefined;
+
+const favoriteTeamsList = JSON.parse(localStorage.getItem("favoriteTeams")) || [];
+
+const favoriteSports = new Set(
+  games
+    .filter((game) => {
+      const team1Key = `${game.team1}-${game.division}`;
+      const team2Key = `${game.team2}-${game.division}`;
+      return favoriteTeamsList.includes(team1Key) || favoriteTeamsList.includes(team2Key);
+    })
+    .map((game) => game.sport || "Soccer")
+);
+
+const nextGameBySport = {};
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+games.forEach((game) => {
+  if (hasScore(game)) return;
+  const sport = game.sport || "Soccer";
+  const gameDate = new Date(game.date + "T00:00:00");
+  if (gameDate < today) return;
+  if (!nextGameBySport[sport] || gameDate < nextGameBySport[sport]) {
+    nextGameBySport[sport] = gameDate;
+  }
+});
+
+const sports = [...baseSports].sort((a, b) => {
+  const aHasFavoriteUpcoming = favoriteSports.has(a.name) && nextGameBySport[a.name];
+  const bHasFavoriteUpcoming = favoriteSports.has(b.name) && nextGameBySport[b.name];
+
+  if (aHasFavoriteUpcoming && !bHasFavoriteUpcoming) return -1;
+  if (bHasFavoriteUpcoming && !aHasFavoriteUpcoming) return 1;
+
+  const aNext = nextGameBySport[a.name];
+  const bNext = nextGameBySport[b.name];
+
+  if (!aNext && bNext) return 1;
+  if (!bNext && aNext) return -1;
+  if (!aNext && !bNext) return 0;
+
+  return aNext - bNext;
+});
 
   const sportIcons = {
     Baseball: "⚾",
@@ -355,9 +400,8 @@ function AppContent() {
         <div className="sportsBar">
           {sports.map((sport) => (
             <button
-              key={sport.name}
-              style={{ order: sport.priority }}
-              className={`sportPill ${selectedSport === sport.name ? "sportPillActive" : ""}`}
+  key={sport.name}
+  className={`sportPill ${selectedSport === sport.name ? "sportPillActive" : ""}`}
               ref={(el) => {
                 if (el && selectedSport === sport.name) {
                   el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
