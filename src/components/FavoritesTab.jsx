@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import "./ScoresTab.css";
 
-const SPORTS = [
+const SPORT_DEFS = [
   { name: "Soccer", icon: "⚽" },
   { name: "Flag Football", icon: "🚩" },
   { name: "Basketball", icon: "🏀" },
@@ -10,6 +10,10 @@ const SPORTS = [
 ];
 
 const LEAGUE_NAME = "Prince George's County Boys & Girls Club Inc.";
+
+const hasScore = (game) =>
+  game.score1 !== null && game.score1 !== undefined &&
+  game.score2 !== null && game.score2 !== undefined;
 
 export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, setSelectedSport }) {
   const [favoriteTeams, setFavoriteTeams] = useState(() => {
@@ -60,6 +64,51 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
       })
       .sort((a, b) => a.teamName.localeCompare(b.teamName));
   }, [favoriteTeams, allTeams]);
+
+  // Sports that have at least one favorited team
+  const favoriteSports = useMemo(() => {
+    return new Set(favoriteTeamDetails.map((t) => t.sport));
+  }, [favoriteTeamDetails]);
+
+  // Next upcoming game date per sport
+  const nextGameBySport = useMemo(() => {
+    const map = {};
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    games.forEach((game) => {
+      if (hasScore(game)) return;
+      const sport = game.sport || "Soccer";
+      const gameDate = new Date(game.date + "T00:00:00");
+      if (gameDate < today) return;
+      if (!map[sport] || gameDate < map[sport]) {
+        map[sport] = gameDate;
+      }
+    });
+    return map;
+  }, [games]);
+
+  const sortedSports = useMemo(() => {
+    return [...SPORT_DEFS].sort((a, b) => {
+      const aHasFavoriteUpcoming = favoriteSports.has(a.name) && nextGameBySport[a.name];
+      const bHasFavoriteUpcoming = favoriteSports.has(b.name) && nextGameBySport[b.name];
+
+      // 1. Favorited sport with upcoming game comes first
+      if (aHasFavoriteUpcoming && !bHasFavoriteUpcoming) return -1;
+      if (bHasFavoriteUpcoming && !aHasFavoriteUpcoming) return 1;
+
+      const aNext = nextGameBySport[a.name];
+      const bNext = nextGameBySport[b.name];
+
+      // 2. Sports with no upcoming games go to the bottom
+      if (!aNext && bNext) return 1;
+      if (!bNext && aNext) return -1;
+      if (!aNext && !bNext) return 0;
+
+      // 3. Sort remaining by soonest upcoming game
+      return aNext - bNext;
+    });
+  }, [favoriteSports, nextGameBySport]);
 
   const searchResults = useMemo(() => {
     if (!searchTerm.trim()) return [];
@@ -208,10 +257,10 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
           ALL SPORTS
         </p>
         <div style={{ background: "#0f172a", border: "1px solid #1a2744", borderRadius: "14px", overflow: "hidden" }}>
-          {SPORTS.map((sport, i) => {
+          {sortedSports.map((sport, i) => {
             const isExpanded = expandedSport === sport.name;
             return (
-              <div key={sport.name} style={{ borderBottom: i < SPORTS.length - 1 ? "1px solid #1a2744" : "none" }}>
+              <div key={sport.name} style={{ borderBottom: i < sortedSports.length - 1 ? "1px solid #1a2744" : "none" }}>
                 <button
                   onClick={() => toggleSport(sport.name)}
                   style={{
