@@ -333,7 +333,7 @@ const levenshtein = (a, b) => {
   return matrix[a.length][b.length];
 };
 
-const favoriteTeamsList = JSON.parse(localStorage.getItem("favoriteTeams")) || [];
+
 
 const isFavoriteTeam = (team) =>
   favoriteTeamsList.includes(`${team.teamName}-${team.division}`);
