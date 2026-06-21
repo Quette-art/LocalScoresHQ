@@ -429,11 +429,13 @@ function AppContent() {
                 />
               )}
               {activeTab === "favorites" && (
-                <FavoritesTab
-                  games={games}
-                  openTeamRoute={openTeamRoute}
-                />
-              )}
+  <FavoritesTab
+    games={games}
+    openTeamRoute={openTeamRoute}
+    setActiveTab={setActiveTab}
+    setSelectedSport={setSelectedSport}
+  />
+)}
             </main>
           }
         />

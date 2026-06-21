@@ -1,7 +1,15 @@
 import React, { useMemo, useState } from "react";
 import "./ScoresTab.css";
 
-export default function FavoritesTab({ games = [], openTeamRoute }) {
+const SPORTS = [
+  { name: "Soccer", icon: "⚽" },
+  { name: "Flag Football", icon: "🚩" },
+  { name: "Basketball", icon: "🏀" },
+  { name: "Baseball", icon: "⚾" },
+  { name: "Football", icon: "🏈" },
+];
+
+export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, setSelectedSport }) {
   const [favoriteTeams, setFavoriteTeams] = useState(() => {
     return JSON.parse(localStorage.getItem("favoriteTeams")) || [];
   });
@@ -16,7 +24,6 @@ export default function FavoritesTab({ games = [], openTeamRoute }) {
     return "⚽";
   };
 
-  // Build full team list across all games
   const allTeams = useMemo(() => {
     const map = {};
     games.forEach((game) => {
@@ -39,7 +46,6 @@ export default function FavoritesTab({ games = [], openTeamRoute }) {
       .map((key) => {
         const found = allTeams.find((t) => t.key === key);
         if (found) return found;
-        // fallback if team no longer found in games
         const lastDashIndex = key.lastIndexOf("-");
         return {
           key,
@@ -69,10 +75,9 @@ export default function FavoritesTab({ games = [], openTeamRoute }) {
     localStorage.setItem("favoriteTeams", JSON.stringify(updated));
   };
 
-  const removeFavorite = (key) => {
-    const updated = favoriteTeams.filter((k) => k !== key);
-    setFavoriteTeams(updated);
-    localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+  const goToSport = (sportName) => {
+    setSelectedSport(sportName);
+    setActiveTab("scores");
   };
 
   return (
@@ -81,117 +86,147 @@ export default function FavoritesTab({ games = [], openTeamRoute }) {
         <h2>FAVORITES</h2>
       </div>
 
-      <div style={{ padding: "0 16px 12px" }}>
+      {/* FAVORITE TEAM CHIPS */}
+      <div
+        style={{
+          display: "flex",
+          gap: "18px",
+          overflowX: "auto",
+          padding: "4px 16px 20px",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        {favoriteTeamDetails.map((team) => (
+          <button
+            key={team.key}
+            onClick={() =>
+              openTeamRoute({
+                teamName: team.teamName,
+                division: team.division,
+                ageGroup: team.ageGroup,
+                sport: team.sport,
+              })
+            }
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "6px",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              flexShrink: 0,
+              width: "64px",
+            }}
+          >
+            <div
+              style={{
+                width: "56px",
+                height: "56px",
+                borderRadius: "50%",
+                background: "linear-gradient(135deg, #0891b2, #22d3ee)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 900,
+                fontSize: "16px",
+                color: "#020617",
+              }}
+            >
+              {team.teamName.substring(0, 2).toUpperCase()}
+            </div>
+            <span
+              style={{
+                color: "#cbd5e1",
+                fontSize: "11px",
+                fontWeight: 700,
+                textAlign: "center",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                maxWidth: "64px",
+              }}
+            >
+              {team.teamName}
+            </span>
+          </button>
+        ))}
+
+        {/* ADD BUTTON */}
         <button
           onClick={() => setShowAddModal(true)}
           style={{
-            width: "100%",
-            padding: "12px",
-            borderRadius: "10px",
-            border: "1px dashed #22d3ee",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "6px",
             background: "transparent",
-            color: "#22d3ee",
-            fontWeight: 800,
-            fontSize: "14px",
+            border: "none",
             cursor: "pointer",
+            flexShrink: 0,
+            width: "64px",
           }}
         >
-          + Add Team
+          <div
+            style={{
+              width: "56px",
+              height: "56px",
+              borderRadius: "50%",
+              border: "2px dashed #334155",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontWeight: 900,
+              fontSize: "24px",
+              color: "#22d3ee",
+            }}
+          >
+            +
+          </div>
+          <span style={{ color: "#cbd5e1", fontSize: "11px", fontWeight: 700 }}>Add</span>
         </button>
       </div>
 
-      {favoriteTeamDetails.length === 0 ? (
-        <div style={{ padding: "40px 20px", textAlign: "center" }}>
-          <p style={{ color: "#94a3b8", fontSize: "15px", fontWeight: 600 }}>
-            No favorite teams yet.
-          </p>
-          <p style={{ color: "#64748b", fontSize: "13px", marginTop: "8px" }}>
-            Tap "+ Add Team" above to get started.
+      {favoriteTeamDetails.length === 0 && (
+        <div style={{ padding: "0 20px 20px", textAlign: "center" }}>
+          <p style={{ color: "#64748b", fontSize: "13px" }}>
+            Tap the + above to add your first favorite team.
           </p>
         </div>
-      ) : (
-        <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: "10px" }}>
-          {favoriteTeamDetails.map((team) => (
-            <div
-              key={team.key}
+      )}
+
+      {/* SPORTS LIST */}
+      <div style={{ padding: "0 16px" }}>
+        <p style={{ color: "#64748b", fontSize: "12px", fontWeight: 800, letterSpacing: "0.5px", margin: "0 0 10px" }}>
+          ALL SPORTS
+        </p>
+        <div style={{ background: "#0f172a", border: "1px solid #1a2744", borderRadius: "14px", overflow: "hidden" }}>
+          {SPORTS.map((sport, i) => (
+            <button
+              key={sport.name}
+              onClick={() => goToSport(sport.name)}
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "14px",
+                justifyContent: "space-between",
                 width: "100%",
-                background: "#0f172a",
-                border: "1px solid #1a2744",
-                borderRadius: "14px",
-                padding: "14px 16px",
+                background: "transparent",
+                border: "none",
+                borderBottom: i < SPORTS.length - 1 ? "1px solid #1a2744" : "none",
+                color: "white",
+                padding: "16px",
+                cursor: "pointer",
+                textAlign: "left",
               }}
             >
-              <button
-                onClick={() =>
-                  openTeamRoute({
-                    teamName: team.teamName,
-                    division: team.division,
-                    ageGroup: team.ageGroup,
-                    sport: team.sport,
-                  })
-                }
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "14px",
-                  flex: 1,
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                  textAlign: "left",
-                  padding: 0,
-                  minWidth: 0,
-                }}
-              >
-                <div
-                  style={{
-                    width: "44px",
-                    height: "44px",
-                    borderRadius: "50%",
-                    background: "linear-gradient(135deg, #0891b2, #22d3ee)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontWeight: 900,
-                    fontSize: "15px",
-                    color: "#020617",
-                    flexShrink: 0,
-                  }}
-                >
-                  {team.teamName.substring(0, 2).toUpperCase()}
-                </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ margin: 0, color: "white", fontWeight: 800, fontSize: "15px" }}>
-                    ⭐ {team.teamName}
-                  </p>
-                  <p style={{ margin: "2px 0 0", color: "#94a3b8", fontSize: "13px", fontWeight: 600 }}>
-                    {getSportIcon(team.sport)} {team.sport} • {team.division}
-                  </p>
-                </div>
-              </button>
-              <button
-                onClick={() => removeFavorite(team.key)}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: "#f87171",
-                  fontSize: "20px",
-                  cursor: "pointer",
-                  padding: "4px 8px",
-                  flexShrink: 0,
-                }}
-                title="Remove from favorites"
-              >
-                ✕
-              </button>
-            </div>
+              <span style={{ fontSize: "15px", fontWeight: 700, display: "flex", alignItems: "center", gap: "10px" }}>
+                <span style={{ fontSize: "20px" }}>{sport.icon}</span> {sport.name}
+              </span>
+              <span style={{ color: "#475569", fontSize: "20px" }}>›</span>
+            </button>
           ))}
         </div>
-      )}
+      </div>
 
       {/* ADD TEAM MODAL */}
       {showAddModal && (
