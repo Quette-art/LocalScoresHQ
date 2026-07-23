@@ -27,6 +27,36 @@ const hasScore = (game) =>
   game.score2 !== null &&
   game.score2 !== undefined;
 
+const AVATAR_COLORS = [
+  "#e11d48", "#f59e0b", "#22c55e", "#0ea5e9",
+  "#8b5cf6", "#ec4899", "#14b8a6", "#f97316",
+];
+
+const getTeamAvatar = (name = "") => {
+  const clean = name.trim();
+  const words = clean.split(/\s+/).filter(Boolean);
+  const initials = words.length >= 2
+    ? (words[0][0] + words[1][0]).toUpperCase()
+    : clean.slice(0, 2).toUpperCase();
+
+  let hash = 0;
+  for (let i = 0; i < clean.length; i++) {
+    hash = clean.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const color = AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+
+  return { initials, color };
+};
+
+const TeamAvatar = ({ name }) => {
+  const { initials, color } = getTeamAvatar(name);
+  return (
+    <span className="team-avatar" style={{ background: color }}>
+      {initials}
+    </span>
+  );
+};
+
 const formatDate = (dateString) => {
   const date = new Date(dateString + "T00:00:00");
 
@@ -166,39 +196,54 @@ const upcomingGames = useMemo(() => {
 
       {featuredGame && (
         <div
-          className="home-featured-card"
+          className="home-hero-card"
           onClick={() => openGame(featuredGame)}
         >
-          <div className="featured-top">
-            <div>
-              <p className="home-kicker">FEATURED MATCHUP</p>
-
-              <span className="featured-status">
-                {hasScore(featuredGame) ? "FINAL" : "UPCOMING"}
-              </span>
-            </div>
+          <div className="hero-top-row">
+            <p className="home-kicker">FEATURED MATCHUP</p>
+            <span className="hero-status">
+              {hasScore(featuredGame) ? "FINAL" : "UPCOMING"}
+            </span>
           </div>
 
-          <div className="home-featured-teams">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                openTeam(featuredGame, featuredGame.team1);
-              }}
-            >
-              {featuredGame.team1}
-            </button>
+          <div className="hero-matchup">
+            <div className="hero-team">
+              <TeamAvatar name={featuredGame.team1} />
+              <span
+                className={
+                  hasScore(featuredGame)
+                    ? Number(featuredGame.score1) > Number(featuredGame.score2)
+                      ? "winner"
+                      : "loser"
+                    : ""
+                }
+              >
+                {featuredGame.team1}
+              </span>
+            </div>
 
-            <span className="vs-text">VS</span>
+            {hasScore(featuredGame) ? (
+              <div className="hero-score">
+                {featuredGame.score1} - {featuredGame.score2}
+              </div>
+            ) : (
+              <span className="vs-text">VS</span>
+            )}
 
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                openTeam(featuredGame, featuredGame.team2);
-              }}
-            >
-              {featuredGame.team2}
-            </button>
+            <div className="hero-team">
+              <TeamAvatar name={featuredGame.team2} />
+              <span
+                className={
+                  hasScore(featuredGame)
+                    ? Number(featuredGame.score2) > Number(featuredGame.score1)
+                      ? "winner"
+                      : "loser"
+                    : ""
+                }
+              >
+                {featuredGame.team2}
+              </span>
+            </div>
           </div>
 
           <p className="featured-details">
@@ -289,7 +334,7 @@ const upcomingGames = useMemo(() => {
               {upcomingGames.length === 0 ? (
                 <p className="home-muted">No upcoming games.</p>
               ) : (
-                upcomingGames.slice(0, 4).map((game) => (
+                upcomingGames.slice(0, 6).map((game) => (
                   <div
                     className="home-game-feed-row"
                     key={game.id}
@@ -324,6 +369,7 @@ const upcomingGames = useMemo(() => {
                             openTeam(game, game.team1);
                           }}
                         >
+                          <TeamAvatar name={game.team1} />
                           {game.team1}
                         </button>
 
@@ -335,6 +381,7 @@ const upcomingGames = useMemo(() => {
                             openTeam(game, game.team2);
                           }}
                         >
+                          <TeamAvatar name={game.team2} />
                           {game.team2}
                         </button>
                       </div>
@@ -365,7 +412,11 @@ const upcomingGames = useMemo(() => {
               {finalGames.length === 0 ? (
                 <p className="home-muted">No finals yet.</p>
               ) : (
-                finalGames.slice(0, 4).map((game) => (
+                finalGames.slice(0, 6).map((game) => {
+                  const team1Won = Number(game.score1) > Number(game.score2);
+                  const team2Won = Number(game.score2) > Number(game.score1);
+
+                  return (
                   <div
                     className="home-final-row"
                     key={game.id}
@@ -391,22 +442,26 @@ const upcomingGames = useMemo(() => {
 
                       <div className="home-final-matchup">
                         <button
+                          className={team1Won ? "winner" : "loser"}
                           onClick={(e) => {
                             e.stopPropagation();
                             openTeam(game, game.team1);
                           }}
                         >
+                          <TeamAvatar name={game.team1} />
                           {game.team1}
                         </button>
 
                         <span>VS</span>
 
                         <button
+                          className={team2Won ? "winner" : "loser"}
                           onClick={(e) => {
                             e.stopPropagation();
                             openTeam(game, game.team2);
                           }}
                         >
+                          <TeamAvatar name={game.team2} />
                           {game.team2}
                         </button>
                       </div>
@@ -416,7 +471,8 @@ const upcomingGames = useMemo(() => {
                       {game.score1} - {game.score2}
                     </b>
                   </div>
-                ))
+                  );
+                })
               )}
             </>
           )}
