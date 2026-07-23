@@ -148,6 +148,42 @@ const upcomingGames = useMemo(() => {
     }) ||
     finalGames[0];
 
+  // Games involving any favorite team, across finals + upcoming
+  const favoriteTeamAllGames = useMemo(() => {
+    return allGames.filter((game) => {
+      const team1Key = `${game.team1}-${game.division}`;
+      const team2Key = `${game.team2}-${game.division}`;
+      return (
+        favoriteTeams.includes(team1Key) || favoriteTeams.includes(team2Key)
+      );
+    });
+  }, [allGames, favoriteTeams]);
+
+  // Hero game: favorite team's most recent final, else their soonest upcoming
+  const favoriteHeroGame = useMemo(() => {
+    const recentFinal = favoriteTeamAllGames
+      .filter((g) => hasScore(g))
+      .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+
+    if (recentFinal) return recentFinal;
+
+    return favoriteTeamAllGames
+      .filter((g) => !hasScore(g))
+      .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+  }, [favoriteTeamAllGames]);
+
+  const heroGame = favoriteHeroGame || featuredGame;
+  const hasFavoriteHero = Boolean(favoriteHeroGame);
+
+  // The sport your favorite team plays — or, with no favorites set, whichever
+  // sport has the most recent activity
+  const activeSport = favoriteHeroGame?.sport || finalGames[0]?.sport;
+
+  const sportScoreboard = useMemo(() => {
+    if (!activeSport) return [];
+    return finalGames.filter((g) => g.sport === activeSport).slice(0, 6);
+  }, [finalGames, activeSport]);
+
   const openTeam = (game, teamName) => {
     setSelectedTeam({
       teamName,
@@ -194,63 +230,114 @@ const upcomingGames = useMemo(() => {
         </div>
       </div>
 
-      {featuredGame && (
+      {heroGame && (
         <div
           className="home-hero-card"
-          onClick={() => openGame(featuredGame)}
+          onClick={() => openGame(heroGame)}
         >
           <div className="hero-top-row">
-            <p className="home-kicker">FEATURED MATCHUP</p>
+            <p className="home-kicker">
+              {hasFavoriteHero ? "YOUR TEAM" : "FEATURED MATCHUP"}
+            </p>
             <span className="hero-status">
-              {hasScore(featuredGame) ? "FINAL" : "UPCOMING"}
+              {hasScore(heroGame) ? "FINAL" : "UPCOMING"}
             </span>
           </div>
 
           <div className="hero-matchup">
             <div className="hero-team">
-              <TeamAvatar name={featuredGame.team1} />
+              <TeamAvatar name={heroGame.team1} />
               <span
                 className={
-                  hasScore(featuredGame)
-                    ? Number(featuredGame.score1) > Number(featuredGame.score2)
+                  hasScore(heroGame)
+                    ? Number(heroGame.score1) > Number(heroGame.score2)
                       ? "winner"
                       : "loser"
                     : ""
                 }
               >
-                {featuredGame.team1}
+                {heroGame.team1}
               </span>
             </div>
 
-            {hasScore(featuredGame) ? (
+            {hasScore(heroGame) ? (
               <div className="hero-score">
-                {featuredGame.score1} - {featuredGame.score2}
+                {heroGame.score1} - {heroGame.score2}
               </div>
             ) : (
               <span className="vs-text">VS</span>
             )}
 
             <div className="hero-team">
-              <TeamAvatar name={featuredGame.team2} />
+              <TeamAvatar name={heroGame.team2} />
               <span
                 className={
-                  hasScore(featuredGame)
-                    ? Number(featuredGame.score2) > Number(featuredGame.score1)
+                  hasScore(heroGame)
+                    ? Number(heroGame.score2) > Number(heroGame.score1)
                       ? "winner"
                       : "loser"
                     : ""
                 }
               >
-                {featuredGame.team2}
+                {heroGame.team2}
               </span>
             </div>
           </div>
 
           <p className="featured-details">
-            {getSportIcon(featuredGame.sport)} {featuredGame.sport} •{" "}
-            {formatDate(featuredGame.date)} • {featuredGame.time} •{" "}
-            {featuredGame.location}
+            {getSportIcon(heroGame.sport)} {heroGame.sport} •{" "}
+            {formatDate(heroGame.date)} • {heroGame.time} •{" "}
+            {heroGame.location}
           </p>
+        </div>
+      )}
+
+      {sportScoreboard.length > 0 && (
+        <div className="home-section-card">
+          <div className="section-header">
+            <h2>
+              {getSportIcon(activeSport)} {activeSport} Scoreboard
+            </h2>
+          </div>
+
+          <div className="sport-scoreboard-grid">
+            {sportScoreboard.map((game) => {
+              const team1Won = Number(game.score1) > Number(game.score2);
+              const team2Won = Number(game.score2) > Number(game.score1);
+
+              return (
+                <div
+                  className="scoreboard-mini-row"
+                  key={game.id}
+                  onClick={() => openGame(game)}
+                >
+                  <div className="scoreboard-mini-teams">
+                    <div className="scoreboard-mini-team">
+                      <TeamAvatar name={game.team1} />
+                      <span className={team1Won ? "winner" : "loser"}>
+                        {game.team1}
+                      </span>
+                      <b className={team1Won ? "winner" : "loser"}>
+                        {game.score1}
+                      </b>
+                    </div>
+
+                    <div className="scoreboard-mini-team">
+                      <TeamAvatar name={game.team2} />
+                      <span className={team2Won ? "winner" : "loser"}>
+                        {game.team2}
+                      </span>
+                      <b className={team2Won ? "winner" : "loser"}>
+                        {game.score2}
+                      </b>
+                    </div>
+                  </div>
+
+                  <span className="scoreboard-mini-status">Final</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 

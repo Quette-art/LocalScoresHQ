@@ -380,6 +380,74 @@ button, input, select { font-family: inherit; }
   font-weight: 900;
 }
 
+/* --- Sport Scoreboard: ESPN "MLB Scoreboard" 2-column widget --- */
+.sport-scoreboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+}
+
+.scoreboard-mini-row {
+  padding: 10px 0;
+  border-top: 1px solid #1a2744;
+  cursor: pointer;
+}
+
+.scoreboard-mini-teams {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scoreboard-mini-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scoreboard-mini-team .team-avatar {
+  width: 20px;
+  height: 20px;
+  font-size: 8px;
+}
+
+.scoreboard-mini-team span {
+  flex: 1;
+  font-size: 14px;
+  color: #fff;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scoreboard-mini-team span.loser { color: #64748b; font-weight: 700; }
+.scoreboard-mini-team span.loser + b { color: #64748b; }
+.scoreboard-mini-team b.loser { color: #64748b; }
+
+.scoreboard-mini-team b {
+  font-size: 15px;
+  font-weight: 900;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.scoreboard-mini-status {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #7a8fa8;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+@media (max-width: 768px) {
+  .sport-scoreboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .home-feed-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
