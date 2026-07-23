@@ -409,9 +409,10 @@ button, input, select { font-family: inherit; }
   width: 20px;
   height: 20px;
   font-size: 8px;
+  flex: none;
 }
 
-.scoreboard-mini-team span {
+.scoreboard-mini-team span:not(.team-avatar) {
   flex: 1;
   font-size: 14px;
   color: #fff;
@@ -421,8 +422,7 @@ button, input, select { font-family: inherit; }
   white-space: nowrap;
 }
 
-.scoreboard-mini-team span.loser { color: #64748b; font-weight: 700; }
-.scoreboard-mini-team span.loser + b { color: #64748b; }
+.scoreboard-mini-team span.loser:not(.team-avatar) { color: #64748b; font-weight: 700; }
 .scoreboard-mini-team b.loser { color: #64748b; }
 
 .scoreboard-mini-team b {
@@ -544,9 +544,9 @@ button, input, select { font-family: inherit; }
 
 .home-final-matchup button.loser .team-avatar { opacity: 0.55; }
 
-.favorite-card-matchup span,
-.feed-matchup span,
-.home-final-matchup span {
+.favorite-card-matchup span:not(.team-avatar),
+.feed-matchup span:not(.team-avatar),
+.home-final-matchup span:not(.team-avatar) {
   color: var(--accent);
   font-size: 12px;
   font-weight: 900;
