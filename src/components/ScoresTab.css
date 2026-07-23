@@ -328,7 +328,7 @@ button, input, select { font-family: inherit; }
 .home-page p { color: var(--muted); }
 
 .home-feed-header,
-.home-featured-card,
+.home-hero-card,
 .home-section-card {
   background: var(--bg-surface);
   border: 1px solid #1a2744;
@@ -433,6 +433,9 @@ button, input, select { font-family: inherit; }
 .favorite-card-matchup button,
 .feed-matchup button,
 .home-final-matchup button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   border: none;
   background: transparent;
   color: white;
@@ -446,6 +449,20 @@ button, input, select { font-family: inherit; }
 .feed-matchup button:hover,
 .home-final-matchup button:hover { color: var(--accent); }
 
+.team-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+}
+
 /* ESPN-style winner/loser contrast on Recent Finals */
 .home-final-matchup button.winner {
   color: #fff;
@@ -456,6 +473,8 @@ button, input, select { font-family: inherit; }
   color: #64748b;
   font-weight: 700;
 }
+
+.home-final-matchup button.loser .team-avatar { opacity: 0.55; }
 
 .favorite-card-matchup span,
 .feed-matchup span,
@@ -1405,7 +1424,7 @@ button, input, select { font-family: inherit; }
 
 /* hover lifts */
 .game-card:hover,
-.home-featured-card:hover,
+.home-hero-card:hover,
 .favorite-mini-card:hover,
 .standingsRow:hover {
   transform: translateY(-2px);
@@ -1666,18 +1685,70 @@ button, input, select { font-family: inherit; }
   .home-final-row  { grid-template-columns: 1fr; gap: 6px; }
   .score-display   { justify-self: start; }
 }
-.home-featured-teams button {
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 20px;
-  font-weight: 900;
-  cursor: pointer;
-  padding: 0;
+/* --- Hero card: Featured Matchup, distinct from the list rows below --- */
+.home-hero-card {
+  border-color: #22d3ee33;
+  background: linear-gradient(180deg, rgba(34,211,238,0.06), transparent 60%), var(--bg-surface);
 }
 
-.home-featured-teams button:hover {
-  color: #22d3ee;
+.hero-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.hero-status {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  color: #7a8fa8;
+  text-transform: uppercase;
+}
+
+.hero-matchup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.hero-team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-team .team-avatar {
+  width: 34px;
+  height: 34px;
+  font-size: 13px;
+}
+
+.hero-team span {
+  font-size: 19px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hero-team span.loser { color: #64748b; }
+.hero-team span.loser + .team-avatar,
+.hero-team:has(span.loser) .team-avatar { opacity: 0.55; }
+
+.hero-score {
+  flex-shrink: 0;
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
 }
 /* Hide mobile matchup on desktop */
 .mobile-matchup {
@@ -1706,7 +1777,7 @@ button, input, select { font-family: inherit; }
 
   /* Widget cards: quieter, less "bubbly" than before */
   .home-feed-header,
-  .home-featured-card,
+  .home-hero-card,
   .home-section-card {
     border-radius: 14px;
     border-color: #1a2744;
@@ -1759,32 +1830,27 @@ button, input, select { font-family: inherit; }
     text-transform: uppercase;
   }
 
-  /* FEATURED MATCHUP */
-  .home-featured-card {
+  /* FEATURED MATCHUP HERO */
+  .home-hero-card {
     padding: 14px 16px;
   }
 
-  .home-featured-teams {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin: 10px 0;
+  .hero-matchup {
+    gap: 10px;
   }
 
-  .home-featured-teams button {
-    flex: 1;
-    background: transparent;
-    border: 1px solid #1a2744;
-    border-radius: 10px;
-    color: white;
-    font-size: 13px;
-    font-weight: 800;
-    padding: 10px 8px;
-    text-align: center;
-    line-height: 1.2;
-    cursor: pointer;
+  .hero-team span {
+    font-size: 15px;
+  }
+
+  .hero-team .team-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+  }
+
+  .hero-score {
+    font-size: 22px;
   }
 
   .vs-text {
