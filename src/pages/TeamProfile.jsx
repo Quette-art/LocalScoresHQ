@@ -171,11 +171,11 @@ export default function TeamProfile({
       {/* HEADER */}
       <div className="team-header">
         <div className="team-logo">
-          {teamName.substring(0, 2).toUpperCase()}
+          {(teamName || "").substring(0, 2).toUpperCase() || "?"}
         </div>
 
         <div className="team-header-info">
-          <h1>{teamName}</h1>
+          <h1>{teamName || "Unknown Team"}</h1>
 
           <span>
             {ageGroup} • {division}
