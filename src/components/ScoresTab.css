@@ -2,22 +2,22 @@
    CSS CUSTOM PROPERTIES
 ================================================ */
 :root {
-  --bg-base:       #020617;
-  --bg-surface:    #0f172a;
-  --bg-raised:     #111827;
-  --bg-inset:      #0b1220;
-  --border:        rgba(148, 163, 184, 0.16);
-  --border-strong: #263244;
-  --accent:        #22d3ee;
-  --accent-dim:    rgba(34, 211, 238, 0.14);
-  --accent-glow:   rgba(34, 211, 238, 0.28);
-  --blue:          #0ea5e9;
-  --blue-deep:     #2563eb;
-  --green:         #22c55e;
-  --red:           #ef4444;
-  --muted:         #94a3b8;
-  --text:          #f8fafc;
-  --text-mid:      #cbd5e1;
+  --bg-base:       #f4f6f9;
+  --bg-surface:    #ffffff;
+  --bg-raised:     #ffffff;
+  --bg-inset:      #f1f5f9;
+  --border:        rgba(15, 23, 42, 0.10);
+  --border-strong: #e2e8f0;
+  --accent:        #1d64d8;
+  --accent-dim:    rgba(29, 100, 216, 0.08);
+  --accent-glow:   rgba(29, 100, 216, 0.20);
+  --blue:          #1d64d8;
+  --blue-deep:     #0f3d8a;
+  --green:         #16a34a;
+  --red:           #dc2626;
+  --muted:         #64748b;
+  --text:          #ffffff;
+  --text-mid:      #334155;
   --radius-sm:     12px;
   --radius-md:     16px;
   --radius-lg:     22px;
@@ -80,7 +80,7 @@ button, input, select { font-family: inherit; }
   height: var(--nav-height);
   padding: 0 18px;
   background: var(--bg-base);
-  border-bottom: 1px solid #142033;
+  border-bottom: 1px solid #f1f5f9;
   display: grid;
   grid-template-columns: 46px 1fr 46px;
   align-items: center;
@@ -117,7 +117,7 @@ button, input, select { font-family: inherit; }
   padding: 3px 9px;
   border-radius: var(--radius-pill);
   background: linear-gradient(135deg, #0ea5e9, #2563eb);
-  color: white;
+  color: #0f172a;
   font-size: 9px;
   font-weight: 900;
   letter-spacing: 1px;
@@ -141,7 +141,7 @@ button, input, select { font-family: inherit; }
   top: var(--nav-height);
   z-index: 2500;
   background: var(--bg-base);
-  border-bottom: 1px solid #111827;
+  border-bottom: 1px solid #f1f5f9;
   padding: 10px 16px;
 }
 
@@ -173,7 +173,7 @@ button, input, select { font-family: inherit; }
 .sportPill:active { transform: scale(0.96); }
 
 .sportPillActive {
-  background: linear-gradient(135deg, #0891b2, #22d3ee);
+  background: linear-gradient(135deg, #0f3d8a, #1d64d8);
   color: var(--bg-base);
   border-color: var(--accent);
 }
@@ -278,7 +278,7 @@ button, input, select { font-family: inherit; }
 .install-app-btn {
   border: none;
   background: var(--blue);
-  color: white;
+  color: #0f172a;
   border-radius: var(--radius-sm);
   padding: 10px 16px;
   font-weight: 900;
@@ -298,7 +298,7 @@ button, input, select { font-family: inherit; }
 .iphone-install-tip button {
   border: none;
   background: rgba(148, 163, 184, 0.16);
-  color: white;
+  color: #0f172a;
   border-radius: var(--radius-pill);
   width: 30px;
   height: 30px;
@@ -331,7 +331,7 @@ button, input, select { font-family: inherit; }
 .home-hero-card,
 .home-section-card {
   background: var(--bg-surface);
-  border: 1px solid #1a2744;
+  border: 1px solid #e2e8f0;
   border-radius: 14px;
   padding: 16px 18px;
   margin-bottom: 14px;
@@ -370,7 +370,7 @@ button, input, select { font-family: inherit; }
   padding: 12px;
   border-radius: 12px;
   background: var(--bg-inset);
-  border: 1px solid #1a2744;
+  border: 1px solid #e2e8f0;
 }
 
 .home-mini-stat strong {
@@ -389,7 +389,7 @@ button, input, select { font-family: inherit; }
 
 .scoreboard-mini-row {
   padding: 10px 0;
-  border-top: 1px solid #1a2744;
+  border-top: 1px solid #e2e8f0;
   cursor: pointer;
 }
 
@@ -415,7 +415,7 @@ button, input, select { font-family: inherit; }
 .scoreboard-mini-team span:not(.team-avatar) {
   flex: 1;
   font-size: 14px;
-  color: #fff;
+  color: #0f172a;
   font-weight: 800;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -428,7 +428,7 @@ button, input, select { font-family: inherit; }
 .scoreboard-mini-team b {
   font-size: 15px;
   font-weight: 900;
-  color: #fff;
+  color: #0f172a;
   font-variant-numeric: tabular-nums;
 }
 
@@ -437,7 +437,7 @@ button, input, select { font-family: inherit; }
   margin-top: 6px;
   font-size: 10px;
   font-weight: 800;
-  color: #7a8fa8;
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.4px;
 }
@@ -506,7 +506,7 @@ button, input, select { font-family: inherit; }
   gap: 6px;
   border: none;
   background: transparent;
-  color: white;
+  color: #0f172a;
   padding: 0;
   font-weight: 900;
   cursor: pointer;
@@ -525,7 +525,7 @@ button, input, select { font-family: inherit; }
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  color: #fff;
+  color: #0f172a;
   font-size: 9px;
   font-weight: 900;
   letter-spacing: -0.2px;
@@ -533,7 +533,7 @@ button, input, select { font-family: inherit; }
 
 /* ESPN-style winner/loser contrast on Recent Finals */
 .home-final-matchup button.winner {
-  color: #fff;
+  color: #0f172a;
   font-weight: 900;
 }
 
@@ -558,7 +558,7 @@ button, input, select { font-family: inherit; }
   gap: 12px;
   align-items: center;
   padding: 11px 0;
-  border-top: 1px solid #1a2744;
+  border-top: 1px solid #e2e8f0;
   cursor: pointer;
 }
 
@@ -567,12 +567,12 @@ button, input, select { font-family: inherit; }
   height: 38px;
   border-radius: 10px;
   background: var(--bg-inset);
-  border: 1px solid #1a2744;
+  border: 1px solid #e2e8f0;
   display: grid;
   place-items: center;
 }
 
-.feed-game-meta { display: block; color: #7a8fa8; font-size: 11px; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.4px; }
+.feed-game-meta { display: block; color: #64748b; font-size: 11px; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.4px; }
 .feed-game-info p { margin: 6px 0 0; color: var(--muted); font-size: 13px; font-weight: 800; }
 
 .upcoming-status {
@@ -592,12 +592,12 @@ button, input, select { font-family: inherit; }
   gap: 14px;
   align-items: center;
   padding: 11px 0;
-  border-top: 1px solid #1a2744;
+  border-top: 1px solid #e2e8f0;
   cursor: pointer;
 }
 
 .score-display {
-  color: #fff;
+  color: #0f172a;
   font-size: 18px;
   font-weight: 900;
   white-space: nowrap;
@@ -641,7 +641,7 @@ button, input, select { font-family: inherit; }
 }
 
 .date-btn.active {
-  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  background: linear-gradient(135deg, #1d64d8, #1d64d8);
   color: var(--bg-base);
   border-color: var(--accent);
   box-shadow: 0 0 20px var(--accent-glow);
@@ -781,7 +781,7 @@ button, input, select { font-family: inherit; }
   padding: 12px;
   font-weight: 900;
   cursor: pointer;
-  color: white;
+  color: #0f172a;
   background: linear-gradient(135deg, var(--blue), var(--blue-deep));
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
@@ -913,7 +913,7 @@ button, input, select { font-family: inherit; }
   border: none;
   border-radius: 14px;
   padding: 14px;
-  background: linear-gradient(135deg, #0891b2, #22d3ee);
+  background: linear-gradient(135deg, #0f3d8a, #1d64d8);
   color: var(--bg-base);
   font-weight: 900;
   cursor: pointer;
@@ -984,7 +984,7 @@ button, input, select { font-family: inherit; }
   width: 84px;
   height: 84px;
   border-radius: 24px;
-  background: linear-gradient(135deg, #0891b2, #22d3ee);
+  background: linear-gradient(135deg, #0f3d8a, #1d64d8);
   display: grid;
   place-items: center;
   color: var(--bg-base);
@@ -1065,7 +1065,7 @@ button, input, select { font-family: inherit; }
   display: grid;
   place-items: center;
   font-weight: 900;
-  color: white;
+  color: #0f172a;
 }
 .result-win  { background: var(--green); }
 .result-loss { background: var(--red); }
@@ -1110,7 +1110,7 @@ button, input, select { font-family: inherit; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   background: #dc2626;
-  color: white;
+  color: #0f172a;
 }
 
 .game-details-sport-pill {
@@ -1284,7 +1284,7 @@ button, input, select { font-family: inherit; }
   font-weight: 900;
   cursor: pointer;
   background: var(--blue);
-  color: white;
+  color: #0f172a;
 }
 
 .alertRow {
@@ -1299,14 +1299,14 @@ button, input, select { font-family: inherit; }
   border: none;
   border-radius: var(--radius-pill);
   padding: 10px 18px;
-  background: #1f2937;
-  color: white;
+  background: #f1f5f9;
+  color: #0f172a;
   font-weight: 900;
   cursor: pointer;
 }
 
 .toggleOn {
-  background: linear-gradient(135deg, #0891b2, #22d3ee);
+  background: linear-gradient(135deg, #0f3d8a, #1d64d8);
   color: var(--bg-base);
 }
 
@@ -1316,7 +1316,7 @@ button, input, select { font-family: inherit; }
   border: none;
   border-radius: 16px;
   padding: 14px;
-  background: linear-gradient(135deg, #0891b2, #22d3ee);
+  background: linear-gradient(135deg, #0f3d8a, #1d64d8);
   color: var(--bg-base);
   font-weight: 900;
   cursor: pointer;
@@ -1427,7 +1427,7 @@ button, input, select { font-family: inherit; }
 .skeleton-card {
   height: 92px;
   border-radius: 20px;
-  background: linear-gradient(90deg, var(--bg-surface) 0%, #162033 45%, var(--bg-surface) 100%);
+  background: linear-gradient(90deg, var(--bg-surface) 0%, #f1f5f9 45%, var(--bg-surface) 100%);
   background-size: 200% 100%;
   animation: skeletonMove 1.2s infinite linear;
   border: 1px solid rgba(148,163,184,0.12);
@@ -1555,8 +1555,8 @@ button, input, select { font-family: inherit; }
 
   .bottomNavButtonActive,
   .activeBottomTab {
-    background: linear-gradient(135deg, #0891b2, #22d3ee);
-    color: white;
+    background: linear-gradient(135deg, #0f3d8a, #1d64d8);
+    color: #0f172a;
   }
 
   body { padding-bottom: 100px; }
@@ -1755,7 +1755,7 @@ button, input, select { font-family: inherit; }
 }
 /* --- Hero card: Featured Matchup, distinct from the list rows below --- */
 .home-hero-card {
-  border-color: #22d3ee33;
+  border-color: #1d64d833;
   background: linear-gradient(180deg, rgba(34,211,238,0.06), transparent 60%), var(--bg-surface);
 }
 
@@ -1770,7 +1770,7 @@ button, input, select { font-family: inherit; }
   font-size: 11px;
   font-weight: 900;
   letter-spacing: 0.6px;
-  color: #7a8fa8;
+  color: #64748b;
   text-transform: uppercase;
 }
 
@@ -1799,7 +1799,7 @@ button, input, select { font-family: inherit; }
 .hero-team span {
   font-size: 19px;
   font-weight: 900;
-  color: #fff;
+  color: #0f172a;
   line-height: 1.15;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1848,7 +1848,7 @@ button, input, select { font-family: inherit; }
   .home-hero-card,
   .home-section-card {
     border-radius: 14px;
-    border-color: #1a2744;
+    border-color: #e2e8f0;
     box-shadow: none;
     margin: 0 12px 12px;
   }
@@ -1875,7 +1875,7 @@ button, input, select { font-family: inherit; }
 
   .home-feed-header > div:first-child span {
     font-size: 12px;
-    color: #7a8fa8;
+    color: #64748b;
   }
 
   .home-mini-stat {
@@ -1893,7 +1893,7 @@ button, input, select { font-family: inherit; }
 
   .home-mini-stat span {
     font-size: 10px;
-    color: #7a8fa8;
+    color: #64748b;
     font-weight: 800;
     text-transform: uppercase;
   }
@@ -1930,7 +1930,7 @@ button, input, select { font-family: inherit; }
 
   .featured-details {
     font-size: 12px;
-    color: #7a8fa8;
+    color: #64748b;
     line-height: 1.4;
     margin: 0;
   }
@@ -1942,7 +1942,7 @@ button, input, select { font-family: inherit; }
     gap: 10px;
     align-items: center;
     padding: 9px 0;
-    border-top-color: #1a2744;
+    border-top-color: #e2e8f0;
   }
 
   .feed-sport-icon {
@@ -1951,13 +1951,13 @@ button, input, select { font-family: inherit; }
     border-radius: 9px;
     font-size: 15px;
     background: var(--bg-inset);
-    border-color: #1a2744;
+    border-color: #e2e8f0;
   }
 
   .feed-game-meta {
     font-size: 10px;
     font-weight: 800;
-    color: #7a8fa8;
+    color: #64748b;
     margin-bottom: 3px;
     text-transform: uppercase;
     letter-spacing: 0.4px;
@@ -2004,13 +2004,13 @@ button, input, select { font-family: inherit; }
     align-items: center;
     gap: 12px;
     padding: 9px 0;
-    border-top-color: #1a2744;
+    border-top-color: #e2e8f0;
   }
 
   .home-final-info > span {
     font-size: 10px;
     font-weight: 800;
-    color: #7a8fa8;
+    color: #64748b;
     margin-bottom: 3px;
     display: block;
     text-transform: uppercase;
@@ -2041,7 +2041,7 @@ button, input, select { font-family: inherit; }
   .score-display {
     font-size: 18px;
     font-weight: 900;
-    color: #fff;
+    color: #0f172a;
     white-space: nowrap;
     align-self: center;
     font-variant-numeric: tabular-nums;
@@ -2087,7 +2087,7 @@ button, input, select { font-family: inherit; }
   gap: 0;
   padding: 0 4px;
   margin: 0;
-  border-bottom: 1px solid #1a2744;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .date-btn {
@@ -2108,7 +2108,7 @@ button, input, select { font-family: inherit; }
 
 .date-btn.active {
   background: transparent;
-  color: #fff;
+  color: #0f172a;
   border-bottom-color: var(--accent);
   box-shadow: none;
 }
@@ -2128,7 +2128,7 @@ button, input, select { font-family: inherit; }
 .game-card {
   background: var(--bg-surface);
   border: none;
-  border-bottom: 1px solid #1a2744;
+  border-bottom: 1px solid #e2e8f0;
   border-radius: 0;
   box-shadow: none;
   padding: 14px 16px;
@@ -2139,16 +2139,16 @@ button, input, select { font-family: inherit; }
 .game-card:hover {
   transform: none;
   box-shadow: none;
-  background: #0d1a2e;
+  background: #f1f5f9;
 }
 
-.game-card:active { transform: none; background: #0d1a2e; }
+.game-card:active { transform: none; background: #f1f5f9; }
 
 /* Time / location row */
 .game-info {
   font-size: 11px;
   font-weight: 800;
-  color: #7a8fa8;
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 10px;
@@ -2158,7 +2158,7 @@ button, input, select { font-family: inherit; }
 .game-division {
   font-size: 11px;
   font-weight: 800;
-  color: #5a7090;
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-top: 8px;
@@ -2186,7 +2186,7 @@ button, input, select { font-family: inherit; }
 .game-status.final {
   background: transparent;
   border: none;
-  color: #7a8fa8;
+  color: #64748b;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1px;
@@ -2194,7 +2194,7 @@ button, input, select { font-family: inherit; }
 
 .game-status.upcoming {
   background: transparent;
-  border: 1px solid #2a3a52;
+  border: 1px solid #cbd5e1;
   color: #94a3b8;
   font-size: 11px;
   font-weight: 800;
@@ -2231,7 +2231,7 @@ button, input, select { font-family: inherit; }
 
   .mobile-status.final {
     background: transparent;
-    color: #7a8fa8;
+    color: #64748b;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1px;
@@ -2240,7 +2240,7 @@ button, input, select { font-family: inherit; }
 
   .mobile-status.upcoming {
     background: transparent;
-    border: 1px solid #2a3a52;
+    border: 1px solid #cbd5e1;
     color: #94a3b8;
     padding: 3px 8px;
     border-radius: 4px;
@@ -2260,14 +2260,14 @@ button, input, select { font-family: inherit; }
 
 .game-details-page > div:first-child {
   padding: 12px 16px !important;
-  border-bottom: 1px solid #1a2744 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
   margin-bottom: 0 !important;
 }
 
 .profile-back-link {
   background: transparent !important;
   border: none !important;
-  color: #22d3ee !important;
+  color: #1d64d8 !important;
   font-size: 15px !important;
   font-weight: 700 !important;
   padding: 0 !important;
@@ -2286,7 +2286,7 @@ button, input, select { font-family: inherit; }
 /* TOP ROW - FINAL pill + sport */
 .game-details-top-row {
   padding: 14px 16px 10px !important;
-  border-bottom: 1px solid #1a2744 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
   margin-bottom: 0 !important;
 }
 
@@ -2301,7 +2301,7 @@ button, input, select { font-family: inherit; }
 
 .game-details-sport-pill {
   background: transparent !important;
-  border: 1px solid #1a2744 !important;
+  border: 1px solid #e2e8f0 !important;
   border-radius: 6px !important;
   font-size: 11px !important;
   font-weight: 700 !important;
@@ -2314,7 +2314,7 @@ button, input, select { font-family: inherit; }
   font-size: 12px !important;
   color: #64748b !important;
   font-weight: 700 !important;
-  border-bottom: 1px solid #1a2744 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
   margin-bottom: 0 !important;
 }
 
@@ -2335,7 +2335,7 @@ button, input, select { font-family: inherit; }
   justify-content: space-between !important;
   background: transparent !important;
   border: none !important;
-  border-bottom: 1px solid #1a2744 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
   border-radius: 0 !important;
   min-height: 64px !important;
   padding: 14px 16px !important;
@@ -2349,7 +2349,7 @@ button, input, select { font-family: inherit; }
 }
 
 .game-details-team.winner {
-  border-color: #1a2744 !important;
+  border-color: #e2e8f0 !important;
   box-shadow: none !important;
   color: white !important;
 }
@@ -2383,7 +2383,7 @@ button, input, select { font-family: inherit; }
   flex-direction: column !important;
   gap: 0 !important;
   margin-top: 16px !important;
-  border-top: 1px solid #1a2744 !important;
+  border-top: 1px solid #e2e8f0 !important;
 }
 
 .game-info-tile {
@@ -2392,7 +2392,7 @@ button, input, select { font-family: inherit; }
   justify-content: space-between !important;
   background: transparent !important;
   border: none !important;
-  border-bottom: 1px solid #1a2744 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
   border-radius: 0 !important;
   min-height: 0 !important;
   padding: 14px 16px !important;
@@ -2419,8 +2419,8 @@ button, input, select { font-family: inherit; }
   margin: 16px 16px 0 !important;
   width: calc(100% - 32px) !important;
   border-radius: 10px !important;
-  background: linear-gradient(135deg, #0891b2, #22d3ee) !important;
-  color: #020617 !important;
+  background: linear-gradient(135deg, #0f3d8a, #1d64d8) !important;
+  color: #f4f6f9 !important;
   font-weight: 800 !important;
 }
 /* =========================
@@ -2429,8 +2429,8 @@ button, input, select { font-family: inherit; }
 ========================= */
 
 .game-details-teams {
-  background: #0f172a;
-  border: 1px solid #1e293b;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   overflow: hidden;
   margin: 16px 0;
@@ -2443,7 +2443,7 @@ button, input, select { font-family: inherit; }
   width: 100%;
   background: transparent;
   border: none;
-  color: white;
+  color: #0f172a;
   padding: 14px 16px;
   cursor: pointer;
   text-align: left;
@@ -2451,19 +2451,19 @@ button, input, select { font-family: inherit; }
 }
 
 .game-details-team-row:hover {
-  background: #1e293b;
+  background: #e2e8f0;
 }
 
 .gd-team-name {
   flex: 1;
   font-size: 16px;
   font-weight: 700;
-  color: white;
+  color: #0f172a;
   line-height: 1.3;
 }
 
 .gd-win-arrow {
-  color: #22d3ee;
+  color: #1d64d8;
   font-size: 12px;
   font-style: normal;
 }
@@ -2477,7 +2477,7 @@ button, input, select { font-family: inherit; }
 
 .gd-team-divider {
   height: 1px;
-  background: #1e293b;
+  background: #e2e8f0;
   margin: 0 16px;
 }
 
