@@ -1047,6 +1047,146 @@ button, input, select { font-family: inherit; }
 
 .team-section h2 { margin: 0 0 14px; font-size: 22px; font-weight: 900; }
 
+/* --- MaxPreps-style Standings box --- */
+.maxpreps-record-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: 14px;
+}
+
+.maxpreps-record-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--bg-inset);
+}
+
+.maxpreps-record-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.maxpreps-record-value {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.maxpreps-record-sub {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.maxpreps-record-mini-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.maxpreps-mini-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--bg-inset);
+}
+
+.maxpreps-mini-stat span {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.maxpreps-mini-stat strong {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.diff-pos { color: var(--green) !important; }
+.diff-neg { color: var(--red) !important; }
+
+@media (max-width: 700px) {
+  .maxpreps-record-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .maxpreps-record-mini-grid {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+/* --- MaxPreps-style Schedule table --- */
+.maxpreps-schedule-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.maxpreps-schedule-header-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1.6fr 1.3fr;
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--border-strong);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.maxpreps-schedule-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1.6fr 1.3fr;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.maxpreps-schedule-row:last-child { border-bottom: none; }
+
+.maxpreps-schedule-date {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.maxpreps-schedule-time {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.maxpreps-schedule-opponent {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.maxpreps-result-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.tag-win { background: rgba(22, 163, 74, 0.12); color: var(--green); }
+.tag-loss { background: rgba(220, 38, 38, 0.12); color: var(--red); }
+.tag-tie { background: rgba(148, 163, 184, 0.16); color: var(--muted); }
+.tag-upcoming { background: var(--accent-dim); color: var(--accent); }
+
 .game-row {
   display: flex;
   justify-content: space-between;

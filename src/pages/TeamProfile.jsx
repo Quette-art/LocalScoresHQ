@@ -114,6 +114,37 @@ export default function TeamProfile({
 
   const last5 = completedGames.slice(-5).reverse();
 
+  const winPct = completedGames.length > 0
+    ? (wins / completedGames.length)
+    : 0;
+
+  const streak = (() => {
+    if (last5.length === 0) return "-";
+    const results = completedGames
+      .slice()
+      .reverse()
+      .map((g) => {
+        const isTeam1 = g.team1 === teamName;
+        const teamScore = isTeam1 ? Number(g.score1) : Number(g.score2);
+        const oppScore = isTeam1 ? Number(g.score2) : Number(g.score1);
+        if (teamScore > oppScore) return "W";
+        if (teamScore < oppScore) return "L";
+        return "T";
+      });
+    const type = results[0];
+    let count = 0;
+    for (const r of results) {
+      if (r === type) count++;
+      else break;
+    }
+    return `${type}${count}`;
+  })();
+
+  // Combined schedule: every game, chronological, past + upcoming
+  const scheduleGames = teamGames
+    .slice()
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
   const formatDate = (date) => {
     const d = new Date(date + "T00:00:00");
 
@@ -183,128 +214,104 @@ export default function TeamProfile({
         </div>
       </div>
 
-      {/* STATS */}
-      <div className="team-stats">
-        <div className="stat-card">
-          <span>Record</span>
-          <strong>
-            {wins}-{losses}-{ties}
-          </strong>
-        </div>
+      {/* STANDINGS — MaxPreps-style record box */}
+      <div className="team-section">
+        <h2>Standings</h2>
 
-        <div className="stat-card">
-          <span>PTS</span>
-          <strong>{points}</strong>
-        </div>
+        <div className="maxpreps-record-grid">
+          <div className="maxpreps-record-box">
+            <span className="maxpreps-record-label">Overall</span>
+            <strong className="maxpreps-record-value">
+              {wins}-{losses}{ties > 0 ? `-${ties}` : ""}
+            </strong>
+            <span className="maxpreps-record-sub">
+              {(winPct * 1000 / 1000).toFixed(3)} Win Pct
+            </span>
+          </div>
 
-        <div className="stat-card">
-          <span>PF</span>
-          <strong>{pf}</strong>
-        </div>
+          <div className="maxpreps-record-box">
+            <span className="maxpreps-record-label">Division</span>
+            <strong className="maxpreps-record-value">{division}</strong>
+            <span className="maxpreps-record-sub">{ageGroup}</span>
+          </div>
 
-        <div className="stat-card">
-          <span>PA</span>
-          <strong>{pa}</strong>
-        </div>
-
-        <div className="stat-card">
-          <span>DIFF</span>
-          <strong>{diff}</strong>
+          <div className="maxpreps-record-mini-grid">
+            <div className="maxpreps-mini-stat">
+              <span>PF</span>
+              <strong>{pf}</strong>
+            </div>
+            <div className="maxpreps-mini-stat">
+              <span>PA</span>
+              <strong>{pa}</strong>
+            </div>
+            <div className="maxpreps-mini-stat">
+              <span>DIFF</span>
+              <strong className={diff > 0 ? "diff-pos" : diff < 0 ? "diff-neg" : ""}>
+                {diff > 0 ? "+" : ""}{diff}
+              </strong>
+            </div>
+            <div className="maxpreps-mini-stat">
+              <span>Streak</span>
+              <strong>{streak}</strong>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* LAST 5 */}
+      {/* SCHEDULE — MaxPreps-style table, past + upcoming combined */}
       <div className="team-section">
-        <h2>Last 5</h2>
+        <h2>Schedule</h2>
 
-        <div className="last5-row">
-          {last5.length === 0 ? (
-            <p className="no-games">
-              No completed games.
-            </p>
-          ) : (
-            last5.map((g, i) => {
-              const result = getResult(g);
+        {scheduleGames.length === 0 ? (
+          <p className="no-games">No games scheduled.</p>
+        ) : (
+          <div className="maxpreps-schedule-table">
+            <div className="maxpreps-schedule-header-row">
+              <span>Date/Time</span>
+              <span>Opponent</span>
+              <span>Game Info</span>
+            </div>
+
+            {scheduleGames.map((g) => {
+              const isTeam1 = g.team1 === teamName;
+              const opponent = isTeam1 ? g.team2 : g.team1;
+              const isPlayed =
+                g.score1 !== null &&
+                g.score1 !== undefined &&
+                g.score2 !== null &&
+                g.score2 !== undefined;
+              const teamScore = isTeam1 ? g.score1 : g.score2;
+              const oppScore = isTeam1 ? g.score2 : g.score1;
+              const result = isPlayed ? getResult(g) : null;
 
               return (
-                <div
-                  key={i}
-                  className={`result-circle ${
-                    result === "W"
-                      ? "result-win"
-                      : result === "L"
-                      ? "result-loss"
-                      : "result-tie"
-                  }`}
-                >
-                  {result}
+                <div key={g.id} className="maxpreps-schedule-row">
+                  <div className="maxpreps-schedule-date">
+                    <span>{formatDate(g.date)}</span>
+                    <span className="maxpreps-schedule-time">{g.time}</span>
+                  </div>
+
+                  <div className="maxpreps-schedule-opponent">
+                    vs {opponent}
+                  </div>
+
+                  <div className="maxpreps-schedule-info">
+                    {isPlayed ? (
+                      <span className={`maxpreps-result-tag ${
+                        result === "W" ? "tag-win" : result === "L" ? "tag-loss" : "tag-tie"
+                      }`}>
+                        {result} {teamScore}-{oppScore}
+                      </span>
+                    ) : (
+                      <span className="maxpreps-result-tag tag-upcoming">
+                        Upcoming
+                      </span>
+                    )}
+                  </div>
                 </div>
               );
-            })
-          )}
-        </div>
-      </div>
-
-      {/* PREVIOUS GAMES */}
-      <div className="team-section">
-        <h2>Previous Games</h2>
-
-        {completedGames.length === 0 ? (
-          <p className="no-games">
-            No completed games.
-          </p>
-        ) : (
-          completedGames
-            .slice()
-            .reverse()
-            .map((g) => (
-              <div key={g.id} className="game-row">
-                <div>
-                  <strong>
-                    {g.team1} vs {g.team2}
-                  </strong>
-
-                  <p>
-                    {formatDate(g.date)} • {g.time}
-                  </p>
-                </div>
-
-                <div className="game-result">
-                  <strong>
-                    {g.score1} - {g.score2}
-                  </strong>
-                </div>
-              </div>
-            ))
-        )}
-      </div>
-
-      {/* UPCOMING */}
-      <div className="team-section">
-        <h2>Upcoming</h2>
-
-        {upcomingGames.length === 0 ? (
-          <p className="no-games">
-            No upcoming games.
-          </p>
-        ) : (
-          upcomingGames.map((g) => (
-            <div key={g.id} className="game-row">
-              <div>
-                <strong>
-                  {g.team1} vs {g.team2}
-                </strong>
-
-                <p>
-                  {formatDate(g.date)} • {g.time}
-                </p>
-              </div>
-
-              <span className="status upcoming">
-                UPCOMING
-              </span>
-            </div>
-          ))
+            })}
+          </div>
         )}
       </div>
 
