@@ -65,7 +65,7 @@ button, input, select { font-family: inherit; }
 .appShell {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(34, 211, 238, 0.06), transparent 28%),
+    radial-gradient(circle at top, rgba(29, 100, 216, 0.06), transparent 28%),
     var(--bg-base);
   position: relative;
 }
@@ -200,11 +200,11 @@ button, input, select { font-family: inherit; }
   display: flex;
   gap: 6px;
   padding: 6px;
-  background: rgba(3, 10, 25, 0.94);
-  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #e2e8f0;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
 
   /* desktop: floating pill centered */
   left: 50%;
@@ -242,7 +242,7 @@ button, input, select { font-family: inherit; }
 
 .bottomNavButtonActive,
 .activeBottomTab {
-  background: linear-gradient(135deg, rgba(8,145,178,0.35), rgba(34,211,238,0.22));
+  background: linear-gradient(135deg, rgba(29,100,216,0.35), rgba(29,100,216,0.22));
   color: var(--accent);
 }
 
@@ -254,7 +254,7 @@ button, input, select { font-family: inherit; }
 .install-app-content,
 .iphone-install-tip {
   background: var(--bg-surface);
-  border: 1px solid rgba(14, 165, 233, 0.35);
+  border: 1px solid rgba(29, 100, 216, 0.35);
   border-radius: 18px;
   color: var(--text);
 }
@@ -674,7 +674,7 @@ button, input, select { font-family: inherit; }
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 90% 0%, rgba(34,211,238,0.07), transparent 35%),
+    radial-gradient(circle at 90% 0%, rgba(29,100,216,0.07), transparent 35%),
     var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -685,7 +685,7 @@ button, input, select { font-family: inherit; }
 }
 
 .game-card:hover {
-  border-color: rgba(34,211,238,0.4);
+  border-color: rgba(29,100,216,0.4);
   transform: translateY(-2px);
   box-shadow: 0 14px 32px rgba(0,0,0,0.24);
 }
@@ -749,7 +749,7 @@ button, input, select { font-family: inherit; }
 
 .game-status.final {
   background: var(--accent-dim);
-  border: 1px solid rgba(34,211,238,0.3);
+  border: 1px solid rgba(29,100,216,0.3);
   color: var(--accent);
 }
 
@@ -833,12 +833,12 @@ button, input, select { font-family: inherit; }
 
 .standingsRow {
   padding: 16px 18px;
-  border-bottom: 1px solid rgba(38,50,68,0.8);
+  border-bottom: 1px solid rgba(226,232,240,0.8);
   font-size: 14px;
   font-weight: 900;
   transition: background 0.15s ease;
 }
-.standingsRow:hover { background: rgba(34,211,238,0.05); }
+.standingsRow:hover { background: rgba(29,100,216,0.05); }
 .standingsRow span { text-align: center; }
 
 .standingTeamButton {
@@ -975,7 +975,7 @@ button, input, select { font-family: inherit; }
   padding: 22px;
   border-radius: 24px;
   background:
-    radial-gradient(circle at top right, rgba(34,211,238,0.12), transparent 30%),
+    radial-gradient(circle at top right, rgba(29,100,216,0.12), transparent 30%),
     var(--bg-surface);
   border: 1px solid var(--border);
 }
@@ -1120,7 +1120,7 @@ button, input, select { font-family: inherit; }
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: rgba(30,41,59,0.95);
+  background: rgba(241,245,249,0.95);
   color: var(--text-mid);
   border: 1px solid var(--border);
 }
@@ -1194,7 +1194,7 @@ button, input, select { font-family: inherit; }
 
 .game-info-tile {
   border: 1px solid var(--border);
-  background: rgba(2,6,23,0.35);
+  background: rgba(255,255,255,0.35);
   border-radius: 16px;
   padding: 12px;
   min-height: 72px;
@@ -1220,7 +1220,7 @@ button, input, select { font-family: inherit; }
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: rgba(2,6,23,0.8);
+  background: rgba(255,255,255,0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1453,7 +1453,7 @@ button, input, select { font-family: inherit; }
   padding: 20px;
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(circle at top, rgba(34,211,238,0.05), transparent 40%),
+    radial-gradient(circle at top, rgba(29,100,216,0.05), transparent 40%),
     var(--bg-surface);
   border: 1px dashed rgba(148,163,184,0.18);
   color: var(--muted);
@@ -1538,7 +1538,7 @@ button, input, select { font-family: inherit; }
     max-width: 420px;
     height: 64px;
     border-radius: 24px;
-    background: rgba(2, 6, 23, 0.94);
+    background: rgba(255, 255, 255, 0.94);
     border: 1px solid rgba(148, 163, 184, 0.18);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
     padding: 6px;
@@ -1670,7 +1670,7 @@ button, input, select { font-family: inherit; }
     padding: 10px 12px;
     border-radius: 18px;
     background:
-      radial-gradient(circle at right, rgba(34,211,238,0.07), transparent 35%),
+      radial-gradient(circle at right, rgba(29,100,216,0.07), transparent 35%),
       var(--bg-surface);
     border: 1px solid var(--border);
     box-shadow: 0 6px 16px rgba(0,0,0,0.14);
@@ -1756,7 +1756,7 @@ button, input, select { font-family: inherit; }
 /* --- Hero card: Featured Matchup, distinct from the list rows below --- */
 .home-hero-card {
   border-color: #1d64d833;
-  background: linear-gradient(180deg, rgba(34,211,238,0.06), transparent 60%), var(--bg-surface);
+  background: linear-gradient(180deg, rgba(29,100,216,0.06), transparent 60%), var(--bg-surface);
 }
 
 .hero-top-row {
