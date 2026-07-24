@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -63,6 +63,11 @@ function AppContent() {
   const [selectedSport, setSelectedSport] = useState("Soccer");
   const [games, setGames] = useState(upcomingGames);
   const [selectedGame, setSelectedGame] = useState(null);
+  const selectedGameRef = useRef(null);
+
+  useEffect(() => {
+    selectedGameRef.current = selectedGame;
+  }, [selectedGame]);
   const [showSettings, setShowSettings] = useState(false);
   const [adminUser, setAdminUser] = useState(null);
   const [email, setEmail] = useState("");
@@ -182,8 +187,8 @@ const sports = [...baseSports].sort((a, b) => {
       const merged = [...localWithScores, ...newFirebaseGames];
       setGames(merged);
 
-      if (selectedGame) {
-        const updated = merged.find((g) => g.id === selectedGame.id);
+      if (selectedGameRef.current) {
+        const updated = merged.find((g) => g.id === selectedGameRef.current.id);
         if (updated) {
           setSelectedGame(updated);
           sessionStorage.setItem("selectedGame", JSON.stringify(updated));
@@ -247,7 +252,7 @@ const sports = [...baseSports].sort((a, b) => {
       unsubscribeGames();
       unsubscribeStatus();
     };
-  }, [selectedGame]);
+  }, []);
 
   const handleLogin = async () => {
     try {

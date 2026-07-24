@@ -32,8 +32,13 @@ const AVATAR_COLORS = [
   "#8b5cf6", "#ec4899", "#14b8a6", "#f97316",
 ];
 
-const getTeamAvatar = (name = "") => {
-  const clean = name.trim();
+const getTeamAvatar = (name) => {
+  const clean = typeof name === "string" ? name.trim() : "";
+
+  if (!clean) {
+    return { initials: "?", color: "#475569" };
+  }
+
   const words = clean.split(/\s+/).filter(Boolean);
   const initials = words.length >= 2
     ? (words[0][0] + words[1][0]).toUpperCase()
