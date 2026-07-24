@@ -164,18 +164,18 @@ const GameDetails = ({
         </div>
 
         {/* Teams — ESPN style: name left, score right */}
-        <div style={{ background: "#0f172a", border: "1px solid #1e293b", borderRadius: "16px", overflow: "hidden", margin: "16px 0" }}>
+        <div style={{ background: "#ffffff", border: "1px solid #1e293b", borderRadius: "16px", overflow: "hidden", margin: "16px 0" }}>
           {/* Team 1 */}
           <button
             type="button"
-            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", background: "transparent", border: "none", color: "white", padding: "14px 16px", cursor: "pointer", textAlign: "left", gap: "12px" }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", background: "transparent", border: "none", color: "#0f172a", padding: "14px 16px", cursor: "pointer", textAlign: "left", gap: "12px" }}
             onClick={() => onTeamClick?.(localGame, localGame.team1)}
           >
-            <span style={{ flex: 1, fontSize: "16px", fontWeight: team1Won ? 900 : 700, color: "white", lineHeight: 1.3 }}>
+            <span style={{ flex: 1, fontSize: "16px", fontWeight: team1Won ? 900 : 700, color: "#0f172a", lineHeight: 1.3 }}>
               {localGame.team1}
-              {team1Won && <small style={{ color: "#22d3ee", fontSize: "12px" }}> ◀</small>}
+              {team1Won && <small style={{ color: "#1d64d8", fontSize: "12px" }}> ◀</small>}
             </span>
-            <strong style={{ fontSize: "22px", fontWeight: 900, minWidth: "32px", textAlign: "right", color: team1Won ? "#22d3ee" : "white" }}>
+            <strong style={{ fontSize: "22px", fontWeight: 900, minWidth: "32px", textAlign: "right", color: team1Won ? "#1d64d8" : "#0f172a" }}>
               {isFinal ? localGame.score1 : "–"}
             </strong>
           </button>
@@ -186,14 +186,14 @@ const GameDetails = ({
           {/* Team 2 */}
           <button
             type="button"
-            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", background: "transparent", border: "none", color: "white", padding: "14px 16px", cursor: "pointer", textAlign: "left", gap: "12px" }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", background: "transparent", border: "none", color: "#0f172a", padding: "14px 16px", cursor: "pointer", textAlign: "left", gap: "12px" }}
             onClick={() => onTeamClick?.(localGame, localGame.team2)}
           >
-            <span style={{ flex: 1, fontSize: "16px", fontWeight: team2Won ? 900 : 700, color: "white", lineHeight: 1.3 }}>
+            <span style={{ flex: 1, fontSize: "16px", fontWeight: team2Won ? 900 : 700, color: "#0f172a", lineHeight: 1.3 }}>
               {localGame.team2}
-              {team2Won && <small style={{ color: "#22d3ee", fontSize: "12px" }}> ◀</small>}
+              {team2Won && <small style={{ color: "#1d64d8", fontSize: "12px" }}> ◀</small>}
             </span>
-            <strong style={{ fontSize: "22px", fontWeight: 900, minWidth: "32px", textAlign: "right", color: team2Won ? "#22d3ee" : "white" }}>
+            <strong style={{ fontSize: "22px", fontWeight: 900, minWidth: "32px", textAlign: "right", color: team2Won ? "#1d64d8" : "#0f172a" }}>
               {isFinal ? localGame.score2 : "–"}
             </strong>
           </button>

@@ -13,8 +13,8 @@ export default function DateSelector({ dates, selectedDate, setSelectedDate }) {
             border: "none",
             background:
               selectedDate === date
-                ? "linear-gradient(135deg, #0284c7, #22d3ee)"
-                : "#111827",
+                ? "linear-gradient(135deg, #0284c7, #1d64d8)"
+                : "#ffffff",
             color: selectedDate === date ? "#000" : "#fff",
             fontWeight: "600",
             cursor: "pointer",

@@ -158,7 +158,7 @@ export default function SearchOverlay({
         inset: 0,
         zIndex: 9999,
         background:
-          "radial-gradient(circle at top, #172554 0%, #020617 42%, #020617 100%)",
+          "radial-gradient(circle at top, #172554 0%, #f4f6f9 42%, #f4f6f9 100%)",
         color: "#fff",
         overflowY: "auto",
       }}
@@ -246,9 +246,9 @@ export default function SearchOverlay({
                           ? "1px solid rgba(34,211,238,0.9)"
                           : "1px solid rgba(148,163,184,0.18)",
                         background: active
-                          ? "linear-gradient(135deg, #22d3ee, #0284c7)"
+                          ? "linear-gradient(135deg, #1d64d8, #0284c7)"
                           : "rgba(15,23,42,0.9)",
-                        color: active ? "#020617" : "#cbd5e1",
+                        color: active ? "#f4f6f9" : "#cbd5e1",
                         fontWeight: "900",
                         cursor: "pointer",
                       }}

@@ -26,7 +26,7 @@ export default function Header({ setShowSearch }) {
               width: "46px",
               height: "46px",
               borderRadius: "14px",
-              background: "linear-gradient(135deg, #0284c7, #22d3ee)",
+              background: "linear-gradient(135deg, #0284c7, #1d64d8)",
               display: "grid",
               placeItems: "center",
               fontSize: "24px",
