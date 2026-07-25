@@ -379,27 +379,44 @@ const searchResults =
   return (
     <div className="appShell">
       <header className="mobileAppHeader">
-        <button className="headerIconBtn" onClick={() => setShowGlobalSearch(true)} aria-label="Search">
-          🔍
-        </button>
-
         <div className="brandSection">
-          <div className="appLogoChip">
-            <img src="/logo.png" alt="LocalScoresHQ" className="appLogo" />
-          </div>
+          <img src="/logo.png" alt="LocalScoresHQ" className="appLogo" />
           {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
         </div>
 
-        <div className="headerRightGroup">
+        <nav className="headerNavLinks">
           <button
-            className="headerIconBtn headerFavBtn"
-            onClick={() => handleTabChange("favorites")}
-            aria-label="Favorites"
+            className={`headerNavLink${activeTab === "home" ? " headerNavLinkActive" : ""}`}
+            onClick={() => handleTabChange("home")}
           >
-            ⭐
+            Home
+          </button>
+          <button
+            className={`headerNavLink${activeTab === "scores" ? " headerNavLinkActive" : ""}`}
+            onClick={() => handleTabChange("scores")}
+          >
+            Scores
+          </button>
+          <button
+            className={`headerNavLink${activeTab === "standings" ? " headerNavLinkActive" : ""}`}
+            onClick={() => handleTabChange("standings")}
+          >
+            Standings
+          </button>
+          <button
+            className={`headerNavLink${activeTab === "favorites" ? " headerNavLinkActive" : ""}`}
+            onClick={() => handleTabChange("favorites")}
+          >
+            Favorites
             {favoriteTeamsList.length > 0 && (
-              <span className="headerFavBadge">{favoriteTeamsList.length}</span>
+              <span className="headerNavBadge">{favoriteTeamsList.length}</span>
             )}
+          </button>
+        </nav>
+
+        <div className="headerRightGroup">
+          <button className="headerIconBtn" onClick={() => setShowGlobalSearch(true)} aria-label="Search">
+            🔍
           </button>
 
           <button className="headerIconBtn" onClick={() => setShowSettings(true)} aria-label="Settings">

@@ -194,31 +194,26 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 
-  padding: 14px 18px;
-  background: linear-gradient(135deg, #1d64d8, #0f3d8a);
-  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.14);
+  padding: 12px 20px;
+  background: #0a0a0a;
+  border-bottom: 3px solid #1d64d8;
 }
 
 .brandSection {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.appLogoChip {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 6px 12px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+  flex-shrink: 0;
 }
 
 .appLogo {
-  height: 30px;
+  height: 26px;
   width: auto;
   object-fit: contain;
+  /* Mono-white treatment, ESPN-style: bold flat wordmark, no box */
+  filter: brightness(0) invert(1);
 }
 
 .adminBadge {
@@ -228,27 +223,83 @@ select {
   font-weight: 900;
   letter-spacing: 0.5px;
   padding: 4px 10px;
-  border-radius: var(--radius-pill, 999px);
+  border-radius: 999px;
   margin-left: 10px;
   text-transform: uppercase;
+}
+
+.headerNavLinks {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.headerNavLink {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.headerNavLink:hover {
+  color: #ffffff;
+}
+
+.headerNavLinkActive {
+  color: #ffffff;
+}
+
+.headerNavLinkActive::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 3px;
+  background: #1d64d8;
+  border-radius: 2px 2px 0 0;
+}
+
+.headerNavBadge {
+  background: #f59e0b;
+  color: #1e1b0a;
+  font-size: 10px;
+  font-weight: 900;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
 }
 
 .headerRightGroup {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .headerIconBtn {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
 
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
 
   display: flex;
@@ -258,25 +309,13 @@ select {
 }
 
 .headerIconBtn:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.16);
 }
 
-.headerFavBadge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background: #f59e0b;
-  color: #1e1b0a;
-  font-size: 10px;
-  font-weight: 900;
-  min-width: 17px;
-  height: 17px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 3px;
-  border: 2px solid #1d64d8;
+@media (max-width: 900px) {
+  .headerNavLinks {
+    display: none;
+  }
 }
 
 .home-top-strip {
