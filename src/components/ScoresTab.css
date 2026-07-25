@@ -215,6 +215,18 @@ button, input, select { font-family: inherit; }
   border-radius: var(--radius-pill);
 }
 
+/* Redundant once the header nav links are visible (≥900px) */
+@media (min-width: 900px) {
+  .bottomNavWrapper,
+  .compactBottomNav {
+    display: none;
+  }
+
+  .mainContent {
+    padding-bottom: 40px;
+  }
+}
+
 .bottomNavButton {
   flex: 1;
   height: 46px;
@@ -335,8 +347,8 @@ button, input, select { font-family: inherit; }
   border-radius: 14px;
   padding: 16px 18px;
   margin-bottom: 14px;
-  box-shadow: none;
-  transition: border-color 0.18s ease;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 20px rgba(15, 23, 42, 0.03);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .home-feed-header {
@@ -1895,8 +1907,9 @@ button, input, select { font-family: inherit; }
 }
 /* --- Hero card: Featured Matchup, distinct from the list rows below --- */
 .home-hero-card {
-  border-color: #1d64d833;
-  background: linear-gradient(180deg, rgba(29,100,216,0.06), transparent 60%), var(--bg-surface);
+  border-color: #e2e8f0;
+  border-top: 3px solid #1d64d8;
+  background: var(--bg-surface);
 }
 
 .hero-top-row {
@@ -2219,7 +2232,7 @@ button, input, select { font-family: inherit; }
 }
 
 @media (max-width: 768px) {
-  .mainContent { padding: 0; }
+  .mainContent { padding: 0 0 105px; }
 }
 
 /* --- Date tabs: ESPN underline-tab style --- */
