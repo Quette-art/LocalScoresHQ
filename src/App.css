@@ -196,125 +196,89 @@ select {
   justify-content: space-between;
 
   padding: 14px 18px;
-  background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
+  background: linear-gradient(135deg, #1d64d8, #0f3d8a);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.14);
 }
 
-.appHeaderLogo {
-  font-size: 22px;
-  font-weight: 800;
-  color: #1d64d8;
+.brandSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.appLogoChip {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+}
+
+.appLogo {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+}
+
+.adminBadge {
+  background: #facc15;
+  color: #1e1b0a;
+  font-size: 10px;
+  font-weight: 900;
   letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill, 999px);
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+
+.headerRightGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .headerIconBtn {
+  position: relative;
   width: 44px;
   height: 44px;
   border: none;
   border-radius: 12px;
 
-  background: #f1f5f9;
-  color: #0f172a;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
   font-size: 18px;
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.15s ease;
 }
 
 .headerIconBtn:hover {
-  background: #e2e8f0;
-}
-/* =========================
-   HEADER
-========================= */
-
-.topHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 20px;
-  border-bottom: 1px solid #e2e8f0;
-  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.28);
 }
 
-.brandSection {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.appLogo {
-  height: 42px;
-  width: auto;
-  object-fit: contain;
-}
-
-.brandText {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-
-.brandSmall {
-  color: #0f172a;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  opacity: 0.9;
-}
-
-.appTitle {
-  color: #1d64d8;
-  font-size: 2rem;
+.headerFavBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #f59e0b;
+  color: #1e1b0a;
+  font-size: 10px;
   font-weight: 900;
-  margin: 0;
-  letter-spacing: 1px;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  border: 2px solid #1d64d8;
 }
 
-.headerIconBtn {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  background: #f1f5f9;
-  color: #0f172a;
-  font-size: 1.3rem;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.headerIconBtn:hover {
-  transform: translateY(-2px);
-  border-color: #1d64d8;
-  box-shadow: 0 0 18px rgba(29, 100, 216, 0.2);
-}
-
-/* MOBILE */
-
-@media (max-width: 768px) {
-  .topHeader {
-    padding: 14px;
-  }
-
-  .appLogo {
-    height: 42px;
-  }
-
-  .appTitle {
-    font-size: 1.5rem;
-  }
-
-  .brandSmall {
-    font-size: 0.7rem;
-  }
-
-  .headerIconBtn {
-    width: 46px;
-    height: 46px;
-  }
-}
 .home-top-strip {
   display: flex;
   justify-content: space-between;

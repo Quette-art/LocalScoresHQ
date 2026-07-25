@@ -379,12 +379,33 @@ const searchResults =
   return (
     <div className="appShell">
       <header className="mobileAppHeader">
-        <button className="headerIconBtn" onClick={() => setShowGlobalSearch(true)}>🔍</button>
+        <button className="headerIconBtn" onClick={() => setShowGlobalSearch(true)} aria-label="Search">
+          🔍
+        </button>
+
         <div className="brandSection">
-          <img src="/logo.png" alt="LocalScoresHQ" className="appLogo" />
+          <div className="appLogoChip">
+            <img src="/logo.png" alt="LocalScoresHQ" className="appLogo" />
+          </div>
           {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
         </div>
-        <button className="headerIconBtn" onClick={() => setShowSettings(true)}>⚙️</button>
+
+        <div className="headerRightGroup">
+          <button
+            className="headerIconBtn headerFavBtn"
+            onClick={() => handleTabChange("favorites")}
+            aria-label="Favorites"
+          >
+            ⭐
+            {favoriteTeamsList.length > 0 && (
+              <span className="headerFavBadge">{favoriteTeamsList.length}</span>
+            )}
+          </button>
+
+          <button className="headerIconBtn" onClick={() => setShowSettings(true)} aria-label="Settings">
+            ⚙️
+          </button>
+        </div>
       </header>
 
       <InstallAppButton />
