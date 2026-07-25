@@ -31,7 +31,7 @@ function TeamAutocomplete({ placeholder, value, onChange, allTeams, style }) {
           left: 0,
           right: 0,
           background: "#ffffff",
-          border: "1px solid #e2e8f0",
+          border: "1px solid #E5E7EB",
           borderRadius: "10px",
           zIndex: 9999,
           overflow: "hidden",
@@ -47,7 +47,7 @@ function TeamAutocomplete({ placeholder, value, onChange, allTeams, style }) {
                 padding: "10px 14px",
                 background: "transparent",
                 border: "none",
-                borderBottom: "1px solid #e2e8f0",
+                borderBottom: "1px solid #E5E7EB",
                 color: "#0f172a",
                 fontSize: "14px",
                 fontWeight: 600,
@@ -384,7 +384,7 @@ export default function ScoresTab({
           </button>
 
           {showAddGame && (
-            <div style={{ marginTop: "12px", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+            <div style={{ marginTop: "12px", background: "#ffffff", border: "1px solid #E5E7EB", borderRadius: "14px", padding: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
               <p style={{ margin: 0, color: "#94a3b8", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>New Game</p>
 
               <TeamAutocomplete
@@ -420,7 +420,7 @@ export default function ScoresTab({
                 style={inputStyle}
               />
 
-              <button onClick={saveNewGame} disabled={saving} style={{ width: "100%", padding: "13px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #0891b2, #1d64d8)", color: "#f4f6f9", fontWeight: 800, fontSize: "15px", cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.7 : 1 }}>
+              <button onClick={saveNewGame} disabled={saving} style={{ width: "100%", padding: "13px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #0891b2, #1d64d8)", color: "#F5F7FA", fontWeight: 800, fontSize: "15px", cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.7 : 1 }}>
                 {saving ? "Saving..." : "Save Game"}
               </button>
             </div>
@@ -612,8 +612,8 @@ const inputStyle = {
   width: "100%",
   padding: "12px 14px",
   borderRadius: "10px",
-  border: "1px solid #e2e8f0",
-  background: "#f4f6f9",
+  border: "1px solid #E5E7EB",
+  background: "#F5F7FA",
   color: "#0f172a",
   fontSize: "14px",
   fontWeight: 600,

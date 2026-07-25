@@ -186,7 +186,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
                 justifyContent: "center",
                 fontWeight: 900,
                 fontSize: "16px",
-                color: "#f4f6f9",
+                color: "#F5F7FA",
               }}
             >
               {team.teamName.substring(0, 2).toUpperCase()}
@@ -256,11 +256,11 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
         <p style={{ color: "#64748b", fontSize: "12px", fontWeight: 800, letterSpacing: "0.5px", margin: "0 0 10px" }}>
           ALL SPORTS
         </p>
-        <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", overflow: "hidden" }}>
+        <div style={{ background: "#ffffff", border: "1px solid #E5E7EB", borderRadius: "14px", overflow: "hidden" }}>
           {sortedSports.map((sport, i) => {
             const isExpanded = expandedSport === sport.name;
             return (
-              <div key={sport.name} style={{ borderBottom: i < sortedSports.length - 1 ? "1px solid #e2e8f0" : "none" }}>
+              <div key={sport.name} style={{ borderBottom: i < sortedSports.length - 1 ? "1px solid #E5E7EB" : "none" }}>
                 <button
                   onClick={() => toggleSport(sport.name)}
                   style={{
@@ -300,8 +300,8 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
                         alignItems: "center",
                         justifyContent: "space-between",
                         width: "100%",
-                        background: "#f4f6f9",
-                        border: "1px solid #e2e8f0",
+                        background: "#F5F7FA",
+                        border: "1px solid #E5E7EB",
                         borderRadius: "10px",
                         color: "#cbd5e1",
                         padding: "12px 14px",
