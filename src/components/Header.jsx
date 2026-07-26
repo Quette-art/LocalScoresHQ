@@ -2,100 +2,123 @@ import React from "react";
 
 export default function Header({ setShowSearch }) {
   return (
-    <header
-      style={{
-        background: "#0f172a",
-        borderBottom: "3px solid #2563eb",
-        padding: "18px 30px",
-        boxShadow: "0 8px 30px rgba(0,0,0,.15)",
-      }}
-    >
-      <div
+    <>
+      {/* TOP HEADER */}
+      <header
         style={{
-          maxWidth: "1300px",
-          margin: "0 auto",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          background: "#0f172a",
+          color: "white",
+          padding: "18px 32px",
+          borderBottom: "1px solid #1e293b",
         }}
       >
-        {/* Logo + Name */}
         <div
           style={{
+            maxWidth: "1300px",
+            margin: "0 auto",
             display: "flex",
+            justifyContent: "space-between",
             alignItems: "center",
-            gap: "16px",
           }}
         >
-          <img
-            src="/logo.png"
-            alt="Local Scores"
+          {/* LEFT */}
+          <div
             style={{
-              width: "56px",
-              height: "56px",
-              objectFit: "contain",
+              display: "flex",
+              alignItems: "center",
+              gap: "18px",
             }}
-          />
-
-          <div>
+          >
+            {/* Logo */}
             <div
               style={{
+                width: 58,
+                height: 58,
+                borderRadius: 16,
+                background:
+                  "linear-gradient(135deg,#2563eb,#0ea5e9)",
                 display: "flex",
-                alignItems: "baseline",
-                gap: "8px",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 900,
+                fontSize: 24,
+                boxShadow:
+                  "0 8px 30px rgba(37,99,235,.45)",
               }}
             >
-              <span
+              LS
+            </div>
+
+            {/* Text */}
+            <div>
+              <h1
                 style={{
-                  color: "#ffffff",
-                  fontSize: "30px",
-                  fontWeight: 800,
+                  margin: 0,
+                  fontSize: 28,
+                  fontWeight: 900,
+                  letterSpacing: "-1px",
                 }}
               >
                 Local Scores
-              </span>
+              </h1>
 
-              <span
+              <div
                 style={{
-                  color: "#60a5fa",
-                  fontWeight: 700,
-                  fontSize: "16px",
+                  color: "#94a3b8",
+                  fontSize: 14,
+                  marginTop: 4,
+                  fontWeight: 600,
                 }}
               >
-                HQ
-              </span>
-            </div>
-
-            <div
-              style={{
-                color: "#94a3b8",
-                fontSize: "14px",
-                marginTop: "4px",
-              }}
-            >
-              Love Local. Every Game.
+                Love Local. Every Game.
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Search Button */}
-        <button
-          onClick={() => setShowSearch(true)}
+          {/* SEARCH */}
+          <button
+            onClick={() => setShowSearch(true)}
+            style={{
+              width: 52,
+              height: 52,
+              borderRadius: 14,
+              border: "none",
+              background: "#1e293b",
+              color: "white",
+              fontSize: 22,
+              cursor: "pointer",
+            }}
+          >
+            🔍
+          </button>
+        </div>
+      </header>
+
+      {/* NAVIGATION */}
+      <div
+        style={{
+          background: "white",
+          borderBottom: "1px solid #e5e7eb",
+        }}
+      >
+        <div
           style={{
-            width: "52px",
-            height: "52px",
-            borderRadius: "14px",
-            border: "none",
-            background: "#2563eb",
-            color: "white",
-            fontSize: "22px",
-            cursor: "pointer",
-            transition: ".2s",
+            maxWidth: "1300px",
+            margin: "0 auto",
+            display: "flex",
+            gap: 40,
+            padding: "16px 32px",
+            fontWeight: 700,
+            fontSize: 17,
+            color: "#334155",
           }}
         >
-          🔍
-        </button>
+          <span style={{ color: "#2563eb" }}>Home</span>
+          <span>Scores</span>
+          <span>Standings</span>
+          <span>Favorites</span>
+        </div>
       </div>
-    </header>
+    </>
   );
 }
