@@ -4,77 +4,93 @@ export default function Header({ setShowSearch }) {
   return (
     <header
       style={{
-        padding: "18px 16px",
-        background:
-          "linear-gradient(135deg, rgba(2,6,23,0.98), rgba(15,23,42,0.98))",
-        borderBottom: "1px solid rgba(148,163,184,0.14)",
+        background: "#0f172a",
+        borderBottom: "3px solid #2563eb",
+        padding: "18px 30px",
+        boxShadow: "0 8px 30px rgba(0,0,0,.15)",
       }}
     >
       <div
         style={{
-          maxWidth: "1200px",
+          maxWidth: "1300px",
           margin: "0 auto",
           display: "flex",
-          alignItems: "center",
           justifyContent: "space-between",
-          gap: "16px",
+          alignItems: "center",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <div
+        {/* Logo + Name */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "16px",
+          }}
+        >
+          <img
+            src="/logo.png"
+            alt="Local Scores"
             style={{
-              width: "46px",
-              height: "46px",
-              borderRadius: "14px",
-              background: "linear-gradient(135deg, #0284c7, #1d64d8)",
-              display: "grid",
-              placeItems: "center",
-              fontSize: "24px",
-              boxShadow: "0 0 22px rgba(34,211,238,0.35)",
+              width: "56px",
+              height: "56px",
+              objectFit: "contain",
             }}
-          >
-            HQ
-          </div>
+          />
 
           <div>
-            <h1
+            <div
               style={{
-                margin: 0,
-                fontSize: "26px",
-                lineHeight: "1",
-                fontWeight: "1000",
-                letterSpacing: "-0.04em",
-                color: "#ffffff",
+                display: "flex",
+                alignItems: "baseline",
+                gap: "8px",
               }}
             >
-              LocalScoreHQ
-            </h1>
+              <span
+                style={{
+                  color: "#ffffff",
+                  fontSize: "30px",
+                  fontWeight: 800,
+                }}
+              >
+                Local Scores
+              </span>
 
-            <p
+              <span
+                style={{
+                  color: "#60a5fa",
+                  fontWeight: 700,
+                  fontSize: "16px",
+                }}
+              >
+                HQ
+              </span>
+            </div>
+
+            <div
               style={{
-                margin: "6px 0 0",
                 color: "#94a3b8",
-                fontSize: "13px",
-                fontWeight: "700",
+                fontSize: "14px",
+                marginTop: "4px",
               }}
             >
-              Where Every Game Counts
-            </p>
+              Love Local. Every Game.
+            </div>
           </div>
         </div>
 
+        {/* Search Button */}
         <button
           onClick={() => setShowSearch(true)}
-          aria-label="Open search"
           style={{
-            width: "46px",
-            height: "46px",
+            width: "52px",
+            height: "52px",
             borderRadius: "14px",
-            border: "1px solid rgba(148,163,184,0.2)",
-            background: "rgba(15,23,42,0.9)",
-            color: "#fff",
+            border: "none",
+            background: "#2563eb",
+            color: "white",
             fontSize: "22px",
             cursor: "pointer",
+            transition: ".2s",
           }}
         >
           🔍
