@@ -415,8 +415,9 @@ const searchResults =
         </nav>
 
         <div className="headerRightGroup">
-          <button className="headerIconBtn" onClick={() => setShowGlobalSearch(true)} aria-label="Search">
-            🔍
+          <button className="headerSearchBar" onClick={() => setShowGlobalSearch(true)} aria-label="Search">
+            <span className="headerSearchIcon">🔍</span>
+            <span className="headerSearchPlaceholder">Search teams, games...</span>
           </button>
 
           <button className="headerIconBtn" onClick={() => setShowSettings(true)} aria-label="Settings">
