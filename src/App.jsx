@@ -380,7 +380,10 @@ const searchResults =
     <div className="appShell">
       <header className="mobileAppHeader">
         <div className="brandSection">
-          <img src="/logo.png" alt="LocalScoresHQ" className="appLogo" />
+          <img src="/icon.png" alt="LocalScoresHQ" className="appLogoIcon" />
+          <span className="appLogoText">
+            Local <b>Scores</b> <sup>HQ</sup>
+          </span>
           {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
         </div>
 

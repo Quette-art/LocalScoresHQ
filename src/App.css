@@ -209,11 +209,37 @@ select {
   flex-shrink: 0;
 }
 
-.appLogo {
-  height: 34px;
+.appLogoIcon {
+  height: 32px;
   width: auto;
   object-fit: contain;
-  /* Full color — header is light now, no contrast fix needed */
+}
+
+.appLogoText {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+.appLogoText b {
+  color: #1d64d8;
+  font-weight: 900;
+}
+
+.appLogoText sup {
+  font-size: 10px;
+  font-weight: 800;
+  color: #94a3b8;
+  top: -0.6em;
+  margin-left: 1px;
+}
+
+@media (max-width: 480px) {
+  .appLogoText {
+    display: none;
+  }
 }
 
 .adminBadge {
