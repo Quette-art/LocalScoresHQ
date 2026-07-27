@@ -417,7 +417,7 @@ button, input, select { font-family: inherit; }
 
 .scoreboard-mini-team span:not(.team-avatar) {
   flex: 1;
-  font-size: 14px;
+  font-size: 16px;
   color: #0f172a;
   font-weight: 800;
   overflow: hidden;
@@ -429,7 +429,7 @@ button, input, select { font-family: inherit; }
 .scoreboard-mini-team b.loser { color: #64748b; }
 
 .scoreboard-mini-team b {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 900;
   color: #0f172a;
   font-variant-numeric: tabular-nums;
@@ -511,6 +511,7 @@ button, input, select { font-family: inherit; }
   background: transparent;
   color: #0f172a;
   padding: 0;
+  font-size: 16px;
   font-weight: 900;
   cursor: pointer;
   line-height: 1.2;
@@ -1941,7 +1942,7 @@ button, input, select { font-family: inherit; }
 }
 
 .hero-team span {
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 900;
   color: #0f172a;
   line-height: 1.15;
