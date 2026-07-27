@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useRef, useState } from "react";
 import {
   BrowserRouter,
@@ -383,10 +380,15 @@ const searchResults =
     <div className="appShell">
       <header className="mobileAppHeader">
         <div className="brandSection">
-          <img src="/icon.png" alt="LocalScoresHQ" className="appLogoIcon" />
-          <span className="appLogoText">
-            Local <b>Scores</b> <sup>HQ</sup>
-          </span>
+          <div className="logoBadge">LS</div>
+
+          <div className="logoTextGroup">
+            <span className="logoWordmark">
+              Local <b>Scores</b>
+            </span>
+            <span className="logoTagline">Love Local. Every Game.</span>
+          </div>
+
           {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
         </div>
 

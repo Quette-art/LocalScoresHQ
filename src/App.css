@@ -209,35 +209,51 @@ select {
   flex-shrink: 0;
 }
 
-.appLogoIcon {
-  height: 32px;
-  width: auto;
-  object-fit: contain;
+.logoBadge {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #3b82f6, #0f3d8a);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(29, 100, 216, 0.28);
 }
 
-.appLogoText {
-  font-size: 16px;
+.logoTextGroup {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.logoWordmark {
+  font-size: 17px;
   font-weight: 700;
   color: #0f172a;
   letter-spacing: -0.2px;
   white-space: nowrap;
 }
 
-.appLogoText b {
+.logoWordmark b {
   color: #1d64d8;
   font-weight: 900;
 }
 
-.appLogoText sup {
-  font-size: 10px;
-  font-weight: 800;
+.logoTagline {
+  font-size: 10.5px;
+  font-weight: 700;
   color: #94a3b8;
-  top: -0.6em;
-  margin-left: 1px;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
 }
 
 @media (max-width: 480px) {
-  .appLogoText {
+  .logoTagline {
     display: none;
   }
 }
