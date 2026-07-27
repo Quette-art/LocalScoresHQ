@@ -189,6 +189,19 @@ const upcomingGames = useMemo(() => {
     return finalGames.filter((g) => g.sport === activeSport).slice(0, 6);
   }, [finalGames, activeSport]);
 
+  const liveGames = useMemo(() => {
+    const now = new Date();
+    return allGames.filter((game) => {
+      if (hasScore(game)) return false;
+      if (!game.date || !game.time) return false;
+      const start = new Date(`${game.date}T${game.time}`);
+      if (isNaN(start.getTime())) return false;
+      const elapsed = now - start;
+      // "live" window: kicked off, but not more than 2 hours ago
+      return elapsed >= 0 && elapsed <= 2 * 60 * 60 * 1000;
+    });
+  }, [allGames]);
+
   const openTeam = (game, teamName) => {
     setSelectedTeam({
       teamName,
@@ -221,17 +234,29 @@ const upcomingGames = useMemo(() => {
         <div>
           <p className="home-kicker">LOCALSCORESHQ</p>
 
-          <h1>Today’s Local Scoreboard</h1>
-
-          <span>
-            {upcomingGames.length} upcoming • {finalGames.length} finals
-          </span>
+          <h1>Today's Games</h1>
         </div>
 
-        <div className="home-mini-stat">
-          <strong>{allGames.length}</strong>
+        <div className="home-stat-row">
+          <div className="home-stat-item">
+            <strong>{allGames.length}</strong>
+            <span>Games</span>
+          </div>
 
-          <span>Total Games</span>
+          <div className="home-stat-item home-stat-live">
+            <strong>{liveGames.length}</strong>
+            <span>Live</span>
+          </div>
+
+          <div className="home-stat-item">
+            <strong>{finalGames.length}</strong>
+            <span>Final</span>
+          </div>
+
+          <div className="home-stat-item">
+            <strong>{Math.max(upcomingGames.length - liveGames.length, 0)}</strong>
+            <span>Upcoming</span>
+          </div>
         </div>
       </div>
 

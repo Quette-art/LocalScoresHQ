@@ -73,55 +73,6 @@ button, input, select { font-family: inherit; }
 /* ================================================
    HEADER
 ================================================ */
-.mobileAppHeader {
-  position: sticky;
-  top: 0;
-  z-index: 3000;
-  height: var(--nav-height);
-  padding: 0 18px;
-  background: var(--bg-base);
-  border-bottom: 1px solid #f1f5f9;
-  display: grid;
-  grid-template-columns: 46px 1fr 46px;
-  align-items: center;
-}
-
-.headerIconBtn {
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--border-strong);
-  border-radius: 14px;
-  background: var(--bg-surface);
-  color: var(--text);
-  font-size: 20px;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-}
-
-.brandSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.appLogo {
-  max-height: 42px;
-  max-width: 190px;
-  object-fit: contain;
-}
-
-.adminBadge {
-  margin-top: 3px;
-  padding: 3px 9px;
-  border-radius: var(--radius-pill);
-  background: linear-gradient(135deg, #0ea5e9, #2563eb);
-  color: #0f172a;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 1px;
-}
 
 /* ================================================
    MAIN CONTENT
@@ -360,9 +311,11 @@ button, input, select { font-family: inherit; }
 
 .home-feed-header h1 {
   margin: 0;
-  font-size: clamp(28px, 4.4vw, 44px);
+  font-size: clamp(32px, 5.4vw, 56px);
+  font-weight: 900;
   line-height: 1;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
 }
 
 .home-kicker {
@@ -376,20 +329,58 @@ button, input, select { font-family: inherit; }
 
 .home-muted { color: var(--muted); font-weight: 800; }
 
-.home-mini-stat {
-  min-width: 112px;
+.home-stat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.home-stat-item {
+  min-width: 86px;
   text-align: center;
-  padding: 12px;
+  padding: 10px 14px;
   border-radius: 12px;
   background: var(--bg-inset);
   border: 1px solid #E5E7EB;
 }
 
-.home-mini-stat strong {
+.home-stat-item strong {
   display: block;
-  color: var(--accent);
+  color: var(--text);
   font-size: 30px;
   font-weight: 900;
+  line-height: 1;
+}
+
+.home-stat-item span {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.home-stat-live {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(220, 38, 38, 0.25);
+}
+
+.home-stat-live strong {
+  color: #dc2626;
+}
+
+@media (max-width: 900px) {
+  .home-stat-row {
+    flex-wrap: wrap;
+  }
+  .home-stat-item {
+    min-width: 72px;
+    padding: 8px 10px;
+  }
+  .home-stat-item strong {
+    font-size: 22px;
+  }
 }
 
 /* --- Sport Scoreboard: ESPN "MLB Scoreboard" 2-column widget --- */
@@ -2011,44 +2002,37 @@ button, input, select { font-family: inherit; }
     background: var(--bg-surface);
   }
 
-  /* HERO CARD - compact single row */
+  /* HERO CARD - stacked on mobile: title, then stat row */
   .home-feed-header {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     padding: 14px 16px;
     gap: 12px;
   }
 
   .home-feed-header h1 {
-    font-size: 21px;
-    line-height: 1.15;
-    margin-bottom: 4px;
+    font-size: 30px;
+    line-height: 1.05;
   }
 
-  .home-feed-header > div:first-child span {
-    font-size: 12px;
-    color: #64748b;
+  .home-stat-row {
+    width: 100%;
   }
 
-  .home-mini-stat {
-    min-width: 76px;
-    flex-shrink: 0;
-    padding: 9px;
-    text-align: center;
-    border-radius: 12px;
+  .home-stat-item {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 6px;
   }
 
-  .home-mini-stat strong {
-    font-size: 24px;
+  .home-stat-item strong {
+    font-size: 20px;
     line-height: 1;
   }
 
-  .home-mini-stat span {
-    font-size: 10px;
-    color: #64748b;
-    font-weight: 800;
-    text-transform: uppercase;
+  .home-stat-item span {
+    font-size: 9px;
   }
 
   /* FEATURED MATCHUP HERO */
