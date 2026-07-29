@@ -1,15 +1,14 @@
-
-
 import React from "react";
 
 export default function Header({ setShowSearch }) {
   return (
     <header
       style={{
-        padding: "18px 16px",
+        padding: "12px 16px",
         background:
-          "linear-gradient(135deg, rgba(2,6,23,0.98), rgba(15,23,42,0.98))",
-        borderBottom: "1px solid rgba(148,163,184,0.14)",
+          "radial-gradient(circle at 15% -50%, rgba(37,99,235,0.28), transparent 42%), linear-gradient(135deg, #030817, #0a1730)",
+        borderBottom: "2px solid #147cff",
+        boxShadow: "0 8px 24px rgba(2, 8, 23, 0.24)",
       }}
     >
       <div
@@ -22,61 +21,80 @@ export default function Header({ setShowSearch }) {
           gap: "16px",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <div
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            minWidth: 0,
+            gap: "12px",
+          }}
+        >
+          <img
+            src="/logo-option-1.png"
+            alt="Local Scores logo"
             style={{
-              width: "46px",
-              height: "46px",
-              borderRadius: "14px",
-              background: "linear-gradient(135deg, #0284c7, #1d64d8)",
-              display: "grid",
-              placeItems: "center",
-              fontSize: "24px",
-              boxShadow: "0 0 22px rgba(34,211,238,0.35)",
+              width: "58px",
+              height: "58px",
+              flexShrink: 0,
+              objectFit: "cover",
+              borderRadius: "15px",
+              filter: "drop-shadow(0 5px 12px rgba(37,99,235,0.4))",
             }}
-          >
-            HQ
-          </div>
+          />
 
-          <div>
+          <div style={{ minWidth: 0 }}>
             <h1
               style={{
                 margin: 0,
-                fontSize: "26px",
+                fontSize: "24px",
                 lineHeight: "1",
                 fontWeight: "1000",
                 letterSpacing: "-0.04em",
                 color: "#ffffff",
+                textTransform: "uppercase",
+                whiteSpace: "nowrap",
               }}
             >
-              LocalScoreHQ
+              Local{" "}
+              <span
+                style={{
+                  color: "#1686ff",
+                }}
+              >
+                Scores
+              </span>
             </h1>
 
             <p
               style={{
                 margin: "6px 0 0",
-                color: "#94a3b8",
-                fontSize: "13px",
-                fontWeight: "700",
+                color: "#b8c6da",
+                fontSize: "11px",
+                lineHeight: "1.25",
+                fontWeight: "800",
+                letterSpacing: "0.02em",
               }}
             >
-              Where Every Game Counts
+              Scores. Schedules. Standings. All in one place.
             </p>
           </div>
         </div>
 
         <button
+          type="button"
           onClick={() => setShowSearch(true)}
           aria-label="Open search"
           style={{
             width: "46px",
             height: "46px",
+            flexShrink: 0,
             borderRadius: "14px",
-            border: "1px solid rgba(148,163,184,0.2)",
-            background: "rgba(15,23,42,0.9)",
-            color: "#fff",
-            fontSize: "22px",
+            border: "1px solid rgba(96,165,250,0.32)",
+            background: "rgba(15,23,42,0.82)",
+            color: "#ffffff",
+            fontSize: "21px",
             cursor: "pointer",
+            boxShadow: "0 5px 15px rgba(2,8,23,0.2)",
           }}
         >
           🔍
