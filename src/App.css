@@ -453,8 +453,8 @@ select {
 
 @media (max-width: 620px) {
   .brandLogoImage {
-    width: 68px;
-    height: 68px;
+    width: 90px;
+    height: 90px;
   }
 
   .logoTagline {
