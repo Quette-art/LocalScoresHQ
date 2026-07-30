@@ -443,3 +443,23 @@ select {
   border: none !important;
   color: #0f172a !important;
 }
+.brandLogoImage {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 14px;
+  filter: drop-shadow(0 5px 12px rgba(37, 99, 235, 0.4));
+}
+
+@media (max-width: 620px) {
+  .brandLogoImage {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+  }
+
+  .logoTagline {
+    display: none;
+  }
+}
