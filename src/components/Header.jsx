@@ -1,4 +1,5 @@
 import React from "react";
+import navbarLogo from "../assets/local-scores-navbar.png";
 
 export default function Header({ setShowSearch }) {
   return (
@@ -26,58 +27,21 @@ export default function Header({ setShowSearch }) {
             display: "flex",
             alignItems: "center",
             minWidth: 0,
-            gap: "12px",
           }}
         >
           <img
-            src="/logo-option-1.png"
-            alt="Local Scores logo"
+            src={navbarLogo}
+            alt="Local Scores"
             style={{
-              width: "58px",
-              height: "58px",
-              flexShrink: 0,
-              objectFit: "cover",
-              borderRadius: "15px",
-              filter: "drop-shadow(0 5px 12px rgba(37,99,235,0.4))",
+              width: "auto",
+              height: "62px",
+              maxWidth: "320px",
+              display: "block",
+              objectFit: "contain",
+              filter:
+                "drop-shadow(0 6px 14px rgba(37,99,235,0.28))",
             }}
           />
-
-          <div style={{ minWidth: 0 }}>
-            <h1
-              style={{
-                margin: 0,
-                fontSize: "24px",
-                lineHeight: "1",
-                fontWeight: "1000",
-                letterSpacing: "-0.04em",
-                color: "#ffffff",
-                textTransform: "uppercase",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Local{" "}
-              <span
-                style={{
-                  color: "#1686ff",
-                }}
-              >
-                Scores
-              </span>
-            </h1>
-
-            <p
-              style={{
-                margin: "6px 0 0",
-                color: "#b8c6da",
-                fontSize: "11px",
-                lineHeight: "1.25",
-                fontWeight: "800",
-                letterSpacing: "0.02em",
-              }}
-            >
-              Scores. Schedules. Standings. All in one place.
-            </p>
-          </div>
         </div>
 
         <button

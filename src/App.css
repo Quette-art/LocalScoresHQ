@@ -444,17 +444,17 @@ select {
   color: #0f172a !important;
 }
 .brandLogoImage {
-  width: 84px;
-  height: 84px;
+  width: 72px;
+  height: 72px;
   flex-shrink: 0;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.35));
+  filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.45));
 }
 
 @media (max-width: 620px) {
   .brandLogoImage {
-    width: 90px;
-    height: 90px;
+    width: 60px;
+    height: 60px;
   }
 
   .logoTagline {
