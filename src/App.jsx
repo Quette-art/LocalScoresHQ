@@ -381,16 +381,17 @@ const searchResults =
       <header className="mobileAppHeader">
         <div className="brandSection">
   <img
-    src="/logo-option-1.png"
-    alt="Local Scores"
-    style={{
-       height: "74px",
-  width: "auto",
-  maxWidth: "300px",
-  display: "block",
-  objectFit: "contain",
-    }}
-  />
+  className="brandLogoImage"
+  src="/logo-option-1.png"
+  alt="Local Scores logo"
+  style={{
+    height: "90px",
+    width: "auto",
+    maxWidth: "340px",
+    display: "block",
+    objectFit: "contain",
+  }}
+/>
 
   {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
         </div>
