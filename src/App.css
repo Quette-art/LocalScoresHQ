@@ -36,7 +36,11 @@ select {
   font-family: inherit;
 }
 
-/* Top sports buttons */
+
+/* =========================================
+   SPORTS BAR
+   ========================================= */
+
 .sportsBar {
   display: flex;
   gap: 10px;
@@ -57,7 +61,11 @@ select {
   color: #ffffff;
 }
 
-/* Main tabs */
+
+/* =========================================
+   MAIN TABS
+   ========================================= */
+
 .desktopTabs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -83,7 +91,11 @@ select {
   padding-top: 10px;
 }
 
-/* Scores page */
+
+/* =========================================
+   SCORES PAGE
+   ========================================= */
+
 .scores-container {
   color: #0f172a;
 }
@@ -111,7 +123,11 @@ select {
   color: #64748b;
 }
 
-/* Game cards */
+
+/* =========================================
+   GAME CARDS
+   ========================================= */
+
 .game-card,
 .scoreCard {
   background: #ffffff;
@@ -186,6 +202,12 @@ select {
   font-size: 16px;
   font-weight: 700;
 }
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
 .mobileAppHeader {
   position: sticky;
   top: 0;
@@ -197,8 +219,11 @@ select {
   gap: 24px;
 
   padding: 10px 24px;
+
   background: #0F172A;
+
   border-bottom: 3px solid #1d64d8;
+
   box-shadow: 0 2px 10px rgba(15, 23, 42, 0.2);
 }
 
@@ -214,15 +239,21 @@ select {
   width: 48px;
   height: 48px;
   flex-shrink: 0;
+
   border-radius: 12px;
+
   background: linear-gradient(135deg, #3b82f6, #0f3d8a);
+
   color: #ffffff;
+
   font-size: 18px;
   font-weight: 900;
   letter-spacing: -0.5px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   box-shadow: 0 3px 8px rgba(29, 100, 216, 0.35);
 }
 
@@ -254,23 +285,26 @@ select {
   white-space: nowrap;
 }
 
-@media (max-width: 480px) {
-  .logoTagline {
-    display: none;
-  }
-}
-
 .adminBadge {
   background: #facc15;
   color: #1e1b0a;
+
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.5px;
+
   padding: 4px 10px;
   border-radius: 999px;
+
   margin-left: 10px;
+
   text-transform: uppercase;
 }
+
+
+/* =========================================
+   DESKTOP HEADER NAV
+   ========================================= */
 
 .headerNavLinks {
   display: flex;
@@ -281,18 +315,25 @@ select {
 
 .headerNavLink {
   position: relative;
+
   background: transparent;
   border: none;
+
   color: #cbd5e1;
+
   font-size: 14px;
   font-weight: 800;
+
   padding: 9px 16px;
   border-radius: 999px;
+
   cursor: pointer;
   white-space: nowrap;
+
   display: inline-flex;
   align-items: center;
   gap: 6px;
+
   transition: background 0.15s ease, color 0.15s ease;
 }
 
@@ -310,14 +351,19 @@ select {
 .headerNavBadge {
   background: #f59e0b;
   color: #1e1b0a;
+
   font-size: 10px;
   font-weight: 900;
+
   min-width: 17px;
   height: 17px;
+
   border-radius: 999px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   padding: 0 3px;
 }
 
@@ -337,11 +383,17 @@ select {
   display: flex;
   align-items: center;
   gap: 8px;
+
   border: 1px solid rgba(255, 255, 255, 0.12);
+
   background: rgba(255, 255, 255, 0.08);
+
   border-radius: 999px;
+
   padding: 9px 16px;
+
   cursor: pointer;
+
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
@@ -363,19 +415,25 @@ select {
 
 .headerIconBtn {
   position: relative;
+
   width: 38px;
   height: 38px;
+
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
 
   background: rgba(255, 255, 255, 0.08);
+
   color: #ffffff;
+
   font-size: 16px;
+
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
@@ -384,32 +442,28 @@ select {
   background: rgba(255, 255, 255, 0.14);
 }
 
-@media (max-width: 900px) {
-  .headerNavLinks {
-    display: none;
-  }
 
-  .headerSearchPlaceholder {
-    display: none;
-  }
-
-  .headerSearchBar {
-    padding: 9px 11px;
-  }
-}
+/* =========================================
+   HOME
+   ========================================= */
 
 .home-top-strip {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   margin-bottom: 18px;
+
   padding: 18px 20px;
+
   border-radius: 20px;
+
   background: linear-gradient(
     135deg,
     rgba(17, 24, 39, 0.95),
     rgba(18, 42, 66, 0.95)
   );
+
   border: 1px solid rgba(33, 212, 253, 0.12);
 }
 
@@ -438,73 +492,297 @@ select {
 .home-top-right small {
   color: #64748b;
 }
+
 .home-featured-teams button {
   background: transparent !important;
   border: none !important;
   color: #0f172a !important;
 }
+
+
+/* =========================================
+   LOGOS
+   ========================================= */
+
 .brandLogoImage {
   width: 72px;
   height: 72px;
   flex-shrink: 0;
+
   object-fit: contain;
+
   filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.45));
 }
 
-@media (max-width: 620px) {
-  .brandLogoImage {
-    width: 60px;
-    height: 60px;
-  }
-
-  .logoTagline {
-    display: none;
-  }
-}
 .newNavbarLogo {
   height: 62px;
   width: auto;
   max-width: 320px;
+
   display: block;
+
   object-fit: contain;
 }
-/* =========================
-   ESPN-STYLE BOTTOM NAV
-   ========================= */
+
+
+/* =========================================
+   BOTTOM NAV - DESKTOP DEFAULT
+   ========================================= */
+
+.bottomNav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+
+  background: #ffffff;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+.bottomNavButton {
+  border: none;
+  background: transparent;
+
+  color: #64748b;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 800;
+}
+
+.bottomNavButtonActive {
+  color: #1d64d8;
+}
+
+.bottomNavIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================
+   MOBILE
+   ESPN-STYLE HEADER + BOTTOM NAV
+   ========================================= */
 
 @media (max-width: 900px) {
 
-  .bottomNav {
-    position: fixed;
+  html,
+  body,
+  #root {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+
+  /* Remove desktop outer spacing */
+
+  .app,
+  .appShell {
+    width: 100%;
+    max-width: none;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: #F5F7FA;
+  }
+
+
+  /* Hide desktop navigation */
+
+  .headerNavLinks {
+    display: none;
+  }
+
+  .headerSearchPlaceholder {
+    display: none;
+  }
+
+  .headerSearchBar {
+    padding: 9px 11px;
+  }
+
+
+  /* =====================================
+     MOBILE TOP HEADER
+     ===================================== */
+
+  .mobileAppHeader {
+    position: sticky;
+
+    top: 0;
     left: 0;
     right: 0;
+
+    z-index: 2000;
+
+    width: 100%;
+    max-width: none;
+
+    min-height: 68px;
+
+    margin: 0;
+
+    padding:
+      calc(4px + env(safe-area-inset-top))
+      16px
+      5px;
+
+    display: grid;
+
+    grid-template-columns:
+      44px
+      minmax(0, 1fr)
+      44px;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: #0F172A;
+
+    border: 0;
+    border-bottom: 2px solid #1d64d8;
+
+    border-radius: 0;
+
+    box-shadow: none;
+  }
+
+
+  /* Search side */
+
+  .mobileHeaderLeft {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 44px;
+  }
+
+
+  /* Center logo */
+
+  .mobileHeaderLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+
+    overflow: hidden;
+  }
+
+  .mobileHeaderLogo img,
+  .mobileHeaderLogo .newNavbarLogo {
+    display: block;
+
+    width: auto;
+    height: 42px;
+
+    max-width: 190px;
+
+    margin: 0 auto;
+
+    object-fit: contain;
+  }
+
+
+  /* Settings side */
+
+  .mobileHeaderRight {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    width: 44px;
+  }
+
+
+  /* Search + settings buttons */
+
+  .mobileHeaderAction {
+    width: 38px;
+    height: 38px;
+
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 0;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 21px;
+    line-height: 1;
+  }
+
+
+  /* =====================================
+     MOBILE BOTTOM NAV
+     ===================================== */
+
+  .bottomNav {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+
     bottom: 0;
 
     z-index: 3000;
 
     width: 100%;
+    max-width: none;
+
+    margin: 0;
 
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
+
     align-items: start;
 
     background: #ffffff;
 
     border-top: 1px solid #e5e7eb;
 
-    padding: 7px 6px calc(7px + env(safe-area-inset-bottom));
+    padding:
+      4px
+      4px
+      calc(2px + env(safe-area-inset-bottom));
 
-    box-shadow: 0 -2px 8px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 -1px 5px rgba(15, 23, 42, 0.05);
   }
 
+
   .bottomNavButton {
+    width: 100%;
     min-width: 0;
-    min-height: 56px;
+
+    min-height: 46px;
 
     margin: 0;
-    padding: 2px 4px;
 
-    border: none;
+    padding: 0 3px;
+
+    border: 0;
     border-radius: 0;
 
     background: transparent !important;
@@ -512,143 +790,143 @@ select {
     color: #64748b;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
     justify-content: flex-start;
 
-    gap: 2px;
-
-    font-size: 12px;
-    font-weight: 700;
+    gap: 1px;
 
     box-shadow: none !important;
   }
 
+
   .bottomNavButtonActive {
     background: transparent !important;
+
     color: #1d64d8 !important;
+
+    box-shadow: none !important;
   }
 
+
+  /* Smaller icons and raised position */
+
   .bottomNavIcon {
+    height: 23px;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
-    height: 27px;
+    margin: 0;
 
-    font-size: 22px;
+    font-size: 19px;
+
     line-height: 1;
   }
 
+
+  /* Bottom nav labels */
+
   .bottomNavButton span:last-child {
-    font-size: 12px;
-    line-height: 16px;
+    margin: 0;
+
+    font-size: 11px;
+
     font-weight: 800;
+
+    line-height: 13px;
   }
+
+
+  /* Prevent scores from going behind nav */
 
   .mainContent {
-    padding-bottom: 85px;
+    padding-top: 10px;
+
+    padding-left: 18px;
+    padding-right: 18px;
+
+    padding-bottom:
+      calc(65px + env(safe-area-inset-bottom));
+  }
+
+
+  /* Sports bar remains inside page */
+
+  .sportsBar {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+
+  /* Mobile logo */
+
+  .brandLogoImage {
+    width: 60px;
+    height: 60px;
+  }
+
+
+  .logoTagline {
+    display: none;
   }
 }
-/* =========================
-   ESPN-STYLE MOBILE HEADER
-   ========================= */
 
-.mobileHeaderLeft,
-.mobileHeaderLogo,
-.mobileHeaderRight {
-  display: none;
-}
 
-.desktopHeaderBrand {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  width: 100%;
-}
+/* =========================================
+   SMALL PHONES
+   ========================================= */
 
-@media (max-width: 900px) {
-
-  .app,
-  .appShell {
-    padding-top: 0;
-  }
+@media (max-width: 480px) {
 
   .mobileAppHeader {
-    position: sticky;
-    top: 0;
-    z-index: 2000;
+    min-height: 64px;
 
-    width: 100%;
-    min-height: 82px;
+    padding-left: 12px;
+    padding-right: 12px;
 
-    margin: 0;
-    padding: 10px 18px;
-
-    display: grid;
-    grid-template-columns: 48px 1fr 48px;
-    align-items: center;
-
-    background: #0F172A;
-
-    border: none;
-    border-bottom: 2px solid #1d64d8;
-
-    border-radius: 0;
-
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
-  }
-
-  .desktopHeaderBrand {
-    display: none;
+    grid-template-columns:
+      40px
+      minmax(0, 1fr)
+      40px;
   }
 
   .mobileHeaderLeft,
-  .mobileHeaderLogo,
   .mobileHeaderRight {
-    display: flex;
-    align-items: center;
-  }
-
-  .mobileHeaderLeft {
-    justify-content: flex-start;
-  }
-
-  .mobileHeaderRight {
-    justify-content: flex-end;
-  }
-
-  .mobileHeaderLogo {
-    justify-content: center;
-    min-width: 0;
-  }
-
-  .mobileHeaderLogo img {
-    height: 54px;
-    width: auto;
-    max-width: 220px;
-    object-fit: contain;
-    display: block;
+    width: 40px;
   }
 
   .mobileHeaderAction {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
 
-    padding: 0;
+    font-size: 20px;
+  }
 
-    border: none;
-    border-radius: 0;
+  .mobileHeaderLogo img,
+  .mobileHeaderLogo .newNavbarLogo {
+    height: 39px;
+    max-width: 175px;
+  }
 
-    background: transparent;
+  .bottomNav {
+    padding-top: 4px;
+  }
 
-    color: #ffffff;
+  .bottomNavButton {
+    min-height: 44px;
+  }
 
-    font-size: 22px;
+  .bottomNavIcon {
+    height: 22px;
+    font-size: 18px;
+  }
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .bottomNavButton span:last-child {
+    font-size: 10.5px;
+    line-height: 12px;
   }
 }
