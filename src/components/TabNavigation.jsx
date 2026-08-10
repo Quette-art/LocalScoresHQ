@@ -1,5 +1,3 @@
-
-
 import React from "react";
 
 export default function TabNavigation({
@@ -30,7 +28,7 @@ export default function TabNavigation({
   ];
 
   return (
-    <div className="bottomNavWrapper compactBottomNav">
+    <div className="bottomNav">
       {tabs.map((tab) => (
         <button
           key={tab.key}
@@ -45,7 +43,9 @@ export default function TabNavigation({
             {tab.icon}
           </span>
 
-          <span>{tab.label}</span>
+          <span className="bottomNavLabel">
+            {tab.label}
+          </span>
         </button>
       ))}
     </div>
