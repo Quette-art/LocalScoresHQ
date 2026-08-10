@@ -283,21 +283,17 @@ select {
 .adminBadge {
   background: #facc15;
   color: #1e1b0a;
-
   font-size: 10px;
   font-weight: 900;
-
   padding: 4px 10px;
   border-radius: 999px;
-
   margin-left: 10px;
-
   text-transform: uppercase;
 }
 
 
 /* =========================================
-   DESKTOP NAVIGATION
+   DESKTOP NAV
    ========================================= */
 
 .headerNavLinks {
@@ -309,20 +305,14 @@ select {
 
 .headerNavLink {
   position: relative;
-
   background: transparent;
   border: none;
-
   color: #cbd5e1;
-
   font-size: 14px;
   font-weight: 800;
-
   padding: 9px 16px;
   border-radius: 999px;
-
   white-space: nowrap;
-
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -342,19 +332,14 @@ select {
 .headerNavBadge {
   background: #f59e0b;
   color: #1e1b0a;
-
   font-size: 10px;
   font-weight: 900;
-
   min-width: 17px;
   height: 17px;
-
   border-radius: 999px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   padding: 0 3px;
 }
 
@@ -374,13 +359,9 @@ select {
   display: flex;
   align-items: center;
   gap: 8px;
-
   border: 1px solid rgba(255, 255, 255, 0.12);
-
   background: rgba(255, 255, 255, 0.08);
-
   border-radius: 999px;
-
   padding: 9px 16px;
 }
 
@@ -403,16 +384,11 @@ select {
 .headerIconBtn {
   width: 38px;
   height: 38px;
-
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
-
   background: rgba(255, 255, 255, 0.08);
-
   color: #ffffff;
-
   font-size: 16px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -495,14 +471,13 @@ select {
   height: 62px;
   width: auto;
   max-width: 320px;
-
   display: block;
   object-fit: contain;
 }
 
 
 /* =========================================
-   MOBILE HEADER ELEMENTS
+   MOBILE ELEMENTS HIDDEN ON DESKTOP
    ========================================= */
 
 .mobileHeaderLeft,
@@ -510,11 +485,6 @@ select {
 .mobileHeaderRight {
   display: none;
 }
-
-
-/* =========================================
-   BOTTOM NAV
-   ========================================= */
 
 .bottomNav {
   display: none;
@@ -541,13 +511,14 @@ select {
   }
 
 
-  /* APP WIDTH */
+  /* ======================================
+     APP
+     ====================================== */
 
   .app,
   .appShell {
     width: 100%;
     max-width: none;
-
     min-height: 100vh;
 
     margin: 0;
@@ -557,7 +528,7 @@ select {
   }
 
 
-  /* HIDE DESKTOP HEADER CONTENT */
+  /* Hide desktop header pieces */
 
   .desktopHeaderBrand,
   .headerNavLinks,
@@ -583,14 +554,17 @@ select {
     width: 100%;
     max-width: none;
 
-    min-height: 72px;
+    /*
+      SHORTER NAVY SECTION
+    */
+    min-height: 58px;
 
     margin: 0;
 
     padding:
-      calc(4px + env(safe-area-inset-top))
-      18px
-      5px;
+      env(safe-area-inset-top)
+      16px
+      2px;
 
     display: grid;
 
@@ -601,11 +575,12 @@ select {
 
     align-items: center;
 
-    column-gap: 10px;
+    column-gap: 8px;
 
     background: #0F172A;
 
-    border: none;
+    border: 0;
+
     border-bottom: 2px solid #1d64d8;
 
     border-radius: 0;
@@ -614,7 +589,7 @@ select {
   }
 
 
-  /* LEFT SEARCH */
+  /* Search left */
 
   .mobileHeaderLeft {
     display: flex;
@@ -629,7 +604,7 @@ select {
   }
 
 
-  /* CENTER LOGO */
+  /* Center logo */
 
   .mobileHeaderLogo {
     display: flex;
@@ -640,29 +615,34 @@ select {
     width: 100%;
     min-width: 0;
 
-    margin: 0;
-    padding: 0;
-
     overflow: visible;
   }
+
+
+  /*
+    BIGGER LOGO
+
+    The source PNG has some empty space in it,
+    so scaling it slightly makes the actual LS
+    artwork appear substantially bigger.
+  */
 
   .mobileHeaderLogo img {
     display: block;
 
     width: auto;
-
-    /* BIGGER LOGO */
     height: 62px;
 
-    max-width: 290px;
-
-    margin: 0 auto;
+    max-width: 300px;
 
     object-fit: contain;
+
+    transform: scale(1.28);
+    transform-origin: center;
   }
 
 
-  /* RIGHT SETTINGS */
+  /* Settings right */
 
   .mobileHeaderRight {
     display: flex;
@@ -677,7 +657,7 @@ select {
   }
 
 
-  /* SEARCH / SETTINGS BUTTONS */
+  /* Search and settings */
 
   .mobileHeaderAction {
     width: 42px;
@@ -688,19 +668,19 @@ select {
     margin: 0;
     padding: 0;
 
-    border: none;
+    border: 0;
     border-radius: 0;
 
     background: transparent !important;
 
     color: #ffffff;
 
-    /* slightly larger than before */
     font-size: 23px;
 
     line-height: 1;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -709,7 +689,7 @@ select {
 
 
   /* ======================================
-     PAGE CONTENT
+     PAGE
      ====================================== */
 
   .mainContent {
@@ -720,14 +700,17 @@ select {
     padding-left: 18px;
     padding-right: 18px;
 
-    /* room for larger bottom bar */
+    /*
+      Extra room so last card isn't hidden
+      behind bottom navigation.
+    */
     padding-bottom:
-      calc(84px + env(safe-area-inset-bottom));
+      calc(100px + env(safe-area-inset-bottom));
   }
 
 
   /* ======================================
-     MOBILE BOTTOM NAV
+     BOTTOM NAVIGATION
      ====================================== */
 
   .bottomNav {
@@ -747,37 +730,41 @@ select {
 
     grid-template-columns: repeat(4, 1fr);
 
-    align-items: center;
+    align-items: start;
 
     background: #ffffff;
 
     border-top: 1px solid #e5e7eb;
 
-    /* MORE SIZE WITHOUT HUGE EMPTY SPACE */
+    /*
+      IMPORTANT:
+      Extra bottom safe-area/gap places
+      navigation ABOVE iPhone gesture line.
+    */
+
     padding:
       7px
       5px
-      calc(5px + env(safe-area-inset-bottom));
+      calc(10px + env(safe-area-inset-bottom));
 
     box-shadow:
       0 -2px 8px rgba(15, 23, 42, 0.07);
   }
 
 
-  /* NAV BUTTON */
+  /* Tab */
 
   .bottomNavButton {
     width: 100%;
-    min-width: 0;
 
-    /* taller than previous version */
-    min-height: 56px;
+    min-width: 0;
+    min-height: 55px;
 
     margin: 0;
 
-    padding: 2px 4px;
+    padding: 1px 4px;
 
-    border: none;
+    border: 0;
     border-radius: 0;
 
     background: transparent !important;
@@ -790,7 +777,12 @@ select {
 
     align-items: center;
 
-    justify-content: center;
+    /*
+      Keeps icon/text toward TOP of bar.
+      Safe-area space remains underneath.
+    */
+
+    justify-content: flex-start;
 
     gap: 3px;
 
@@ -798,7 +790,7 @@ select {
   }
 
 
-  /* ACTIVE TAB */
+  /* Active tab */
 
   .bottomNavButtonActive {
     background: transparent !important;
@@ -809,10 +801,10 @@ select {
   }
 
 
-  /* LARGER NAV ICON */
+  /* Icon */
 
   .bottomNavIcon {
-    height: 28px;
+    height: 29px;
 
     margin: 0;
     padding: 0;
@@ -822,20 +814,18 @@ select {
     align-items: center;
     justify-content: center;
 
-    /* BIGGER ICON */
-    font-size: 23px;
+    font-size: 24px;
 
     line-height: 1;
   }
 
 
-  /* LARGER NAV LABEL */
+  /* Label */
 
   .bottomNavLabel,
   .bottomNavButton span:last-child {
     margin: 0;
 
-    /* BIGGER TEXT */
     font-size: 12px;
 
     font-weight: 800;
@@ -844,13 +834,14 @@ select {
   }
 
 
-  /* SPORTS BAR */
+  /* ======================================
+     MOBILE SPORTS
+     ====================================== */
 
   .sportsBar {
     width: 100%;
     margin-bottom: 14px;
   }
-
 
   .brandLogoImage {
     width: 60px;
@@ -864,18 +855,22 @@ select {
 
 
 /* ==================================================
-   SMALLER PHONES
+   SMALL PHONES
    ================================================== */
 
 @media (max-width: 480px) {
 
+  /*
+    Even shorter navy portion on smaller iPhones.
+  */
+
   .mobileAppHeader {
-    min-height: 70px;
+    min-height: 56px;
 
     padding:
-      calc(3px + env(safe-area-inset-top))
-      14px
-      4px;
+      env(safe-area-inset-top)
+      13px
+      1px;
 
     grid-template-columns:
       42px
@@ -883,10 +878,12 @@ select {
       42px;
   }
 
+
   .mobileHeaderLeft,
   .mobileHeaderRight {
     width: 42px;
   }
+
 
   .mobileHeaderAction {
     width: 40px;
@@ -897,39 +894,59 @@ select {
     font-size: 22px;
   }
 
-  /* still noticeably larger */
+
+  /*
+    Larger logo even though header
+    itself is shorter.
+  */
+
   .mobileHeaderLogo img {
     height: 58px;
-    max-width: 260px;
+
+    max-width: 280px;
+
+    transform: scale(1.3);
   }
+
 
   .mainContent {
     padding-left: 14px;
     padding-right: 14px;
 
     padding-bottom:
-      calc(80px + env(safe-area-inset-bottom));
+      calc(96px + env(safe-area-inset-bottom));
   }
+
+
+  /*
+    More breathing room above iPhone
+    home indicator.
+  */
 
   .bottomNav {
     padding:
       6px
       4px
-      calc(4px + env(safe-area-inset-bottom));
+      calc(9px + env(safe-area-inset-bottom));
   }
 
+
   .bottomNavButton {
-    min-height: 53px;
+    min-height: 52px;
   }
+
 
   .bottomNavIcon {
     height: 27px;
-    font-size: 22px;
+
+    font-size: 23px;
   }
+
 
   .bottomNavLabel,
   .bottomNavButton span:last-child {
     font-size: 11.5px;
+
     line-height: 13px;
   }
 }
