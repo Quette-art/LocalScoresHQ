@@ -379,64 +379,134 @@ const searchResults =
   return (
     <div className="appShell">
       <header className="mobileAppHeader">
-        <div className="brandSection">
-  <img
-  className="brandLogoImage"
-  src="/logo-option-1.png"
-  alt="Local Scores logo"
-  style={{
-    height: "90px",
-    width: "auto",
-    maxWidth: "340px",
-    display: "block",
-    objectFit: "contain",
-  }}
-/>
 
-  {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
+  {/* MOBILE ESPN-STYLE HEADER */}
+  <div className="mobileHeaderLeft">
+    <button
+      className="mobileHeaderAction"
+      onClick={() => setShowGlobalSearch(true)}
+      aria-label="Search"
+    >
+      🔍
+    </button>
+  </div>
+
+  <div className="mobileHeaderLogo">
+    <img
+      src="/logo-option-1.png"
+      alt="Local Scores"
+    />
+  </div>
+
+  <div className="mobileHeaderRight">
+    <button
+      className="mobileHeaderAction"
+      onClick={() => setShowSettings(true)}
+      aria-label="Settings"
+    >
+      ⚙️
+    </button>
+  </div>
+
+
+  {/* DESKTOP HEADER */}
+  <div className="desktopHeaderBrand">
+    <div className="brandSection">
+      <img
+        className="brandLogoImage"
+        src="/logo-option-1.png"
+        alt="Local Scores logo"
+      />
+
+      {isAdmin && (
+        <div className="adminBadge">
+          ADMIN MODE
         </div>
+      )}
+    </div>
 
-        <nav className="headerNavLinks">
-          <button
-            className={`headerNavLink${activeTab === "home" ? " headerNavLinkActive" : ""}`}
-            onClick={() => handleTabChange("home")}
-          >
-            Home
-          </button>
-          <button
-            className={`headerNavLink${activeTab === "scores" ? " headerNavLinkActive" : ""}`}
-            onClick={() => handleTabChange("scores")}
-          >
-            Scores
-          </button>
-          <button
-            className={`headerNavLink${activeTab === "standings" ? " headerNavLinkActive" : ""}`}
-            onClick={() => handleTabChange("standings")}
-          >
-            Standings
-          </button>
-          <button
-            className={`headerNavLink${activeTab === "favorites" ? " headerNavLinkActive" : ""}`}
-            onClick={() => handleTabChange("favorites")}
-          >
-            Favorites
-            {favoriteTeamsList.length > 0 && (
-              <span className="headerNavBadge">{favoriteTeamsList.length}</span>
-            )}
-          </button>
-        </nav>
+    <nav className="headerNavLinks">
 
-        <div className="headerRightGroup">
-          <button className="headerSearchBar" onClick={() => setShowGlobalSearch(true)} aria-label="Search">
-            <span className="headerSearchIcon">🔍</span>
-            <span className="headerSearchPlaceholder">Search teams, games...</span>
-          </button>
+      <button
+        className={`headerNavLink${
+          activeTab === "home"
+            ? " headerNavLinkActive"
+            : ""
+        }`}
+        onClick={() => handleTabChange("home")}
+      >
+        Home
+      </button>
 
-          <button className="headerIconBtn" onClick={() => setShowSettings(true)} aria-label="Settings">
-            ⚙️
-          </button>
-        </div>
-      </header>
+      <button
+        className={`headerNavLink${
+          activeTab === "scores"
+            ? " headerNavLinkActive"
+            : ""
+        }`}
+        onClick={() => handleTabChange("scores")}
+      >
+        Scores
+      </button>
+
+      <button
+        className={`headerNavLink${
+          activeTab === "standings"
+            ? " headerNavLinkActive"
+            : ""
+        }`}
+        onClick={() => handleTabChange("standings")}
+      >
+        Standings
+      </button>
+
+      <button
+        className={`headerNavLink${
+          activeTab === "favorites"
+            ? " headerNavLinkActive"
+            : ""
+        }`}
+        onClick={() => handleTabChange("favorites")}
+      >
+        Favorites
+
+        {favoriteTeamsList.length > 0 && (
+          <span className="headerNavBadge">
+            {favoriteTeamsList.length}
+          </span>
+        )}
+      </button>
+
+    </nav>
+
+    <div className="headerRightGroup">
+
+      <button
+        className="headerSearchBar"
+        onClick={() => setShowGlobalSearch(true)}
+        aria-label="Search"
+      >
+        <span className="headerSearchIcon">
+          🔍
+        </span>
+
+        <span className="headerSearchPlaceholder">
+          Search teams, games...
+        </span>
+      </button>
+
+      <button
+        className="headerIconBtn"
+        onClick={() => setShowSettings(true)}
+        aria-label="Settings"
+      >
+        ⚙️
+      </button>
+
+    </div>
+  </div>
+
+</header>
 
       <InstallAppButton />
       <IphoneInstallTip />

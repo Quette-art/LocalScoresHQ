@@ -552,3 +552,88 @@ select {
     padding-bottom: 18px;
   }
 }
+/* =========================
+   ESPN-STYLE MOBILE HEADER
+   ========================= */
+
+.mobileHeaderLeft,
+.mobileHeaderLogo,
+.mobileHeaderRight {
+  display: none;
+}
+
+.desktopHeaderBrand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .mobileAppHeader {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+
+    min-height: 72px;
+    padding: 8px 16px;
+
+    display: grid;
+    grid-template-columns: 48px 1fr 48px;
+    align-items: center;
+
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+  }
+
+  .desktopHeaderBrand {
+    display: none;
+  }
+
+  .mobileHeaderLeft,
+  .mobileHeaderLogo,
+  .mobileHeaderRight {
+    display: flex;
+    align-items: center;
+  }
+
+  .mobileHeaderLeft {
+    justify-content: flex-start;
+  }
+
+  .mobileHeaderRight {
+    justify-content: flex-end;
+  }
+
+  .mobileHeaderLogo {
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .mobileHeaderLogo img {
+    height: 46px;
+    width: auto;
+    max-width: 210px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .mobileHeaderAction {
+    width: 44px;
+    height: 44px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: transparent;
+    color: #0f172a;
+
+    font-size: 23px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
