@@ -232,7 +232,7 @@ const upcomingGames = useMemo(() => {
     <div className="home-page">
       <div className="home-feed-header">
         <div>
-          <p className="home-kicker">LOCALSCORESHQ</p>
+          <p className="home-kicker">LLOCAL SCORES</p>
 
           <h1>Today's Games</h1>
         </div>
