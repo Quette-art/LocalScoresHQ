@@ -380,16 +380,18 @@ const searchResults =
     <div className="appShell">
       <header className="mobileAppHeader">
         <div className="brandSection">
-          <div className="logoBadge">LS</div>
+  <img
+    src="/logo-option-1.png"
+    alt="Local Scores"
+    style={{
+      height: "54px",
+      width: "auto",
+      display: "block",
+      objectFit: "contain",
+    }}
+  />
 
-          <div className="logoTextGroup">
-            <span className="logoWordmark">
-              Local <b>Scores</b>
-            </span>
-            <span className="logoTagline">Love Local. Every Game.</span>
-          </div>
-
-          {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
+  {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
         </div>
 
         <nav className="headerNavLinks">
