@@ -461,3 +461,10 @@ select {
     display: none;
   }
 }
+.newNavbarLogo {
+  height: 62px;
+  width: auto;
+  max-width: 320px;
+  display: block;
+  object-fit: contain;
+}
