@@ -93,7 +93,7 @@ select {
 
 
 /* =========================================
-   SCORES PAGE
+   SCORES
    ========================================= */
 
 .scores-container {
@@ -205,7 +205,7 @@ select {
 
 
 /* =========================================
-   HEADER
+   DESKTOP HEADER
    ========================================= */
 
 .mobileAppHeader {
@@ -248,13 +248,10 @@ select {
 
   font-size: 18px;
   font-weight: 900;
-  letter-spacing: -0.5px;
 
   display: flex;
   align-items: center;
   justify-content: center;
-
-  box-shadow: 0 3px 8px rgba(29, 100, 216, 0.35);
 }
 
 .logoTextGroup {
@@ -268,7 +265,6 @@ select {
   font-size: 17px;
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: -0.2px;
   white-space: nowrap;
 }
 
@@ -281,7 +277,6 @@ select {
   font-size: 10.5px;
   font-weight: 700;
   color: #94a3b8;
-  letter-spacing: 0.2px;
   white-space: nowrap;
 }
 
@@ -291,7 +286,6 @@ select {
 
   font-size: 10px;
   font-weight: 900;
-  letter-spacing: 0.5px;
 
   padding: 4px 10px;
   border-radius: 999px;
@@ -303,7 +297,7 @@ select {
 
 
 /* =========================================
-   DESKTOP HEADER NAV
+   DESKTOP NAVIGATION
    ========================================= */
 
 .headerNavLinks {
@@ -327,14 +321,11 @@ select {
   padding: 9px 16px;
   border-radius: 999px;
 
-  cursor: pointer;
   white-space: nowrap;
 
   display: inline-flex;
   align-items: center;
   gap: 6px;
-
-  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .headerNavLink:hover {
@@ -391,10 +382,6 @@ select {
   border-radius: 999px;
 
   padding: 9px 16px;
-
-  cursor: pointer;
-
-  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .headerSearchBar:hover {
@@ -414,8 +401,6 @@ select {
 }
 
 .headerIconBtn {
-  position: relative;
-
   width: 38px;
   height: 38px;
 
@@ -428,18 +413,9 @@ select {
 
   font-size: 16px;
 
-  cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  transition: border-color 0.15s ease, background 0.15s ease;
-}
-
-.headerIconBtn:hover {
-  border-color: #5b9bff;
-  background: rgba(255, 255, 255, 0.14);
 }
 
 
@@ -508,10 +484,11 @@ select {
   width: 72px;
   height: 72px;
   flex-shrink: 0;
-
   object-fit: contain;
 
-  filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.45));
+  filter: drop-shadow(
+    0 0 10px rgba(37, 99, 235, 0.45)
+  );
 }
 
 .newNavbarLogo {
@@ -520,54 +497,34 @@ select {
   max-width: 320px;
 
   display: block;
-
   object-fit: contain;
 }
 
 
 /* =========================================
-   BOTTOM NAV - DESKTOP DEFAULT
+   MOBILE HEADER ELEMENTS
+   Hidden on desktop
    ========================================= */
 
-.bottomNav {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-
-  background: #ffffff;
-
-  border-top: 1px solid #e5e7eb;
-}
-
-.bottomNavButton {
-  border: none;
-  background: transparent;
-
-  color: #64748b;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: 800;
-}
-
-.bottomNavButtonActive {
-  color: #1d64d8;
-}
-
-.bottomNavIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.mobileHeaderLeft,
+.mobileHeaderLogo,
+.mobileHeaderRight {
+  display: none;
 }
 
 
 /* =========================================
-   MOBILE
-   ESPN-STYLE HEADER + BOTTOM NAV
+   BOTTOM NAV
    ========================================= */
+
+.bottomNav {
+  display: none;
+}
+
+
+/* ==================================================
+   MOBILE
+   ================================================== */
 
 @media (max-width: 900px) {
 
@@ -580,8 +537,14 @@ select {
     overflow-x: hidden;
   }
 
+  body {
+    background: #F5F7FA;
+  }
 
-  /* Remove desktop outer spacing */
+
+  /* ======================================
+     APP WIDTH
+     ====================================== */
 
   .app,
   .appShell {
@@ -591,31 +554,28 @@ select {
     min-height: 100vh;
 
     margin: 0;
-
     padding: 0;
 
     background: #F5F7FA;
   }
 
 
-  /* Hide desktop navigation */
+  /* ======================================
+     HIDE OLD DESKTOP HEADER CONTENT
+     This prevents duplicate icons/logo
+     ====================================== */
 
-  .headerNavLinks {
-    display: none;
+  .desktopHeaderBrand,
+  .headerNavLinks,
+  .headerRightGroup,
+  .brandSection {
+    display: none !important;
   }
 
-  .headerSearchPlaceholder {
-    display: none;
-  }
 
-  .headerSearchBar {
-    padding: 9px 11px;
-  }
-
-
-  /* =====================================
+  /* ======================================
      MOBILE TOP HEADER
-     ===================================== */
+     ====================================== */
 
   .mobileAppHeader {
     position: sticky;
@@ -629,13 +589,17 @@ select {
     width: 100%;
     max-width: none;
 
-    min-height: 68px;
+    /*
+      Shorter header like ESPN.
+      Safe-area top handles iPhone notch/status bar.
+    */
+    min-height: 72px;
 
     margin: 0;
 
     padding:
       calc(4px + env(safe-area-inset-top))
-      16px
+      18px
       5px;
 
     display: grid;
@@ -647,11 +611,11 @@ select {
 
     align-items: center;
 
-    gap: 8px;
+    column-gap: 10px;
 
     background: #0F172A;
 
-    border: 0;
+    border: none;
     border-bottom: 2px solid #1d64d8;
 
     border-radius: 0;
@@ -660,37 +624,45 @@ select {
   }
 
 
-  /* Search side */
+  /* LEFT SEARCH */
 
   .mobileHeaderLeft {
     display: flex;
+
     align-items: center;
     justify-content: flex-start;
 
     width: 44px;
+
+    margin: 0;
+    padding: 0;
   }
 
 
-  /* Center logo */
+  /* CENTER LOGO */
 
   .mobileHeaderLogo {
     display: flex;
+
     align-items: center;
     justify-content: center;
 
+    width: 100%;
     min-width: 0;
+
+    margin: 0;
+    padding: 0;
 
     overflow: hidden;
   }
 
-  .mobileHeaderLogo img,
-  .mobileHeaderLogo .newNavbarLogo {
+  .mobileHeaderLogo img {
     display: block;
 
     width: auto;
-    height: 42px;
+    height: 48px;
 
-    max-width: 190px;
+    max-width: 230px;
 
     margin: 0 auto;
 
@@ -698,58 +670,82 @@ select {
   }
 
 
-  /* Settings side */
+  /* RIGHT SETTINGS */
 
   .mobileHeaderRight {
     display: flex;
+
     align-items: center;
     justify-content: flex-end;
 
     width: 44px;
-  }
-
-
-  /* Search + settings buttons */
-
-  .mobileHeaderAction {
-    width: 38px;
-    height: 38px;
 
     margin: 0;
     padding: 0;
+  }
+
+
+  /* SEARCH / SETTINGS BUTTONS */
+
+  .mobileHeaderAction {
+    width: 40px;
+    height: 40px;
+
+    min-width: 40px;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    border-radius: 0;
+
+    background: transparent !important;
+
+    color: #ffffff;
+
+    font-size: 21px;
+
+    line-height: 1;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border: 0;
-    border-radius: 0;
-
-    background: transparent;
-
-    color: #ffffff;
-
-    font-size: 21px;
-    line-height: 1;
+    box-shadow: none !important;
   }
 
 
-  /* =====================================
+  /* ======================================
+     PAGE CONTENT
+     ====================================== */
+
+  .mainContent {
+    width: 100%;
+
+    padding-top: 12px;
+
+    padding-left: 18px;
+    padding-right: 18px;
+
+    padding-bottom:
+      calc(67px + env(safe-area-inset-bottom));
+  }
+
+
+  /* ======================================
      MOBILE BOTTOM NAV
-     ===================================== */
+     ====================================== */
 
   .bottomNav {
     position: fixed;
 
     left: 0;
     right: 0;
-
     bottom: 0;
 
     z-index: 3000;
 
     width: 100%;
-    max-width: none;
 
     margin: 0;
 
@@ -763,26 +759,32 @@ select {
 
     border-top: 1px solid #e5e7eb;
 
+    /*
+      Tighter than previous version.
+      Icons/text are raised.
+    */
     padding:
       4px
       4px
       calc(2px + env(safe-area-inset-bottom));
 
-    box-shadow: 0 -1px 5px rgba(15, 23, 42, 0.05);
+    box-shadow:
+      0 -1px 5px rgba(15, 23, 42, 0.05);
   }
 
+
+  /* NAV BUTTON */
 
   .bottomNavButton {
     width: 100%;
     min-width: 0;
 
-    min-height: 46px;
+    min-height: 43px;
 
     margin: 0;
-
     padding: 0 3px;
 
-    border: 0;
+    border: none;
     border-radius: 0;
 
     background: transparent !important;
@@ -794,6 +796,7 @@ select {
     flex-direction: column;
 
     align-items: center;
+
     justify-content: flex-start;
 
     gap: 1px;
@@ -801,6 +804,8 @@ select {
     box-shadow: none !important;
   }
 
+
+  /* ACTIVE TAB */
 
   .bottomNavButtonActive {
     background: transparent !important;
@@ -811,64 +816,57 @@ select {
   }
 
 
-  /* Smaller icons and raised position */
+  /* NAV ICON */
 
   .bottomNavIcon {
-    height: 23px;
+    height: 21px;
+
+    margin: 0;
+    padding: 0;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    margin: 0;
-
-    font-size: 19px;
+    font-size: 18px;
 
     line-height: 1;
   }
 
 
-  /* Bottom nav labels */
+  /* NAV LABEL */
 
+  .bottomNavLabel,
   .bottomNavButton span:last-child {
     margin: 0;
 
-    font-size: 11px;
+    font-size: 10.5px;
 
     font-weight: 800;
 
-    line-height: 13px;
+    line-height: 12px;
   }
 
 
-  /* Prevent scores from going behind nav */
-
-  .mainContent {
-    padding-top: 10px;
-
-    padding-left: 18px;
-    padding-right: 18px;
-
-    padding-bottom:
-      calc(65px + env(safe-area-inset-bottom));
-  }
-
-
-  /* Sports bar remains inside page */
+  /* ======================================
+     MOBILE SPORTS BAR
+     ====================================== */
 
   .sportsBar {
-    padding-left: 0;
-    padding-right: 0;
+    width: 100%;
+    margin-bottom: 14px;
   }
 
 
-  /* Mobile logo */
+  /* ======================================
+     MOBILE LOGO FALLBACK
+     ====================================== */
 
   .brandLogoImage {
     width: 60px;
     height: 60px;
   }
-
 
   .logoTagline {
     display: none;
@@ -876,17 +874,19 @@ select {
 }
 
 
-/* =========================================
-   SMALL PHONES
-   ========================================= */
+/* ==================================================
+   SMALLER PHONES
+   ================================================== */
 
 @media (max-width: 480px) {
 
   .mobileAppHeader {
-    min-height: 64px;
+    min-height: 68px;
 
-    padding-left: 12px;
-    padding-right: 12px;
+    padding:
+      calc(3px + env(safe-area-inset-top))
+      14px
+      4px;
 
     grid-template-columns:
       40px
@@ -900,33 +900,43 @@ select {
   }
 
   .mobileHeaderAction {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
+
+    min-width: 38px;
 
     font-size: 20px;
   }
 
-  .mobileHeaderLogo img,
-  .mobileHeaderLogo .newNavbarLogo {
-    height: 39px;
-    max-width: 175px;
+  .mobileHeaderLogo img {
+    height: 44px;
+    max-width: 205px;
+  }
+
+  .mainContent {
+    padding-left: 14px;
+    padding-right: 14px;
+
+    padding-bottom:
+      calc(64px + env(safe-area-inset-bottom));
   }
 
   .bottomNav {
-    padding-top: 4px;
+    padding-top: 3px;
   }
 
   .bottomNavButton {
-    min-height: 44px;
+    min-height: 41px;
   }
 
   .bottomNavIcon {
-    height: 22px;
-    font-size: 18px;
+    height: 20px;
+    font-size: 17px;
   }
 
+  .bottomNavLabel,
   .bottomNavButton span:last-child {
-    font-size: 10.5px;
-    line-height: 12px;
+    font-size: 10px;
+    line-height: 11px;
   }
 }
