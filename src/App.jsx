@@ -384,10 +384,11 @@ const searchResults =
     src="/logo-option-1.png"
     alt="Local Scores"
     style={{
-      height: "54px",
-      width: "auto",
-      display: "block",
-      objectFit: "contain",
+       height: "74px",
+  width: "auto",
+  maxWidth: "300px",
+  display: "block",
+  objectFit: "contain",
     }}
   />
 
