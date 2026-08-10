@@ -503,7 +503,6 @@ select {
 
 /* =========================================
    MOBILE HEADER ELEMENTS
-   Hidden on desktop
    ========================================= */
 
 .mobileHeaderLeft,
@@ -542,9 +541,7 @@ select {
   }
 
 
-  /* ======================================
-     APP WIDTH
-     ====================================== */
+  /* APP WIDTH */
 
   .app,
   .appShell {
@@ -560,10 +557,7 @@ select {
   }
 
 
-  /* ======================================
-     HIDE OLD DESKTOP HEADER CONTENT
-     This prevents duplicate icons/logo
-     ====================================== */
+  /* HIDE DESKTOP HEADER CONTENT */
 
   .desktopHeaderBrand,
   .headerNavLinks,
@@ -589,10 +583,6 @@ select {
     width: 100%;
     max-width: none;
 
-    /*
-      Shorter header like ESPN.
-      Safe-area top handles iPhone notch/status bar.
-    */
     min-height: 72px;
 
     margin: 0;
@@ -605,9 +595,9 @@ select {
     display: grid;
 
     grid-template-columns:
-      44px
+      46px
       minmax(0, 1fr)
-      44px;
+      46px;
 
     align-items: center;
 
@@ -632,7 +622,7 @@ select {
     align-items: center;
     justify-content: flex-start;
 
-    width: 44px;
+    width: 46px;
 
     margin: 0;
     padding: 0;
@@ -653,16 +643,18 @@ select {
     margin: 0;
     padding: 0;
 
-    overflow: hidden;
+    overflow: visible;
   }
 
   .mobileHeaderLogo img {
     display: block;
 
     width: auto;
-    height: 48px;
 
-    max-width: 230px;
+    /* BIGGER LOGO */
+    height: 62px;
+
+    max-width: 290px;
 
     margin: 0 auto;
 
@@ -678,7 +670,7 @@ select {
     align-items: center;
     justify-content: flex-end;
 
-    width: 44px;
+    width: 46px;
 
     margin: 0;
     padding: 0;
@@ -688,10 +680,10 @@ select {
   /* SEARCH / SETTINGS BUTTONS */
 
   .mobileHeaderAction {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
 
-    min-width: 40px;
+    min-width: 42px;
 
     margin: 0;
     padding: 0;
@@ -703,7 +695,8 @@ select {
 
     color: #ffffff;
 
-    font-size: 21px;
+    /* slightly larger than before */
+    font-size: 23px;
 
     line-height: 1;
 
@@ -727,8 +720,9 @@ select {
     padding-left: 18px;
     padding-right: 18px;
 
+    /* room for larger bottom bar */
     padding-bottom:
-      calc(67px + env(safe-area-inset-bottom));
+      calc(84px + env(safe-area-inset-bottom));
   }
 
 
@@ -753,23 +747,20 @@ select {
 
     grid-template-columns: repeat(4, 1fr);
 
-    align-items: start;
+    align-items: center;
 
     background: #ffffff;
 
     border-top: 1px solid #e5e7eb;
 
-    /*
-      Tighter than previous version.
-      Icons/text are raised.
-    */
+    /* MORE SIZE WITHOUT HUGE EMPTY SPACE */
     padding:
-      4px
-      4px
-      calc(2px + env(safe-area-inset-bottom));
+      7px
+      5px
+      calc(5px + env(safe-area-inset-bottom));
 
     box-shadow:
-      0 -1px 5px rgba(15, 23, 42, 0.05);
+      0 -2px 8px rgba(15, 23, 42, 0.07);
   }
 
 
@@ -779,10 +770,12 @@ select {
     width: 100%;
     min-width: 0;
 
-    min-height: 43px;
+    /* taller than previous version */
+    min-height: 56px;
 
     margin: 0;
-    padding: 0 3px;
+
+    padding: 2px 4px;
 
     border: none;
     border-radius: 0;
@@ -797,9 +790,9 @@ select {
 
     align-items: center;
 
-    justify-content: flex-start;
+    justify-content: center;
 
-    gap: 1px;
+    gap: 3px;
 
     box-shadow: none !important;
   }
@@ -816,10 +809,10 @@ select {
   }
 
 
-  /* NAV ICON */
+  /* LARGER NAV ICON */
 
   .bottomNavIcon {
-    height: 21px;
+    height: 28px;
 
     margin: 0;
     padding: 0;
@@ -829,39 +822,35 @@ select {
     align-items: center;
     justify-content: center;
 
-    font-size: 18px;
+    /* BIGGER ICON */
+    font-size: 23px;
 
     line-height: 1;
   }
 
 
-  /* NAV LABEL */
+  /* LARGER NAV LABEL */
 
   .bottomNavLabel,
   .bottomNavButton span:last-child {
     margin: 0;
 
-    font-size: 10.5px;
+    /* BIGGER TEXT */
+    font-size: 12px;
 
     font-weight: 800;
 
-    line-height: 12px;
+    line-height: 14px;
   }
 
 
-  /* ======================================
-     MOBILE SPORTS BAR
-     ====================================== */
+  /* SPORTS BAR */
 
   .sportsBar {
     width: 100%;
     margin-bottom: 14px;
   }
 
-
-  /* ======================================
-     MOBILE LOGO FALLBACK
-     ====================================== */
 
   .brandLogoImage {
     width: 60px;
@@ -881,7 +870,7 @@ select {
 @media (max-width: 480px) {
 
   .mobileAppHeader {
-    min-height: 68px;
+    min-height: 70px;
 
     padding:
       calc(3px + env(safe-area-inset-top))
@@ -889,28 +878,29 @@ select {
       4px;
 
     grid-template-columns:
-      40px
+      42px
       minmax(0, 1fr)
-      40px;
+      42px;
   }
 
   .mobileHeaderLeft,
   .mobileHeaderRight {
-    width: 40px;
+    width: 42px;
   }
 
   .mobileHeaderAction {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
 
-    min-width: 38px;
+    min-width: 40px;
 
-    font-size: 20px;
+    font-size: 22px;
   }
 
+  /* still noticeably larger */
   .mobileHeaderLogo img {
-    height: 44px;
-    max-width: 205px;
+    height: 58px;
+    max-width: 260px;
   }
 
   .mainContent {
@@ -918,25 +908,28 @@ select {
     padding-right: 14px;
 
     padding-bottom:
-      calc(64px + env(safe-area-inset-bottom));
+      calc(80px + env(safe-area-inset-bottom));
   }
 
   .bottomNav {
-    padding-top: 3px;
+    padding:
+      6px
+      4px
+      calc(4px + env(safe-area-inset-bottom));
   }
 
   .bottomNavButton {
-    min-height: 41px;
+    min-height: 53px;
   }
 
   .bottomNavIcon {
-    height: 20px;
-    font-size: 17px;
+    height: 27px;
+    font-size: 22px;
   }
 
   .bottomNavLabel,
   .bottomNavButton span:last-child {
-    font-size: 10px;
-    line-height: 11px;
+    font-size: 11.5px;
+    line-height: 13px;
   }
 }
