@@ -37,9 +37,9 @@ select {
 }
 
 
-/* =========================================
+/* ==================================================
    SPORTS BAR
-   ========================================= */
+   ================================================== */
 
 .sportsBar {
   display: flex;
@@ -62,9 +62,9 @@ select {
 }
 
 
-/* =========================================
+/* ==================================================
    MAIN TABS
-   ========================================= */
+   ================================================== */
 
 .desktopTabs {
   display: grid;
@@ -92,9 +92,9 @@ select {
 }
 
 
-/* =========================================
+/* ==================================================
    SCORES
-   ========================================= */
+   ================================================== */
 
 .scores-container {
   color: #0f172a;
@@ -124,9 +124,9 @@ select {
 }
 
 
-/* =========================================
+/* ==================================================
    GAME CARDS
-   ========================================= */
+   ================================================== */
 
 .game-card,
 .scoreCard {
@@ -204,19 +204,16 @@ select {
 }
 
 
-/* =========================================
+/* ==================================================
    DESKTOP HEADER
-   ========================================= */
+   ================================================== */
 
 .mobileAppHeader {
   position: sticky;
   top: 0;
   z-index: 1000;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  width: 100%;
 
   padding: 10px 24px;
 
@@ -227,22 +224,78 @@ select {
   box-shadow: 0 2px 10px rgba(15, 23, 42, 0.2);
 }
 
+
+/*
+  IMPORTANT:
+  This wrapper controls the desktop header.
+  Keeps logo + nav + search/settings in ONE ROW.
+*/
+
+.desktopHeaderBrand {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+}
+
+
+/* Hide mobile-only controls on desktop */
+
+.mobileHeaderLeft,
+.mobileHeaderLogo,
+.mobileHeaderRight {
+  display: none;
+}
+
+
+/* Desktop logo */
+
 .brandSection {
   display: flex;
   flex-direction: row;
   align-items: center;
+
   gap: 12px;
+
   flex-shrink: 0;
 }
+
+.brandLogoImage {
+  height: 62px;
+  width: auto;
+
+  max-width: 260px;
+
+  display: block;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+
+  filter: drop-shadow(
+    0 0 8px rgba(37, 99, 235, 0.30)
+  );
+}
+
+
+/* Old fallback logo styles */
 
 .logoBadge {
   width: 48px;
   height: 48px;
+
   flex-shrink: 0;
 
   border-radius: 12px;
 
-  background: linear-gradient(135deg, #3b82f6, #0f3d8a);
+  background: linear-gradient(
+    135deg,
+    #3b82f6,
+    #0f3d8a
+  );
 
   color: #ffffff;
 
@@ -258,13 +311,16 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   line-height: 1.2;
 }
 
 .logoWordmark {
   font-size: 17px;
   font-weight: 800;
+
   color: #ffffff;
+
   white-space: nowrap;
 }
 
@@ -276,46 +332,74 @@ select {
 .logoTagline {
   font-size: 10.5px;
   font-weight: 700;
+
   color: #94a3b8;
+
   white-space: nowrap;
 }
 
+
+/* Admin */
+
 .adminBadge {
   background: #facc15;
+
   color: #1e1b0a;
+
   font-size: 10px;
   font-weight: 900;
+
   padding: 4px 10px;
+
   border-radius: 999px;
+
   margin-left: 10px;
+
   text-transform: uppercase;
 }
 
 
-/* =========================================
-   DESKTOP NAV
-   ========================================= */
+/* ==================================================
+   DESKTOP NAV LINKS
+   ================================================== */
 
 .headerNavLinks {
   display: flex;
   align-items: center;
+
   gap: 4px;
+
   flex: 1;
+
+  justify-content: center;
 }
 
 .headerNavLink {
   position: relative;
+
   background: transparent;
+
   border: none;
+
   color: #cbd5e1;
+
   font-size: 14px;
   font-weight: 800;
+
   padding: 9px 16px;
+
   border-radius: 999px;
+
   white-space: nowrap;
+
   display: inline-flex;
   align-items: center;
+
   gap: 6px;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .headerNavLink:hover {
@@ -331,15 +415,22 @@ select {
 
 .headerNavBadge {
   background: #f59e0b;
+
   color: #1e1b0a;
+
   font-size: 10px;
   font-weight: 900;
+
   min-width: 17px;
   height: 17px;
+
   border-radius: 999px;
+
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
+
   padding: 0 3px;
 }
 
@@ -348,26 +439,47 @@ select {
   color: #1d64d8;
 }
 
+
+/* ==================================================
+   DESKTOP HEADER RIGHT
+   ================================================== */
+
 .headerRightGroup {
   display: flex;
   align-items: center;
+
   gap: 10px;
+
   flex-shrink: 0;
 }
 
 .headerSearchBar {
   display: flex;
   align-items: center;
+
   gap: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.08);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
   border-radius: 999px;
+
   padding: 9px 16px;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .headerSearchBar:hover {
   border-color: #5b9bff;
-  background: rgba(255, 255, 255, 0.14);
+
+  background:
+    rgba(255, 255, 255, 0.14);
 }
 
 .headerSearchIcon {
@@ -377,27 +489,45 @@ select {
 .headerSearchPlaceholder {
   font-size: 13px;
   font-weight: 700;
+
   color: #94a3b8;
+
   white-space: nowrap;
 }
 
 .headerIconBtn {
   width: 38px;
   height: 38px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
   color: #ffffff;
+
   font-size: 16px;
+
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.headerIconBtn:hover {
+  border-color: #5b9bff;
 
-/* =========================================
+  background:
+    rgba(255, 255, 255, 0.14);
+}
+
+
+/* ==================================================
    HOME
-   ========================================= */
+   ================================================== */
 
 .home-top-strip {
   display: flex;
@@ -416,17 +546,22 @@ select {
     rgba(18, 42, 66, 0.95)
   );
 
-  border: 1px solid rgba(33, 212, 253, 0.12);
+  border:
+    1px solid
+    rgba(33, 212, 253, 0.12);
 }
 
 .home-top-left h2 {
   color: #0f172a;
+
   font-size: 1.8rem;
+
   margin: 0;
 }
 
 .home-top-left p {
   margin-top: 4px;
+
   color: #64748b;
 }
 
@@ -436,8 +571,11 @@ select {
 
 .home-top-right span {
   display: block;
+
   font-size: 2rem;
+
   font-weight: 800;
+
   color: #1d64d8;
 }
 
@@ -447,44 +585,34 @@ select {
 
 .home-featured-teams button {
   background: transparent !important;
+
   border: none !important;
+
   color: #0f172a !important;
 }
 
 
-/* =========================================
-   LOGOS
-   ========================================= */
-
-.brandLogoImage {
-  width: 72px;
-  height: 72px;
-  flex-shrink: 0;
-  object-fit: contain;
-
-  filter: drop-shadow(
-    0 0 10px rgba(37, 99, 235, 0.45)
-  );
-}
+/* ==================================================
+   OTHER LOGO CLASS
+   ================================================== */
 
 .newNavbarLogo {
   height: 62px;
+
   width: auto;
+
   max-width: 320px;
+
   display: block;
+
   object-fit: contain;
 }
 
 
-/* =========================================
-   MOBILE ELEMENTS HIDDEN ON DESKTOP
-   ========================================= */
-
-.mobileHeaderLeft,
-.mobileHeaderLogo,
-.mobileHeaderRight {
-  display: none;
-}
+/* ==================================================
+   BOTTOM NAV
+   Desktop = hidden
+   ================================================== */
 
 .bottomNav {
   display: none;
@@ -492,7 +620,7 @@ select {
 
 
 /* ==================================================
-   MOBILE
+   MOBILE ONLY
    ================================================== */
 
 @media (max-width: 900px) {
@@ -501,46 +629,47 @@ select {
   body,
   #root {
     width: 100%;
+
     margin: 0;
+
     padding: 0;
+
     overflow-x: hidden;
   }
 
-  body {
-    background: #F5F7FA;
-  }
 
-
-  /* ======================================
-     APP
-     ====================================== */
+  /*
+    Remove desktop container spacing ONLY ON MOBILE
+  */
 
   .app,
   .appShell {
     width: 100%;
+
     max-width: none;
+
     min-height: 100vh;
 
     margin: 0;
+
     padding: 0;
 
     background: #F5F7FA;
   }
 
 
-  /* Hide desktop header pieces */
+  /*
+    Hide desktop header ONLY ON MOBILE
+  */
 
-  .desktopHeaderBrand,
-  .headerNavLinks,
-  .headerRightGroup,
-  .brandSection {
+  .desktopHeaderBrand {
     display: none !important;
   }
 
 
-  /* ======================================
+  /* ==================================================
      MOBILE TOP HEADER
-     ====================================== */
+     ================================================== */
 
   .mobileAppHeader {
     position: sticky;
@@ -552,11 +681,9 @@ select {
     z-index: 2000;
 
     width: 100%;
+
     max-width: none;
 
-    /*
-      SHORTER NAVY SECTION
-    */
     min-height: 58px;
 
     margin: 0;
@@ -579,9 +706,10 @@ select {
 
     background: #0F172A;
 
-    border: 0;
+    border: none;
 
-    border-bottom: 2px solid #1d64d8;
+    border-bottom:
+      2px solid #1d64d8;
 
     border-radius: 0;
 
@@ -589,48 +717,40 @@ select {
   }
 
 
-  /* Search left */
+  /* SEARCH */
 
   .mobileHeaderLeft {
     display: flex;
 
-    align-items: center;
-    justify-content: flex-start;
-
     width: 46px;
 
-    margin: 0;
-    padding: 0;
+    align-items: center;
+
+    justify-content: flex-start;
   }
 
 
-  /* Center logo */
+  /* LOGO */
 
   .mobileHeaderLogo {
     display: flex;
 
-    align-items: center;
-    justify-content: center;
-
     width: 100%;
+
     min-width: 0;
+
+    align-items: center;
+
+    justify-content: center;
 
     overflow: visible;
   }
-
-
-  /*
-    BIGGER LOGO
-
-    The source PNG has some empty space in it,
-    so scaling it slightly makes the actual LS
-    artwork appear substantially bigger.
-  */
 
   .mobileHeaderLogo img {
     display: block;
 
     width: auto;
+
     height: 62px;
 
     max-width: 300px;
@@ -638,40 +758,43 @@ select {
     object-fit: contain;
 
     transform: scale(1.28);
+
     transform-origin: center;
   }
 
 
-  /* Settings right */
+  /* SETTINGS */
 
   .mobileHeaderRight {
     display: flex;
 
-    align-items: center;
-    justify-content: flex-end;
-
     width: 46px;
 
-    margin: 0;
-    padding: 0;
+    align-items: center;
+
+    justify-content: flex-end;
   }
 
 
-  /* Search and settings */
+  /* MOBILE ACTION BUTTONS */
 
   .mobileHeaderAction {
     width: 42px;
+
     height: 42px;
 
     min-width: 42px;
 
     margin: 0;
+
     padding: 0;
 
     border: 0;
+
     border-radius: 0;
 
-    background: transparent !important;
+    background:
+      transparent !important;
 
     color: #ffffff;
 
@@ -682,15 +805,16 @@ select {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     box-shadow: none !important;
   }
 
 
-  /* ======================================
-     PAGE
-     ====================================== */
+  /* ==================================================
+     MOBILE PAGE CONTENT
+     ================================================== */
 
   .mainContent {
     width: 100%;
@@ -698,26 +822,28 @@ select {
     padding-top: 12px;
 
     padding-left: 18px;
+
     padding-right: 18px;
 
-    /*
-      Extra room so last card isn't hidden
-      behind bottom navigation.
-    */
     padding-bottom:
-      calc(100px + env(safe-area-inset-bottom));
+      calc(
+        100px +
+        env(safe-area-inset-bottom)
+      );
   }
 
 
-  /* ======================================
-     BOTTOM NAVIGATION
-     ====================================== */
+  /* ==================================================
+     MOBILE BOTTOM NAV
+     ================================================== */
 
   .bottomNav {
     position: fixed;
 
     left: 0;
+
     right: 0;
+
     bottom: 0;
 
     z-index: 3000;
@@ -728,36 +854,35 @@ select {
 
     display: grid;
 
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns:
+      repeat(4, 1fr);
 
     align-items: start;
 
     background: #ffffff;
 
-    border-top: 1px solid #e5e7eb;
-
-    /*
-      IMPORTANT:
-      Extra bottom safe-area/gap places
-      navigation ABOVE iPhone gesture line.
-    */
+    border-top:
+      1px solid #e5e7eb;
 
     padding:
       7px
       5px
-      calc(10px + env(safe-area-inset-bottom));
+      calc(
+        10px +
+        env(safe-area-inset-bottom)
+      );
 
     box-shadow:
-      0 -2px 8px rgba(15, 23, 42, 0.07);
+      0 -2px 8px
+      rgba(15, 23, 42, 0.07);
   }
 
-
-  /* Tab */
 
   .bottomNavButton {
     width: 100%;
 
     min-width: 0;
+
     min-height: 55px;
 
     margin: 0;
@@ -765,9 +890,11 @@ select {
     padding: 1px 4px;
 
     border: 0;
+
     border-radius: 0;
 
-    background: transparent !important;
+    background:
+      transparent !important;
 
     color: #64748b;
 
@@ -777,11 +904,6 @@ select {
 
     align-items: center;
 
-    /*
-      Keeps icon/text toward TOP of bar.
-      Safe-area space remains underneath.
-    */
-
     justify-content: flex-start;
 
     gap: 3px;
@@ -790,28 +912,29 @@ select {
   }
 
 
-  /* Active tab */
-
   .bottomNavButtonActive {
-    background: transparent !important;
+    background:
+      transparent !important;
 
-    color: #1d64d8 !important;
+    color:
+      #1d64d8 !important;
 
-    box-shadow: none !important;
+    box-shadow:
+      none !important;
   }
 
-
-  /* Icon */
 
   .bottomNavIcon {
     height: 29px;
 
     margin: 0;
+
     padding: 0;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     font-size: 24px;
@@ -819,8 +942,6 @@ select {
     line-height: 1;
   }
 
-
-  /* Label */
 
   .bottomNavLabel,
   .bottomNavButton span:last-child {
@@ -834,22 +955,12 @@ select {
   }
 
 
-  /* ======================================
-     MOBILE SPORTS
-     ====================================== */
+  /* Mobile sports */
 
   .sportsBar {
     width: 100%;
+
     margin-bottom: 14px;
-  }
-
-  .brandLogoImage {
-    width: 60px;
-    height: 60px;
-  }
-
-  .logoTagline {
-    display: none;
   }
 }
 
@@ -859,10 +970,6 @@ select {
    ================================================== */
 
 @media (max-width: 480px) {
-
-  /*
-    Even shorter navy portion on smaller iPhones.
-  */
 
   .mobileAppHeader {
     min-height: 56px;
@@ -887,6 +994,7 @@ select {
 
   .mobileHeaderAction {
     width: 40px;
+
     height: 40px;
 
     min-width: 40px;
@@ -894,11 +1002,6 @@ select {
     font-size: 22px;
   }
 
-
-  /*
-    Larger logo even though header
-    itself is shorter.
-  */
 
   .mobileHeaderLogo img {
     height: 58px;
@@ -911,23 +1014,25 @@ select {
 
   .mainContent {
     padding-left: 14px;
+
     padding-right: 14px;
 
     padding-bottom:
-      calc(96px + env(safe-area-inset-bottom));
+      calc(
+        96px +
+        env(safe-area-inset-bottom)
+      );
   }
 
-
-  /*
-    More breathing room above iPhone
-    home indicator.
-  */
 
   .bottomNav {
     padding:
       6px
       4px
-      calc(9px + env(safe-area-inset-bottom));
+      calc(
+        9px +
+        env(safe-area-inset-bottom)
+      );
   }
 
 
