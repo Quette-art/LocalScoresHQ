@@ -209,8 +209,12 @@ function AppContent() {
       const localIds = new Set(upcomingGames.map((g) => g.id));
 
       const newFirebaseGames = firebaseGames
-        .filter((g) => !localIds.has(g.id))
-        .map((game) => {
+  .filter(
+    (game) =>
+      game.sport === "Football" &&
+      !localIds.has(game.id)
+  )
+  .map((game) => {
           const status = gameStatuses[game.id];
           return {
             ...game,
