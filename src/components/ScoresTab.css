@@ -3332,3 +3332,175 @@ button, input, select { font-family: inherit; }
     grid-template-columns: 170px repeat(4, 58px) 82px repeat(4, 74px);
   }
 }
+/* Team profile spacing — desktop and mobile */
+.team-profile {
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  gap: 16px;
+}
+
+.teamProfileTopBar {
+  margin-bottom: 0;
+}
+
+.team-header {
+  min-height: 0;
+  padding: 20px;
+}
+
+.maxpreps-schedule-header-row,
+.maxpreps-schedule-row {
+  grid-template-columns:
+    minmax(140px, 0.9fr)
+    minmax(220px, 1.8fr)
+    minmax(110px, 0.7fr);
+  column-gap: 18px;
+}
+
+.maxpreps-schedule-opponent {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.maxpreps-schedule-opponent > span:last-child {
+  overflow-wrap: anywhere;
+}
+
+.scheduleVenue {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.maxpreps-schedule-info {
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 700px) {
+  .team-profile {
+    gap: 12px;
+  }
+
+  .teamProfileTopBar {
+    padding: 0 2px;
+  }
+
+  .back-btn {
+    padding: 10px 13px;
+  }
+
+  .alert-btn,
+  .favorite-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+
+  .team-header {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .team-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    font-size: 23px;
+  }
+
+  .team-header-info {
+    min-width: 0;
+  }
+
+  .team-header-info h1 {
+    overflow-wrap: anywhere;
+    font-size: clamp(25px, 7vw, 34px);
+    line-height: 1.05;
+  }
+
+  .team-header-info span {
+    margin-top: 6px;
+    font-size: 13px;
+  }
+
+  .team-section {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .team-section h2 {
+    margin-bottom: 12px;
+    font-size: 20px;
+  }
+    .maxpreps-record-grid {
+    gap: 10px;
+  }
+
+  .maxpreps-record-box {
+    padding: 12px;
+  }
+
+  .maxpreps-record-value {
+    font-size: 23px;
+  }
+
+  .maxpreps-record-mini-grid {
+    gap: 7px;
+  }
+
+  .maxpreps-mini-stat {
+    padding: 9px 8px;
+  }
+
+  .maxpreps-schedule-header-row,
+  .maxpreps-schedule-row {
+    grid-template-columns: 88px minmax(0, 1fr) auto;
+    column-gap: 10px;
+  }
+
+  .maxpreps-schedule-header-row {
+    font-size: 9px;
+  }
+
+  .maxpreps-schedule-row {
+    padding: 13px 0;
+  }
+
+  .maxpreps-schedule-date,
+  .maxpreps-schedule-opponent {
+    font-size: 12px;
+  }
+
+  .maxpreps-result-tag {
+    padding: 5px 8px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 430px) {
+  .maxpreps-record-mini-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .maxpreps-schedule-header-row {
+    display: none;
+  }
+
+  .maxpreps-schedule-row {
+    grid-template-columns: 78px minmax(0, 1fr);
+  }
+
+  .maxpreps-schedule-info {
+    grid-column: 2;
+    margin-top: 6px;
+  }
+}
