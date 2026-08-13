@@ -1,361 +1,494 @@
 import React, {
-  useEffect,
   useMemo,
   useState,
 } from "react";
-
 import { upcomingGames } from "../data/games";
-
 import "./ScoresTab.css";
 
-const soccerFilters = [
-  "6U Division / American",
-  "6U Division / National",
-  "8U Division / American",
-  "8U Division / National",
-  "10U Division / Division",
-  "12U Division / Division",
+const DCIAA_TEAMS = [
+  "Anacostia",
+  "Ballou",
+  "Bell",
+  "Cardozo",
+  "Coolidge",
+  "Dunbar",
+  "Eastern",
+  "H.D. Woodson",
+  "Jackson-Reed",
+  "McKinley Tech",
+  "Phelps ACE",
+  "Ron Brown",
+  "Roosevelt",
 ];
 
-const flagFootballFilters = [
-  "Coed / 5U",
-  "Coed / 6U American",
-  "Coed / 6U National",
-  "Coed / 7U",
-  "Coed / 8U American",
-  "Coed / 8U National",
-  "Coed / 9U",
-  "Coed / 10U American",
-  "Coed / 10U National",
-  "Coed / 11U",
-  "Coed / 12U American",
-  "Coed / 12U National",
-  "Coed / 13U",
-  "Coed / 14U",
-  "Girls / 14U",
-  "Coed / 5U Playoffs",
-  "Coed / 6U Playoffs",
-  "Coed / 7U Playoffs",
-  "Coed / 8U Playoffs",
-  "Coed / 9U Playoffs",
-  "Coed / 10U Playoffs",
-  "Coed / 11U Playoffs",
-  "Coed / 12U Playoffs",
-  "Coed / 13U Playoffs",
-  "Coed / 14U Playoffs",
-  "Girls / 14U Playoffs",
+const WCAC_TEAMS = [
+  "Archbishop Carroll",
+  "Bishop McNamara",
+  "DeMatha",
+  "Gonzaga",
+  "Good Counsel",
+  "St. John’s",
 ];
+
+const DC_TEAMS = [
+  ...DCIAA_TEAMS,
+  "Archbishop Carroll",
+  "Digital Pioneers Academy",
+  "Gonzaga",
+  "KIPP College Prep",
+  "KIPP DC Legacy",
+  "Sidwell Friends",
+  "St. John’s",
+];
+
+const VIEW_OPTIONS = [
+  {
+    id: "overall",
+    label: "Overall DC",
+  },
+  {
+    id: "dciaa",
+    label: "DCIAA",
+  },
+  {
+    id: "wcac",
+    label: "WCAC",
+  },
+];
+
+const emptyRecord = (team) => ({
+  team,
+  division: "Varsity",
+  ageGroup: "Varsity",
+  wins: 0,
+  losses: 0,
+  ties: 0,
+  conferenceWins: 0,
+  conferenceLosses: 0,
+  conferenceTies: 0,
+  pointsFor: 0,
+  pointsAgainst: 0,
+  results: [],
+});
+
+const isCompleted = (game) =>
+  game.score1 !== null &&
+  game.score1 !== undefined &&
+  game.score2 !== null &&
+  game.score2 !== undefined;
+
+const isConferenceGame = (
+  game,
+  view
+) => {
+  const notes = (
+    game.notes || ""
+  ).toLowerCase();
+
+  if (view === "dciaa") {
+    return notes.includes(
+      "dciaa league game"
+    );
+  }
+
+  if (view === "wcac") {
+    return notes.includes(
+      "wcac league game"
+    );
+  }
+
+  return (
+    notes.includes(
+      "dciaa league game"
+    ) ||
+    notes.includes(
+      "wcac league game"
+    )
+  );
+};
+
+const percentage = (team) => {
+  const games =
+    team.wins +
+    team.losses +
+    team.ties;
+
+  if (!games) return ".000";
+
+  return (
+    (team.wins + team.ties * 0.5) /
+    games
+  )
+    .toFixed(3)
+    .replace(/^0/, "");
+};
+
+const streak = (results) => {
+  if (!results.length) return "–";
+
+  const latest = results.at(-1);
+  let count = 0;
+
+  for (
+    let index = results.length - 1;
+    index >= 0;
+    index -= 1
+  ) {
+    if (
+      results[index] !== latest
+    ) {
+      break;
+    }
+
+    count += 1;
+  }
+
+  return `${latest}${count}`;
+};
 
 export default function StandingsTab({
   games = upcomingGames,
-  selectedSport = "Soccer",
+  selectedSport = "Football",
   openTeamRoute,
 }) {
-  const activeFilters =
-    selectedSport === "Flag Football"
-      ? flagFootballFilters
-      : soccerFilters;
-
-  const [divisionFilter, setDivisionFilter] =
-    useState(activeFilters[0]);
-
-  useEffect(() => {
-    setDivisionFilter(activeFilters[0]);
-  }, [selectedSport]);
+  const [
+    activeView,
+    setActiveView,
+  ] = useState("overall");
 
   const standings = useMemo(() => {
-    const table = {};
+    const includedTeams =
+      activeView === "dciaa"
+        ? DCIAA_TEAMS
+        : activeView === "wcac"
+          ? WCAC_TEAMS
+          : DC_TEAMS;
 
-    const filteredGames = games.filter(
-      (game) => {
-        const matchesSport =
-          game.sport === selectedSport;
+    const includedSet =
+      new Set(includedTeams);
 
-        const matchesDivision =
-          !divisionFilter ||
-          game.division ===
-            divisionFilter;
+    const table =
+      Object.fromEntries(
+        includedTeams.map((team) => [
+          team,
+          emptyRecord(team),
+        ])
+      );
 
-        const hasScore =
-          game.score1 != null &&
-          game.score2 != null;
-
-        return (
-          matchesSport &&
-          matchesDivision &&
-          hasScore
-        );
-      }
-    );
-
-    filteredGames.forEach((game) => {
-      const s1 = Number(game.score1);
-
-      const s2 = Number(game.score2);
-
-      const teams = [
-        {
-          name: game.team1,
-          score: s1,
-          opponentScore: s2,
-        },
-
-        {
-          name: game.team2,
-          score: s2,
-          opponentScore: s1,
-        },
-      ];
-
-      teams.forEach((team) => {
-        if (!team.name) return;
-
-        const key = `${team.name}-${game.division}`;
-
-        if (!table[key]) {
-          table[key] = {
-            team: team.name,
-
-            division:
-              game.division ||
-              "Unknown",
-
-            ageGroup:
-              game.ageGroup ||
-              game.division?.split(
-                " / "
-              )[0] ||
-              "Unknown",
-
-            wins: 0,
-
-            losses: 0,
-
-            ties: 0,
-
-            gamesPlayed: 0,
-
-            pointsFor: 0,
-
-            pointsAgainst: 0,
-          };
-        }
-
-        table[key].gamesPlayed += 1;
-
-        table[key].pointsFor +=
-          team.score;
-
-        table[key].pointsAgainst +=
-          team.opponentScore;
+    games
+      .filter(
+        (game) =>
+          game.sport === "Football" &&
+          isCompleted(game)
+      )
+      .sort((gameA, gameB) =>
+        `${gameA.date} ${gameA.time}`.localeCompare(
+          `${gameB.date} ${gameB.time}`
+        )
+      )
+      .forEach((game) => {
+        const conferenceGame =
+          isConferenceGame(
+            game,
+            activeView
+          );
 
         if (
-          team.score >
-          team.opponentScore
+          activeView !== "overall" &&
+          !conferenceGame
         ) {
-          table[key].wins += 1;
-        } else if (
-          team.score <
-          team.opponentScore
-        ) {
-          table[key].losses += 1;
-        } else {
-          table[key].ties += 1;
+          return;
         }
+
+        const score1 = Number(
+          game.score1
+        );
+
+        const score2 = Number(
+          game.score2
+        );
+
+        const entries = [
+          {
+            name: game.team1,
+            score: score1,
+            opponentScore: score2,
+          },
+          {
+            name: game.team2,
+            score: score2,
+            opponentScore: score1,
+          },
+        ];
+
+        entries.forEach(
+          ({
+            name,
+            score,
+            opponentScore,
+          }) => {
+            if (
+              !includedSet.has(name)
+            ) {
+              return;
+            }
+
+            const record =
+              table[name];
+
+            record.pointsFor +=
+              score;
+
+            record.pointsAgainst +=
+              opponentScore;
+
+            const result =
+              score > opponentScore
+                ? "W"
+                : score <
+                    opponentScore
+                  ? "L"
+                  : "T";
+
+            record.results.push(
+              result
+            );
+
+            if (result === "W") {
+              record.wins += 1;
+            }
+
+            if (result === "L") {
+              record.losses += 1;
+            }
+
+            if (result === "T") {
+              record.ties += 1;
+            }
+
+            if (conferenceGame) {
+              if (result === "W") {
+                record.conferenceWins += 1;
+              }
+
+              if (result === "L") {
+                record.conferenceLosses += 1;
+              }
+
+              if (result === "T") {
+                record.conferenceTies += 1;
+              }
+            }
+          }
+        );
       });
-    });
 
-    return Object.values(table).sort(
-      (a, b) => {
-        const ptsA =
-          a.wins * 3 + a.ties;
+    return Object.values(
+      table
+    ).sort((teamA, teamB) => {
+      const pctDifference =
+        Number(
+          percentage(teamB)
+        ) -
+        Number(
+          percentage(teamA)
+        );
 
-        const ptsB =
-          b.wins * 3 + b.ties;
+      if (pctDifference) {
+        return pctDifference;
+      }
 
-        if (ptsB !== ptsA)
-          return ptsB - ptsA;
-
-        const diffA =
-          a.pointsFor -
-          a.pointsAgainst;
-
-        const diffB =
-          b.pointsFor -
-          b.pointsAgainst;
-
-        if (diffB !== diffA)
-          return diffB - diffA;
-
+      if (
+        teamB.wins !==
+        teamA.wins
+      ) {
         return (
-          b.pointsFor - a.pointsFor
+          teamB.wins -
+          teamA.wins
         );
       }
+
+      const teamADifference =
+        teamA.pointsFor -
+        teamA.pointsAgainst;
+
+      const teamBDifference =
+        teamB.pointsFor -
+        teamB.pointsAgainst;
+
+      if (
+        teamBDifference !==
+        teamADifference
+      ) {
+        return (
+          teamBDifference -
+          teamADifference
+        );
+      }
+
+      return teamA.team.localeCompare(
+        teamB.team
+      );
+    });
+  }, [activeView, games]);
+
+  if (
+    selectedSport !== "Football"
+  ) {
+    return (
+      <div className="standingsPage">
+        <h2 className="standingsTitle">
+          {selectedSport} Standings
+        </h2>
+
+        <div className="standingsEmpty">
+          Standings for this sport
+          are coming soon.
+        </div>
+      </div>
     );
-  }, [
-    games,
-    divisionFilter,
-    selectedSport,
-  ]);
+  }
 
-  const handleTeamClick = (team) => {
-    if (!openTeamRoute) return;
-
-    openTeamRoute({
+  const openTeam = (team) => {
+    openTeamRoute?.({
       teamName: team.team,
-
       division: team.division,
-
       ageGroup: team.ageGroup,
-
-      sport: selectedSport,
+      sport: "Football",
     });
   };
 
-  return (
-    <div className="standingsPage">
-      <h2 className="standingsTitle">
-        {selectedSport} Standings
-      </h2>
+  const sectionTitle =
+    activeView === "dciaa"
+      ? "DCIAA Football"
+      : activeView === "wcac"
+        ? "WCAC Football"
+        : "D.C. Overall";
+          return (
+    <div className="standingsPage footballStandingsPage">
+      <div className="footballStandingsHeading">
+        <div>
+          <span className="standingsEyebrow">2026 SEASON</span>
+          <h2 className="standingsTitle">Football Standings</h2>
+        </div>
+        <span className="standingsUpdated">
+          Records update when final scores are entered
+        </span>
+      </div>
 
-      <select
-        className="divisionSelect"
-        value={divisionFilter}
-        onChange={(e) =>
-          setDivisionFilter(
-            e.target.value
-          )
-        }
+      <div
+        className="standingsViewTabs"
+        role="tablist"
+        aria-label="Standings view"
       >
-        {activeFilters.map(
-          (division) => (
-            <option
-              key={division}
-              value={division}
-            >
-              {division}
-            </option>
-          )
-        )}
-      </select>
+        {VIEW_OPTIONS.map((option) => (
+          <button
+            key={option.id}
+            type="button"
+            role="tab"
+            aria-selected={activeView === option.id}
+            className={activeView === option.id ? "active" : ""}
+            onClick={() => setActiveView(option.id)}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
 
-      <div className="standingsTable">
-        <div className="standingsHeader">
-          <span>Team</span>
-          <span>W</span>
-          <span>L</span>
-          <span>T</span>
-          <span>GP</span>
-          <span>PF</span>
-          <span>PA</span>
-          <span>DIFF</span>
-          <span>PTS</span>
+      <section className="footballStandingsSection">
+        <div className="footballStandingsSectionTitle">
+          <h3>{sectionTitle}</h3>
+          <span>{standings.length} teams</span>
         </div>
 
-        {standings.length === 0 ? (
-          <div className="standingsEmpty">
-            No completed games for
-            this division yet.
-          </div>
-        ) : (
-          standings.map((team, i) => {
-            const diff =
-              team.pointsFor -
-              team.pointsAgainst;
-
-            const pts =
-              team.wins * 3 +
-              team.ties;
-
-            return (
-              <div
-                key={`${team.team}-${team.division}-${team.ageGroup}`}
-                className="standingsRow"
-              >
-                <button
-                  className="standingTeamButton"
-                  onClick={() =>
-                    handleTeamClick(
-                      team
-                    )
-                  }
-                >
-                {team.team}
-                </button>
-
-                <span className="winText">
-                  {team.wins}
-                </span>
-
-                <span className="lossText">
-                  {team.losses}
-                </span>
-
-                <span>
-                  {team.ties}
-                </span>
-
-                <span>
-                  {team.gamesPlayed}
-                </span>
-
-                <span>
-                  {team.pointsFor}
-                </span>
-
-                <span>
-                  {
-                    team.pointsAgainst
-                  }
-                </span>
-
-                <span>{diff}</span>
-
-                <span className="points">
-                  {pts}
-                </span>
-              </div>
-            );
-          })
+        {activeView === "dciaa" && (
+          <p className="standingsNotice">
+            Stars and Stripes groups will be added when the official 2026
+            alignment is published.
+          </p>
         )}
-      </div>
+
+        <div className="footballStandingsScroller">
+          <div className="footballStandingsTable">
+            <div className="footballStandingsRow footballStandingsHeader">
+              <span className="footballTeamCell">TEAM</span>
+              <span>W</span>
+              <span>L</span>
+              <span>T</span>
+              <span>PCT</span>
+              <span>CONF</span>
+              <span>PF</span>
+              <span>PA</span>
+              <span>DIFF</span>
+              <span>STRK</span>
+            </div>
+
+            {standings.map((team) => {
+              const diff = team.pointsFor - team.pointsAgainst;
+              const conf = `${team.conferenceWins}-${team.conferenceLosses}-${team.conferenceTies}`;
+
+              return (
+                <div key={team.team} className="footballStandingsRow">
+                  <button
+                    type="button"
+                    className="footballTeamCell footballTeamButton"
+                    onClick={() => openTeam(team)}
+                  >
+                    <span className="footballTeamMark">
+                      {team.team
+                        .split(/\s+/)
+                        .filter(Boolean)
+                        .slice(0, 2)
+                        .map((word) => word[0])
+                        .join("")}
+                    </span>
+
+                    <strong>{team.team}</strong>
+                  </button>
+
+                  <span>{team.wins}</span>
+                  <span>{team.losses}</span>
+                  <span>{team.ties}</span>
+                  <span>{percentage(team)}</span>
+                  <span>{conf}</span>
+                  <span>{team.pointsFor}</span>
+                  <span>{team.pointsAgainst}</span>
+
+                  <span
+                    className={
+                      diff > 0
+                        ? "positiveDiff"
+                        : diff < 0
+                          ? "negativeDiff"
+                          : ""
+                    }
+                  >
+                    {diff > 0 ? `+${diff}` : diff}
+                  </span>
+
+                  <span>{streak(team.results)}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       <div className="standingsLegend">
         <span>
-          <strong>W</strong> = Wins
+          <strong>PCT</strong> = Winning percentage
         </span>
-
         <span>
-          <strong>L</strong> = Losses
+          <strong>CONF</strong> = Conference record
         </span>
-
         <span>
-          <strong>T</strong> = Ties
+          <strong>PF</strong> = Points for
         </span>
-
         <span>
-          <strong>GP</strong> = Games
-          Played
+          <strong>PA</strong> = Points against
         </span>
-
         <span>
-          <strong>PF</strong> = Points
-          For
-        </span>
-
-        <span>
-          <strong>PA</strong> = Points
-          Against
-        </span>
-
-        <span>
-          <strong>DIFF</strong> = Point
-          Differential
-        </span>
-
-        <span>
-          <strong>PTS</strong> = Total
-          Points
+          <strong>STRK</strong> = Current streak
         </span>
       </div>
     </div>
