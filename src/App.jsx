@@ -40,7 +40,7 @@ function ScrollToTop() {
   return null;
 }
 
-function TeamProfileRoute({ games }) {
+function TeamProfileRoute({ games, onGameClick }) {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const teamName = params.get("name") || "";
@@ -60,13 +60,15 @@ function TeamProfileRoute({ games }) {
           (g.division || "Unknown") === division &&
           (g.sport || "Soccer") === sport
       )}
-      onBack={() => navigate("/")}
+            onBack={() => navigate("/")}
+      onGameClick={onGameClick}
     />
   );
 }
 
 function AppContent() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("home");
   const [selectedSport, setSelectedSport] = useState("Football");
   const [games, setGames] = useState(upcomingGames);
@@ -356,10 +358,21 @@ function AppContent() {
       )}&sport=${encodeURIComponent(team.sport)}`
     );
   };
-    const openGameDetails = (game) => {
+     const openGameDetails = (game) => {
     setSelectedGame(game);
-    sessionStorage.setItem("selectedGame", JSON.stringify(game));
+
+    sessionStorage.setItem(
+      "selectedGame",
+      JSON.stringify(game)
+    );
+
     sessionStorage.setItem("prevTab", activeTab);
+
+    sessionStorage.setItem(
+      "gameReturnPath",
+      `${location.pathname}${location.search}`
+    );
+
     navigate("/game");
   };
 
@@ -735,12 +748,20 @@ function AppContent() {
               games={games}
               isAdmin={isAdmin}
               onBack={() => {
-                const prev =
-                  sessionStorage.getItem("prevTab") || "scores";
+  const returnPath =
+    sessionStorage.getItem("gameReturnPath");
 
-                setActiveTab(prev);
-                navigate("/");
-              }}
+  if (returnPath?.startsWith("/team?")) {
+    navigate(returnPath);
+    return;
+  }
+
+  const previousTab =
+    sessionStorage.getItem("prevTab") || "scores";
+
+  setActiveTab(previousTab);
+  navigate("/");
+}}
               onScoreSaved={(updatedGame) => {
                 setSelectedGame(updatedGame);
 
@@ -761,10 +782,15 @@ function AppContent() {
           }
         />
 
-        <Route
-          path="/team"
-          element={<TeamProfileRoute games={games} />}
-        />
+       <Route
+  path="/team"
+  element={
+    <TeamProfileRoute
+      games={games}
+      onGameClick={openGameDetails}
+    />
+  }
+/>
 
         <Route
           path="/"

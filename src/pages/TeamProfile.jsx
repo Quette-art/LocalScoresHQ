@@ -32,6 +32,7 @@ export default function TeamProfile({
   ageGroup,
   games,
   onBack,
+  onGameClick,
 }) {
   const [favoriteTeams, setFavoriteTeams] = useState(
     JSON.parse(localStorage.getItem("favoriteTeams")) || []
@@ -382,10 +383,15 @@ export default function TeamProfile({
                 : null;
 
               return (
-                <div
-                  key={game.id}
-                  className="maxpreps-schedule-row"
-                >
+                <button
+  type="button"
+  key={game.id}
+  className="maxpreps-schedule-row"
+  onClick={() => onGameClick?.(game)}
+  aria-label={`Open ${teamName} ${
+    isTeam1 ? "versus" : "at"
+  } ${opponent} game details`}
+>
                   <div className="maxpreps-schedule-date">
                     <span>{formatDate(game.date)}</span>
 
@@ -421,7 +427,7 @@ export default function TeamProfile({
                       </span>
                     )}
                   </div>
-                </div>
+                </button>
               );
             })}
                     </div>
