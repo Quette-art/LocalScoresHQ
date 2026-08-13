@@ -3308,3 +3308,27 @@ button, input, select { font-family: inherit; }
     font-size: 12px;
   }
 }
+/* Standings spacing fix — desktop and mobile */
+.footballStandingsTable {
+  width: 100%;
+  min-width: 900px;
+}
+
+.footballStandingsRow {
+  grid-template-columns:
+    minmax(230px, 2.6fr)
+    repeat(4, minmax(58px, 0.7fr))
+    minmax(82px, 1fr)
+    repeat(4, minmax(66px, 0.85fr));
+}
+
+@media (max-width: 720px) {
+  .footballStandingsTable {
+    width: 780px;
+    min-width: 780px;
+  }
+
+  .footballStandingsRow {
+    grid-template-columns: 170px repeat(4, 58px) 82px repeat(4, 74px);
+  }
+}
