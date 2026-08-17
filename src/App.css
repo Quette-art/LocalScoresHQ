@@ -1055,3 +1055,26 @@ select {
     line-height: 13px;
   }
 }
+/* Desktop header alignment */
+
+@media (min-width: 769px) {
+  .desktopHeaderBrand {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .brandLogoImage {
+    height: 82px;
+    max-width: 310px;
+  }
+
+  .headerNavLinks {
+    flex: 0 1 auto;
+    justify-content: flex-start;
+    margin-left: 4px;
+  }
+
+  .headerRightGroup {
+    margin-left: auto;
+  }
+}
