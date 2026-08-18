@@ -189,15 +189,27 @@ function AppContent() {
         return {
           ...game,
           ...(firebaseOverride
-            ? {
-                team1: firebaseOverride.team1 || game.team1,
-                team2: firebaseOverride.team2 || game.team2,
-                date: firebaseOverride.date || game.date,
-                time: firebaseOverride.time || game.time,
-                location: firebaseOverride.location || game.location,
-                division: firebaseOverride.division || game.division,
-              }
-            : {}),
+  ? {
+      team1: firebaseOverride.team1 || game.team1,
+      team2: firebaseOverride.team2 || game.team2,
+      date: firebaseOverride.date || game.date,
+      time: firebaseOverride.time || game.time,
+      location: firebaseOverride.location || game.location,
+      division: firebaseOverride.division || game.division,
+
+      ...(firebaseOverride.score1 !== null &&
+      firebaseOverride.score2 !== null
+        ? {
+            score1: Number(firebaseOverride.score1),
+            score2: Number(firebaseOverride.score2),
+          }
+        : {}),
+
+      ...(firebaseOverride.status
+        ? { status: firebaseOverride.status }
+        : {}),
+    }
+  : {}),
           ...(savedScore
             ? {
                 score1: savedScore.score1,
