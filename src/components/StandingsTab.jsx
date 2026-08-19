@@ -41,6 +41,30 @@ const DC_TEAMS = [
   "St. John’s",
 ];
 
+const PGCPS_TEAMS = [
+  "Bladensburg",
+  "Bowie",
+  "Central",
+  "Crossland",
+  "DuVal",
+  "Eleanor Roosevelt",
+  "Fairmont Heights",
+  "Flowers",
+  "Frederick Douglass",
+  "Friendly",
+  "Gwynn Park",
+  "High Point",
+  "Largo",
+  "Laurel",
+  "Northwestern",
+  "Oxon Hill",
+  "Parkdale",
+  "Potomac",
+  "Suitland",
+  "Surrattsville",
+  "Wise",
+];
+
 const VIEW_OPTIONS = [
   {
     id: "overall",
@@ -53,6 +77,10 @@ const VIEW_OPTIONS = [
   {
     id: "wcac",
     label: "WCAC",
+  },
+  {
+    id: "pgcps",
+    label: "Maryland · PGCPS",
   },
 ];
 
@@ -94,6 +122,13 @@ const isConferenceGame = (
   if (view === "wcac") {
     return notes.includes(
       "wcac league game"
+    );
+  }
+
+  if (view === "pgcps") {
+    return (
+      PGCPS_TEAMS.includes(game.team1) &&
+      PGCPS_TEAMS.includes(game.team2)
     );
   }
 
@@ -158,7 +193,9 @@ export default function StandingsTab({
 
   const standings = useMemo(() => {
     const includedTeams =
-      activeView === "dciaa"
+      activeView === "pgcps"
+        ? PGCPS_TEAMS
+        : activeView === "dciaa"
         ? DCIAA_TEAMS
         : activeView === "wcac"
           ? WCAC_TEAMS
@@ -194,7 +231,7 @@ export default function StandingsTab({
           );
 
         if (
-          activeView !== "overall" &&
+          ["dciaa", "wcac"].includes(activeView) &&
           !conferenceGame
         ) {
           return;
@@ -359,7 +396,9 @@ export default function StandingsTab({
   };
 
   const sectionTitle =
-    activeView === "dciaa"
+    activeView === "pgcps"
+      ? "Prince George’s County Football"
+      : activeView === "dciaa"
       ? "DCIAA Football"
       : activeView === "wcac"
         ? "WCAC Football"
@@ -405,6 +444,13 @@ export default function StandingsTab({
           <p className="standingsNotice">
             Stars and Stripes groups will be added when the official 2026
             alignment is published.
+          </p>
+        )}
+
+        {activeView === "pgcps" && (
+          <p className="standingsNotice">
+            High Point’s 2026 varsity schedule has not been published. Schedule
+            details marked subject to change are awaiting official confirmation.
           </p>
         )}
 

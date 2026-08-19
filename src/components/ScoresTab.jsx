@@ -6,6 +6,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { gameMatchesRegion } from "../data/teamRegions";
 import "./ScoresTab.css";
 
 function TeamAutocomplete({
@@ -106,6 +107,7 @@ export default function ScoresTab({
 }) {
   const [selectedDate, setSelectedDate] = useState("");
   const [divisionFilter, setDivisionFilter] = useState("ALL");
+  const [regionFilter, setRegionFilter] = useState("ALL");
   const [selectedGame, setSelectedGame] = useState(null);
   const [team1Score, setTeam1Score] = useState("");
   const [team2Score, setTeam2Score] = useState("");
@@ -137,32 +139,40 @@ export default function ScoresTab({
     );
   }, [games, selectedSport]);
 
+  const regionGames = useMemo(() => {
+    if (selectedSport !== "Football") return sportGames;
+
+    return sportGames.filter((game) =>
+      gameMatchesRegion(game, regionFilter)
+    );
+  }, [sportGames, selectedSport, regionFilter]);
+
   const allTeamNames = useMemo(() => {
     const names = new Set();
 
-    sportGames.forEach((game) => {
+    regionGames.forEach((game) => {
       if (game.team1) names.add(game.team1);
       if (game.team2) names.add(game.team2);
     });
 
     return [...names].sort();
-  }, [sportGames]);
+  }, [regionGames]);
 
   const allDivisions = useMemo(() => {
     return [
       ...new Set(
-        sportGames.map(
+        regionGames.map(
           (game) => game.division || "Unknown"
         )
       ),
     ].sort();
-  }, [sportGames]);
+  }, [regionGames]);
 
   const uniqueDates = useMemo(() => {
     return [
-      ...new Set(sportGames.map((game) => game.date)),
+      ...new Set(regionGames.map((game) => game.date)),
     ].sort();
-  }, [sportGames]);
+  }, [regionGames]);
 
   const defaultDate = useMemo(() => {
     if (uniqueDates.length === 0) return "";
@@ -184,7 +194,7 @@ export default function ScoresTab({
   useEffect(() => {
     setSelectedDate(defaultDate);
     setDivisionFilter("ALL");
-  }, [defaultDate, selectedSport]);
+  }, [defaultDate, selectedSport, regionFilter]);
 
   useEffect(() => {
     setNewGame((previousGame) => ({
@@ -197,7 +207,7 @@ export default function ScoresTab({
   const divisions = useMemo(() => {
     const list = [
       ...new Set(
-        sportGames
+        regionGames
           .filter(
             (game) => game.date === selectedDate
           )
@@ -209,11 +219,11 @@ export default function ScoresTab({
     ];
 
     return ["ALL", ...list];
-  }, [sportGames, selectedDate]);
+  }, [regionGames, selectedDate]);
 
   const filteredGames = useMemo(() => {
     const gamesForDateAndDivision =
-      sportGames.filter((game) => {
+      regionGames.filter((game) => {
         const matchesDate =
           game.date === selectedDate;
 
@@ -272,7 +282,7 @@ export default function ScoresTab({
       }
     );
   }, [
-    sportGames,
+    regionGames,
     selectedDate,
     divisionFilter,
     favoriteTeams,
@@ -562,6 +572,56 @@ export default function ScoresTab({
           {selectedSport.toUpperCase()}
         </h2>
       </div>
+
+      {selectedSport === "Football" && (
+        <div
+          role="group"
+          aria-label="Filter football games by area"
+          style={{
+            display: "flex",
+            gap: "8px",
+            padding: "0 16px 14px",
+            overflowX: "auto",
+          }}
+        >
+          {[
+            { value: "ALL", label: "All Games" },
+            { value: "DC", label: "D.C." },
+            { value: "MD", label: "Maryland" },
+          ].map((region) => {
+            const active = regionFilter === region.value;
+
+            return (
+              <button
+                key={region.value}
+                type="button"
+                aria-pressed={active}
+                onClick={() => {
+                  setRegionFilter(region.value);
+                  setDivisionFilter("ALL");
+                }}
+                style={{
+                  flex: "0 0 auto",
+                  padding: "10px 16px",
+                  borderRadius: "999px",
+                  border: active
+                    ? "1px solid #1d64d8"
+                    : "1px solid #dbe2ea",
+                  background: active ? "#1d64d8" : "#ffffff",
+                  color: active ? "#ffffff" : "#0f172a",
+                  fontSize: "14px",
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {region.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       <div className="date-scroll">
         {uniqueDates.map((date) => (
@@ -1159,8 +1219,7 @@ export default function ScoresTab({
                       <button
                         className="report-score-btn"
                         style={{
-                          margin: 0,
-                          background:
+                          margin: 0,background:
                             "#14532d",
                           fontSize: "12px",
                         }}

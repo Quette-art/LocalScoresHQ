@@ -1,6 +1,10 @@
 import { footballGames } from "./footballGames.js";
+import { marylandFootballGames } from "./marylandFootballGames.js";
 
-export const games = [...footballGames];
+export const games = [
+  ...footballGames,
+  ...marylandFootballGames,
+];
 
 export const upcomingGames = games;
 
