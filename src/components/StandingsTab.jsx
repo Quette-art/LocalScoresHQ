@@ -3,6 +3,7 @@ import React, {
   useState,
 } from "react";
 import { upcomingGames } from "../data/games";
+import TeamMascot from "./TeamMascot";
 import "./ScoresTab.css";
 
 const DCIAA_TEAMS = [
@@ -480,14 +481,10 @@ export default function StandingsTab({
                     className="footballTeamCell footballTeamButton"
                     onClick={() => openTeam(team)}
                   >
-                    <span className="footballTeamMark">
-                      {team.team
-                        .split(/\s+/)
-                        .filter(Boolean)
-                        .slice(0, 2)
-                        .map((word) => word[0])
-                        .join("")}
-                    </span>
+                    <TeamMascot
+  teamName={team.team}
+  className="footballTeamMark"
+/>
 
                     <strong>{team.team}</strong>
                   </button>
