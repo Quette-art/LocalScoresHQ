@@ -20,6 +20,28 @@ export const teamMascots = {
   Suitland: "/mascots/suitland.svg",
   Surrattsville: "/mascots/surrattsville.svg",
   Wise: "/mascots/wise.svg",
+
+  Anacostia: "/mascots/anacostia.svg",
+  Ballou: "/mascots/ballou.svg",
+  Bell: "/mascots/bell.svg",
+  Cardozo: "/mascots/cardozo.svg",
+  Coolidge: "/mascots/coolidge.svg",
+  Dunbar: "/mascots/dunbar.svg",
+  Eastern: "/mascots/eastern.svg",
+  "H.D. Woodson": "/mascots/hd-woodson.svg",
+  "Jackson-Reed": "/mascots/jackson-reed.svg",
+  "McKinley Tech": "/mascots/mckinley-tech.svg",
+  "Phelps ACE": "/mascots/phelps-ace.svg",
+  "Ron Brown": "/mascots/ron-brown.svg",
+  Roosevelt: "/mascots/roosevelt.svg",
+
+  "Archbishop Carroll": "/mascots/archbishop-carroll.svg",
+  "Digital Pioneers Academy": "/mascots/digital-pioneers-academy.svg",
+  Gonzaga: "/mascots/gonzaga.svg",
+  "KIPP College Prep": "/mascots/kipp-college-prep.svg",
+  "KIPP DC Legacy": "/mascots/kipp-dc-legacy.svg",
+  "Sidwell Friends": "/mascots/sidwell-friends.svg",
+  "St. John's": "/mascots/st-johns.svg",
 };
 
 export const getTeamMascot = (teamName = "") =>
