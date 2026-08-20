@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TeamMascot from "../components/TeamMascot";
 import "../components/ScoresTab.css";
 
 const DCIAA_TEAMS = new Set([
@@ -262,9 +263,10 @@ export default function TeamProfile({
       </div>
 
       <div className="team-header">
-        <div className="team-logo">
-          {(teamName || "").substring(0, 2).toUpperCase() || "?"}
-        </div>
+        <TeamMascot
+  teamName={teamName}
+  className="team-logo"
+/>
 
         <div className="team-header-info">
           <h1>{teamName || "Unknown Team"}</h1>

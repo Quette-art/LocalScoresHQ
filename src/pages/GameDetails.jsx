@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import "../components/ScoresTab.css";
+import TeamMascot from "../components/TeamMascot";
 
 const getInitials = (teamName = "") =>
   teamName
@@ -273,11 +274,11 @@ const GameDetails = ({
       onClick={onClick}
     >
       <div className="game-details-team-identity">
-        <span
-          className={`game-details-team-logo game-details-team-logo-${side}`}
-        >
-          {getInitials(teamName)}
-        </span>
+      
+          <TeamMascot
+  teamName={teamName}
+  className={`game-details-team-logo game-details-team-logo-${side}`}
+/>
 
         <div>
           {winner && (

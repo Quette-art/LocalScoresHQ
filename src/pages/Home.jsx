@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import TeamProfile from "./TeamProfile";
 import "../components/ScoresTab.css";
+import TeamMascot from "../components/TeamMascot";
 
 const getAgeGroup = (game) => {
   if (game.ageGroup) return game.ageGroup;
@@ -54,11 +55,14 @@ const getTeamAvatar = (name) => {
 };
 
 const TeamAvatar = ({ name }) => {
-  const { initials, color } = getTeamAvatar(name);
+  const { color } = getTeamAvatar(name);
+
   return (
-    <span className="team-avatar" style={{ background: color }}>
-      {initials}
-    </span>
+    <TeamMascot
+      teamName={name}
+      className="team-avatar"
+      fallbackColor={color}
+    />
   );
 };
 
