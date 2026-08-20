@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { gameMatchesRegion } from "../data/teamRegions";
+import TeamMascot from "./TeamMascot";
 import "./ScoresTab.css";
 
 function TeamAutocomplete({
@@ -941,8 +942,11 @@ export default function ScoresTab({
                       );
                     }}
                   >
-                    {team1Favorite ? "⭐ " : ""}
-                    {game.team1}
+                    <TeamMascot
+  teamName={game.team1}
+  className="score-team-mascot"
+/>
+<span>{team1Favorite ? "⭐ " : ""}{game.team1}</span>
                   </button>
 
                   <span className="score">
@@ -971,8 +975,11 @@ export default function ScoresTab({
                       );
                     }}
                   >
-                    {team2Favorite ? "⭐ " : ""}
-                    {game.team2}
+                    <TeamMascot
+  teamName={game.team2}
+  className="score-team-mascot"
+/>
+<span>{team2Favorite ? "⭐ " : ""}{game.team2}</span>
                   </button>
 
                   <span
@@ -1011,8 +1018,11 @@ export default function ScoresTab({
                       );
                     }}
                   >
-                    {team1Favorite ? "⭐ " : ""}
-                    {game.team1}
+                    <TeamMascot
+  teamName={game.team2}
+  className="score-team-mascot"
+/>
+<span>{team2Favorite ? "⭐ " : ""}{game.team2}</span>
                   </button>
 
                   <span className="mobile-score">
@@ -1033,8 +1043,11 @@ export default function ScoresTab({
                       );
                     }}
                   >
-                    {team2Favorite ? "⭐ " : ""}
-                    {game.team2}
+                    <TeamMascot
+  teamName={game.team2}
+  className="score-team-mascot"
+/>
+<span>{team2Favorite ? "⭐ " : ""}{game.team2}</span>
                   </button>
 
                   <span className="mobile-score">

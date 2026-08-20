@@ -3578,3 +3578,23 @@ button, input, select { font-family: inherit; }
   line-height: 1.45;
   text-align: center;
 }
+.score-team-mascot {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+}
+
+.team-name,
+.mobile-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 700px) {
+  .score-team-mascot {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+}
