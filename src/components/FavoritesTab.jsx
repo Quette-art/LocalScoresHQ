@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import TeamMascot from "./TeamMascot";
+import { dcFootballTeams, marylandFootballTeams } from "../data/teamRegions";
 import "./ScoresTab.css";
 
 const SPORT_DEFS = [
@@ -10,10 +11,7 @@ const SPORT_DEFS = [
   { name: "Football", icon: "🏈" },
 ];
 
-const getSportPageLabel = (sportName) => {
-  if (sportName === "Football") return "DC & Maryland Varsity Football";
-  return `${sportName} Scores`;
-};
+const getSportPageLabel = (sportName) => `${sportName} Scores`;
 
 const hasScore = (game) =>
   game.score1 !== null && game.score1 !== undefined &&
@@ -26,6 +24,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
   const [showAddModal, setShowAddModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedSport, setExpandedSport] = useState(null);
+  const [expandedFootballRegion, setExpandedFootballRegion] = useState(null);
 
   const getSportIcon = (sport) => {
     if (sport === "Baseball") return "⚾";
@@ -129,6 +128,30 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
     const updated = [...favoriteTeams, key];
     setFavoriteTeams(updated);
     localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+  };
+
+  const removeFavorite = (key) => {
+    const updated = favoriteTeams.filter((favoriteKey) => favoriteKey !== key);
+    setFavoriteTeams(updated);
+    localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+  };
+
+  const footballTeamsByRegion = useMemo(() => {
+    const footballTeams = allTeams.filter((team) => team.sport === "Football");
+
+    return {
+      DC: footballTeams.filter((team) => dcFootballTeams.has(team.teamName)),
+      MD: footballTeams.filter((team) => marylandFootballTeams.has(team.teamName)),
+    };
+  }, [allTeams]);
+
+  const toggleFavorite = (key) => {
+    if (favoriteTeams.includes(key)) {
+      removeFavorite(key);
+      return;
+    }
+
+    addFavorite(key);
   };
 
   const goToSport = (sportName) => {
@@ -283,7 +306,80 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
                   </span>
                 </button>
 
-                {isExpanded && (
+                {isExpanded && sport.name === "Football" && (
+                  <div className="favorite-region-panel">
+                    {[
+                      {
+                        id: "DC",
+                        label: "Washington, DC",
+                        teams: footballTeamsByRegion.DC,
+                      },
+                      {
+                        id: "MD",
+                        label: "Prince George’s County, Maryland",
+                        teams: footballTeamsByRegion.MD,
+                      },
+                    ].map((region) => {
+                      const isRegionExpanded = expandedFootballRegion === region.id;
+
+                      return (
+                        <div className="favorite-region-group" key={region.id}>
+                          <button
+                            type="button"
+                            className="favorite-region-button"
+                            aria-expanded={isRegionExpanded}
+                            onClick={() =>
+                              setExpandedFootballRegion(
+                                isRegionExpanded ? null : region.id
+                              )
+                            }
+                          >
+                            <span>
+                              {region.label}
+                              <small>{region.teams.length} varsity teams</small>
+                            </span>
+                            <span className={isRegionExpanded ? "region-arrow-open" : ""}>
+                              ›
+                            </span>
+                          </button>
+
+                          {isRegionExpanded && (
+                            <div className="favorite-region-team-list">
+                              {region.teams.map((team) => {
+                                const isFavorite = favoriteTeams.includes(team.key);
+
+                                return (
+                                  <button
+                                    type="button"
+                                    className="favorite-region-team"
+                                    key={team.key}
+                                    onClick={() => toggleFavorite(team.key)}
+                                    aria-label={`${isFavorite ? "Remove" : "Add"} ${team.teamName} ${isFavorite ? "from" : "to"} favorites`}
+                                  >
+                                    <TeamMascot
+                                      teamName={team.teamName}
+                                      className="favorite-region-team-mascot"
+                                    />
+                                    <span className="favorite-region-team-name">
+                                      {team.teamName}
+                                    </span>
+                                    <span
+                                      className={`favorite-region-action${isFavorite ? " is-favorite" : ""}`}
+                                    >
+                                      {isFavorite ? "✓ Added" : "+ Add"}
+                                    </span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {isExpanded && sport.name !== "Football" && (
                   <div style={{ padding: "0 16px 14px" }}>
                     <button
                       onClick={() => goToSport(sport.name)}
