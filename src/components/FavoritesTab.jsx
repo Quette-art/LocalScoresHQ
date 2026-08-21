@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import TeamMascot from "./TeamMascot";
 import "./ScoresTab.css";
 
 const SPORT_DEFS = [
@@ -9,7 +10,10 @@ const SPORT_DEFS = [
   { name: "Football", icon: "🏈" },
 ];
 
-const LEAGUE_NAME = "Prince George's County Boys & Girls Club Inc.";
+const getSportPageLabel = (sportName) => {
+  if (sportName === "Football") return "DC & Maryland Varsity Football";
+  return `${sportName} Scores`;
+};
 
 const hasScore = (game) =>
   game.score1 !== null && game.score1 !== undefined &&
@@ -175,22 +179,10 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
               width: "64px",
             }}
           >
-            <div
-              style={{
-                width: "56px",
-                height: "56px",
-                borderRadius: "50%",
-                background: "linear-gradient(135deg, #0891b2, #1d64d8)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: 900,
-                fontSize: "16px",
-                color: "#F5F7FA",
-              }}
-            >
-              {team.teamName.substring(0, 2).toUpperCase()}
-            </div>
+            <TeamMascot
+              teamName={team.teamName}
+              className="favorite-team-mascot"
+            />
             <span
               style={{
                 color: "#cbd5e1",
@@ -311,7 +303,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
                         fontWeight: 700,
                       }}
                     >
-                      {LEAGUE_NAME}
+                      {getSportPageLabel(sport.name)}
                       <span style={{ color: "#1d64d8", fontSize: "16px" }}>›</span>
                     </button>
                   </div>
