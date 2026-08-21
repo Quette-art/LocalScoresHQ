@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
 import { upcomingGames } from "../data/games";
+import { dcFootballTeams, marylandFootballTeams } from "../data/teamRegions";
+import TeamMascot from "./TeamMascot";
 
 const sportIcons = {
   Baseball: "⚾",
@@ -36,6 +38,7 @@ export default function SearchOverlay({
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [sportFilter, setSportFilter] = useState("ALL");
+  const [openRegion, setOpenRegion] = useState("DC");
 
   const allGames = useMemo(() => {
     const scheduleGames = Array.isArray(upcomingGames) ? upcomingGames : [];
@@ -77,6 +80,37 @@ export default function SearchOverlay({
       return a.division.localeCompare(b.division);
     });
   }, [allGames]);
+
+  const browseGroups = useMemo(() => {
+    const uniqueFootballTeams = new Map();
+
+    teams
+      .filter((team) => team.sport === "Football")
+      .forEach((team) => {
+        if (!uniqueFootballTeams.has(team.name)) {
+          uniqueFootballTeams.set(team.name, team);
+        }
+      });
+
+    const footballTeams = Array.from(uniqueFootballTeams.values());
+
+    return [
+      {
+        id: "DC",
+        title: "Washington, DC",
+        subtitle: "DCIAA & WCAC teams",
+        teams: footballTeams.filter((team) => dcFootballTeams.has(team.name)),
+      },
+      {
+        id: "MD",
+        title: "Maryland",
+        subtitle: "Prince George’s County & nearby teams",
+        teams: footballTeams.filter((team) =>
+          marylandFootballTeams.has(team.name)
+        ),
+      },
+    ];
+  }, [teams]);
 
   const searchResults = teams.filter((team) => {
     const q = searchTerm.trim().toLowerCase();
@@ -263,22 +297,173 @@ export default function SearchOverlay({
             </div>
 
             {searchTerm.trim() === "" ? (
-              <div
-                style={{
-                  textAlign: "center",
-                  color: "#94a3b8",
-                  marginTop: "90px",
-                }}
-              >
-                <div style={{ fontSize: "54px", marginBottom: "10px" }}>🔎</div>
-                <div style={{ fontSize: "21px", fontWeight: "900" }}>
-                  Search Teams
+                <div
+                  style={{
+                    display: "grid",
+                    gap: "12px",
+                    padding: "4px",
+                  }}
+                >
+                  <div style={{ marginBottom: "4px" }}>
+                    <div
+                      style={{
+                        color: "#f8fafc",
+                        fontSize: "18px",
+                        fontWeight: 900,
+                      }}
+                    >
+                      Browse Football Teams
+                    </div>
+                    <div
+                      style={{
+                        color: "#94a3b8",
+                        fontSize: "13px",
+                        marginTop: "4px",
+                      }}
+                    >
+                      Choose a region, then select a team to view its page.
+                    </div>
+                  </div>
+
+                  {browseGroups.map((group) => {
+                    const isOpen = openRegion === group.id;
+
+                    return (
+                      <section
+                        key={group.id}
+                        style={{
+                          background: "#0f172a",
+                          border: "1px solid #334155",
+                          borderRadius: "16px",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setOpenRegion(isOpen ? "" : group.id)
+                          }
+                          style={{
+                            width: "100%",
+                            border: 0,
+                            background: "transparent",
+                            color: "#f8fafc",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: "16px",
+                            padding: "16px",
+                            textAlign: "left",
+                          }}
+                        >
+                          <span>
+                            <strong
+                              style={{
+                                display: "block",
+                                fontSize: "16px",
+                              }}
+                            >
+                              {group.title}
+                            </strong>
+                            <span
+                              style={{
+                                color: "#94a3b8",
+                                display: "block",
+                                fontSize: "12px",
+                                marginTop: "3px",
+                              }}
+                            >
+                              {group.subtitle} · {group.teams.length} teams
+                            </span>
+                          </span>
+                          <span
+                            aria-hidden="true"
+                            style={{
+                              color: "#60a5fa",
+                              fontSize: "18px",
+                              fontWeight: 900,
+                            }}
+                          >
+                            {isOpen ? "−" : "+"}
+                          </span>
+                        </button>
+
+                        {isOpen && (
+                          <div
+                            style={{
+                              borderTop: "1px solid #334155",
+                              display: "grid",
+                              gap: "8px",
+                              gridTemplateColumns:
+                                "repeat(auto-fit, minmax(190px, 1fr))",
+                              padding: "12px",
+                            }}
+                          >
+                            {group.teams.map((team) => (
+                              <button
+                                key={team.id}
+                                type="button"
+                                onClick={() => setSelectedTeam(team)}
+                                style={{
+                                  alignItems: "center",
+                                  background: "#172033",
+                                  border: "1px solid #334155",
+                                  borderRadius: "12px",
+                                  color: "#f8fafc",
+                                  cursor: "pointer",
+                                  display: "grid",
+                                  gap: "10px",
+                                  gridTemplateColumns: "42px 1fr auto",
+                                  minWidth: 0,
+                                  padding: "10px",
+                                  textAlign: "left",
+                                }}
+                              >
+                                <TeamMascot
+                                  teamName={team.name}
+                                  className="favorite-region-team-mascot"
+                                />
+                                <span style={{ minWidth: 0 }}>
+                                  <strong
+                                    style={{
+                                      display: "block",
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                      whiteSpace: "nowrap",
+                                    }}
+                                  >
+                                    {team.name}
+                                  </strong>
+                                  <span
+                                    style={{
+                                      color: "#94a3b8",
+                                      display: "block",
+                                      fontSize: "11px",
+                                      marginTop: "2px",
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                      whiteSpace: "nowrap",
+                                    }}
+                                  >
+                                    {team.division}
+                                  </span>
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                  style={{ color: "#60a5fa" }}
+                                >
+                                  ›
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </section>
+                    );
+                  })}
                 </div>
-                <div style={{ marginTop: "6px", fontWeight: "600" }}>
-                  Search soccer now. Other sports will appear when teams are added.
-                </div>
-              </div>
-            ) : searchResults.length === 0 ? (
+              ) : searchResults.length === 0 ? (
               <div
                 style={{
                   textAlign: "center",
