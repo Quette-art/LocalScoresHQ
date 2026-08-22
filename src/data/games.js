@@ -1,4 +1,4 @@
-import { footballGames } from "./footballGames.js";
+import { footballGames } from "./footballGamesAug22.js";
 import { marylandFootballGames } from "./marylandFootballGames.js";
 
 export const games = [
