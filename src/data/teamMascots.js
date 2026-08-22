@@ -45,6 +45,20 @@ export const teamMascots = {
   "St. John's": "/mascots/st-johns.svg",
   "St. John’s": "/mascots/st-johns.svg",
   "St Johns": "/mascots/st-johns.svg",
+
+  "Kinnard (SC)": "/mascots/hunter-kinard-tyler.svg",
+  "Hunter-Kinard-Tyler": "/mascots/hunter-kinard-tyler.svg",
+  "John Champe": "/mascots/john-champe.svg",
+  "New Town": "/mascots/new-town.svg",
+  "St. Michael the Archangel (VA)": "/mascots/st-michael-archangel.svg",
+  "St. Michael the Archangel": "/mascots/st-michael-archangel.svg",
+  "Edmondson-Westside": "/mascots/edmondson-westside.svg",
+  "Christ the King Regional": "/mascots/christ-the-king-regional.svg",
+  "Flint Hill": "/mascots/flint-hill.svg",
+  "Bishop Ireton": "/mascots/bishop-ireton.svg",
+  "Connexions Leadership Academy": "/mascots/connexions-leadership-academy.svg",
+  "Woodbridge (VA)": "/mascots/woodbridge-va.svg",
+  Woodbridge: "/mascots/woodbridge-va.svg",
 };
 
 export const getTeamMascot = (teamName = "") =>
