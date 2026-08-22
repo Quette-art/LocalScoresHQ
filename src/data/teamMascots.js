@@ -7,6 +7,7 @@ export const teamMascots = {
   "Eleanor Roosevelt": "/mascots/eleanor-roosevelt.svg",
   "Fairmont Heights": "/mascots/fairmont-heights.svg",
   Flowers: "/mascots/flowers.svg",
+  "C.H. Flowers": "/mascots/flowers.svg",
   "Frederick Douglass": "/mascots/frederick-douglass.svg",
   Friendly: "/mascots/friendly.svg",
   "Gwynn Park": "/mascots/gwynn-park.svg",
@@ -42,6 +43,8 @@ export const teamMascots = {
   "KIPP DC Legacy": "/mascots/kipp-dc-legacy.svg",
   "Sidwell Friends": "/mascots/sidwell-friends.svg",
   "St. John's": "/mascots/st-johns.svg",
+  "St. John’s": "/mascots/st-johns.svg",
+  "St Johns": "/mascots/st-johns.svg",
 };
 
 export const getTeamMascot = (teamName = "") =>
