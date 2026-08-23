@@ -31,3 +31,27 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+
+/* iPhone/mobile scrolling performance */
+@media (max-width: 899px) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  .bottomNavWrapper,
+  .compactBottomNav {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 -1px 10px rgba(15, 23, 42, 0.08) !important;
+  }
+
+  .game-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 260px;
+  }
+
+  .mainContent {
+    animation: none !important;
+  }
+}
