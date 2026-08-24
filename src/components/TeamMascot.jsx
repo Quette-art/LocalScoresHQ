@@ -1,5 +1,64 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { getTeamMascot } from "../data/teamMascots";
+
+const standingsRasterCache = new Map();
+let standingsRasterQueue = Promise.resolve();
+
+const rasterizeStandingsLogo = (src) => {
+  if (typeof window === "undefined" || !src) return Promise.resolve(src);
+
+  if (standingsRasterCache.has(src)) {
+    return standingsRasterCache.get(src);
+  }
+
+  const task = standingsRasterQueue.then(
+    () =>
+      new Promise((resolve) => {
+        const image = new Image();
+
+        image.onload = async () => {
+          try {
+            if (image.decode) {
+              await image.decode().catch(() => {});
+            }
+
+            const size = 64;
+            const canvas = document.createElement("canvas");
+            canvas.width = size;
+            canvas.height = size;
+            const context = canvas.getContext("2d", { alpha: true });
+
+            if (!context) {
+              resolve(src);
+              return;
+            }
+
+            const scale = Math.min(size / image.width, size / image.height);
+            const width = Math.max(1, image.width * scale);
+            const height = Math.max(1, image.height * scale);
+            const x = (size - width) / 2;
+            const y = (size - height) / 2;
+
+            context.clearRect(0, 0, size, size);
+            context.drawImage(image, x, y, width, height);
+            resolve(canvas.toDataURL("image/png"));
+          } catch {
+            resolve(src);
+          }
+        };
+
+        image.onerror = () => resolve(src);
+        image.decoding = "async";
+        image.src = src;
+      })
+  );
+
+  standingsRasterQueue = task.then(
+    () => new Promise((resolve) => setTimeout(resolve, 40))
+  );
+  standingsRasterCache.set(src, task);
+  return task;
+};
 
 const getInitials = (teamName = "") =>
   teamName
@@ -13,59 +72,49 @@ const getInitials = (teamName = "") =>
 
 function TeamMascot({ teamName, className = "", fallbackColor }) {
   const [failed, setFailed] = useState(false);
-  const [shouldLoad, setShouldLoad] = useState(() => {
-    if (typeof window === "undefined") return true;
-    return !(
-      window.matchMedia("(max-width: 900px)").matches &&
-      className.includes("footballTeamMark")
-    );
-  });
-  const holderRef = useRef(null);
   const mascot = getTeamMascot(teamName);
   const isStandingsMark = className.includes("footballTeamMark");
+  const isMobileStandings =
+    typeof window !== "undefined" &&
+    window.matchMedia("(max-width: 900px)").matches &&
+    isStandingsMark;
+  const [renderSrc, setRenderSrc] = useState(() =>
+    isMobileStandings ? null : mascot
+  );
 
   useEffect(() => {
     setFailed(false);
-  }, [mascot]);
 
-  useEffect(() => {
-    if (shouldLoad || !isStandingsMark || typeof window === "undefined") {
+    if (!mascot) {
+      setRenderSrc(null);
       return undefined;
     }
 
-    if (!window.matchMedia("(max-width: 900px)").matches) {
-      setShouldLoad(true);
+    if (!isMobileStandings) {
+      setRenderSrc(mascot);
       return undefined;
     }
 
-    const node = holderRef.current;
-    if (!node || !("IntersectionObserver" in window)) {
-      setShouldLoad(true);
-      return undefined;
-    }
+    let cancelled = false;
+    setRenderSrc(null);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "180px 0px" }
-    );
+    rasterizeStandingsLogo(mascot).then((src) => {
+      if (!cancelled) setRenderSrc(src);
+    });
 
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [isStandingsMark, shouldLoad]);
+    return () => {
+      cancelled = true;
+    };
+  }, [mascot, isMobileStandings]);
 
   if (mascot && !failed) {
     return (
-      <span ref={holderRef} className={`team-mascot ${className}`.trim()}>
-        {shouldLoad && (
+      <span className={`team-mascot ${className}`.trim()}>
+        {renderSrc && (
           <img
-            src={mascot}
+            src={renderSrc}
             alt={`${teamName} unofficial mascot`}
-            loading="lazy"
+            loading={isMobileStandings ? "eager" : "lazy"}
             decoding="async"
             fetchPriority="low"
             onError={() => setFailed(true)}
@@ -77,7 +126,6 @@ function TeamMascot({ teamName, className = "", fallbackColor }) {
 
   return (
     <span
-      ref={holderRef}
       className={`team-mascot team-mascot-fallback ${className}`.trim()}
       style={fallbackColor ? { background: fallbackColor } : undefined}
       aria-label={teamName}
