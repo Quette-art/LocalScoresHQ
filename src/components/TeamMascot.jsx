@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getTeamMascot } from "../data/teamMascots";
+import { getStandingsMascot, getTeamMascot } from "../data/teamMascots";
 
 const getInitials = (teamName = "") =>
   teamName
@@ -13,8 +13,10 @@ const getInitials = (teamName = "") =>
 
 export default function TeamMascot({ teamName, className = "", fallbackColor }) {
   const [failed, setFailed] = useState(false);
-  const mascot = getTeamMascot(teamName);
   const isStandingsMark = className.includes("footballTeamMark");
+  const mascot =
+    (isStandingsMark ? getStandingsMascot(teamName) : null) ||
+    getTeamMascot(teamName);
 
   useEffect(() => {
     setFailed(false);
@@ -26,9 +28,8 @@ export default function TeamMascot({ teamName, className = "", fallbackColor }) 
         <img
           src={mascot}
           alt={`${teamName} unofficial mascot`}
-          loading={isStandingsMark ? "eager" : "lazy"}
-          decoding={isStandingsMark ? "sync" : "async"}
-          fetchPriority={isStandingsMark ? "high" : "auto"}
+          loading="lazy"
+          decoding="async"
           onError={() => setFailed(true)}
         />
       </span>
