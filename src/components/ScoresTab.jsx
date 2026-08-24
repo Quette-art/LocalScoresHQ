@@ -1019,10 +1019,10 @@ export default function ScoresTab({
                     }}
                   >
                     <TeamMascot
-  teamName={game.team2}
+  teamName={game.team1}
   className="score-team-mascot"
 />
-<span>{team2Favorite ? "⭐ " : ""}{game.team2}</span>
+<span>{team1Favorite ? "⭐ " : ""}{game.team1}</span>
                   </button>
 
                   <span className="mobile-score">
