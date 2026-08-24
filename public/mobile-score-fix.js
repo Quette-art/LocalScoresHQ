@@ -1,13 +1,14 @@
 (() => {
   const syncMobileMatchups = () => {
-    document.querySelectorAll('.game-card').forEach((card) => {
+    const cards = document.querySelectorAll('.game-card');
+    if (!cards.length) return;
+
+    cards.forEach((card) => {
       const desktopTeams = card.querySelectorAll('.desktop-matchup .team-name');
       const mobileTeams = card.querySelectorAll('.mobile-matchup .mobile-team');
 
       if (desktopTeams.length < 2 || mobileTeams.length < 2) return;
 
-      // The first mobile row was accidentally rendering team2 twice.
-      // Mirror the already-correct desktop matchup into the mobile markup.
       const desktopTeam1 = desktopTeams[0];
       const desktopTeam2 = desktopTeams[1];
       const mobileTeam1 = mobileTeams[0];
@@ -23,17 +24,21 @@
     });
   };
 
-  const run = () => requestAnimationFrame(syncMobileMatchups);
+  const scheduleSync = () => {
+    requestAnimationFrame(syncMobileMatchups);
+    setTimeout(syncMobileMatchups, 80);
+    setTimeout(syncMobileMatchups, 250);
+  };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', run, { once: true });
+    document.addEventListener('DOMContentLoaded', scheduleSync, { once: true });
   } else {
-    run();
+    scheduleSync();
   }
 
-  const observer = new MutationObserver(run);
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
+  document.addEventListener('click', scheduleSync, { passive: true });
+  window.addEventListener('popstate', scheduleSync, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) scheduleSync();
   });
 })();
