@@ -14,6 +14,7 @@ const getInitials = (teamName = "") =>
 export default function TeamMascot({ teamName, className = "", fallbackColor }) {
   const [failed, setFailed] = useState(false);
   const mascot = getTeamMascot(teamName);
+  const isStandingsMark = className.includes("footballTeamMark");
 
   useEffect(() => {
     setFailed(false);
@@ -25,8 +26,9 @@ export default function TeamMascot({ teamName, className = "", fallbackColor }) 
         <img
           src={mascot}
           alt={`${teamName} unofficial mascot`}
-          loading="lazy"
-          decoding="async"
+          loading={isStandingsMark ? "eager" : "lazy"}
+          decoding={isStandingsMark ? "sync" : "async"}
+          fetchPriority={isStandingsMark ? "high" : "auto"}
           onError={() => setFailed(true)}
         />
       </span>
