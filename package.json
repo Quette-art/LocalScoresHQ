@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "bash scripts/generate-standings-logos.sh && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "vite"
