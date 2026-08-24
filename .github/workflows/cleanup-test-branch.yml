@@ -1,0 +1,91 @@
+name: Cleanup test branch
+
+on:
+  push:
+    branches:
+      - test/cleanup-aug24
+    paths:
+      - .github/workflows/cleanup-test-branch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out cleanup branch
+        uses: actions/checkout@v4
+        with:
+          ref: test/cleanup-aug24
+
+      - name: Apply cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          scores = Path('src/components/ScoresTab.jsx')
+          text = scores.read_text()
+          bad = '''                    <TeamMascot
+  teamName={game.team2}
+  className="score-team-mascot"
+/>
+<span>{team2Favorite ? "⭐ " : ""}{game.team2}</span>
+                  </button>
+
+                  <span className="mobile-score">
+                    {isFinal
+                      ? game.score1
+                      : "-"}
+                  </span>'''
+          good = '''                    <TeamMascot
+  teamName={game.team1}
+  className="score-team-mascot"
+/>
+<span>{team1Favorite ? "⭐ " : ""}{game.team1}</span>
+                  </button>
+
+                  <span className="mobile-score">
+                    {isFinal
+                      ? game.score1
+                      : "-"}
+                  </span>'''
+          if bad not in text:
+              raise SystemExit('Expected duplicated mobile Team 1 markup was not found; refusing unsafe edit.')
+          text = text.replace(bad, good, 1)
+          scores.write_text(text)
+
+          index = Path('index.html')
+          html = index.read_text()
+          html = html.replace('    <script src="/mobile-score-fix.js"></script>\n', '')
+          index.write_text(html)
+
+          package = Path('package.json')
+          data = json.loads(package.read_text())
+          data['scripts']['build'] = 'vite build'
+          package.write_text(json.dumps(data, indent=2) + '\n')
+          PY
+
+          rm -f public/mobile-score-fix.js
+          rm -f src/standings-performance.css
+          rm -f scripts/generate-standings-logos.sh
+          rm -f .github/workflows/optimize-dc-standings-logos.yml
+
+      - name: Verify production build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit cleanup and remove one-shot workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/cleanup-test-branch.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Clean up temporary mobile and standings fixes"
+          git push origin HEAD:test/cleanup-aug24
