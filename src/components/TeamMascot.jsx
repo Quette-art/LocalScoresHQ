@@ -1,5 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { getTeamMascot } from "../data/teamMascots";
+
+const PGCPS_TEAMS = new Set([
+  "Bladensburg",
+  "Bowie",
+  "Central",
+  "Crossland",
+  "DuVal",
+  "Eleanor Roosevelt",
+  "Fairmont Heights",
+  "Flowers",
+  "Frederick Douglass",
+  "Friendly",
+  "Gwynn Park",
+  "High Point",
+  "Largo",
+  "Laurel",
+  "Northwestern",
+  "Oxon Hill",
+  "Parkdale",
+  "Potomac",
+  "Suitland",
+  "Surrattsville",
+  "Wise",
+]);
 
 const getInitials = (teamName = "") =>
   teamName
@@ -11,15 +35,40 @@ const getInitials = (teamName = "") =>
     .join("")
     .toUpperCase() || "?";
 
-export default function TeamMascot({ teamName, className = "", fallbackColor }) {
+function TeamMascot({ teamName, className = "", fallbackColor }) {
   const [failed, setFailed] = useState(false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 900px)").matches
+  );
   const mascot = getTeamMascot(teamName);
 
   useEffect(() => {
     setFailed(false);
   }, [mascot]);
 
-  if (mascot && !failed) {
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const media = window.matchMedia("(max-width: 900px)");
+    const onChange = (event) => setIsMobile(event.matches);
+
+    setIsMobile(media.matches);
+    media.addEventListener?.("change", onChange);
+
+    return () => media.removeEventListener?.("change", onChange);
+  }, []);
+
+  // The approved DC/WCAC crest SVGs contain large embedded artwork. Decoding many
+  // of them at once was causing visible scroll jank on iPhone standings pages.
+  // Keep the already-smooth PGCPS standings logos intact, but use a lightweight
+  // initials mark for the other standings rows on mobile. Full crests still show
+  // everywhere else and on desktop.
+  const lightweightStandingsMark =
+    isMobile &&
+    className.includes("footballTeamMark") &&
+    !PGCPS_TEAMS.has(teamName);
+
+  if (mascot && !failed && !lightweightStandingsMark) {
     return (
       <span className={`team-mascot ${className}`.trim()}>
         <img
@@ -43,3 +92,5 @@ export default function TeamMascot({ teamName, className = "", fallbackColor }) 
     </span>
   );
 }
+
+export default memo(TeamMascot);
