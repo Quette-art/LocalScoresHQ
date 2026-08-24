@@ -84,7 +84,38 @@ export const teamMascots = {
   Chester: "/mascots/chester-pa.svg",
 };
 
+const standingsMascots = {
+  Anacostia: "/mascots/standings/anacostia.png",
+  Ballou: "/mascots/standings/ballou.png",
+  Bell: "/mascots/standings/bell.png",
+  Cardozo: "/mascots/standings/cardozo.png",
+  Coolidge: "/mascots/standings/coolidge.png",
+  Dunbar: "/mascots/standings/dunbar.png",
+  Eastern: "/mascots/standings/eastern.png",
+  "H.D. Woodson": "/mascots/standings/hd-woodson.png",
+  "Jackson-Reed": "/mascots/standings/jackson-reed.png",
+  "McKinley Tech": "/mascots/standings/mckinley-tech.png",
+  "Phelps ACE": "/mascots/standings/phelps-ace.png",
+  "Ron Brown": "/mascots/standings/ron-brown.png",
+  Roosevelt: "/mascots/standings/roosevelt.png",
+  "Archbishop Carroll": "/mascots/standings/archbishop-carroll.png",
+  "Bishop McNamara": "/mascots/standings/bishop-mcnamara.png",
+  DeMatha: "/mascots/standings/dematha.png",
+  Gonzaga: "/mascots/standings/gonzaga.png",
+  "Good Counsel": "/mascots/standings/good-counsel.png",
+  "Digital Pioneers Academy": "/mascots/standings/digital-pioneers-academy.png",
+  "KIPP College Prep": "/mascots/standings/kipp-college-prep.png",
+  "KIPP DC Legacy": "/mascots/standings/kipp-dc-legacy.png",
+  "Sidwell Friends": "/mascots/standings/sidwell-friends.png",
+  "St. John's": "/mascots/standings/st-johns.png",
+  "St. John’s": "/mascots/standings/st-johns.png",
+  "St Johns": "/mascots/standings/st-johns.png",
+};
+
 export const getTeamMascot = (teamName = "") =>
   teamMascots[teamName.trim()] || null;
+
+export const getStandingsMascot = (teamName = "") =>
+  standingsMascots[teamName.trim()] || null;
 
 export default teamMascots;
