@@ -37,6 +37,9 @@ export const teamMascots = {
   Roosevelt: "/mascots/roosevelt.svg",
 
   "Archbishop Carroll": "/mascots/archbishop-carroll.svg",
+  "Bishop McNamara": "/mascots/standings/bishop-mcnamara.png",
+  DeMatha: "/mascots/standings/dematha.png",
+  "Good Counsel": "/mascots/standings/good-counsel.png",
   "Digital Pioneers Academy": "/mascots/digital-pioneers-academy.svg",
   Gonzaga: "/mascots/gonzaga.svg",
   "KIPP College Prep": "/mascots/kipp-college-prep.svg",
@@ -74,6 +77,7 @@ export const teamMascots = {
   "Hoboken (NJ)": "/mascots/hoboken.svg",
   Hoboken: "/mascots/hoboken.svg",
   "Thomas Jefferson Science and Technology": "/mascots/thomas-jefferson-sst.svg",
+  "Thomas Jefferson Science & Technology": "/mascots/thomas-jefferson-sst.svg",
   "Thomas Jefferson High School for Science and Technology": "/mascots/thomas-jefferson-sst.svg",
   "Mt. Zion": "/mascots/mt-zion-prep.svg",
   "Mt. Zion Prep": "/mascots/mt-zion-prep.svg",
