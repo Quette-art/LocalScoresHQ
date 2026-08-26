@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getStandingsMascot, getTeamMascot } from "../data/teamMascots";
+import {
+  getScoreMascot,
+  getStandingsMascot,
+  getTeamMascot,
+} from "../data/teamMascots";
 
 const getInitials = (teamName = "") =>
   teamName
@@ -14,7 +18,12 @@ const getInitials = (teamName = "") =>
 export default function TeamMascot({ teamName, className = "", fallbackColor }) {
   const [failed, setFailed] = useState(false);
   const isStandingsMark = className.includes("footballTeamMark");
+  const isScoreMark =
+    className.includes("score-team-mascot") ||
+    className.includes("game-details-team-logo");
+
   const mascot =
+    (isScoreMark ? getScoreMascot(teamName) : null) ||
     (isStandingsMark ? getStandingsMascot(teamName) : null) ||
     getTeamMascot(teamName);
 
