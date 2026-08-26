@@ -89,6 +89,10 @@ export const teamMascots = {
   Chester: "/mascots/chester-pa.svg",
 };
 
+const scoreMascots = {
+  Benedictine: "/mascots/benedictine-score-b.svg",
+};
+
 const standingsMascots = {
   Anacostia: "/mascots/standings/anacostia.png",
   Ballou: "/mascots/standings/ballou.png",
@@ -119,6 +123,9 @@ const standingsMascots = {
 
 export const getTeamMascot = (teamName = "") =>
   teamMascots[teamName.trim()] || null;
+
+export const getScoreMascot = (teamName = "") =>
+  scoreMascots[teamName.trim()] || null;
 
 export const getStandingsMascot = (teamName = "") =>
   standingsMascots[teamName.trim()] || null;
