@@ -1,3 +1,50 @@
+const svgData = (svg) =>
+  `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+
+const makeScoreMark = (label, primary, secondary) =>
+  svgData(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img">
+      <text x="64" y="94" text-anchor="middle"
+        font-family="Arial Black,Arial,sans-serif"
+        font-size="${label.length > 2 ? 48 : label.length === 2 ? 66 : 88}"
+        font-weight="900"
+        fill="${primary}"
+        stroke="#111827" stroke-width="10" stroke-linejoin="round">${label}</text>
+      <text x="64" y="94" text-anchor="middle"
+        font-family="Arial Black,Arial,sans-serif"
+        font-size="${label.length > 2 ? 48 : label.length === 2 ? 66 : 88}"
+        font-weight="900"
+        fill="${primary}"
+        stroke="${secondary}" stroke-width="4" stroke-linejoin="round">${label}</text>
+    </svg>
+  `);
+
+const makeCrest = (mark, mascot, primary, secondary) =>
+  svgData(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img">
+      <path d="M128 12 226 48v79c0 61-35 99-98 123-63-24-98-62-98-123V48Z"
+        fill="#ffffff" stroke="#111827" stroke-width="9"/>
+      <path d="M128 24 214 55v70c0 53-29 86-86 109-57-23-86-56-86-109V55Z"
+        fill="${primary}" stroke="${secondary}" stroke-width="7"/>
+      <path d="M128 37 201 63v58c0 44-23 72-73 94-50-22-73-50-73-94V63Z"
+        fill="none" stroke="#ffffff" stroke-width="4" opacity=".9"/>
+      <path d="M64 77h128" stroke="${secondary}" stroke-width="10" stroke-linecap="round"/>
+      <path d="M73 91h110" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+      <text x="128" y="165" text-anchor="middle"
+        font-family="Arial Black,Arial,sans-serif"
+        font-size="${mark.length > 2 ? 54 : mark.length === 2 ? 72 : 96}"
+        font-weight="900" fill="#ffffff"
+        stroke="#111827" stroke-width="7" stroke-linejoin="round">${mark}</text>
+      <path d="M32 176 69 162c18 8 38 12 59 12s41-4 59-12l37 14-16 26 9 26-48-10c-14 7-28 10-41 10s-27-3-41-10l-48 10 9-26Z"
+        fill="${secondary}" stroke="#111827" stroke-width="7" stroke-linejoin="round"/>
+      <text x="128" y="202" text-anchor="middle"
+        font-family="Arial Black,Arial,sans-serif"
+        font-size="${mascot.length > 9 ? 16 : 19}"
+        font-weight="900" letter-spacing="1"
+        fill="${primary === '#111111' ? '#ffffff' : '#111827'}">${mascot.toUpperCase()}</text>
+    </svg>
+  `);
+
 export const teamMascots = {
   Bladensburg: "/mascots/bladensburg.svg",
   Bowie: "/mascots/bowie.svg",
@@ -50,6 +97,20 @@ export const teamMascots = {
   "St Johns": "/mascots/st-johns.svg",
   Benedictine: "/mascots/benedictine-cadets-hq.svg",
 
+  "Calvert Hall": makeCrest("CH", "Cardinals", "#7A0019", "#D4AF37"),
+  "KIPP Atlanta Collegiate": makeCrest("KAC", "Warriors", "#5B2C83", "#39A852"),
+  "Archbishop Spalding": makeCrest("AS", "Cavaliers", "#C8102E", "#FFFFFF"),
+  "Annapolis Area Christian": makeCrest("A", "Eagles", "#0B1F3A", "#D4AF37"),
+  "Lewis Bennett": makeCrest("LB", "Tigers", "#0057B8", "#F47C20"),
+  Booker: makeCrest("B", "Tornadoes", "#5B2C83", "#F4C542"),
+  "St. Edward": makeCrest("SE", "Eagles", "#006633", "#D4AF37"),
+  "St Edward": makeCrest("SE", "Eagles", "#006633", "#D4AF37"),
+  "Malvern Prep": makeCrest("M", "Friars", "#003A70", "#B7C9E2"),
+  "Cornerstone Christian": makeCrest("C", "Warriors", "#14213D", "#B21E35"),
+  "Eastern Tech": makeCrest("ET", "Mavericks", "#F58220", "#111111"),
+  "Potomac School": makeCrest("P", "Panthers", "#0B2D5B", "#F47C20"),
+  Yorktown: makeCrest("Y", "Patriots", "#6EC1E4", "#FFFFFF"),
+
   "Kinnard (SC)": "/mascots/approved-hunter-kinard-tyler.svg",
   "Hunter-Kinard-Tyler": "/mascots/approved-hunter-kinard-tyler.svg",
   "John Champe": "/mascots/approved-john-champe.svg",
@@ -91,6 +152,19 @@ export const teamMascots = {
 
 const scoreMascots = {
   Benedictine: "/mascots/benedictine-score-b.svg",
+  "Calvert Hall": makeScoreMark("CH", "#7A0019", "#D4AF37"),
+  "KIPP Atlanta Collegiate": makeScoreMark("KAC", "#5B2C83", "#39A852"),
+  "Archbishop Spalding": makeScoreMark("AS", "#C8102E", "#FFFFFF"),
+  "Annapolis Area Christian": makeScoreMark("A", "#0B1F3A", "#D4AF37"),
+  "Lewis Bennett": makeScoreMark("LB", "#0057B8", "#F47C20"),
+  Booker: makeScoreMark("B", "#5B2C83", "#F4C542"),
+  "St. Edward": makeScoreMark("SE", "#006633", "#D4AF37"),
+  "St Edward": makeScoreMark("SE", "#006633", "#D4AF37"),
+  "Malvern Prep": makeScoreMark("M", "#003A70", "#B7C9E2"),
+  "Cornerstone Christian": makeScoreMark("C", "#14213D", "#B21E35"),
+  "Eastern Tech": makeScoreMark("ET", "#F58220", "#111111"),
+  "Potomac School": makeScoreMark("P", "#0B2D5B", "#F47C20"),
+  Yorktown: makeScoreMark("Y", "#6EC1E4", "#FFFFFF"),
 };
 
 const standingsMascots = {
