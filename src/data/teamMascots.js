@@ -48,7 +48,7 @@ export const teamMascots = {
   "St. John's": "/mascots/st-johns.svg",
   "St. John’s": "/mascots/st-johns.svg",
   "St Johns": "/mascots/st-johns.svg",
-  Benedictine: "/mascots/benedictine-cadets.png",
+  Benedictine: "/mascots/benedictine-cadets.webp",
 
   "Kinnard (SC)": "/mascots/approved-hunter-kinard-tyler.svg",
   "Hunter-Kinard-Tyler": "/mascots/approved-hunter-kinard-tyler.svg",
