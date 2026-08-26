@@ -1,34 +1,80 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">Benedictine Cadets crest</title>
-  <desc id="desc">Crisp green and white Benedictine Cadets shield with bold B monogram and banner.</desc>
+  <desc id="desc">Detailed green, white and gold Benedictine Cadets crest with cadet cap, large B, laurel branches and banners.</desc>
+  <defs>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b754b"/>
+      <stop offset=".55" stop-color="#005437"/>
+      <stop offset="1" stop-color="#003321"/>
+    </linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#103c31"/>
+      <stop offset="1" stop-color="#061d16"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b88725"/>
+      <stop offset=".5" stop-color="#f1d47a"/>
+      <stop offset="1" stop-color="#a97615"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+  </defs>
 
-  <!-- Outer shield -->
-  <path d="M256 36 423 112v154c0 107-66 177-167 220C155 443 89 373 89 266V112Z" fill="#ffffff" stroke="#0b1d17" stroke-width="14" stroke-linejoin="round"/>
-  <path d="M256 58 402 125v139c0 94-56 156-146 196-90-40-146-102-146-196V125Z" fill="#07553d" stroke="#0b1d17" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M256 80 379 137v123c0 80-46 134-123 171-77-37-123-91-123-171V137Z" fill="#0a6a4b" stroke="#ffffff" stroke-width="7" stroke-linejoin="round"/>
+  <g filter="url(#shadow)">
+    <!-- outer heraldic shield -->
+    <path d="M256 28 410 91v114l32 29v86c0 99-73 153-186 183C143 473 70 419 70 320v-86l32-29V91Z" fill="#fff" stroke="#0a1713" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M256 43 395 100v111l31 28v78c0 88-63 136-170 165C149 453 86 405 86 317v-78l31-28V100Z" fill="url(#green)" stroke="#0a1713" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M256 56 382 108v108l29 26v70c0 79-56 121-155 149C157 433 101 391 101 312v-70l29-26V108Z" fill="none" stroke="#fff" stroke-width="6" stroke-linejoin="round" opacity=".95"/>
 
-  <!-- Cadet rank bars -->
-  <g fill="#ffffff">
-    <rect x="148" y="171" width="72" height="13" rx="6" transform="rotate(-28 184 177.5)"/>
-    <rect x="151" y="196" width="72" height="13" rx="6" transform="rotate(-28 187 202.5)"/>
-    <rect x="292" y="171" width="72" height="13" rx="6" transform="rotate(28 328 177.5)"/>
-    <rect x="289" y="196" width="72" height="13" rx="6" transform="rotate(28 325 202.5)"/>
+    <!-- laurel branches -->
+    <g fill="#0a6e43" stroke="#fff" stroke-width="3">
+      <path d="M101 286c-36 39-42 96-9 143 19-23 28-49 22-77-5-22-9-44-13-66Z"/>
+      <path d="M86 321c-20 29-18 63 7 93 14-17 22-35 18-55-4-14-12-27-25-38Z"/>
+      <path d="M112 340c-22 32-20 69 6 100 16-19 24-40 20-61-4-16-13-29-26-39Z"/>
+      <path d="M411 286c36 39 42 96 9 143-19-23-28-49-22-77 5-22 9-44 13-66Z"/>
+      <path d="M426 321c20 29 18 63-7 93-14-17-22-35-18-55 4-14 12-27 25-38Z"/>
+      <path d="M400 340c22 32 20 69-6 100-16-19-24-40-20-61 4-16 13-29 26-39Z"/>
+    </g>
+
+    <!-- cadet cap -->
+    <path d="M118 115c42-55 234-55 276 0l-32 48H150Z" fill="url(#dark)" stroke="#fff" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M137 113c38-35 200-35 238 0l-20 29H157Z" fill="url(#green)" stroke="#0a1713" stroke-width="5"/>
+    <path d="M173 150h166c13 0 24 8 27 19l-6 24c-52 24-156 24-208 0l-6-24c3-11 14-19 27-19Z" fill="#0c1f1a" stroke="#fff" stroke-width="6"/>
+    <path d="M162 165h188" stroke="url(#gold)" stroke-width="10"/>
+    <circle cx="157" cy="165" r="10" fill="url(#gold)" stroke="#fff" stroke-width="3"/>
+    <circle cx="355" cy="165" r="10" fill="url(#gold)" stroke="#fff" stroke-width="3"/>
+
+    <!-- fleur-de-lis -->
+    <path d="M256 66c-10 13-17 23-17 35 0 9 5 17 13 21-9-4-18-9-28-8-13 1-22 10-23 22 13-11 25-9 35 2-12 0-18 9-16 20 10-9 21-11 30-4-7 8-5 19 6 27 11-8 13-19 6-27 9-7 20-5 30 4 2-11-4-20-16-20 10-11 22-13 35-2-1-12-10-21-23-22-10-1-19 4-28 8 8-4 13-12 13-21 0-12-7-22-17-35-7 7-12 15-17 23-5-8-10-16-17-23Z" fill="#fff" stroke="#0a1713" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- shoulder panels -->
+    <path d="M115 219 174 196v169l-59 22Z" fill="#06452f" stroke="#fff" stroke-width="5"/>
+    <path d="M397 219 338 196v169l59 22Z" fill="#06452f" stroke="#fff" stroke-width="5"/>
+    <g fill="#fff">
+      <path d="M143 249l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1Z"/>
+      <path d="M369 249l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1Z"/>
+    </g>
+    <g stroke="#fff" stroke-width="7" stroke-linecap="round">
+      <path d="M125 300h39M125 323h39M125 346h39"/>
+      <path d="M348 300h39M348 323h39M348 346h39"/>
+    </g>
+
+    <!-- large block B -->
+    <path d="M168 205h144c43 0 69 20 69 57 0 23-11 41-31 49 26 8 41 27 41 58 0 44-30 67-82 67H168v-51h24V256h-24Zm85 50v52h43c17 0 27-9 27-26 0-17-10-26-27-26Zm0 101v30h50c18 0 29-8 29-23 0-15-11-23-29-23h-50Z" fill="#fff" stroke="#091712" stroke-width="13" stroke-linejoin="round"/>
+    <path d="M184 215h126c36 0 57 16 57 47 0 23-13 40-37 47 29 6 47 24 47 59 0 36-25 55-68 55H184v-28h23V246h-23Zm57 27v78h55c27 0 42-14 42-39s-15-39-42-39Zm0 91v66h62c29 0 44-12 44-34s-15-32-44-32Z" fill="none" stroke="#0a6944" stroke-width="6"/>
+
+    <!-- main banner -->
+    <path d="M57 375 127 352c39 12 82 18 129 18s90-6 129-18l70 23-25 37 17 36-72-14c-36 13-76 19-119 19s-83-6-119-19l-72 14 17-36Z" fill="#fff" stroke="#081913" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M74 381 132 362c37 11 78 16 124 16s87-5 124-16l58 19-20 29 10 20-56-11c-34 11-73 17-116 17s-82-6-116-17l-56 11 10-20Z" fill="#073b2b"/>
+    <text x="256" y="415" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-size="40" font-weight="900" letter-spacing="2" fill="#fff" stroke="#d6d6d6" stroke-width="1.5" paint-order="stroke fill">BENEDICTINE</text>
+
+    <!-- cadets ribbon -->
+    <path d="M147 431c34 8 70 12 109 12s75-4 109-12l-12 42c-31 8-63 12-97 12s-66-4-97-12Z" fill="#fff" stroke="#081913" stroke-width="6"/>
+    <text x="256" y="467" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-size="27" font-weight="900" letter-spacing="5" fill="#073b2b">★ CADETS ★</text>
+
+    <!-- bottom rank chevrons -->
+    <path d="M190 470h132l-66 35Z" fill="#073b2b" stroke="#fff" stroke-width="5"/>
+    <path d="m214 480 42 22 42-22M225 489l31 16 31-16" fill="none" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
   </g>
-
-  <!-- Simple cadet cap -->
-  <path d="M178 117c26-30 130-30 156 0l-15 37H193Z" fill="#ffffff" stroke="#0b1d17" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M194 121c23-18 101-18 124 0l-8 18H202Z" fill="#07553d"/>
-  <path d="M209 153h94l-12 16h-70Z" fill="#d5ba67" stroke="#0b1d17" stroke-width="5" stroke-linejoin="round"/>
-
-  <!-- Bold central B -->
-  <text x="256" y="337" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="190" fill="#ffffff" stroke="#0b1d17" stroke-width="8" paint-order="stroke fill">B</text>
-
-  <!-- Banner -->
-  <path d="M73 341 128 319c36 13 79 19 128 19s92-6 128-19l55 22-27 35 17 33-61-11c-31 13-68 20-112 20s-81-7-112-20l-61 11 17-33Z" fill="#ffffff" stroke="#0b1d17" stroke-width="9" stroke-linejoin="round"/>
-  <path d="M99 348 132 335c35 11 76 16 124 16s89-5 124-16l33 13-19 24 8 16-39-7c-31 10-66 15-107 15s-76-5-107-15l-39 7 8-16Z" fill="#07553d"/>
-  <text x="256" y="381" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="35" letter-spacing="1" fill="#ffffff">BENEDICTINE</text>
-
-  <!-- Small identity bar -->
-  <path d="M170 419c27 7 56 11 86 11s59-4 86-11l-15 31c-22 8-46 12-71 12s-49-4-71-12Z" fill="#ffffff" stroke="#0b1d17" stroke-width="7" stroke-linejoin="round"/>
-  <text x="256" y="450" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="24" letter-spacing="5" fill="#07553d">CADETS</text>
 </svg>
