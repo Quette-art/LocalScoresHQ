@@ -27,6 +27,41 @@ const strongCrestTeams = {
   Yorktown: { initials: "Y", primary: "#14532d", accent: "#f8fafc" },
 };
 
+const scoreMarkTeams = {
+  "Malvern Prep": { initials: "M", primary: "#0f2747", accent: "#ffffff" },
+  Benedictine: { initials: "B", primary: "#2f3136", accent: "#ffffff" },
+};
+
+function SimpleScoreMark({ teamName, className = "" }) {
+  const config = scoreMarkTeams[teamName];
+
+  return (
+    <span className={`team-mascot ${className}`.trim()} aria-label={`${teamName} score logo`}>
+      <svg
+        viewBox="0 0 128 128"
+        role="img"
+        aria-hidden="true"
+        style={{ width: "100%", height: "100%", display: "block" }}
+      >
+        <text
+          x="64"
+          y="92"
+          textAnchor="middle"
+          fontFamily="Arial Black, Arial, sans-serif"
+          fontSize="88"
+          fontWeight="900"
+          fill={config.primary}
+          stroke={config.accent}
+          strokeWidth="5"
+          paintOrder="stroke"
+        >
+          {config.initials}
+        </text>
+      </svg>
+    </span>
+  );
+}
+
 function StrongCrest({ teamName, className = "" }) {
   const config = strongCrestTeams[teamName];
   const safeId = teamName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -135,6 +170,7 @@ export default function TeamMascot({ teamName, className = "", fallbackColor }) 
   const [failed, setFailed] = useState(false);
   const cleanTeamName = teamName?.trim() || "";
   const isStandingsMark = className.includes("footballTeamMark");
+  const isScoreMark = className.includes("score-team-mascot");
   const mascot =
     (isStandingsMark ? getStandingsMascot(cleanTeamName) : null) ||
     getTeamMascot(cleanTeamName);
@@ -142,6 +178,10 @@ export default function TeamMascot({ teamName, className = "", fallbackColor }) 
   useEffect(() => {
     setFailed(false);
   }, [mascot]);
+
+  if (isScoreMark && scoreMarkTeams[cleanTeamName]) {
+    return <SimpleScoreMark teamName={cleanTeamName} className={className} />;
+  }
 
   if (!isStandingsMark && strongCrestTeams[cleanTeamName]) {
     return <StrongCrest teamName={cleanTeamName} className={className} />;
