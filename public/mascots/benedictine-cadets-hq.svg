@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Benedictine Cadets crest</title>
+  <desc id="desc">Green and white Benedictine Cadets shield with cadet cap, B monogram, laurel leaves, and banners.</desc>
+  <defs>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a6a46"/>
+      <stop offset="1" stop-color="#003b29"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.5" stop-color="#cfd6d4"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#000" flood-opacity=".3"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <!-- outer shield -->
+    <path d="M256 58 422 138v138c0 96-62 155-166 202C152 431 90 372 90 276V138Z" fill="#fff" stroke="#111" stroke-width="10"/>
+    <path d="M256 73 407 145v130c0 86-55 139-151 184-96-45-151-98-151-184V145Z" fill="url(#green)" stroke="#0d2d23" stroke-width="8"/>
+    <path d="M256 91 388 154v117c0 76-48 123-132 164-84-41-132-88-132-164V154Z" fill="#063e2d" stroke="#58a483" stroke-width="6"/>
+
+    <!-- laurel leaves -->
+    <g fill="#0b6c47" stroke="#fff" stroke-width="3">
+      <path d="M91 227c-22 13-36 35-42 65 25-7 42-21 51-42-2 30 5 55 23 74 16-20 20-43 13-69 13 24 31 41 53 51 7-24 2-47-16-68"/>
+      <path d="M421 227c22 13 36 35 42 65-25-7-42-21-51-42 2 30-5 55-23 74-16-20-20-43-13-69-13 24-31 41-53 51-7-24-2-47 16-68"/>
+    </g>
+
+    <!-- cadet cap -->
+    <g transform="translate(0,-8)">
+      <path d="M159 89c35-37 159-37 194 0l-21 53H180Z" fill="#fff" stroke="#101010" stroke-width="8"/>
+      <path d="M169 93c31-27 143-27 174 0l-16 34H185Z" fill="url(#green)" stroke="#0d2d23" stroke-width="5"/>
+      <path d="M187 128h138l-13 18H200Z" fill="#d8ba67" stroke="#111" stroke-width="5"/>
+      <path d="M209 145c28 15 66 15 94 0" fill="none" stroke="#e6ecea" stroke-width="9" stroke-linecap="round"/>
+      <circle cx="190" cy="136" r="7" fill="#e2c067" stroke="#111" stroke-width="3"/>
+      <circle cx="322" cy="136" r="7" fill="#e2c067" stroke="#111" stroke-width="3"/>
+      <path d="M256 88c-8 10-14 20-11 31-11-4-22 2-21 14 0 12 11 18 21 14-3 11 3 21 11 30 8-9 14-19 11-30 10 4 21-2 21-14 1-12-10-18-21-14 3-11-3-21-11-31Z" fill="#fff" stroke="#0d2d23" stroke-width="5"/>
+    </g>
+
+    <!-- stars / rank bars -->
+    <g fill="#fff">
+      <path d="M150 203l7 15 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2Z"/>
+      <path d="M362 203l7 15 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2Z"/>
+    </g>
+    <g fill="url(#silver)">
+      <rect x="132" y="253" width="60" height="12" rx="6" transform="rotate(-37 162 259)"/>
+      <rect x="139" y="276" width="60" height="12" rx="6" transform="rotate(-37 169 282)"/>
+      <rect x="320" y="253" width="60" height="12" rx="6" transform="rotate(37 350 259)"/>
+      <rect x="313" y="276" width="60" height="12" rx="6" transform="rotate(37 343 282)"/>
+    </g>
+
+    <!-- central B -->
+    <path d="M177 159h118c44 0 71 20 71 55 0 25-13 42-38 50 31 8 47 28 47 59 0 41-30 64-82 64H177Zm72 54v36h38c18 0 28-7 28-18s-10-18-28-18Zm0 89v39h45c20 0 30-7 30-20 0-12-10-19-30-19Z" fill="#fff" stroke="#111" stroke-width="11" stroke-linejoin="round"/>
+    <path d="M191 173h101c36 0 59 15 59 42 0 24-14 39-41 46 34 6 51 25 51 57 0 35-25 55-69 55H191Zm45 25v66h51c28 0 42-11 42-33 0-22-14-33-42-33Zm0 86v64h57c31 0 47-11 47-33 0-21-16-31-47-31Z" fill="none" stroke="#0b6a48" stroke-width="7"/>
+
+    <!-- Benedictine banner -->
+    <path d="M58 333 113 305c35 15 74 22 143 22s108-7 143-22l55 28-30 34 23 39-65-14c-36 18-77 26-126 26s-90-8-126-26l-65 14 23-39Z" fill="#fff" stroke="#111" stroke-width="9"/>
+    <path d="M79 342 116 324c36 14 77 20 140 20s104-6 140-20l37 18-26 28 12 19-42-9c-35 14-74 21-121 21s-86-7-121-21l-42 9 12-19Z" fill="#063e2d"/>
+    <text x="256" y="378" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-size="47" letter-spacing="1.5" fill="#fff" stroke="#000" stroke-width="2">BENEDICTINE</text>
+
+    <!-- Cadets lower banner -->
+    <path d="M151 406c34 8 69 12 105 12s71-4 105-12l-17 45c-26 11-55 17-88 17s-62-6-88-17Z" fill="#fff" stroke="#111" stroke-width="7"/>
+    <text x="256" y="447" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-size="29" letter-spacing="7" fill="#0b3f2e">CADETS</text>
+  </g>
+</svg>
