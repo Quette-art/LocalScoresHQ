@@ -22,7 +22,18 @@ export default function TeamMascot({ teamName, className = "", fallbackColor }) 
     className.includes("score-team-mascot") ||
     className.includes("game-details-team-logo");
 
+  const normalizedTeamName = teamName.trim();
+  const isStEdward =
+    normalizedTeamName === "St. Edward" || normalizedTeamName === "St Edward";
+
+  const specialMascot = isStEdward
+    ? isScoreMark
+      ? "/mascots/st-edward-score-se.svg"
+      : "/mascots/st-edward-eagles-hq.svg"
+    : null;
+
   const mascot =
+    specialMascot ||
     (isScoreMark ? getScoreMascot(teamName) : null) ||
     (isStandingsMark ? getStandingsMascot(teamName) : null) ||
     getTeamMascot(teamName);
