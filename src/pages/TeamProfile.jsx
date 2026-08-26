@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TeamMascot from "../components/TeamMascot";
 import "../components/ScoresTab.css";
+import "./TeamProfileMobileFix.css";
 
 const DCIAA_TEAMS = new Set([
   "Anacostia",
@@ -202,7 +203,7 @@ export default function TeamProfile({
   const formatDate = (date) => {
     const formattedDate = new Date(`${date}T00:00:00`);
 
-      return formattedDate.toLocaleDateString("en-US", {
+    return formattedDate.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -264,9 +265,9 @@ export default function TeamProfile({
 
       <div className="team-header">
         <TeamMascot
-  teamName={teamName}
-  className="team-logo"
-/>
+          teamName={teamName}
+          className="team-logo"
+        />
 
         <div className="team-header-info">
           <h1>{teamName || "Unknown Team"}</h1>
@@ -282,67 +283,34 @@ export default function TeamProfile({
 
         <div className="maxpreps-record-grid">
           <div className="maxpreps-record-box">
-            <span className="maxpreps-record-label">
-              Overall
-            </span>
-
+            <span className="maxpreps-record-label">Overall</span>
             <strong className="maxpreps-record-value">
-              {wins}-{losses}
-              {ties > 0 ? `-${ties}` : ""}
+              {wins}-{losses}{ties > 0 ? `-${ties}` : ""}
             </strong>
-
             <span className="maxpreps-record-sub">
               {winPct.toFixed(3)} Win Pct
             </span>
           </div>
 
           <div className="maxpreps-record-box">
-            <span className="maxpreps-record-label">
-              Conference
-            </span>
-
+            <span className="maxpreps-record-label">Conference</span>
             <strong className="maxpreps-record-value">
               {conferenceWins}-{conferenceLosses}
               {conferenceTies > 0 ? `-${conferenceTies}` : ""}
             </strong>
-
-            <span className="maxpreps-record-sub">
-              {conferenceName}
-            </span>
+            <span className="maxpreps-record-sub">{conferenceName}</span>
           </div>
 
           <div className="maxpreps-record-mini-grid">
-            <div className="maxpreps-mini-stat">
-              <span>PF</span>
-              <strong>{pf}</strong>
-            </div>
-
-            <div className="maxpreps-mini-stat">
-              <span>PA</span>
-              <strong>{pa}</strong>
-            </div>
-
+            <div className="maxpreps-mini-stat"><span>PF</span><strong>{pf}</strong></div>
+            <div className="maxpreps-mini-stat"><span>PA</span><strong>{pa}</strong></div>
             <div className="maxpreps-mini-stat">
               <span>DIFF</span>
-
-              <strong
-                className={
-                  diff > 0
-                    ? "diff-pos"
-                    : diff < 0
-                      ? "diff-neg"
-                      : ""
-                }
-              >
-                {diff > 0 ? "+" : ""}
-                {diff}
+              <strong className={diff > 0 ? "diff-pos" : diff < 0 ? "diff-neg" : ""}>
+                {diff > 0 ? "+" : ""}{diff}
               </strong>
             </div>
-
-            <div className="maxpreps-mini-stat">
-              <span>Streak</span>
-              <strong>{streak}</strong>
-            </div>
+            <div className="maxpreps-mini-stat"><span>Streak</span><strong>{streak}</strong></div>
           </div>
         </div>
       </div>
@@ -362,101 +330,58 @@ export default function TeamProfile({
 
             {scheduleGames.map((game) => {
               const isTeam1 = game.team1 === teamName;
-              const opponent = isTeam1
-                ? game.team2
-                : game.team1;
-
+              const opponent = isTeam1 ? game.team2 : game.team1;
               const isPlayed =
-                game.score1 !== null &&
-                game.score1 !== undefined &&
-                game.score2 !== null &&
-                game.score2 !== undefined;
-
-              const teamScore = isTeam1
-                ? game.score1
-                : game.score2;
-
-              const opponentScore = isTeam1
-                ? game.score2
-                : game.score1;
-
-              const result = isPlayed
-                ? getResult(game)
-                : null;
+                game.score1 !== null && game.score1 !== undefined &&
+                game.score2 !== null && game.score2 !== undefined;
+              const teamScore = isTeam1 ? game.score1 : game.score2;
+              const opponentScore = isTeam1 ? game.score2 : game.score1;
+              const result = isPlayed ? getResult(game) : null;
 
               return (
                 <button
-  type="button"
-  key={game.id}
-  className="maxpreps-schedule-row"
-  onClick={() => onGameClick?.(game)}
-  aria-label={`Open ${teamName} ${
-    isTeam1 ? "versus" : "at"
-  } ${opponent} game details`}
->
+                  type="button"
+                  key={game.id}
+                  className="maxpreps-schedule-row"
+                  onClick={() => onGameClick?.(game)}
+                  aria-label={`Open ${teamName} ${isTeam1 ? "versus" : "at"} ${opponent} game details`}
+                >
                   <div className="maxpreps-schedule-date">
                     <span>{formatDate(game.date)}</span>
-
-                    <span className="maxpreps-schedule-time">
-                      {game.time}
-                    </span>
+                    <span className="maxpreps-schedule-time">{game.time}</span>
                   </div>
 
                   <div className="maxpreps-schedule-opponent">
-                    <span className="scheduleVenue">
-                      {isTeam1 ? "vs" : "at"}
-                    </span>
-
+                    <span className="scheduleVenue">{isTeam1 ? "vs" : "at"}</span>
                     <span>{opponent}</span>
                   </div>
 
                   <div className="maxpreps-schedule-info">
                     {isPlayed ? (
-                      <span
-                        className={`maxpreps-result-tag ${
-                          result === "W"
-                            ? "tag-win"
-                            : result === "L"
-                              ? "tag-loss"
-                              : "tag-tie"
-                        }`}
-                      >
+                      <span className={`maxpreps-result-tag ${result === "W" ? "tag-win" : result === "L" ? "tag-loss" : "tag-tie"}`}>
                         {result} {teamScore}-{opponentScore}
                       </span>
                     ) : (
-                      <span className="maxpreps-result-tag tag-upcoming">
-                        Upcoming
-                      </span>
+                      <span className="maxpreps-result-tag tag-upcoming">Upcoming</span>
                     )}
                   </div>
                 </button>
               );
             })}
-                    </div>
+          </div>
         )}
       </div>
 
       {showAlerts && (
-        <div
-          className="alertsOverlay"
-          onClick={() => setShowAlerts(false)}
-        >
-          <div
-            className="alertsSheet"
-            onClick={(event) => event.stopPropagation()}
-          >
+        <div className="alertsOverlay" onClick={() => setShowAlerts(false)}>
+          <div className="alertsSheet" onClick={(event) => event.stopPropagation()}>
             <h2>Team Alerts</h2>
 
             <div className="alertRow">
               <span>Game Start</span>
-
               <button
                 type="button"
-                className={`toggleBtn ${
-                  teamAlertSettings.gameStart
-                    ? "toggleOn"
-                    : ""
-                }`}
+                className={`toggleBtn ${teamAlertSettings.gameStart ? "toggleOn" : ""}`}
                 onClick={() => toggleAlert("gameStart")}
               >
                 {teamAlertSettings.gameStart ? "ON" : "OFF"}
@@ -465,14 +390,9 @@ export default function TeamProfile({
 
             <div className="alertRow">
               <span>Game Finished</span>
-
               <button
                 type="button"
-                className={`toggleBtn ${
-                  teamAlertSettings.gameFinished
-                    ? "toggleOn"
-                    : ""
-                }`}
+                className={`toggleBtn ${teamAlertSettings.gameFinished ? "toggleOn" : ""}`}
                 onClick={() => toggleAlert("gameFinished")}
               >
                 {teamAlertSettings.gameFinished ? "ON" : "OFF"}
