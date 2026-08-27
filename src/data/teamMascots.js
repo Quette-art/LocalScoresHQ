@@ -68,7 +68,6 @@ export const teamMascots = {
   Suitland: "/mascots/suitland.svg",
   Surrattsville: "/mascots/surrattsville.svg",
   Wise: "/mascots/wise.svg",
-
   Anacostia: "/mascots/anacostia.svg",
   Ballou: "/mascots/ballou.svg",
   Bell: "/mascots/bell.svg",
@@ -82,7 +81,6 @@ export const teamMascots = {
   "Phelps ACE": "/mascots/phelps-ace.svg",
   "Ron Brown": "/mascots/ron-brown.svg",
   Roosevelt: "/mascots/roosevelt.svg",
-
   "Archbishop Carroll": "/mascots/archbishop-carroll.svg",
   "Bishop McNamara": "/mascots/standings/bishop-mcnamara.png",
   DeMatha: "/mascots/standings/dematha.png",
@@ -95,8 +93,7 @@ export const teamMascots = {
   "St. John's": "/mascots/st-johns.svg",
   "St. John’s": "/mascots/st-johns.svg",
   "St Johns": "/mascots/st-johns.svg",
-  Benedictine: "/mascots/benedictine-cadets.png",
-
+  Benedictine: "/mascots/benedictine-cadets-hq.svg",
   "Calvert Hall": makeCrest("CH", "Cardinals", "#7A0019", "#D4AF37"),
   "KIPP Atlanta Collegiate": makeCrest("KAC", "Warriors", "#5B2C83", "#39A852"),
   "Archbishop Spalding": makeCrest("AS", "Cavaliers", "#C8102E", "#FFFFFF"),
@@ -110,7 +107,6 @@ export const teamMascots = {
   "Eastern Tech": makeCrest("ET", "Mavericks", "#F58220", "#111111"),
   "Potomac School": makeCrest("P", "Panthers", "#0B2D5B", "#F47C20"),
   Yorktown: makeCrest("Y", "Patriots", "#6EC1E4", "#FFFFFF"),
-
   "Kinnard (SC)": "/mascots/approved-hunter-kinard-tyler.svg",
   "Hunter-Kinard-Tyler": "/mascots/approved-hunter-kinard-tyler.svg",
   "John Champe": "/mascots/approved-john-champe.svg",
@@ -124,7 +120,6 @@ export const teamMascots = {
   "Connexions Leadership Academy": "/mascots/approved-connexions-leadership-academy.svg",
   "Woodbridge (VA)": "/mascots/approved-woodbridge-va.svg",
   Woodbridge: "/mascots/approved-woodbridge-va.svg",
-
   "Riverdale Baptist": "/mascots/riverdale-baptist.svg",
   "Riverdale Baptist School": "/mascots/riverdale-baptist.svg",
   Independence: "/mascots/independence-wv.svg",
