@@ -25,6 +25,14 @@
   image-rendering: auto;
 }
 
+/* Benedictine uses a detailed true-vector crest; give it a little more room so the banner and fine details stay readable on phones. */
+.team-header .team-logo.team-logo-benedictine {
+  width: 128px !important;
+  height: 128px !important;
+  min-width: 128px;
+  flex: 0 0 128px;
+}
+
 @media (max-width: 700px) {
   .team-profile {
     padding-bottom: calc(250px + env(safe-area-inset-bottom, 0px));
@@ -40,6 +48,13 @@
     height: 104px !important;
     min-width: 104px;
     flex-basis: 104px;
+  }
+
+  .team-header .team-logo.team-logo-benedictine {
+    width: 120px !important;
+    height: 120px !important;
+    min-width: 120px;
+    flex-basis: 120px;
   }
 
   .maxpreps-schedule-table {
