@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 700" role="img" aria-label="Benedictine Cadets crest">
+  <defs>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#118252"/>
+      <stop offset="0.55" stop-color="#05633f"/>
+      <stop offset="1" stop-color="#033d29"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.55" stop-color="#d7dcda"/>
+      <stop offset="1" stop-color="#a4aaa7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- shield -->
+  <path d="M310 70 520 150l18 228c3 94-62 176-228 251C144 554 79 472 82 378l18-228Z"
+        fill="#ffffff" stroke="#08130f" stroke-width="18" stroke-linejoin="round"/>
+  <path d="M310 92 498 164l16 207c2 79-54 147-204 216-150-69-206-137-204-216l16-207Z"
+        fill="url(#green)" stroke="#ffffff" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M310 111 482 177l14 190c2 67-48 126-186 191-138-65-188-124-186-191l14-190Z"
+        fill="none" stroke="#0a120f" stroke-width="7"/>
+
+  <!-- cadet cap -->
+  <path d="M187 91c39-49 207-51 246 0 11 14 6 31-13 44-45 31-175 32-220 1-20-14-25-30-13-45Z"
+        fill="url(#green)" stroke="#08130f" stroke-width="12"/>
+  <path d="M207 129c38 13 167 13 205 0l-20 30c-45 20-119 20-164 0Z"
+        fill="#071712" stroke="#08130f" stroke-width="8"/>
+  <path d="M218 130c43 10 141 10 184 0" fill="none" stroke="url(#silver)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M310 73v39M294 88h32" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+  <path d="M282 108c-12-10-18-21-17-34M338 108c12-10 18-21 17-34" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- stars -->
+  <path d="m158 211 10 22 24 2-18 15 6 24-22-13-22 13 6-24-18-15 24-2Z"
+        fill="#ffffff" stroke="#08130f" stroke-width="6"/>
+  <path d="m462 211 10 22 24 2-18 15 6 24-22-13-22 13 6-24-18-15 24-2Z"
+        fill="#ffffff" stroke="#08130f" stroke-width="6"/>
+
+  <!-- simple laurels -->
+  <g fill="url(#silver)" stroke="#08130f" stroke-width="4">
+    <path d="M177 448c-29-35-39-78-30-121 18 27 27 54 22 80 11-20 25-38 42-55-2 28-13 52-33 71 17-8 34-12 51-12-12 20-29 32-52 37Z"/>
+    <path d="M443 448c29-35 39-78 30-121-18 27-27 54-22 80-11-20-25-38-42-55 2 28 13 52 33 71-17-8-34-12-51-12 12 20 29 32 52 37Z"/>
+  </g>
+
+  <!-- dominant B -->
+  <path d="M204 187h139c65 0 101 29 101 79 0 31-15 53-45 66 38 11 58 38 58 77 0 61-42 93-116 93H204V187Zm82 65v61h49c23 0 35-11 35-30 0-20-12-31-35-31h-49Zm0 127v60h56c26 0 40-10 40-30 0-20-14-30-40-30h-56Z"
+        fill="#0b6d46" stroke="#ffffff" stroke-width="20" stroke-linejoin="round"/>
+  <path d="M204 187h139c65 0 101 29 101 79 0 31-15 53-45 66 38 11 58 38 58 77 0 61-42 93-116 93H204V187Zm82 65v61h49c23 0 35-11 35-30 0-20-12-31-35-31h-49Zm0 127v60h56c26 0 40-10 40-30 0-20-14-30-40-30h-56Z"
+        fill="none" stroke="#0a120f" stroke-width="8" stroke-linejoin="round"/>
+
+  <!-- main banner -->
+  <path d="M37 449 133 425c56 18 115 26 177 26s121-8 177-26l96 24-31 53 21 49-107-18c-50 18-102 26-156 26s-106-8-156-26L47 551l21-49Z"
+        fill="#08130f" stroke="#08130f" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M59 461 141 441c52 15 109 22 169 22s117-7 169-22l82 20-22 37 13 31-91-15c-47 16-97 23-151 23s-104-7-151-23l-91 15 13-31Z"
+        fill="#06432f" stroke="#0a7a4d" stroke-width="5"/>
+  <text x="310" y="508" text-anchor="middle"
+        font-family="Arial Black,Arial,sans-serif" font-size="55" font-weight="900"
+        letter-spacing="1" fill="#ffffff" stroke="#08130f" stroke-width="3" paint-order="stroke fill">BENEDICTINE</text>
+
+  <!-- cadets strip -->
+  <path d="M139 529c49 11 106 17 171 17s122-6 171-17l-20 61c-45 12-96 18-151 18s-106-6-151-18Z"
+        fill="url(#silver)" stroke="#08130f" stroke-width="8"/>
+  <text x="310" y="578" text-anchor="middle"
+        font-family="Arial Black,Arial,sans-serif" font-size="34" font-weight="900"
+        letter-spacing="7" fill="#075033">CADETS</text>
+
+  <!-- bottom cross -->
+  <path d="M310 596v49M291 613h38" stroke="#ffffff" stroke-width="13" stroke-linecap="square"/>
+  <path d="M310 596v49M291 613h38" stroke="#08130f" stroke-width="4" stroke-linecap="square"/>
+</svg>
