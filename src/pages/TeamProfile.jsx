@@ -266,7 +266,7 @@ export default function TeamProfile({
       <div className="team-header">
         <TeamMascot
           teamName={teamName}
-          className="team-logo"
+          className={`team-logo ${teamName === "Benedictine" ? "team-logo-benedictine" : ""}`}
         />
 
         <div className="team-header-info">
