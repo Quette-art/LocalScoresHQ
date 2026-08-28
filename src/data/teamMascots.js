@@ -93,7 +93,7 @@ export const teamMascots = {
   "St. John's": "/mascots/st-johns.svg",
   "St. John’s": "/mascots/st-johns.svg",
   "St Johns": "/mascots/st-johns.svg",
-  Benedictine: "/mascots/benedictine-cadets-hq.svg",
+  Benedictine: "/mascots/benedictine-cadets-vector-v3.svg",
   "Calvert Hall": makeCrest("CH", "Cardinals", "#7A0019", "#D4AF37"),
   "KIPP Atlanta Collegiate": makeCrest("KAC", "Warriors", "#5B2C83", "#39A852"),
   "Archbishop Spalding": makeCrest("AS", "Cavaliers", "#C8102E", "#FFFFFF"),
