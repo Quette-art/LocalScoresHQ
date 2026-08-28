@@ -1,0 +1,5 @@
+@media (max-width: 900px) {
+  .search-input.full-search {
+    font-size: 16px !important;
+  }
+}
