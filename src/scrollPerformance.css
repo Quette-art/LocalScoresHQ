@@ -31,6 +31,12 @@ body {
     animation: none !important;
   }
 
+  /* The schedule stylesheet promoted the entire long games list to one GPU layer.
+     On iPhone that can become a very tall texture and cause scroll hitching. */
+  .games-list {
+    will-change: auto !important;
+  }
+
   /* Backdrop blur on a fixed element is especially expensive in iOS Safari. */
   .bottomNavWrapper,
   .compactBottomNav {
