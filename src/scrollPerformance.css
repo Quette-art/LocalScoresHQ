@@ -1,0 +1,82 @@
+/* Mobile scroll-performance overrides.
+   Keep this file loaded after the main app/component styles. */
+
+html {
+  /* Native scrolling feels more responsive than forcing smooth interpolation. */
+  scroll-behavior: auto !important;
+}
+
+body {
+  touch-action: pan-y pinch-zoom;
+}
+
+@media (max-width: 900px) {
+  html {
+    /* Let iOS use its native rubber-band/momentum behavior. */
+    overscroll-behavior-y: auto !important;
+  }
+
+  body {
+    -webkit-overflow-scrolling: touch;
+    text-rendering: auto;
+  }
+
+  /* A large gradient behind the full scrolling document can trigger extra paints. */
+  .appShell {
+    background: var(--bg-base, #F5F7FA) !important;
+  }
+
+  /* Do not animate the whole page surface when changing tabs/routes. */
+  .mainContent {
+    animation: none !important;
+  }
+
+  /* Backdrop blur on a fixed element is especially expensive in iOS Safari. */
+  .bottomNavWrapper,
+  .compactBottomNav {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 -1px 5px rgba(15, 23, 42, 0.08) !important;
+  }
+
+  .bottomNav {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 -1px 5px rgba(15, 23, 42, 0.08) !important;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Keep sticky chrome on its own compositor layer instead of repainting it
+     together with every score card underneath. */
+  .mobileAppHeader,
+  .topControls {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* Skip layout/paint work for cards that are far outside the viewport.
+     This matters most on long football schedule and team pages. */
+  .scoreCard,
+  .game-card,
+  .home-section-card,
+  .home-hero-card,
+  .favorite-mini-card,
+  .team-card,
+  .schedule-game-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 180px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
