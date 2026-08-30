@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import "./data/customTrackedMascots.js";
 import "./App.css";
 import "./mobileSearchFix.css";
 import "./scrollPerformance.css";
