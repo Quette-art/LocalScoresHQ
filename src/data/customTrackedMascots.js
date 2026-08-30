@@ -1,5 +1,6 @@
 import { teamMascots } from "./teamMascots.js";
 import "./customScoreMarks.css";
+import "./bullisVectorScoreFix.css";
 
 // Original LocalScoresHQ-created football badges for tracked programs that did
 // not already have a usable site mark. Full crests stay on team/profile views;
