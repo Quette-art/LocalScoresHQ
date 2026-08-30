@@ -1,7 +1,7 @@
 /* Bullis iOS fix: use a pure SVG (no embedded raster image) so Safari can render it reliably. */
 .score-team-mascot:has(img[alt="Bullis unofficial mascot"]),
 .game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/bullis-score-vector.svg?v=3') !important;
+  background-image: url('/mascots/custom/score/bullis-score-vector.svg?v=4') !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
   background-size: contain !important;
