@@ -7,3 +7,14 @@
 .score-team-mascot img[alt="Rock Creek Christian Academy unofficial mascot"],.game-details-team-logo img[alt="Rock Creek Christian Academy unofficial mascot"]{content:url('/mascots/custom/score/rock-creek-christian-academy-score.svg')}
 .score-team-mascot img[alt="St. Mary's Ryken unofficial mascot"],.score-team-mascot img[alt="St. Mary’s Ryken unofficial mascot"],.game-details-team-logo img[alt="St. Mary's Ryken unofficial mascot"],.game-details-team-logo img[alt="St. Mary’s Ryken unofficial mascot"]{content:url('/mascots/custom/score/st-marys-ryken-score.svg')}
 .score-team-mascot img[alt="St. Vincent Pallotti unofficial mascot"],.game-details-team-logo img[alt="St. Vincent Pallotti unofficial mascot"]{content:url('/mascots/custom/score/st-vincent-pallotti-score.svg')}
+
+/* Make the score identity marks read like real compact team marks instead of tiny illustrations. */
+.score-team-mascot,.game-details-team-logo{overflow:visible!important}
+.score-team-mascot img,.game-details-team-logo img{width:100%!important;height:100%!important;object-fit:contain!important;transform:none!important}
+.game-details-team-logo{width:58px!important;height:58px!important;flex:0 0 58px!important}
+.game-details-team{display:flex!important;align-items:center!important;gap:14px!important}
+.game-details-team-identity{display:flex!important;align-items:center!important;gap:12px!important;flex:1 1 auto!important;min-width:0!important}
+.game-details-team-identity>div{min-width:0!important;flex:1 1 auto!important}
+.game-details-team-identity strong{display:block!important;line-height:1.08!important;white-space:normal!important;overflow-wrap:break-word!important}
+.game-details-team-score{flex:0 0 auto!important;margin-left:auto!important;padding-left:10px!important}
+@media (max-width:520px){.game-details-team-logo{width:52px!important;height:52px!important;flex-basis:52px!important}.game-details-team-identity{gap:9px!important}.game-details-team{gap:10px!important}.game-details-team-identity strong{font-size:17px!important}.game-details-team-score{font-size:44px!important}}
