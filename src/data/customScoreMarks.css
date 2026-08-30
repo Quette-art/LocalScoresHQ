@@ -8,8 +8,9 @@
 .game-details-team-logo {
   overflow: visible !important;
   background-repeat: no-repeat !important;
-  background-position: center !important;
+  background-position: center center !important;
   background-size: contain !important;
+  background-color: transparent !important;
 }
 
 .score-team-mascot:has(img[alt="Friendship Collegiate Academy unofficial mascot"]),
@@ -26,7 +27,10 @@
 
 .score-team-mascot:has(img[alt="Bullis unofficial mascot"]),
 .game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/bullis-score.svg') !important;
+  background-image: url('/mascots/custom/score/bullis-score.svg?v=02996b1') !important;
+  background-position: center center !important;
+  background-size: contain !important;
+  background-color: transparent !important;
 }
 
 .score-team-mascot:has(img[alt="Landon unofficial mascot"]),
