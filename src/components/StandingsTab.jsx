@@ -1,89 +1,66 @@
-import React, {
-  useMemo,
-  useState,
-} from "react";
+import React, { useMemo, useState } from "react";
 import { upcomingGames } from "../data/games";
+import {
+  canonicalFootballTeamName,
+  dcOverallFootballSchools,
+  footballCompetitionGroups,
+  getFootballCompetitionGroup,
+  getPrimaryFootballCompetitionGroup,
+  isFootballCompetitionGame,
+  marylandOverallFootballSchools,
+} from "../data/footballCompetitionGroups";
 import TeamMascot from "./TeamMascot";
 import "./ScoresTab.css";
+import "./StandingsTab.css";
 
-const DCIAA_TEAMS = [
-  "Anacostia",
-  "Ballou",
-  "Bell",
-  "Cardozo",
-  "Coolidge",
-  "Dunbar",
-  "Eastern",
-  "H.D. Woodson",
-  "Jackson-Reed",
-  "McKinley Tech",
-  "Phelps ACE",
-  "Ron Brown",
-  "Roosevelt",
-];
-
-const WCAC_TEAMS = [
-  "Archbishop Carroll",
-  "Bishop McNamara",
-  "DeMatha",
-  "Gonzaga",
-  "Good Counsel",
-  "St. John’s",
-];
-
-const DC_TEAMS = [
-  ...DCIAA_TEAMS,
-  "Archbishop Carroll",
-  "Digital Pioneers Academy",
-  "Gonzaga",
-  "KIPP College Prep",
-  "KIPP DC Legacy",
-  "Sidwell Friends",
-  "St. John’s",
-];
-
-const PGCPS_TEAMS = [
-  "Bladensburg",
-  "Bowie",
-  "Central",
-  "Crossland",
-  "DuVal",
-  "Eleanor Roosevelt",
-  "Fairmont Heights",
-  "Flowers",
-  "Frederick Douglass",
-  "Friendly",
-  "Gwynn Park",
-  "High Point",
-  "Largo",
-  "Laurel",
-  "Northwestern",
-  "Oxon Hill",
-  "Parkdale",
-  "Potomac",
-  "Suitland",
-  "Surrattsville",
-  "Wise",
-];
-
-const VIEW_OPTIONS = [
+const OVERALL_VIEWS = [
   {
-    id: "overall",
-    label: "Overall DC",
+    id: "dc-overall",
+    label: "D.C. Overall",
+    title: "D.C. Tracked Schools",
+    teams: dcOverallFootballSchools,
+    groupId: null,
+    note:
+      "Overall record includes every verified final on LocalScoresHQ. DIV is each school's primary league/division record.",
   },
   {
-    id: "dciaa",
-    label: "DCIAA",
-  },
-  {
-    id: "wcac",
-    label: "WCAC",
-  },
-  {
-    id: "pgcps",
-    label: "Maryland · PGCPS",
+    id: "md-overall",
+    label: "Maryland Overall",
+    title: "Maryland Tracked Schools",
+    teams: marylandOverallFootballSchools,
+    groupId: null,
+    note:
+      "Overall record includes every verified final on LocalScoresHQ. DIV is each school's primary league/division record.",
   },
 ];
+
+const GROUP_VIEW_ORDER = [
+  "dciaa-stars",
+  "dciaa-stripes",
+  "wcac-capital",
+  "wcac-metro",
+  "pgcps-4a3a",
+  "pgcps-2a1a",
+  "iac",
+  "mac",
+  "dc-other",
+  "md-other",
+];
+
+const GROUP_VIEWS = GROUP_VIEW_ORDER.map((id) => {
+  const entry = getFootballCompetitionGroup(id);
+  return {
+    id,
+    label: entry?.label || id,
+    title: entry?.label || id,
+    teams: entry?.trackedTeams || [],
+    groupId: id,
+    note: entry?.note || "",
+  };
+});
+
+const VIEW_OPTIONS = [...OVERALL_VIEWS, ...GROUP_VIEWS];
+const VIEW_BY_ID = new Map(VIEW_OPTIONS.map((view) => [view.id, view]));
 
 const emptyRecord = (team) => ({
   team,
@@ -92,9 +69,9 @@ const emptyRecord = (team) => ({
   wins: 0,
   losses: 0,
   ties: 0,
-  conferenceWins: 0,
-  conferenceLosses: 0,
-  conferenceTies: 0,
+  divisionWins: 0,
+  divisionLosses: 0,
+  divisionTies: 0,
   pointsFor: 0,
   pointsAgainst: 0,
   results: [],
@@ -104,60 +81,29 @@ const isCompleted = (game) =>
   game.score1 !== null &&
   game.score1 !== undefined &&
   game.score2 !== null &&
-  game.score2 !== undefined;
+  game.score2 !== undefined &&
+  game.status !== "cancelled" &&
+  game.status !== "postponed";
 
-const isConferenceGame = (
-  game,
-  view
-) => {
-  const notes = (
-    game.notes || ""
-  ).toLowerCase();
-
-  if (view === "dciaa") {
-    return notes.includes(
-      "dciaa league game"
-    );
+const recordGames = (team, type = "overall") => {
+  if (type === "division") {
+    return team.divisionWins + team.divisionLosses + team.divisionTies;
   }
-
-  if (view === "wcac") {
-    return notes.includes(
-      "wcac league game"
-    );
-  }
-
-  if (view === "pgcps") {
-    return (
-      PGCPS_TEAMS.includes(game.team1) &&
-      PGCPS_TEAMS.includes(game.team2)
-    );
-  }
-
-  return (
-    notes.includes(
-      "dciaa league game"
-    ) ||
-    notes.includes(
-      "wcac league game"
-    )
-  );
+  return team.wins + team.losses + team.ties;
 };
 
-const percentage = (team) => {
-  const games =
-    team.wins +
-    team.losses +
-    team.ties;
-
+const percentage = (team, type = "overall") => {
+  const games = recordGames(team, type);
   if (!games) return ".000";
 
-  return (
-    (team.wins + team.ties * 0.5) /
-    games
-  )
-    .toFixed(3)
-    .replace(/^0/, "");
+  const wins = type === "division" ? team.divisionWins : team.wins;
+  const ties = type === "division" ? team.divisionTies : team.ties;
+
+  return ((wins + ties * 0.5) / games).toFixed(3).replace(/^0/, "");
 };
+
+const percentageNumber = (team, type = "overall") =>
+  Number(percentage(team, type));
 
 const streak = (results) => {
   if (!results.length) return "–";
@@ -165,223 +111,125 @@ const streak = (results) => {
   const latest = results.at(-1);
   let count = 0;
 
-  for (
-    let index = results.length - 1;
-    index >= 0;
-    index -= 1
-  ) {
-    if (
-      results[index] !== latest
-    ) {
-      break;
-    }
-
+  for (let index = results.length - 1; index >= 0; index -= 1) {
+    if (results[index] !== latest) break;
     count += 1;
   }
 
   return `${latest}${count}`;
 };
 
+const addResult = (record, score, opponentScore, divisionGame) => {
+  record.pointsFor += score;
+  record.pointsAgainst += opponentScore;
+
+  const result = score > opponentScore ? "W" : score < opponentScore ? "L" : "T";
+  record.results.push(result);
+
+  if (result === "W") record.wins += 1;
+  if (result === "L") record.losses += 1;
+  if (result === "T") record.ties += 1;
+
+  if (!divisionGame) return;
+
+  if (result === "W") record.divisionWins += 1;
+  if (result === "L") record.divisionLosses += 1;
+  if (result === "T") record.divisionTies += 1;
+};
+
+const teamDivisionLabel = (teamName) =>
+  getPrimaryFootballCompetitionGroup(teamName)?.shortLabel || "Independent";
+
 export default function StandingsTab({
   games = upcomingGames,
   selectedSport = "Football",
   openTeamRoute,
 }) {
-  const [
-    activeView,
-    setActiveView,
-  ] = useState("overall");
+  const [activeView, setActiveView] = useState("dc-overall");
+
+  const activeConfig = VIEW_BY_ID.get(activeView) || VIEW_OPTIONS[0];
 
   const standings = useMemo(() => {
-    const includedTeams =
-      activeView === "pgcps"
-        ? PGCPS_TEAMS
-        : activeView === "dciaa"
-        ? DCIAA_TEAMS
-        : activeView === "wcac"
-          ? WCAC_TEAMS
-          : DC_TEAMS;
-
-    const includedSet =
-      new Set(includedTeams);
-
-    const table =
-      Object.fromEntries(
-        includedTeams.map((team) => [
-          team,
-          emptyRecord(team),
-        ])
-      );
+    const includedTeams = activeConfig.teams;
+    const includedSet = new Set(includedTeams);
+    const table = Object.fromEntries(
+      includedTeams.map((team) => [team, emptyRecord(team)])
+    );
 
     games
-      .filter(
-        (game) =>
-          game.sport === "Football" &&
-          isCompleted(game)
-      )
+      .filter((game) => game.sport === "Football" && isCompleted(game))
       .sort((gameA, gameB) =>
         `${gameA.date} ${gameA.time}`.localeCompare(
           `${gameB.date} ${gameB.time}`
         )
       )
       .forEach((game) => {
-        const conferenceGame =
-          isConferenceGame(
-            game,
-            activeView
-          );
+        const team1 = canonicalFootballTeamName(game.team1);
+        const team2 = canonicalFootballTeamName(game.team2);
+        const score1 = Number(game.score1);
+        const score2 = Number(game.score2);
 
-        if (
-          ["dciaa", "wcac"].includes(activeView) &&
-          !conferenceGame
-        ) {
-          return;
-        }
+        [
+          { name: team1, score: score1, opponentScore: score2 },
+          { name: team2, score: score2, opponentScore: score1 },
+        ].forEach(({ name, score, opponentScore }) => {
+          if (!includedSet.has(name)) return;
 
-        const score1 = Number(
-          game.score1
-        );
+          let divisionGame = false;
 
-        const score2 = Number(
-          game.score2
-        );
-
-        const entries = [
-          {
-            name: game.team1,
-            score: score1,
-            opponentScore: score2,
-          },
-          {
-            name: game.team2,
-            score: score2,
-            opponentScore: score1,
-          },
-        ];
-
-        entries.forEach(
-          ({
-            name,
-            score,
-            opponentScore,
-          }) => {
-            if (
-              !includedSet.has(name)
-            ) {
-              return;
-            }
-
-            const record =
-              table[name];
-
-            record.pointsFor +=
-              score;
-
-            record.pointsAgainst +=
-              opponentScore;
-
-            const result =
-              score > opponentScore
-                ? "W"
-                : score <
-                    opponentScore
-                  ? "L"
-                  : "T";
-
-            record.results.push(
-              result
-            );
-
-            if (result === "W") {
-              record.wins += 1;
-            }
-
-            if (result === "L") {
-              record.losses += 1;
-            }
-
-            if (result === "T") {
-              record.ties += 1;
-            }
-
-            if (conferenceGame) {
-              if (result === "W") {
-                record.conferenceWins += 1;
-              }
-
-              if (result === "L") {
-                record.conferenceLosses += 1;
-              }
-
-              if (result === "T") {
-                record.conferenceTies += 1;
-              }
-            }
+          if (activeConfig.groupId) {
+            divisionGame = isFootballCompetitionGame(game, activeConfig.groupId);
+          } else {
+            const primaryGroup = getPrimaryFootballCompetitionGroup(name);
+            divisionGame = primaryGroup
+              ? isFootballCompetitionGame(game, primaryGroup.id)
+              : false;
           }
-        );
+
+          addResult(table[name], score, opponentScore, divisionGame);
+        });
       });
 
-    return Object.values(
-      table
-    ).sort((teamA, teamB) => {
-      const pctDifference =
-        Number(
-          percentage(teamB)
-        ) -
-        Number(
-          percentage(teamA)
-        );
+    const rows = Object.values(table);
+    const hasDivisionResults = rows.some((team) => recordGames(team, "division") > 0);
 
-      if (pctDifference) {
-        return pctDifference;
+    return rows.sort((teamA, teamB) => {
+      if (activeConfig.groupId && hasDivisionResults) {
+        const divisionPctDifference =
+          percentageNumber(teamB, "division") - percentageNumber(teamA, "division");
+        if (divisionPctDifference) return divisionPctDifference;
+
+        if (teamB.divisionWins !== teamA.divisionWins) {
+          return teamB.divisionWins - teamA.divisionWins;
+        }
+
+        if (teamA.divisionLosses !== teamB.divisionLosses) {
+          return teamA.divisionLosses - teamB.divisionLosses;
+        }
       }
 
-      if (
-        teamB.wins !==
-        teamA.wins
-      ) {
-        return (
-          teamB.wins -
-          teamA.wins
-        );
+      const overallPctDifference =
+        percentageNumber(teamB) - percentageNumber(teamA);
+      if (overallPctDifference) return overallPctDifference;
+
+      if (teamB.wins !== teamA.wins) return teamB.wins - teamA.wins;
+
+      const teamADifference = teamA.pointsFor - teamA.pointsAgainst;
+      const teamBDifference = teamB.pointsFor - teamB.pointsAgainst;
+      if (teamBDifference !== teamADifference) {
+        return teamBDifference - teamADifference;
       }
 
-      const teamADifference =
-        teamA.pointsFor -
-        teamA.pointsAgainst;
-
-      const teamBDifference =
-        teamB.pointsFor -
-        teamB.pointsAgainst;
-
-      if (
-        teamBDifference !==
-        teamADifference
-      ) {
-        return (
-          teamBDifference -
-          teamADifference
-        );
-      }
-
-      return teamA.team.localeCompare(
-        teamB.team
-      );
+      return teamA.team.localeCompare(teamB.team);
     });
-  }, [activeView, games]);
+  }, [activeConfig, games]);
 
-  if (
-    selectedSport !== "Football"
-  ) {
+  if (selectedSport !== "Football") {
     return (
       <div className="standingsPage">
-        <h2 className="standingsTitle">
-          {selectedSport} Standings
-        </h2>
-
+        <h2 className="standingsTitle">{selectedSport} Standings</h2>
         <div className="standingsEmpty">
-          Standings for this sport
-          are coming soon.
+          Standings for this sport are coming soon.
         </div>
       </div>
     );
@@ -396,15 +244,7 @@ export default function StandingsTab({
     });
   };
 
-  const sectionTitle =
-    activeView === "pgcps"
-      ? "Prince George’s County Football"
-      : activeView === "dciaa"
-      ? "DCIAA Football"
-      : activeView === "wcac"
-        ? "WCAC Football"
-        : "D.C. Overall";
-          return (
+  return (
     <div className="standingsPage footballStandingsPage">
       <div className="footballStandingsHeading">
         <div>
@@ -412,14 +252,14 @@ export default function StandingsTab({
           <h2 className="standingsTitle">Football Standings</h2>
         </div>
         <span className="standingsUpdated">
-          Records update when final scores are entered
+          Verified finals update records automatically
         </span>
       </div>
 
       <div
-        className="standingsViewTabs"
+        className="standingsViewTabs standingsDivisionTabs"
         role="tablist"
-        aria-label="Standings view"
+        aria-label="Football standings division"
       >
         {VIEW_OPTIONS.map((option) => (
           <button
@@ -437,22 +277,17 @@ export default function StandingsTab({
 
       <section className="footballStandingsSection">
         <div className="footballStandingsSectionTitle">
-          <h3>{sectionTitle}</h3>
-          <span>{standings.length} teams</span>
+          <div>
+            <h3>{activeConfig.title}</h3>
+            {activeConfig.groupId && (
+              <span className="standingsGroupType">2026 division / league view</span>
+            )}
+          </div>
+          <span>{standings.length} tracked teams</span>
         </div>
 
-        {activeView === "dciaa" && (
-          <p className="standingsNotice">
-            Stars and Stripes groups will be added when the official 2026
-            alignment is published.
-          </p>
-        )}
-
-        {activeView === "pgcps" && (
-          <p className="standingsNotice">
-            High Point’s 2026 varsity schedule has not been published. Schedule
-            details marked subject to change are awaiting official confirmation.
-          </p>
+        {activeConfig.note && (
+          <p className="standingsNotice">{activeConfig.note}</p>
         )}
 
         <div className="footballStandingsScroller">
@@ -463,7 +298,7 @@ export default function StandingsTab({
               <span>L</span>
               <span>T</span>
               <span>PCT</span>
-              <span>CONF</span>
+              <span>DIV</span>
               <span>PF</span>
               <span>PA</span>
               <span>DIFF</span>
@@ -472,7 +307,7 @@ export default function StandingsTab({
 
             {standings.map((team) => {
               const diff = team.pointsFor - team.pointsAgainst;
-              const conf = `${team.conferenceWins}-${team.conferenceLosses}-${team.conferenceTies}`;
+              const divisionRecord = `${team.divisionWins}-${team.divisionLosses}-${team.divisionTies}`;
 
               return (
                 <div key={team.team} className="footballStandingsRow">
@@ -482,21 +317,24 @@ export default function StandingsTab({
                     onClick={() => openTeam(team)}
                   >
                     <TeamMascot
-  teamName={team.team}
-  className="footballTeamMark"
-/>
-
-                    <strong>{team.team}</strong>
+                      teamName={team.team}
+                      className="footballTeamMark"
+                    />
+                    <span className="standingsTeamText">
+                      <strong>{team.team}</strong>
+                      {!activeConfig.groupId && (
+                        <small>{teamDivisionLabel(team.team)}</small>
+                      )}
+                    </span>
                   </button>
 
                   <span>{team.wins}</span>
                   <span>{team.losses}</span>
                   <span>{team.ties}</span>
                   <span>{percentage(team)}</span>
-                  <span>{conf}</span>
+                  <span>{divisionRecord}</span>
                   <span>{team.pointsFor}</span>
                   <span>{team.pointsAgainst}</span>
-
                   <span
                     className={
                       diff > 0
@@ -508,7 +346,6 @@ export default function StandingsTab({
                   >
                     {diff > 0 ? `+${diff}` : diff}
                   </span>
-
                   <span>{streak(team.results)}</span>
                 </div>
               );
@@ -518,21 +355,11 @@ export default function StandingsTab({
       </section>
 
       <div className="standingsLegend">
-        <span>
-          <strong>PCT</strong> = Winning percentage
-        </span>
-        <span>
-          <strong>CONF</strong> = Conference record
-        </span>
-        <span>
-          <strong>PF</strong> = Points for
-        </span>
-        <span>
-          <strong>PA</strong> = Points against
-        </span>
-        <span>
-          <strong>STRK</strong> = Current streak
-        </span>
+        <span><strong>PCT</strong> = Overall winning percentage</span>
+        <span><strong>DIV</strong> = Division / league record</span>
+        <span><strong>PF</strong> = Points for</span>
+        <span><strong>PA</strong> = Points against</span>
+        <span><strong>STRK</strong> = Overall current streak</span>
       </div>
     </div>
   );
