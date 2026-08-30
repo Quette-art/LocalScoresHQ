@@ -1,9 +1,10 @@
 import { teamMascots } from "./teamMascots.js";
+import "./customScoreMarks.css";
 
 // Original LocalScoresHQ-created football badges for tracked programs that did
-// not already have a usable site mark. Keeping these aliases in one place lets
-// TeamMascot use the same artwork on team pages, score cards, game details and
-// standings; initials remain the fallback only when no badge exists.
+// not already have a usable site mark. Full crests stay on team/profile views;
+// customScoreMarks.css swaps in compact, school-specific marks on score cards
+// and game-detail score displays for this test branch.
 Object.assign(teamMascots, {
   "Friendship Collegiate Academy": "/mascots/custom/friendship-collegiate-custom.svg",
   "Friendship Collegiate": "/mascots/custom/friendship-collegiate-custom.svg",
