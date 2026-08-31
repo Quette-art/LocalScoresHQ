@@ -3564,6 +3564,13 @@ button, input, select { font-family: inherit; }
   background: transparent;
 }
 
+/* Game-detail logos are not circular artwork. Keep their corners visible
+   instead of masking them with the fallback avatar's round crop. */
+.game-details-team-logo.team-mascot:not(.team-mascot-fallback) {
+  border-radius: 0;
+  overflow: visible;
+}
+
 .footballTeamMark.team-mascot-fallback,
 .team-avatar.team-mascot-fallback,
 .game-details-team-logo.team-mascot-fallback,
