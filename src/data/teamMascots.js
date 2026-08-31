@@ -46,6 +46,14 @@ const makeCrest = (mark, mascot, primary, secondary) =>
   `);
 
 export const teamMascots = {
+  "Penn Wood": "/mascots/missing-teams/penn-wood-patriots-full.webp",
+  "Penn Wood High School": "/mascots/missing-teams/penn-wood-patriots-full.webp",
+  "Roanoke Catholic": "/mascots/missing-teams/roanoke-catholic-celtics-full.webp",
+  "Roanoke Catholic School": "/mascots/missing-teams/roanoke-catholic-celtics-full.webp",
+  "Simon Gratz": "/mascots/missing-teams/simon-gratz-bulldogs-full.webp",
+  "Simon Gratz High School": "/mascots/missing-teams/simon-gratz-bulldogs-full.webp",
+  "St. Georges Tech": "/mascots/missing-teams/st-georges-tech-hawks-full.webp",
+  "St. Georges Technical High School": "/mascots/missing-teams/st-georges-tech-hawks-full.webp",
   "St. Paul's": "/mascots/missing-teams/st-pauls-crusaders-full.webp",
   "St. Paul’s": "/mascots/missing-teams/st-pauls-crusaders-full.webp",
   "Paul VI": "/mascots/missing-teams/paul-vi-panthers-full.webp",
@@ -183,6 +191,14 @@ export const teamMascots = {
 };
 
 const scoreMascots = {
+  "Penn Wood": "/mascots/missing-teams/penn-wood-score-pw.webp",
+  "Penn Wood High School": "/mascots/missing-teams/penn-wood-score-pw.webp",
+  "Roanoke Catholic": "/mascots/missing-teams/roanoke-catholic-score-rc.webp",
+  "Roanoke Catholic School": "/mascots/missing-teams/roanoke-catholic-score-rc.webp",
+  "Simon Gratz": "/mascots/missing-teams/simon-gratz-score-sg.webp",
+  "Simon Gratz High School": "/mascots/missing-teams/simon-gratz-score-sg.webp",
+  "St. Georges Tech": "/mascots/missing-teams/st-georges-tech-score-sgt.webp",
+  "St. Georges Technical High School": "/mascots/missing-teams/st-georges-tech-score-sgt.webp",
   "St. Paul's": "/mascots/missing-teams/st-pauls-score-sp.webp",
   "St. Paul’s": "/mascots/missing-teams/st-pauls-score-sp.webp",
   "Paul VI": "/mascots/missing-teams/paul-vi-score-pvi.webp",
