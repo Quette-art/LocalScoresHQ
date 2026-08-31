@@ -12,13 +12,12 @@
 
   html {
     background: #0f172a !important;
-    overscroll-behavior-y: none !important;
   }
 
   body,
   #root,
   .appShell {
-    min-height: 100dvh;
+    min-height: 100%;
   }
 
   body,
@@ -27,25 +26,12 @@
     background: #f5f7fa !important;
   }
 
-  /* Keep the branded header visible instead of exposing a white strip while
-     the page is momentum-scrolling. */
-  .mobileAppHeader {
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 5000 !important;
-    background: #0f172a !important;
-  }
-
-  .topControls {
-    z-index: 4500 !important;
-  }
-
   /* /game is rendered outside .mainContent, so it does not inherit the normal
      bottom-nav clearance. Older CSS also zeroes this page's padding with
      !important. Restore enough bottom space to scroll every details card fully
      above the fixed navigation and iPhone safe area. */
   .game-details-page {
-    min-height: 100dvh !important;
+    min-height: 100vh !important;
     padding-bottom: calc(150px + env(safe-area-inset-bottom)) !important;
   }
 

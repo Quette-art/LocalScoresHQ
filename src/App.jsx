@@ -734,15 +734,6 @@ function AppContent() {
                   ? "sportPillActive"
                   : ""
               }`}
-              ref={(el) => {
-                if (el && selectedSport === sport.name) {
-                  el.scrollIntoView({
-                    behavior: "smooth",
-                    inline: "center",
-                    block: "nearest",
-                  });
-                }
-              }}
               onClick={() => handleSportClick(sport.name)}
             >
               {sport.icon} {sport.name}

@@ -6,24 +6,20 @@ html {
   scroll-behavior: auto !important;
 }
 
-body {
-  touch-action: pan-y pinch-zoom;
-}
-
 @media (max-width: 900px) {
   html {
-    /* Let iOS use its native rubber-band/momentum behavior. */
     overscroll-behavior-y: auto !important;
   }
 
   body {
-    -webkit-overflow-scrolling: touch;
+    touch-action: auto;
     text-rendering: auto;
   }
 
   /* A large gradient behind the full scrolling document can trigger extra paints. */
   .appShell {
     background: var(--bg-base, #F5F7FA) !important;
+    padding-top: var(--nav-height, 66px);
   }
 
   /* Do not animate the whole page surface when changing tabs/routes. */
@@ -59,16 +55,30 @@ body {
     box-shadow: none !important;
   }
 
-  /* Keep shared sticky/fixed chrome in small compositor layers. Without this,
-     Safari repaints the header and bottom navigation with every scroll frame. */
-  .mobileAppHeader,
-  .topControls,
-  .bottomNav {
+  /* Safari 26 can stutter while repainting sticky elements. Keep the header
+     fixed in one small layer and let the sports bar scroll with the page. */
+  .mobileAppHeader {
+    position: fixed !important;
+    inset: 0 0 auto !important;
     transform: translate3d(0, 0, 0) !important;
     backface-visibility: hidden !important;
     will-change: transform;
     contain: paint;
     box-shadow: none !important;
+  }
+
+  .topControls {
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+    backface-visibility: visible !important;
+    will-change: auto !important;
+    contain: none !important;
+  }
+
+  .bottomNav {
+    transform: translate3d(0, 0, 0) !important;
+    backface-visibility: hidden !important;
   }
 
   /* The Home page has a small, bounded number of rows. Let Safari lay these

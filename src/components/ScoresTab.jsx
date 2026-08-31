@@ -628,18 +628,6 @@ export default function ScoresTab({
         {uniqueDates.map((date) => (
           <button
             key={date}
-            ref={(element) => {
-              if (
-                element &&
-                selectedDate === date
-              ) {
-                element.scrollIntoView({
-                  behavior: "smooth",
-                  inline: "center",
-                  block: "nearest",
-                });
-              }
-            }}
             className={`date-btn ${
               selectedDate === date
                 ? "active"
