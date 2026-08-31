@@ -146,6 +146,10 @@ export const teamMascots = {
 };
 
 const scoreMascots = {
+  "Archbishop Carroll": "/mascots/score-marks/archbishop-carroll-ac.svg",
+  Ballou: "/mascots/score-marks/ballou-b.svg",
+  Bell: "/mascots/score-marks/bell-b.svg",
+  Dunbar: "/mascots/score-marks/dunbar-d.svg",
   Benedictine: "/mascots/benedictine-score-b.svg",
   Bullis: "/mascots/bullis-score-bulldog.svg",
   "Friendship Collegiate": "/mascots/custom/friendship-collegiate-custom.svg",
