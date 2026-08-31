@@ -147,6 +147,7 @@ export const teamMascots = {
 
 const scoreMascots = {
   Benedictine: "/mascots/benedictine-score-b.svg",
+  Bullis: "/mascots/bullis-score-bulldog.svg",
   "Calvert Hall": makeScoreMark("CH", "#7A0019", "#D4AF37"),
   "KIPP Atlanta Collegiate": makeScoreMark("KAC", "#5B2C83", "#39A852"),
   "Archbishop Spalding": makeScoreMark("AS", "#C8102E", "#FFFFFF"),
