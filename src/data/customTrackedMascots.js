@@ -19,3 +19,33 @@ Object.assign(teamMascots, {
   "St. Vincent Pallotti": "/mascots/custom/st-vincent-pallotti-custom.svg",
   "Our Lady of Good Counsel": "/mascots/standings/good-counsel.png",
 });
+
+// Bullis score/game views: use the exact approved picture-in-SVG file as the
+// actual <img> source instead of recreating the bulldog with SVG paths/CSS.
+// This keeps the approved artwork intact while avoiding the Safari background
+// rendering problem we hit earlier.
+const BULLIS_SCORE_SVG = "/mascots/custom/score/bullis-score.svg?v=exact-direct-1";
+
+const applyBullisExactScoreMark = () => {
+  if (typeof document === "undefined") return;
+
+  document
+    .querySelectorAll(
+      '.score-team-mascot img[alt="Bullis unofficial mascot"], .game-details-team-logo img[alt="Bullis unofficial mascot"]'
+    )
+    .forEach((img) => {
+      if (img.getAttribute("src") !== BULLIS_SCORE_SVG) {
+        img.setAttribute("src", BULLIS_SCORE_SVG);
+      }
+    });
+};
+
+if (typeof document !== "undefined") {
+  queueMicrotask(applyBullisExactScoreMark);
+
+  const bullisScoreObserver = new MutationObserver(applyBullisExactScoreMark);
+  bullisScoreObserver.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  });
+}
