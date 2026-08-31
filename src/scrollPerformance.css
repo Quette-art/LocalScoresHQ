@@ -56,16 +56,19 @@ body {
     background: #ffffff !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    box-shadow: 0 -1px 5px rgba(15, 23, 42, 0.08) !important;
-    backface-visibility: hidden;
+    box-shadow: none !important;
   }
 
-  /* Do not force sticky headers onto separate GPU layers. On iOS Safari a
-     transformed sticky element can flicker against the scrolling page. */
+  /* Keep shared sticky/fixed chrome in small compositor layers. Without this,
+     Safari repaints the header and bottom navigation with every scroll frame. */
   .mobileAppHeader,
-  .topControls {
-    transform: none !important;
-    backface-visibility: visible !important;
+  .topControls,
+  .bottomNav {
+    transform: translate3d(0, 0, 0) !important;
+    backface-visibility: hidden !important;
+    will-change: transform;
+    contain: paint;
+    box-shadow: none !important;
   }
 
   /* The Home page has a small, bounded number of rows. Let Safari lay these
