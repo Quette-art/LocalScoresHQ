@@ -191,8 +191,67 @@ const standingsMascots = {
   "St Johns": "/mascots/standings/st-johns.png",
 };
 
+// These source files are pixel-traced SVGs with thousands of tiny paths.
+// Decoding them as vectors while they enter the viewport blocks iOS Safari's
+// main thread and makes momentum scrolling visibly stall. The 192px WebP
+// versions preserve more detail than the UI displays while decoding cheaply.
+const HEAVY_MASCOT_FILES = new Set([
+  "anacostia.svg",
+  "archbishop-carroll.svg",
+  "ballou.svg",
+  "bell.svg",
+  "bladensburg.svg",
+  "bowie.svg",
+  "cardozo.svg",
+  "central.svg",
+  "coolidge.svg",
+  "crossland.svg",
+  "digital-pioneers-academy.svg",
+  "dunbar.svg",
+  "duval.svg",
+  "eastern.svg",
+  "eleanor-roosevelt.svg",
+  "fairmont-heights.svg",
+  "flowers.svg",
+  "frederick-douglass.svg",
+  "friendly.svg",
+  "gonzaga.svg",
+  "gwynn-park.svg",
+  "hd-woodson.svg",
+  "high-point.svg",
+  "jackson-reed.svg",
+  "kipp-college-prep.svg",
+  "kipp-dc-legacy.svg",
+  "largo.svg",
+  "laurel.svg",
+  "mckinley-tech.svg",
+  "northwestern.svg",
+  "oxon-hill.svg",
+  "parkdale.svg",
+  "phelps-ace.svg",
+  "potomac.svg",
+  "ron-brown.svg",
+  "roosevelt.svg",
+  "sidwell-friends.svg",
+  "st-johns.svg",
+  "suitland.svg",
+  "surrattsville.svg",
+  "wise.svg",
+]);
+
+const optimizeHeavyMascot = (mascotPath) => {
+  if (!mascotPath?.startsWith("/mascots/") || !mascotPath.endsWith(".svg")) {
+    return mascotPath;
+  }
+
+  const fileName = mascotPath.slice("/mascots/".length);
+  return HEAVY_MASCOT_FILES.has(fileName)
+    ? `/mascots/optimized/${fileName.replace(/\.svg$/, ".webp")}`
+    : mascotPath;
+};
+
 export const getTeamMascot = (teamName = "") =>
-  teamMascots[teamName.trim()] || null;
+  optimizeHeavyMascot(teamMascots[teamName.trim()] || null);
 
 export const getScoreMascot = (teamName = "") =>
   scoreMascots[teamName.trim()] || null;
