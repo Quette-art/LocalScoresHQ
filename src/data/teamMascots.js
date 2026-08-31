@@ -46,6 +46,14 @@ const makeCrest = (mark, mascot, primary, secondary) =>
   `);
 
 export const teamMascots = {
+  "Eagle Academy II": "/mascots/missing-teams/eagle-academy-ii-eagles-full.webp",
+  "Eagle Academy for Young Men II": "/mascots/missing-teams/eagle-academy-ii-eagles-full.webp",
+  Steubenville: "/mascots/missing-teams/steubenville-big-red-full.webp",
+  "Steubenville High School": "/mascots/missing-teams/steubenville-big-red-full.webp",
+  "Tower Hill": "/mascots/missing-teams/tower-hill-hillers-full.webp",
+  "Tower Hill School": "/mascots/missing-teams/tower-hill-hillers-full.webp",
+  "West Boca Raton": "/mascots/missing-teams/west-boca-raton-bulls-full.webp",
+  "West Boca Raton High School": "/mascots/missing-teams/west-boca-raton-bulls-full.webp",
   "Penn Wood": "/mascots/missing-teams/penn-wood-patriots-full.webp",
   "Penn Wood High School": "/mascots/missing-teams/penn-wood-patriots-full.webp",
   "Roanoke Catholic": "/mascots/missing-teams/roanoke-catholic-celtics-full.webp",
@@ -191,6 +199,14 @@ export const teamMascots = {
 };
 
 const scoreMascots = {
+  "Eagle Academy II": "/mascots/missing-teams/eagle-academy-ii-score-eaii.webp",
+  "Eagle Academy for Young Men II": "/mascots/missing-teams/eagle-academy-ii-score-eaii.webp",
+  Steubenville: "/mascots/missing-teams/steubenville-score-s.webp",
+  "Steubenville High School": "/mascots/missing-teams/steubenville-score-s.webp",
+  "Tower Hill": "/mascots/missing-teams/tower-hill-score-th.webp",
+  "Tower Hill School": "/mascots/missing-teams/tower-hill-score-th.webp",
+  "West Boca Raton": "/mascots/missing-teams/west-boca-raton-score-wb.webp",
+  "West Boca Raton High School": "/mascots/missing-teams/west-boca-raton-score-wb.webp",
   "Penn Wood": "/mascots/missing-teams/penn-wood-score-pw.webp",
   "Penn Wood High School": "/mascots/missing-teams/penn-wood-score-pw.webp",
   "Roanoke Catholic": "/mascots/missing-teams/roanoke-catholic-score-rc.webp",
