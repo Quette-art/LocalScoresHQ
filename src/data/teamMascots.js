@@ -46,6 +46,15 @@ const makeCrest = (mark, mascot, primary, secondary) =>
   `);
 
 export const teamMascots = {
+  "St. Paul's": "/mascots/missing-teams/st-pauls-crusaders-full.svg",
+  "St. Paul’s": "/mascots/missing-teams/st-pauls-crusaders-full.svg",
+  "Paul VI": "/mascots/missing-teams/paul-vi-panthers-full.svg",
+  "St. Paul VI": "/mascots/missing-teams/paul-vi-panthers-full.svg",
+  "Bishop O'Connell": "/mascots/missing-teams/bishop-oconnell-knights-full.svg",
+  "Bishop O’Connell": "/mascots/missing-teams/bishop-oconnell-knights-full.svg",
+  "St. Stephen's & St. Agnes": "/mascots/missing-teams/sssas-saints-full.svg",
+  "St. Stephen’s & St. Agnes": "/mascots/missing-teams/sssas-saints-full.svg",
+  "St. Stephen's and St. Agnes": "/mascots/missing-teams/sssas-saints-full.svg",
   Bladensburg: "/mascots/bladensburg.svg",
   Bowie: "/mascots/bowie.svg",
   Central: "/mascots/central.svg",
@@ -146,6 +155,15 @@ export const teamMascots = {
 };
 
 const scoreMascots = {
+  "St. Paul's": "/mascots/missing-teams/st-pauls-score-sp.svg",
+  "St. Paul’s": "/mascots/missing-teams/st-pauls-score-sp.svg",
+  "Paul VI": "/mascots/missing-teams/paul-vi-score-pvi.svg",
+  "St. Paul VI": "/mascots/missing-teams/paul-vi-score-pvi.svg",
+  "Bishop O'Connell": "/mascots/missing-teams/bishop-oconnell-score-oc.svg",
+  "Bishop O’Connell": "/mascots/missing-teams/bishop-oconnell-score-oc.svg",
+  "St. Stephen's & St. Agnes": "/mascots/missing-teams/sssas-score-s.svg",
+  "St. Stephen’s & St. Agnes": "/mascots/missing-teams/sssas-score-s.svg",
+  "St. Stephen's and St. Agnes": "/mascots/missing-teams/sssas-score-s.svg",
   "Archbishop Carroll": "/mascots/score-marks/archbishop-carroll-ac.svg",
   Ballou: "/mascots/score-marks/ballou-b.svg",
   Bell: "/mascots/score-marks/bell-b.svg",
