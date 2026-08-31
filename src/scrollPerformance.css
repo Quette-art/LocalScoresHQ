@@ -36,6 +36,13 @@ body {
     animation: none !important;
   }
 
+  /* Do not promote the full, vertically long scores list to a single GPU
+     texture. That oversized layer can hitch during iPhone momentum scrolling. */
+  .games-list {
+    will-change: auto !important;
+    transform: none !important;
+  }
+
   /* Backdrop blur on a fixed element is especially expensive in iOS Safari. */
   .bottomNavWrapper,
   .compactBottomNav {
@@ -100,14 +107,24 @@ body {
     box-shadow: none !important;
   }
 
-  /* Keep off-screen optimization only on repeated list cards where the
-     intrinsic height is predictable enough not to cause visible jumps. */
+  /* Safari can visibly resize or repaint content-visibility cards as they
+     enter the viewport. These lists are short enough to render normally. */
   .scoreCard,
   .game-card,
   .team-card,
   .schedule-game-card {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 180px;
+    content-visibility: visible !important;
+    contain: none !important;
+    contain-intrinsic-size: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .scoreCard:hover,
+  .game-card:hover,
+  .team-card:hover,
+  .schedule-game-card:hover {
+    transform: none !important;
   }
 }
 
