@@ -17,7 +17,7 @@ Object.assign(teamMascots, {
   "St. Mary's Ryken": "/mascots/custom/st-marys-ryken-custom.svg",
   "St. Mary’s Ryken": "/mascots/custom/st-marys-ryken-custom.svg",
   "St. Vincent Pallotti": "/mascots/custom/st-vincent-pallotti-custom.svg",
-  "Our Lady of Good Counsel": "/mascots/standings/good-counsel.png",
+  "Our Lady of Good Counsel": "/mascots/missing-teams/good-counsel-falcons-full.webp",
 });
 
 // Bullis score/game views: use the exact approved picture-in-SVG file as the
