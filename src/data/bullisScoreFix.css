@@ -1,0 +1,9 @@
+/* iOS-safe Bullis score mark: direct embedded PNG avoids Safari's external SVG background limitation. */
+.score-team-mascot:has(img[alt="Bullis unofficial mascot"]),
+.game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAP0AAAEACAYAAABn2r0PAA...');
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-color: transparent !important;
+}

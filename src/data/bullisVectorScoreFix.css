@@ -1,0 +1,18 @@
+/* Bullis iOS fix: use the exact approved picture-in-SVG as the real img source. */
+.score-team-mascot:has(img[alt="Bullis unofficial mascot"]),
+.game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) {
+  background-image: none !important;
+  background-color: transparent !important;
+  overflow: visible !important;
+}
+
+.score-team-mascot:has(img[alt="Bullis unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) img {
+  opacity: 1 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+}
