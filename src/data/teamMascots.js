@@ -186,9 +186,9 @@ export const teamMascots = {
   "St Edward": "/mascots/missing-teams/st-edward-eagles-full.webp",
   "Malvern Prep": "/mascots/missing-teams/malvern-prep-friars-full.webp",
   "Cornerstone Christian": "/mascots/missing-teams/cornerstone-christian-warriors-full.webp",
-  "Eastern Tech": makeCrest("ET", "Mavericks", "#F58220", "#111111"),
-  "Potomac School": makeCrest("P", "Panthers", "#0B2D5B", "#F47C20"),
-  Yorktown: makeCrest("Y", "Patriots", "#6EC1E4", "#FFFFFF"),
+  "Eastern Tech": "/mascots/missing-teams/eastern-tech-mavericks-full.webp",
+  "Potomac School": "/mascots/missing-teams/potomac-school-panthers-full.webp",
+  Yorktown: "/mascots/missing-teams/yorktown-patriots-full.webp",
   "Kinnard (SC)": "/mascots/approved-hunter-kinard-tyler.svg",
   "Hunter-Kinard-Tyler": "/mascots/approved-hunter-kinard-tyler.svg",
   "John Champe": "/mascots/approved-john-champe.svg",
@@ -367,9 +367,9 @@ const scoreMascots = {
   "St Edward": "/mascots/missing-teams/st-edward-score-se.webp",
   "Malvern Prep": "/mascots/missing-teams/malvern-prep-score-mp.webp",
   "Cornerstone Christian": "/mascots/missing-teams/cornerstone-christian-score-ccs.webp",
-  "Eastern Tech": makeScoreMark("ET", "#F58220", "#111111"),
-  "Potomac School": makeScoreMark("P", "#0B2D5B", "#F47C20"),
-  Yorktown: makeScoreMark("Y", "#6EC1E4", "#FFFFFF"),
+  "Eastern Tech": "/mascots/missing-teams/eastern-tech-score-et.webp",
+  "Potomac School": "/mascots/missing-teams/potomac-school-score-p.webp",
+  Yorktown: "/mascots/missing-teams/yorktown-score-y.webp",
 };
 
 const standingsMascots = {
