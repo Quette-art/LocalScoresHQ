@@ -1,8 +1,10 @@
 import React, {
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
+import { toBlob } from "html-to-image";
 import {
   doc,
   setDoc,
@@ -10,15 +12,6 @@ import {
 import { db } from "../firebase";
 import "../components/ScoresTab.css";
 import TeamMascot from "../components/TeamMascot";
-
-const getInitials = (teamName = "") =>
-  teamName
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
 
 const GameDetails = ({
   game,
@@ -64,6 +57,18 @@ const GameDetails = ({
 
   const [team2Score, setTeam2Score] =
     useState("");
+
+  const [
+    showShareGraphic,
+    setShowShareGraphic,
+  ] = useState(false);
+
+  const [
+    graphicAction,
+    setGraphicAction,
+  ] = useState("");
+
+  const shareCardRef = useRef(null);
 
   useEffect(() => {
     if (!savedGame) return;
@@ -206,6 +211,109 @@ const GameDetails = ({
     }
   };
 
+  const getGraphicFilename = () =>
+    `${localGame.team1}-vs-${localGame.team2}`
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "") + "-final.png";
+
+  const waitForGraphicAssets = async () => {
+    await document.fonts?.ready;
+
+    const images = Array.from(
+      shareCardRef.current?.querySelectorAll("img") || []
+    );
+
+    await Promise.all(
+      images.map(async (image) => {
+        if (!image.complete) {
+          await new Promise((resolve) => {
+            image.addEventListener("load", resolve, { once: true });
+            image.addEventListener("error", resolve, { once: true });
+          });
+        }
+
+        await image.decode?.().catch(() => {});
+      })
+    );
+  };
+
+  const createScoreGraphic = async () => {
+    if (!shareCardRef.current) {
+      throw new Error("Score graphic is not ready.");
+    }
+
+    await waitForGraphicAssets();
+
+    const cardWidth = shareCardRef.current.offsetWidth;
+    const pixelRatio = Math.max(2, 1080 / cardWidth);
+    const blob = await toBlob(shareCardRef.current, {
+      cacheBust: true,
+      pixelRatio,
+      backgroundColor: "#071426",
+    });
+
+    if (!blob) {
+      throw new Error("Score graphic could not be created.");
+    }
+
+    return blob;
+  };
+
+  const downloadGraphic = (blob) => {
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = getGraphicFilename();
+    anchor.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  const saveScoreGraphic = async () => {
+    setGraphicAction("saving");
+
+    try {
+      const blob = await createScoreGraphic();
+      downloadGraphic(blob);
+      setGraphicAction("saved");
+    } catch (error) {
+      console.error(error);
+      setGraphicAction("error");
+    }
+  };
+
+  const shareScoreGraphic = async () => {
+    setGraphicAction("sharing");
+
+    try {
+      const blob = await createScoreGraphic();
+      const file = new File([blob], getGraphicFilename(), {
+        type: "image/png",
+      });
+      const shareData = {
+        files: [file],
+        title: `${localGame.team1} vs ${localGame.team2} final`,
+        text: `Final score on LocalScoresHQ: ${localGame.team1} ${localGame.score1}, ${localGame.team2} ${localGame.score2}.`,
+      };
+
+      if (navigator.share && navigator.canShare?.(shareData)) {
+        await navigator.share(shareData);
+        setGraphicAction("shared");
+      } else {
+        downloadGraphic(blob);
+        setGraphicAction("saved");
+      }
+    } catch (error) {
+      if (error?.name === "AbortError") {
+        setGraphicAction("");
+        return;
+      }
+
+      console.error(error);
+      setGraphicAction("error");
+    }
+  };
+
   const saveScore = async () => {
     if (
       team1Score === "" ||
@@ -315,14 +423,30 @@ const GameDetails = ({
           Back
         </button>
 
-        <button
-          type="button"
-          className="game-details-action"
-          onClick={shareGame}
-        >
-          Share
-          <span>↗</span>
-        </button>
+        <div className="game-details-share-actions">
+          {isFinal && (
+            <button
+              type="button"
+              className="game-details-action game-details-action-primary"
+              onClick={() => {
+                setGraphicAction("");
+                setShowShareGraphic(true);
+              }}
+            >
+              Score Graphic
+              <span>▣</span>
+            </button>
+          )}
+
+          <button
+            type="button"
+            className="game-details-action"
+            onClick={shareGame}
+          >
+            Share Link
+            <span>↗</span>
+          </button>
+        </div>
       </div>
 
       <section className="game-details-card">
@@ -485,6 +609,119 @@ const GameDetails = ({
           </article>
         </div>
       </section>
+
+      {showShareGraphic && (
+        <div
+          className="share-score-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="share-score-title"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setShowShareGraphic(false);
+            }
+          }}
+        >
+          <section className="share-score-modal">
+            <div className="share-score-modal-header">
+              <div>
+                <span>READY TO POST</span>
+                <h2 id="share-score-title">Share final score</h2>
+              </div>
+
+              <button
+                type="button"
+                className="share-score-close"
+                aria-label="Close score graphic"
+                onClick={() => setShowShareGraphic(false)}
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="share-score-preview">
+              <article className="share-score-card" ref={shareCardRef}>
+                <div className="share-score-card-glow share-score-card-glow-one" />
+                <div className="share-score-card-glow share-score-card-glow-two" />
+
+                <header className="share-score-brand">
+                  <div className="share-score-brand-mark">LS</div>
+                  <div>
+                    <strong>LOCAL SCORES HQ</strong>
+                    <span>DMV HIGH SCHOOL SPORTS</span>
+                  </div>
+                  <b>FINAL</b>
+                </header>
+
+                <div className="share-score-event">
+                  <span>{localGame.sport || "Football"}</span>
+                  <strong>{formatDate(localGame.date)}</strong>
+                </div>
+
+                <div className="share-score-matchup">
+                  <div className={team1Won ? "is-winner" : ""}>
+                    <TeamMascot
+                      teamName={localGame.team1}
+                      className="share-score-mascot game-details-team-logo"
+                    />
+                    <strong>{localGame.team1}</strong>
+                    <b>{localGame.score1}</b>
+                    {team1Won && <span>WINNER</span>}
+                  </div>
+
+                  <i>—</i>
+
+                  <div className={team2Won ? "is-winner" : ""}>
+                    <TeamMascot
+                      teamName={localGame.team2}
+                      className="share-score-mascot game-details-team-logo"
+                    />
+                    <strong>{localGame.team2}</strong>
+                    <b>{localGame.score2}</b>
+                    {team2Won && <span>WINNER</span>}
+                  </div>
+                </div>
+
+                <footer className="share-score-footer">
+                  <span>{localGame.location || "Location TBD"}</span>
+                  <strong>LOCALSCORESHQ.COM</strong>
+                </footer>
+              </article>
+            </div>
+
+            <div className="share-score-buttons">
+              <button
+                type="button"
+                className="share-score-share"
+                onClick={shareScoreGraphic}
+                disabled={graphicAction === "sharing" || graphicAction === "saving"}
+              >
+                {graphicAction === "sharing" ? "Creating…" : "Share Image"}
+              </button>
+
+              <button
+                type="button"
+                onClick={saveScoreGraphic}
+                disabled={graphicAction === "sharing" || graphicAction === "saving"}
+              >
+                {graphicAction === "saving" ? "Creating…" : "Save Image"}
+              </button>
+            </div>
+
+            {graphicAction === "saved" && (
+              <p className="share-score-feedback">Image saved to your downloads.</p>
+            )}
+            {graphicAction === "shared" && (
+              <p className="share-score-feedback">Score graphic shared.</p>
+            )}
+            {graphicAction === "error" && (
+              <p className="share-score-feedback is-error">
+                The image could not be created. Please try again.
+              </p>
+            )}
+          </section>
+        </div>
+      )}
 
       {showScoreModal && (
         <div className="scoreModalOverlay">
