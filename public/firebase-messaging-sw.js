@@ -1,3 +1,4 @@
+/* global importScripts, firebase */
 importScripts("https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.0.0/firebase-messaging-compat.js");
 
@@ -13,8 +14,27 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  self.registration.showNotification(payload.notification.title, {
-    body: payload.notification.body,
-    icon: "/icon-192.png"
+  const data = payload.data || {};
+  self.registration.showNotification(data.title || "LocalScoresHQ", {
+    body: data.body || "New game update",
+    icon: "/icon-192.png",
+    badge: "/icon-192.png",
+    tag: data.gameId || "localscores-update",
+    data: { url: data.link || "/" }
   });
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = event.notification.data?.url || "/";
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      const existing = clients.find((client) => "focus" in client);
+      if (existing) {
+        existing.navigate(url);
+        return existing.focus();
+      }
+      return self.clients.openWindow(url);
+    })
+  );
 });

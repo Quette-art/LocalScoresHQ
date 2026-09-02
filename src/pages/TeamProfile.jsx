@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import TeamMascot from "../components/TeamMascot";
+import {
+  enableNotifications,
+  getNotificationState,
+  syncNotificationSubscription,
+} from "../notifications";
 import "../components/ScoresTab.css";
 import "./TeamProfileMobileFix.css";
 
@@ -41,6 +46,11 @@ export default function TeamProfile({
   );
 
   const [showAlerts, setShowAlerts] = useState(false);
+  const [notificationStatus, setNotificationStatus] = useState(
+    getNotificationState()
+  );
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [savingAlert, setSavingAlert] = useState(false);
 
   const [alerts, setAlerts] = useState(
     JSON.parse(localStorage.getItem("teamAlerts")) || {}
@@ -49,9 +59,12 @@ export default function TeamProfile({
   const teamKey = `${teamName}-${division}`;
   const isFavorite = favoriteTeams.includes(teamKey);
 
-  const teamAlertSettings = alerts[teamKey] || {
+  const teamAlertSettings = {
     gameStart: false,
     gameFinished: false,
+    scoreUpdates: false,
+    scheduleChanges: false,
+    ...(alerts[teamKey] || {}),
   };
 
   const toggleFavorite = () => {
@@ -59,25 +72,58 @@ export default function TeamProfile({
 
     if (isFavorite) {
       updated = favoriteTeams.filter((team) => team !== teamKey);
+      const updatedAlerts = { ...alerts };
+      delete updatedAlerts[teamKey];
+      setAlerts(updatedAlerts);
+      localStorage.setItem("teamAlerts", JSON.stringify(updatedAlerts));
     } else {
       updated = [...favoriteTeams, teamKey];
     }
 
     setFavoriteTeams(updated);
     localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+    syncNotificationSubscription().catch(console.warn);
   };
 
-  const toggleAlert = (type) => {
-    const updatedAlerts = {
-      ...alerts,
-      [teamKey]: {
-        ...teamAlertSettings,
-        [type]: !teamAlertSettings[type],
-      },
-    };
+  const toggleAlert = async (type) => {
+    if (savingAlert) return;
+    setSavingAlert(true);
+    setNotificationMessage("");
 
-    setAlerts(updatedAlerts);
-    localStorage.setItem("teamAlerts", JSON.stringify(updatedAlerts));
+    try {
+      if (!teamAlertSettings[type]) {
+        await enableNotifications();
+      }
+
+      const updatedAlerts = {
+        ...alerts,
+        [teamKey]: {
+          ...teamAlertSettings,
+          [type]: !teamAlertSettings[type],
+        },
+      };
+
+      if (!teamAlertSettings[type] && !isFavorite) {
+        const updatedFavorites = [...favoriteTeams, teamKey];
+        setFavoriteTeams(updatedFavorites);
+        localStorage.setItem("favoriteTeams", JSON.stringify(updatedFavorites));
+      }
+
+      setAlerts(updatedAlerts);
+      localStorage.setItem("teamAlerts", JSON.stringify(updatedAlerts));
+      await syncNotificationSubscription();
+      setNotificationStatus(getNotificationState());
+      setNotificationMessage(
+        updatedAlerts[teamKey][type]
+          ? "Alerts are on for this team."
+          : "That alert is off."
+      );
+    } catch (error) {
+      setNotificationStatus(getNotificationState());
+      setNotificationMessage(error.message);
+    } finally {
+      setSavingAlert(false);
+    }
   };
 
   const teamGames = games.filter(
@@ -377,14 +423,36 @@ export default function TeamProfile({
           <div className="alertsSheet" onClick={(event) => event.stopPropagation()}>
             <h2>Team Alerts</h2>
 
+            <p className={`notificationStatus notificationStatus-${notificationStatus}`}>
+              {notificationStatus === "enabled"
+                ? "Notifications are allowed on this device."
+                : notificationStatus === "blocked"
+                  ? "Notifications are blocked in browser settings."
+                  : notificationStatus === "unsupported"
+                    ? "On iPhone, add LocalScoresHQ to your Home Screen first, then open it there."
+                    : "Turn on an alert below to allow notifications."}
+            </p>
+
             <div className="alertRow">
-              <span>Game Start</span>
+              <span>Score Updates</span>
               <button
                 type="button"
-                className={`toggleBtn ${teamAlertSettings.gameStart ? "toggleOn" : ""}`}
-                onClick={() => toggleAlert("gameStart")}
+                disabled={savingAlert}
+                className={`toggleBtn ${teamAlertSettings.scoreUpdates ? "toggleOn" : ""}`}
+                onClick={() => toggleAlert("scoreUpdates")}
               >
-                {teamAlertSettings.gameStart ? "ON" : "OFF"}
+                {teamAlertSettings.scoreUpdates ? "ON" : "OFF"}
+              </button>
+            </div>
+
+            <div className="alertRow">
+              <span>Game Start <small>(coming soon)</small></span>
+              <button
+                type="button"
+                disabled
+                className={`toggleBtn ${teamAlertSettings.gameStart ? "toggleOn" : ""}`}
+              >
+                OFF
               </button>
             </div>
 
@@ -392,12 +460,29 @@ export default function TeamProfile({
               <span>Game Finished</span>
               <button
                 type="button"
+                disabled={savingAlert}
                 className={`toggleBtn ${teamAlertSettings.gameFinished ? "toggleOn" : ""}`}
                 onClick={() => toggleAlert("gameFinished")}
               >
                 {teamAlertSettings.gameFinished ? "ON" : "OFF"}
               </button>
             </div>
+
+            <div className="alertRow">
+              <span>Schedule Changes</span>
+              <button
+                type="button"
+                disabled={savingAlert}
+                className={`toggleBtn ${teamAlertSettings.scheduleChanges ? "toggleOn" : ""}`}
+                onClick={() => toggleAlert("scheduleChanges")}
+              >
+                {teamAlertSettings.scheduleChanges ? "ON" : "OFF"}
+              </button>
+            </div>
+
+            {notificationMessage && (
+              <p className="notificationMessage" role="status">{notificationMessage}</p>
+            )}
 
             <button
               type="button"

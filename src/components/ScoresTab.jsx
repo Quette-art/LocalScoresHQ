@@ -8,6 +8,7 @@ import {
 import { db } from "../firebase";
 import { gameMatchesRegion } from "../data/teamRegions";
 import TeamMascot from "./TeamMascot";
+import { sendNotificationEvent } from "../notifications";
 import "./ScoresTab.css";
 
 function TeamAutocomplete({
@@ -345,6 +346,15 @@ export default function ScoresTab({
         { merge: true }
       );
 
+      await sendNotificationEvent({
+        type: "gameFinished",
+        game: {
+          ...selectedGame,
+          score1: Number(team1Score),
+          score2: Number(team2Score),
+        },
+      });
+
       closeScoreModal();
       alert("Score Saved");
     } catch (error) {
@@ -369,7 +379,7 @@ export default function ScoresTab({
     setSaving(true);
 
     try {
-      await addDoc(collection(db, "games"), {
+      const createdGame = {
         team1: newGame.team1.trim(),
         team2: newGame.team2.trim(),
         score1:
@@ -391,6 +401,13 @@ export default function ScoresTab({
           newGame.division.split(" / ")[0] ||
           "Unknown",
         createdAt: new Date().toISOString(),
+      };
+      const createdRef = await addDoc(collection(db, "games"), createdGame);
+
+      await sendNotificationEvent({
+        type: "scheduleChange",
+        game: { ...createdGame, id: createdRef.id },
+        summary: `New game: ${createdGame.date} at ${createdGame.time} • ${createdGame.location}`,
       });
 
       setShowAddGame(false);
@@ -475,6 +492,12 @@ export default function ScoresTab({
         { merge: true }
       );
 
+      await sendNotificationEvent({
+        type: "scheduleChange",
+        game: editGame,
+        summary: `${editGame.date} at ${editGame.time || "TBD"} • ${editGame.location || "Location TBD"}`,
+      });
+
       setEditGame(null);
       alert("Game updated!");
     } catch (error) {
@@ -512,6 +535,11 @@ export default function ScoresTab({
         { merge: true }
       );
 
+      await sendNotificationEvent({
+        type: "gameStatus",
+        game: { ...game, status },
+      });
+
       alert(`Game marked as ${label}`);
     } catch (error) {
       console.error(error);
@@ -536,6 +564,12 @@ export default function ScoresTab({
       await deleteDoc(
         doc(db, "games", game.id)
       );
+
+      await sendNotificationEvent({
+        type: "scheduleChange",
+        game,
+        summary: "This game was removed from the schedule.",
+      });
 
       alert("Game deleted");
     } catch (error) {

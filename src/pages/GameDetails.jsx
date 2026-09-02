@@ -10,6 +10,7 @@ import {
 import { db } from "../firebase";
 import "../components/ScoresTab.css";
 import TeamMascot from "../components/TeamMascot";
+import { sendNotificationEvent } from "../notifications";
 
 const getInitials = (teamName = "") =>
   teamName
@@ -249,6 +250,11 @@ const GameDetails = ({
         },
         { merge: true }
       );
+
+      await sendNotificationEvent({
+        type: "gameFinished",
+        game: updatedGame,
+      });
 
       setShowScoreModal(false);
       alert("Score saved.");
