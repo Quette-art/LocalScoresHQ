@@ -8,6 +8,7 @@ import {
 import { db } from "../firebase";
 import { gameMatchesRegion } from "../data/teamRegions";
 import TeamMascot from "./TeamMascot";
+import { sendNotificationEvent } from "../notifications";
 import "./ScoresTab.css";
 
 function TeamAutocomplete({
@@ -345,6 +346,15 @@ export default function ScoresTab({
         { merge: true }
       );
 
+      await sendNotificationEvent({
+        type: "gameFinished",
+        game: {
+          ...selectedGame,
+          score1: Number(team1Score),
+          score2: Number(team2Score),
+        },
+      });
+
       closeScoreModal();
       alert("Score Saved");
     } catch (error) {
@@ -475,6 +485,12 @@ export default function ScoresTab({
         { merge: true }
       );
 
+      await sendNotificationEvent({
+        type: "scheduleChange",
+        game: editGame,
+        summary: `${editGame.date} at ${editGame.time || "TBD"} • ${editGame.location || "Location TBD"}`,
+      });
+
       setEditGame(null);
       alert("Game updated!");
     } catch (error) {
@@ -511,6 +527,11 @@ export default function ScoresTab({
         },
         { merge: true }
       );
+
+      await sendNotificationEvent({
+        type: "gameStatus",
+        game: { ...game, status },
+      });
 
       alert(`Game marked as ${label}`);
     } catch (error) {

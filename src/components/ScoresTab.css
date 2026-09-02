@@ -1385,6 +1385,40 @@ button, input, select { font-family: inherit; }
 .scoreModal h2, .alertsSheet h2 { margin: 0 0 8px; font-size: 1.25rem; font-weight: 900; }
 .scoreModal p { margin: 0 0 14px; color: var(--muted); font-weight: 700; }
 
+.notificationStatus,
+.notificationMessage {
+  margin: 8px 0 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.notificationStatus-enabled { color: #15803d; }
+.notificationStatus-blocked { color: #b91c1c; }
+.notificationMessage { color: var(--text); }
+
+.notificationToast {
+  position: fixed;
+  top: 88px;
+  left: 50%;
+  z-index: 100000;
+  width: min(420px, calc(100% - 24px));
+  transform: translateX(-50%);
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid #93c5fd;
+  border-radius: 16px;
+  background: #eff6ff;
+  color: #0f172a;
+  text-align: left;
+  box-shadow: 0 16px 42px rgba(15, 23, 42, 0.25);
+}
+
+.notificationToast strong { font-size: 0.95rem; }
+.notificationToast span { color: #475569; font-size: 0.88rem; }
+
 .scoreInputs {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1439,6 +1473,8 @@ button, input, select { font-family: inherit; }
   border-top: 1px solid var(--border-strong);
 }
 
+.alertRow small { color: var(--muted); font-weight: 700; }
+
 .toggleBtn {
   border: none;
   border-radius: var(--radius-pill);
@@ -1448,6 +1484,8 @@ button, input, select { font-family: inherit; }
   font-weight: 900;
   cursor: pointer;
 }
+
+.toggleBtn:disabled { opacity: 0.6; cursor: wait; }
 
 .toggleOn {
   background: linear-gradient(135deg, #0f3d8a, #1d64d8);

@@ -15,7 +15,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { db, auth } from "./firebase";
-import { requestNotificationPermission } from "./notifications";
+import { listenForForegroundNotifications } from "./notifications";
 
 import Home from "./pages/Home";
 import TeamProfile from "./pages/TeamProfile";
@@ -85,6 +85,7 @@ function AppContent() {
   const [password, setPassword] = useState("");
   const [showGlobalSearch, setShowGlobalSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [notificationToast, setNotificationToast] = useState(null);
 
   const isAdmin = !!adminUser;
 
@@ -172,7 +173,20 @@ function AppContent() {
   }, []);
 
   useEffect(() => {
-    requestNotificationPermission();
+    let timeout;
+    const unsubscribe = listenForForegroundNotifications((payload) => {
+      setNotificationToast({
+        title: payload.notification?.title || "LocalScoresHQ update",
+        body: payload.notification?.body || "A game was updated.",
+      });
+      clearTimeout(timeout);
+      timeout = setTimeout(() => setNotificationToast(null), 7000);
+    });
+
+    return () => {
+      clearTimeout(timeout);
+      unsubscribe?.();
+    };
   }, []);
 
   useEffect(() => {
@@ -604,6 +618,17 @@ function AppContent() {
 
       <InstallAppButton />
       <IphoneInstallTip />
+
+      {notificationToast && (
+        <button
+          type="button"
+          className="notificationToast"
+          onClick={() => setNotificationToast(null)}
+        >
+          <strong>{notificationToast.title}</strong>
+          <span>{notificationToast.body}</span>
+        </button>
+      )}
 
       {showGlobalSearch && (
         <div className="search-overlay">
