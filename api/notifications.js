@@ -70,6 +70,15 @@ const matchesEvent = (subscription, event) => {
 };
 
 export default async function handler(request, response) {
+  if (request.method === "GET") {
+    try {
+      getAdminApp();
+      return json(response, 200, { ok: true, configured: true });
+    } catch {
+      return json(response, 503, { ok: false, configured: false });
+    }
+  }
+
   if (request.method !== "POST") return json(response, 405, { error: "method_not_allowed" });
 
   let app;
