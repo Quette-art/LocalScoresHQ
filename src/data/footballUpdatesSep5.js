@@ -34,6 +34,14 @@ export function applyFootballUpdatesSep5(games) {
       return applyFinal({ ...game, date: "2026-09-03" }, { Gonzaga: 33, Coolidge: 0 }, "Final confirmed 33-0; Gonzaga game-day post and DCSAA/NFHS listing support Thursday Sept. 3 date.");
     }
 
+    if (sameMatchup(game, "Ron Brown", "Sidwell Friends")) {
+      return applyFinal(
+        { ...game, date: "2026-09-03" },
+        { "Ron Brown": 6, "Sidwell Friends": 0 },
+        "Final confirmed by MaxPreps game result: Ron Brown 6, Sidwell Friends 0 on Sept. 3, 2026."
+      );
+    }
+
     const easternFlowers =
       sameMatchup(game, "Eastern", "Flowers") ||
       sameMatchup(game, "Eastern", "Charles Herbert Flowers") ||
