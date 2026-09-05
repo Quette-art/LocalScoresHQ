@@ -4,6 +4,7 @@ import { applyFootballScheduleCorrections } from "./footballScheduleCorrectionsA
 import { applyFootballScheduleAuditAug29 } from "./footballScheduleAuditAug29.js";
 import { applyFootballScheduleCorrectionsAug30 } from "./footballScheduleCorrectionsAug30.js";
 import { applyBullisFootballScheduleSep5 } from "./bullisFootballScheduleSep5.js";
+import { applyTrackedPrivateFootballSchedulesSep5 } from "./trackedPrivateFootballSchedulesSep5.js";
 import { applyFootballResultsAug29 } from "./footballResultsAug29.js";
 import { applyFootballResultCorrectionsAug29 } from "./footballResultCorrectionsAug29.js";
 import { applyFootballResultCorrectionsAug30 } from "./footballResultCorrectionsAug30.js";
@@ -18,8 +19,11 @@ const footballGamesWithBullisSchedule = applyBullisFootballScheduleSep5([
   ...cleanedFootballGames,
   ...marylandFootballGames,
 ]);
-const footballGamesWithResults = applyFootballResultsAug29(
+const footballGamesWithTrackedPrivateSchedules = applyTrackedPrivateFootballSchedulesSep5(
   footballGamesWithBullisSchedule
+);
+const footballGamesWithResults = applyFootballResultsAug29(
+  footballGamesWithTrackedPrivateSchedules
 );
 const footballGamesWithCorrectedResults = applyFootballResultCorrectionsAug29(
   footballGamesWithResults
