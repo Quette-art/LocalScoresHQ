@@ -62,8 +62,25 @@ const addReportButtons = () => {
   }
 };
 
+const fixFavoritesPage = () => {
+  document.querySelectorAll(".scores-tab").forEach((tab) => {
+    const title = tab.querySelector(".scores-header h2");
+    if (title?.textContent?.trim() !== "FAVORITES") return;
+
+    tab.classList.add("favorites-page");
+
+    const topStrip = title.parentElement?.nextElementSibling;
+    if (!topStrip) return;
+
+    topStrip.querySelectorAll("button > span").forEach((label) => {
+      label.style.color = "#475569";
+    });
+  });
+};
+
 const applyEnhancements = () => {
   addReportButtons();
+  fixFavoritesPage();
 };
 
 if (typeof window !== "undefined") {
