@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TeamMascot from "../components/TeamMascot";
 import "../components/ScoresTab.css";
 import "./TeamProfileMobileFix.css";
+import "./TeamProfileFeatures.css";
 
 const DCIAA_TEAMS = new Set([
   "Anacostia",
@@ -168,12 +169,8 @@ export default function TeamProfile({
       .reverse()
       .map((game) => {
         const isTeam1 = game.team1 === teamName;
-        const teamScore = Number(
-          isTeam1 ? game.score1 : game.score2
-        );
-        const opponentScore = Number(
-          isTeam1 ? game.score2 : game.score1
-        );
+        const teamScore = Number(isTeam1 ? game.score1 : game.score2);
+        const opponentScore = Number(isTeam1 ? game.score2 : game.score1);
 
         if (teamScore > opponentScore) return "W";
         if (teamScore < opponentScore) return "L";
@@ -200,6 +197,23 @@ export default function TeamProfile({
       return new Date(firstGame.date) - new Date(secondGame.date);
     });
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const nextGame = scheduleGames.find((game) => {
+    const gameDate = new Date(`${game.date}T00:00:00`);
+    const isPlayed =
+      game.score1 !== null && game.score1 !== undefined &&
+      game.score2 !== null && game.score2 !== undefined;
+    const status = String(game.status || game.scheduleStatus || "").toLowerCase();
+    return gameDate >= today && !isPlayed && !status.includes("cancel");
+  });
+
+  const recentResults = completedGames
+    .slice()
+    .sort((a, b) => new Date(`${b.date}T00:00:00`) - new Date(`${a.date}T00:00:00`))
+    .slice(0, 5);
+
   const formatDate = (date) => {
     const formattedDate = new Date(`${date}T00:00:00`);
 
@@ -212,29 +226,39 @@ export default function TeamProfile({
 
   const getResult = (game) => {
     const isTeam1 = game.team1 === teamName;
-
-    const teamScore = Number(
-      isTeam1 ? game.score1 : game.score2
-    );
-
-    const opponentScore = Number(
-      isTeam1 ? game.score2 : game.score1
-    );
+    const teamScore = Number(isTeam1 ? game.score1 : game.score2);
+    const opponentScore = Number(isTeam1 ? game.score2 : game.score1);
 
     if (teamScore > opponentScore) return "W";
     if (teamScore < opponentScore) return "L";
-
     return "T";
+  };
+
+  const getOpponent = (game) =>
+    game.team1 === teamName ? game.team2 : game.team1;
+
+  const getTeamScore = (game) =>
+    game.team1 === teamName ? game.score1 : game.score2;
+
+  const getOpponentScore = (game) =>
+    game.team1 === teamName ? game.score2 : game.score1;
+
+  const getScheduleBadge = (game) => {
+    const status = String(game.status || game.scheduleStatus || "").toLowerCase();
+    const notes = String(game.notes || "").toLowerCase();
+
+    if (status.includes("cancel")) return "CANCELED";
+    if (status.includes("postpon")) return "POSTPONED";
+    if (notes.includes("moved") || notes.includes("reschedul")) return "MOVED";
+    if (notes.includes("time change") || notes.includes("time updated")) return "TIME CHANGED";
+    if (game.subjectToChange) return "SCHEDULE UPDATE";
+    return "";
   };
 
   return (
     <div className="team-profile">
       <div className="teamProfileTopBar">
-        <button
-          type="button"
-          className="back-btn"
-          onClick={onBack}
-        >
+        <button type="button" className="back-btn" onClick={onBack}>
           ← Back
         </button>
 
@@ -251,11 +275,7 @@ export default function TeamProfile({
           <button
             type="button"
             className="favorite-btn"
-            aria-label={
-              isFavorite
-                ? "Remove team from favorites"
-                : "Add team to favorites"
-            }
+            aria-label={isFavorite ? "Remove team from favorites" : "Add team to favorites"}
             onClick={toggleFavorite}
           >
             {isFavorite ? "⭐" : "☆"}
@@ -270,13 +290,70 @@ export default function TeamProfile({
         />
 
         <div className="team-header-info">
-          <h1>{teamName || "Unknown Team"}</h1>
+          <div className="team-name-record-row">
+            <h1>{teamName || "Unknown Team"}</h1>
+            <span className="team-header-record">
+              {wins}-{losses}{ties > 0 ? `-${ties}` : ""}
+            </span>
+          </div>
 
           <span>
             {ageGroup || "Varsity"} Football • {conferenceName}
           </span>
         </div>
       </div>
+
+      {nextGame && (
+        <div className="team-section team-feature-section">
+          <div className="team-feature-title-row">
+            <h2>Next Game</h2>
+            {getScheduleBadge(nextGame) && (
+              <span className="schedule-change-badge">{getScheduleBadge(nextGame)}</span>
+            )}
+          </div>
+          <button
+            type="button"
+            className="next-game-card"
+            onClick={() => onGameClick?.(nextGame)}
+          >
+            <div>
+              <span className="next-game-kicker">
+                {nextGame.team1 === teamName ? "VS" : "AT"}
+              </span>
+              <strong>{getOpponent(nextGame)}</strong>
+            </div>
+            <div className="next-game-meta">
+              <span>{formatDate(nextGame.date)}</span>
+              <span>{nextGame.time || "TBD"}</span>
+              <span>{nextGame.location || "Location TBD"}</span>
+            </div>
+          </button>
+        </div>
+      )}
+
+      {recentResults.length > 0 && (
+        <div className="team-section team-feature-section">
+          <h2>Recent Results</h2>
+          <div className="recent-results-list">
+            {recentResults.map((game) => {
+              const result = getResult(game);
+              return (
+                <button
+                  type="button"
+                  key={`recent-${game.id}`}
+                  className="recent-result-row"
+                  onClick={() => onGameClick?.(game)}
+                >
+                  <span className={`recent-result-letter result-${result.toLowerCase()}`}>{result}</span>
+                  <span className="recent-result-opponent">{getOpponent(game)}</span>
+                  <strong>{getTeamScore(game)}-{getOpponentScore(game)}</strong>
+                  <span className="recent-result-date">{formatDate(game.date)}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div className="team-section">
         <h2>Standings</h2>
@@ -337,6 +414,7 @@ export default function TeamProfile({
               const teamScore = isTeam1 ? game.score1 : game.score2;
               const opponentScore = isTeam1 ? game.score2 : game.score1;
               const result = isPlayed ? getResult(game) : null;
+              const scheduleBadge = getScheduleBadge(game);
 
               return (
                 <button
@@ -357,7 +435,9 @@ export default function TeamProfile({
                   </div>
 
                   <div className="maxpreps-schedule-info">
-                    {isPlayed ? (
+                    {scheduleBadge ? (
+                      <span className="schedule-change-badge">{scheduleBadge}</span>
+                    ) : isPlayed ? (
                       <span className={`maxpreps-result-tag ${result === "W" ? "tag-win" : result === "L" ? "tag-loss" : "tag-tie"}`}>
                         {result} {teamScore}-{opponentScore}
                       </span>
