@@ -1,4 +1,47 @@
+const addWeekdaysToScoreDates = () => {
+  const buttons = document.querySelectorAll(".date-scroll .date-btn");
+  const year = new Date().getFullYear();
+
+  buttons.forEach((button) => {
+    const label = button.textContent?.trim();
+    if (!label) return;
+
+    const parsed = new Date(`${label}, ${year}`);
+    if (Number.isNaN(parsed.getTime())) return;
+
+    button.dataset.weekday = parsed
+      .toLocaleDateString("en-US", { weekday: "short" })
+      .toUpperCase();
+  });
+};
+
+const ensureWeekdayStyles = () => {
+  if (document.getElementById("score-date-weekday-styles")) return;
+
+  const style = document.createElement("style");
+  style.id = "score-date-weekday-styles";
+  style.textContent = `
+    .date-scroll .date-btn::before {
+      content: attr(data-weekday);
+      display: block;
+      font-size: 0.72em;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      margin-bottom: 5px;
+      opacity: 0.78;
+    }
+
+    .date-scroll .date-btn.active::before {
+      opacity: 1;
+    }
+  `;
+  document.head.appendChild(style);
+};
+
 const centerSelectedScoreDate = () => {
+  addWeekdaysToScoreDates();
+
   const dateScroll = document.querySelector(".date-scroll");
   const activeDate = dateScroll?.querySelector(".date-btn.active");
 
@@ -21,6 +64,7 @@ const scheduleCenter = () => {
 };
 
 if (typeof window !== "undefined") {
+  ensureWeekdayStyles();
   window.addEventListener("DOMContentLoaded", scheduleCenter);
 
   const observer = new MutationObserver((mutations) => {
