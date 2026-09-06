@@ -2,9 +2,11 @@ const RESULTS = [
   { teams: ["Parkdale", "Laurel"], scores: { Parkdale: 37, Laurel: 19 }, time: "2:00 PM", location: "Parkdale" },
   { teams: ["Crossland", "Bladensburg"], scores: { Crossland: 50, Bladensburg: 0 }, time: "2:00 PM", location: "Crossland" },
   { teams: ["Central", "Northwestern"], scores: { Central: 32, Northwestern: 22 }, time: "4:00 PM", location: "Central" },
+  { teams: ["Phelps ACE", "Surrattsville"], scores: { "Phelps ACE": 42, Surrattsville: 20 }, time: "TBD", location: "Surrattsville" },
   { teams: ["Potomac", "DuVal"], scores: { Potomac: 30, DuVal: 0 }, time: "6:30 PM", location: "Potomac" },
   { teams: ["Suitland", "Frederick Douglass"], scores: { Suitland: 15, "Frederick Douglass": 0 }, time: "6:30 PM", location: "Frederick Douglass" },
   { teams: ["Oxon Hill", "Largo"], scores: { "Oxon Hill": 21, Largo: 20 }, time: "6:30 PM", location: "Largo" },
+  { teams: ["Georgetown Prep", "St. Vincent Pallotti"], scores: { "Georgetown Prep": 24, "St. Vincent Pallotti": 0 }, time: "6:00 PM", location: "Georgetown Prep", date: "2026-09-05" },
   { teams: ["St. John’s", "Archbishop Spalding"], scores: { "St. John’s": 21, "Archbishop Spalding": 18 }, time: "7:00 PM", location: "TBD" },
   { teams: ["DeMatha", "Imhotep Charter"], scores: { DeMatha: 21, "Imhotep Charter": 20 }, time: "7:00 PM", location: "Imhotep Charter" },
   { teams: ["Digital Pioneers Academy", "Eleanor Roosevelt"], scores: { "Digital Pioneers Academy": 32, "Eleanor Roosevelt": 8 }, time: "TBD", location: "TBD" },
@@ -19,6 +21,9 @@ const ALIASES = {
   "Digital Pioneers Academy": ["Digital Pioneers Academy", "Digital Pioneers"],
   "Eleanor Roosevelt": ["Eleanor Roosevelt", "Eleanor Roosevelt (MD)"],
   "Frederick Douglass": ["Frederick Douglass", "Douglass", "Frederick Douglass (PG)"],
+  "Phelps ACE": ["Phelps ACE", "Phelps Architecture, Construction & Engineering", "Phelps Architecture Construction & Engineering", "Phelps"],
+  "Georgetown Prep": ["Georgetown Prep", "Georgetown Preparatory School"],
+  "St. Vincent Pallotti": ["St. Vincent Pallotti", "St. Vincent Pallotti High School", "Pallotti"],
 };
 
 const namesFor = (team) => ALIASES[team] || [team];
@@ -34,7 +39,7 @@ const slug = (v) => String(v).toLowerCase().replace(/[’']/g, "").replace(/[^a-
 
 const toFinal = (game, result) => ({
   ...game,
-  date: "2026-09-05",
+  date: result.date || "2026-09-05",
   score1: scoreForName(game.team1, result),
   score2: scoreForName(game.team2, result),
   scheduleStatus: "Final",
@@ -57,12 +62,13 @@ export function applyFootballResultsSep5Finals(games) {
   RESULTS.forEach((result, index) => {
     if (found.has(index)) return;
     const [team1, team2] = result.teams;
+    const date = result.date || "2026-09-05";
     updated.push({
-      id: `fb-2026-09-05-${slug(team1)}-${slug(team2)}`,
+      id: `fb-${date}-${slug(team1)}-${slug(team2)}`,
       sport: "Football",
       division: "Varsity",
       ageGroup: "Varsity",
-      date: "2026-09-05",
+      date,
       time: result.time,
       team1,
       team2,
