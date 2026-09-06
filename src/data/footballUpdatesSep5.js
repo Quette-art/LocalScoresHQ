@@ -42,6 +42,14 @@ export function applyFootballUpdatesSep5(games) {
       );
     }
 
+    if (sameMatchup(game, "Anacostia", "Friendly")) {
+      return applyFinal(
+        { ...game, date: "2026-09-04" },
+        { Anacostia: 40, Friendly: 6 },
+        "Final score supplied by LocalScoresHQ: Anacostia 40, Friendly 6."
+      );
+    }
+
     const easternFlowers =
       sameMatchup(game, "Eastern", "Flowers") ||
       sameMatchup(game, "Eastern", "Charles Herbert Flowers") ||
