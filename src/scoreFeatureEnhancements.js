@@ -1,43 +1,6 @@
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "./firebase";
 
-const monthDay = (date = new Date()) =>
-  date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-
-const addTodayButton = () => {
-  const dateScroll = document.querySelector(".date-scroll");
-  if (!dateScroll || document.querySelector(".today-jump-wrap")) return;
-
-  const wrap = document.createElement("div");
-  wrap.className = "today-jump-wrap";
-
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "today-jump-btn";
-  button.textContent = "Today";
-  button.setAttribute("aria-label", "Jump to today's scores");
-
-  button.addEventListener("click", () => {
-    const todayLabel = monthDay();
-    const target = [...dateScroll.querySelectorAll(".date-btn")].find((item) =>
-      item.textContent.replace(/\s+/g, " ").includes(todayLabel)
-    );
-
-    if (target) {
-      target.click();
-      target.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    } else {
-      button.textContent = "No games today";
-      setTimeout(() => {
-        button.textContent = "Today";
-      }, 1600);
-    }
-  });
-
-  wrap.appendChild(button);
-  dateScroll.parentNode?.insertBefore(wrap, dateScroll);
-};
-
 const submitCorrection = async (summary, source) => {
   const correction = window.prompt(
     "What needs to be corrected? (score, time, location, opponent, etc.)"
@@ -100,7 +63,6 @@ const addReportButtons = () => {
 };
 
 const applyEnhancements = () => {
-  addTodayButton();
   addReportButtons();
 };
 
