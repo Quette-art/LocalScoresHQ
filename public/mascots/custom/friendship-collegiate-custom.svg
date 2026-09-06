@@ -1,28 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title desc">
-  <title id="title">Friendship Collegiate Academy custom knight badge</title>
-  <desc id="desc">Original LocalScoresHQ navy and gold knight crest with FCA initials.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 420" role="img" aria-labelledby="title desc">
+  <title id="title">Friendship Collegiate Academy Knights full crest</title>
+  <desc id="desc">Original LocalScoresHQ vector crest for Friendship Collegiate Academy using navy, gold, white and steel tones.</desc>
   <defs>
-    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#172554"/>
-      <stop offset="1" stop-color="#0b1638"/>
+    <linearGradient id="shield" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16265A"/><stop offset="1" stop-color="#07142F"/>
     </linearGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ffd34e"/>
-      <stop offset="1" stop-color="#c88a08"/>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE07A"/><stop offset=".5" stop-color="#E5B23C"/><stop offset="1" stop-color="#B87808"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F8FAFC"/><stop offset=".45" stop-color="#B9C3D3"/><stop offset="1" stop-color="#66758A"/>
     </linearGradient>
   </defs>
-  <path d="M160 14 282 58v92c0 76-44 126-122 156C82 276 38 226 38 150V58Z" fill="#fff" stroke="#0b1638" stroke-width="10"/>
-  <path d="M160 28 268 67v81c0 65-37 108-108 136C89 256 52 213 52 148V67Z" fill="url(#navy)" stroke="url(#gold)" stroke-width="8"/>
-  <path d="M145 67c-13-27 17-44 40-28-6 9-7 18-2 27 15-10 31-2 35 10-16 0-27 7-31 21Z" fill="url(#gold)" stroke="#0b1638" stroke-width="7" stroke-linejoin="round"/>
-  <path d="M151 70c0-21 21-29 35-18" fill="none" stroke="#fff4c2" stroke-width="5" stroke-linecap="round" opacity=".9"/>
-  <path d="M112 89 160 70l48 19 16 44-19 53-45 25-45-25-19-53Z" fill="#dce3ec" stroke="#07122f" stroke-width="9" stroke-linejoin="round"/>
-  <path d="M160 75v129" stroke="#07122f" stroke-width="7"/>
-  <path d="m103 125 57-23 57 23-9 23-48-11-48 11Z" fill="#253459" stroke="#07122f" stroke-width="7" stroke-linejoin="round"/>
-  <path d="M122 127h27M171 127h27" stroke="#f7c948" stroke-width="7" stroke-linecap="round"/>
-  <path d="m117 160 43 18 43-18" fill="none" stroke="#07122f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M137 181h46l-23 22Z" fill="#f7c948" stroke="#07122f" stroke-width="5" stroke-linejoin="round"/>
-  <g stroke="#f7c948" stroke-width="9" stroke-linecap="round"><path d="m82 214 55 38"/><path d="m238 214-55 38"/></g>
-  <g stroke="#fff" stroke-width="4" stroke-linecap="round"><path d="m85 211 55 38"/><path d="m235 211-55 38"/></g>
-  <path d="M73 224c28 13 56 19 87 19s59-6 87-19l14 24-20 11 5 27c-30-11-58-16-86-16s-56 5-86 16l5-27-20-11Z" fill="url(#gold)" stroke="#07122f" stroke-width="8" stroke-linejoin="round"/>
-  <text x="160" y="266" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="48" font-weight="900" letter-spacing="2" fill="#0b1638" stroke="#fff" stroke-width="2">FCA</text>
+
+  <!-- layered shield -->
+  <path d="M180 15 326 72v132c0 98-54 163-146 201C88 367 34 302 34 204V72Z" fill="#fff" stroke="#07142F" stroke-width="14"/>
+  <path d="M180 29 313 81v121c0 88-47 146-133 182C94 348 47 290 47 202V81Z" fill="url(#gold)" stroke="#07142F" stroke-width="8"/>
+  <path d="M180 43 299 89v108c0 78-40 128-119 162C101 325 61 275 61 197V89Z" fill="url(#shield)" stroke="#fff" stroke-width="5"/>
+  <path d="M180 56 286 97v96c0 67-34 110-106 143C108 303 74 260 74 193V97Z" fill="none" stroke="#DCA92C" stroke-width="4"/>
+
+  <!-- crest banner -->
+  <path d="M54 73h252l-21 51H75Z" fill="#0A1735" stroke="#07142F" stroke-width="8"/>
+  <path d="M80 119h200l-14 40H94Z" fill="url(#gold)" stroke="#07142F" stroke-width="7"/>
+  <text x="180" y="108" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-size="37" font-weight="900" letter-spacing="2" fill="#fff">FRIENDSHIP</text>
+  <text x="180" y="149" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-size="22" font-weight="900" letter-spacing="3" fill="#0A1735">KNIGHTS</text>
+
+  <!-- gold/navy plume -->
+  <path d="M151 154c-13-48 12-76 52-69-14 10-19 23-15 39 23-11 48 2 54 24-27-4-47 7-57 33Z" fill="url(#gold)" stroke="#07142F" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M158 151c-5-29 9-47 30-47-8 12-9 24-3 36 14-5 27-1 36 10-20 0-34 8-42 26Z" fill="#173263" stroke="#07142F" stroke-width="6"/>
+  <path d="M165 140c2-19 12-29 28-31" fill="none" stroke="#FFF1AF" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- helmet silhouette -->
+  <path d="M114 171c13-29 38-47 68-49 45-3 82 27 89 69l-21 11-1 85-38 37h-63l-39-39v-86Z" fill="#07142F" stroke="#07142F" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M125 177c15-25 36-38 62-40 34-2 62 17 72 48l-26 14v66l-31 30h-45l-31-30v-66Z" fill="url(#steel)" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- helmet crown -->
+  <path d="M131 181c18-30 50-43 82-35 21 5 38 18 47 37l-38 22-48-4-48 4Z" fill="#243A68" stroke="#07142F" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M142 184c16-20 38-29 60-25 14 2 27 9 37 19l-25 14-40-3-40 3Z" fill="#9BA8BA" opacity=".55"/>
+  <path d="M120 205h120" stroke="#07142F" stroke-width="9"/>
+
+  <!-- visor -->
+  <path d="M129 207h102l-13 36-38-7-38 7Z" fill="#111B33" stroke="#07142F" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M142 220h29M189 220h29" stroke="#F2BD43" stroke-width="8" stroke-linecap="round"/>
+  <path d="M149 225h18M193 225h18" stroke="#FFEBA0" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+
+  <!-- faceplate -->
+  <path d="M146 242h68v32l-34 29-34-29Z" fill="#C6CED9" stroke="#07142F" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M180 243v57" stroke="#07142F" stroke-width="6"/>
+  <path d="M154 253h19M187 253h19M155 266h18M187 266h18" stroke="#33445F" stroke-width="5" stroke-linecap="round"/>
+  <path d="m160 276 20 17 20-17" fill="#E0A82C" stroke="#07142F" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- shoulder armor -->
+  <path d="M98 269c-24 10-38 31-39 55 23-8 43-5 60 8l27-28-22-44Z" fill="#173263" stroke="#07142F" stroke-width="8"/>
+  <path d="M262 269c24 10 38 31 39 55-23-8-43-5-60 8l-27-28 22-44Z" fill="#173263" stroke="#07142F" stroke-width="8"/>
+  <circle cx="105" cy="302" r="15" fill="url(#gold)" stroke="#07142F" stroke-width="6"/>
+  <circle cx="255" cy="302" r="15" fill="url(#gold)" stroke="#07142F" stroke-width="6"/>
+
+  <!-- bottom banner -->
+  <path d="M57 330c39 15 80 22 123 22s84-7 123-22l16 28-24 13 7 30c-39-12-80-18-122-18s-83 6-122 18l7-30-24-13Z" fill="url(#gold)" stroke="#07142F" stroke-width="8" stroke-linejoin="round"/>
+  <text x="180" y="376" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-size="36" font-weight="900" letter-spacing="3" fill="#0A1735" stroke="#fff" stroke-width="2" paint-order="stroke fill">FCA</text>
 </svg>
