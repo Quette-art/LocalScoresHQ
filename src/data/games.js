@@ -11,6 +11,7 @@ import { applyFootballResultCorrectionsAug30 } from "./footballResultCorrections
 import { applyFootballResultsSep3 } from "./footballResultsSep3.js";
 import { applyFootballResultsSep4 } from "./footballResultsSep4.js";
 import { applyFootballUpdatesSep5 } from "./footballUpdatesSep5.js";
+import { applyFootballResultsSep5Finals } from "./footballResultsSep5Finals.js";
 
 const correctedFootballGames = applyFootballScheduleCorrections(footballGames);
 const auditedFootballGames = applyFootballScheduleAuditAug29(correctedFootballGames);
@@ -40,8 +41,11 @@ const footballGamesWithSep4Results = applyFootballResultsSep4(
 const footballGamesWithSep5Updates = applyFootballUpdatesSep5(
   footballGamesWithSep4Results
 );
+const footballGamesWithSep5Finals = applyFootballResultsSep5Finals(
+  footballGamesWithSep5Updates
+);
 
-export const games = footballGamesWithSep5Updates;
+export const games = footballGamesWithSep5Finals;
 
 export const upcomingGames = games;
 
