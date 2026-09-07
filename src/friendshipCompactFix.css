@@ -1,0 +1,17 @@
+/* Friendship Collegiate compact mark: use the exact supplied FC artwork as an overlay so
+   the older mascot fallback/observer code cannot replace or corrupt it on iOS Safari. */
+.score-team-mascot:has(img[alt^="Friendship Collegiate"]),
+.game-details-team-logo:has(img[alt^="Friendship Collegiate"]) {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.score-team-mascot:has(img[alt^="Friendship Collegiate"])::after,
+.game-details-team-logo:has(img[alt^="Friendship Collegiate"])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: center / contain no-repeat url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPQAAAEACAYAAACEW1tFAACP7UlEQVR42u29ebxdWVUn/v3uc+69b0hScxWjzCDi2CK2OFEiCMrg [BASE64_TRUNCATED_FOR_TOOL_CALL]");
+}
