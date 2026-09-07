@@ -2,12 +2,9 @@ import { teamMascots } from "./teamMascots.js";
 import "./customScoreMarks.css";
 import "./bullisVectorScoreFix.css";
 
-// Original LocalScoresHQ-created football badges for tracked programs that did
-// not already have a usable site mark. Full crests stay on team/profile views;
-// score/game views can use separate compact marks.
 Object.assign(teamMascots, {
-  "Friendship Collegiate Academy": "/mascots/custom/friendship-collegiate-v2.svg",
-  "Friendship Collegiate": "/mascots/custom/friendship-collegiate-v2.svg",
+  "Friendship Collegiate Academy": "/mascots/custom/friendship-collegiate-v2.svg?v=friendship-fix-3",
+  "Friendship Collegiate": "/mascots/custom/friendship-collegiate-v2.svg?v=friendship-fix-3",
   "St. Albans": "/mascots/custom/st-albans-custom.svg",
   Bullis: "/mascots/custom/bullis-custom.svg",
   Landon: "/mascots/custom/landon-custom.svg",
@@ -19,23 +16,27 @@ Object.assign(teamMascots, {
   "Our Lady of Good Counsel": "/mascots/missing-teams/good-counsel-falcons-full.webp",
 });
 
-const FRIENDSHIP_SCORE_SVG = "/mascots/custom/score/friendship-collegiate-score-v2.svg";
+const FRIENDSHIP_FULL_SVG = "/mascots/custom/friendship-collegiate-v2.svg?v=friendship-fix-3";
+const FRIENDSHIP_SCORE_SVG = "/mascots/custom/score/friendship-collegiate-score-v2.svg?v=friendship-fix-3";
 const BULLIS_SCORE_SVG = "/mascots/custom/score/bullis-score.svg?v=exact-direct-1";
+
+const isFriendshipImage = (img) => {
+  const alt = img.getAttribute("alt") || "";
+  return alt === "Friendship Collegiate Academy unofficial mascot" ||
+    alt === "Friendship Collegiate unofficial mascot";
+};
 
 const applyExactScoreMarks = () => {
   if (typeof document === "undefined") return;
 
-  document
-    .querySelectorAll(
-      '.score-team-mascot img[alt="Friendship Collegiate Academy unofficial mascot"], .score-team-mascot img[alt="Friendship Collegiate unofficial mascot"], .game-details-team-logo img[alt="Friendship Collegiate Academy unofficial mascot"], .game-details-team-logo img[alt="Friendship Collegiate unofficial mascot"]'
-    )
-    .forEach((img) => {
-      if (img.getAttribute("src") !== FRIENDSHIP_SCORE_SVG) {
-        img.setAttribute("src", FRIENDSHIP_SCORE_SVG);
-      }
-      img.style.setProperty("opacity", "1", "important");
-      img.parentElement?.style.setProperty("background-image", "none", "important");
-    });
+  document.querySelectorAll('img[alt="Friendship Collegiate Academy unofficial mascot"], img[alt="Friendship Collegiate unofficial mascot"]').forEach((img) => {
+    const inScoreContext = Boolean(img.closest(".score-team-mascot, .game-details-team-logo"));
+    const wanted = inScoreContext ? FRIENDSHIP_SCORE_SVG : FRIENDSHIP_FULL_SVG;
+    if (img.getAttribute("src") !== wanted) img.setAttribute("src", wanted);
+    img.style.setProperty("opacity", "1", "important");
+    img.style.setProperty("visibility", "visible", "important");
+    img.parentElement?.style.setProperty("background-image", "none", "important");
+  });
 
   document
     .querySelectorAll(
@@ -55,5 +56,7 @@ if (typeof document !== "undefined") {
   exactScoreMarkObserver.observe(document.documentElement, {
     childList: true,
     subtree: true,
+    attributes: true,
+    attributeFilter: ["src", "class"],
   });
 }
