@@ -4,11 +4,10 @@ import "./bullisVectorScoreFix.css";
 
 // Original LocalScoresHQ-created football badges for tracked programs that did
 // not already have a usable site mark. Full crests stay on team/profile views;
-// customScoreMarks.css swaps in compact, school-specific marks on score cards
-// and game-detail score displays for this test branch.
+// score/game views can use separate compact marks.
 Object.assign(teamMascots, {
-  "Friendship Collegiate Academy": "/mascots/custom/friendship-collegiate-custom.svg",
-  "Friendship Collegiate": "/mascots/custom/friendship-collegiate-custom.svg",
+  "Friendship Collegiate Academy": "/mascots/custom/friendship-collegiate-v2.svg",
+  "Friendship Collegiate": "/mascots/custom/friendship-collegiate-v2.svg",
   "St. Albans": "/mascots/custom/st-albans-custom.svg",
   Bullis: "/mascots/custom/bullis-custom.svg",
   Landon: "/mascots/custom/landon-custom.svg",
@@ -20,14 +19,23 @@ Object.assign(teamMascots, {
   "Our Lady of Good Counsel": "/mascots/missing-teams/good-counsel-falcons-full.webp",
 });
 
-// Bullis score/game views: use the exact approved picture-in-SVG file as the
-// actual <img> source instead of recreating the bulldog with SVG paths/CSS.
-// This keeps the approved artwork intact while avoiding the Safari background
-// rendering problem we hit earlier.
+const FRIENDSHIP_SCORE_SVG = "/mascots/custom/score/friendship-collegiate-score-v2.svg";
 const BULLIS_SCORE_SVG = "/mascots/custom/score/bullis-score.svg?v=exact-direct-1";
 
-const applyBullisExactScoreMark = () => {
+const applyExactScoreMarks = () => {
   if (typeof document === "undefined") return;
+
+  document
+    .querySelectorAll(
+      '.score-team-mascot img[alt="Friendship Collegiate Academy unofficial mascot"], .score-team-mascot img[alt="Friendship Collegiate unofficial mascot"], .game-details-team-logo img[alt="Friendship Collegiate Academy unofficial mascot"], .game-details-team-logo img[alt="Friendship Collegiate unofficial mascot"]'
+    )
+    .forEach((img) => {
+      if (img.getAttribute("src") !== FRIENDSHIP_SCORE_SVG) {
+        img.setAttribute("src", FRIENDSHIP_SCORE_SVG);
+      }
+      img.style.setProperty("opacity", "1", "important");
+      img.parentElement?.style.setProperty("background-image", "none", "important");
+    });
 
   document
     .querySelectorAll(
@@ -41,10 +49,10 @@ const applyBullisExactScoreMark = () => {
 };
 
 if (typeof document !== "undefined") {
-  queueMicrotask(applyBullisExactScoreMark);
+  queueMicrotask(applyExactScoreMarks);
 
-  const bullisScoreObserver = new MutationObserver(applyBullisExactScoreMark);
-  bullisScoreObserver.observe(document.documentElement, {
+  const exactScoreMarkObserver = new MutationObserver(applyExactScoreMarks);
+  exactScoreMarkObserver.observe(document.documentElement, {
     childList: true,
     subtree: true,
   });
