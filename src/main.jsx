@@ -9,6 +9,7 @@ import "./scoreFeatureEnhancements.css";
 import "./mobileSearchFix.css";
 import "./scrollPerformance.css";
 import "./mobileGameDetailsFix.css";
+import "./friendshipCompactFix.css";
 
 // vite-plugin-pwa activates new service workers immediately, but an already
 // open iOS tab keeps running the old JavaScript until the document reloads.
