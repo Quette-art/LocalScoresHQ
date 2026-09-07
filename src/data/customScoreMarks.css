@@ -62,7 +62,7 @@
 
 .score-team-mascot:has(img[alt="St. Vincent Pallotti unofficial mascot"]),
 .game-details-team-logo:has(img[alt="St. Vincent Pallotti unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/st-vincent-pallotti-score.svg') !important;
+  background-image: url('/mascots/custom/score/st-vincent-pallotti-score.svg?v=7339ac0') !important;
 }
 
 .score-team-mascot:has(img[alt="St. Albans unofficial mascot"]) img,
