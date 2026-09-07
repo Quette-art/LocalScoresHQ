@@ -1,12 +1,12 @@
 const SCORE_MARKS = new Map([
-  ["Bullis", "/mascots/custom/score/bullis-score.svg?v=score-recovery-2"],
-  ["St. Albans", "/mascots/custom/score/st-albans-score.svg?v=score-recovery-2"],
-  ["Landon", "/mascots/custom/score/landon-score.svg?v=score-recovery-2"],
+  ["Bullis", "/mascots/score-marks/bullis-b.svg?v=initials-1"],
+  ["St. Albans", "/mascots/score-marks/st-albans-sa.svg?v=initials-1"],
+  ["Landon", "/mascots/score-marks/landon-l.svg?v=initials-1"],
   ["National Christian Academy", "/mascots/custom/score/national-christian-academy-score.svg?v=score-recovery-2"],
   ["Rock Creek Christian Academy", "/mascots/custom/score/rock-creek-christian-academy-score.svg?v=score-recovery-2"],
-  ["St. Mary's Ryken", "/mascots/custom/score/st-marys-ryken-score.svg?v=score-recovery-2"],
-  ["St. Mary’s Ryken", "/mascots/custom/score/st-marys-ryken-score.svg?v=score-recovery-2"],
-  ["St. Vincent Pallotti", "/mascots/custom/score/st-vincent-pallotti-score.svg?v=score-recovery-2"],
+  ["St. Mary's Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=initials-1"],
+  ["St. Mary’s Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=initials-1"],
+  ["St. Vincent Pallotti", "/mascots/score-marks/st-vincent-pallotti-svp.svg?v=initials-1"],
 ]);
 
 const teamFromAlt = (alt = "") =>
@@ -30,8 +30,6 @@ const setImageSource = (img, teamName, src) => {
 const installMark = (target, teamName, src) => {
   if (!target) return;
 
-  // TeamMascot receives className directly, so .score-team-mascot and
-  // .game-details-team-logo are normally the <img> itself, not a wrapper.
   if (target.tagName === "IMG") {
     setImageSource(target, teamName, src);
     return;
@@ -48,13 +46,12 @@ const installMark = (target, teamName, src) => {
   img.style.setProperty("width", "100%", "important");
   img.style.setProperty("height", "100%", "important");
   target.style.setProperty("background-image", "none", "important");
+  target.style.setProperty("background-color", "transparent", "important");
 };
 
 const recoverExistingScoreMarks = () => {
   if (typeof document === "undefined") return;
 
-  // Scores: the class is on the TeamMascot image itself. Read the existing alt
-  // first, then replace only teams that already have a compact score asset.
   document.querySelectorAll(".score-team-mascot").forEach((target) => {
     const img = target.tagName === "IMG" ? target : target.querySelector("img");
     if (!img) return;
@@ -64,8 +61,6 @@ const recoverExistingScoreMarks = () => {
     if (src) installMark(target, teamName, src);
   });
 
-  // Game Details: identify the row from its visible name. The logo class is
-  // also normally on the img itself, so installMark handles that directly.
   document.querySelectorAll(".game-details-team").forEach((row) => {
     const text = row.textContent || "";
 
