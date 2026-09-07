@@ -7,13 +7,13 @@ const SCORE_MARKS = new Map([
   ["St. Mary's Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=creative-initials-2"],
   ["St. Mary’s Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=creative-initials-2"],
   ["St. Vincent Pallotti", "/mascots/score-marks/st-vincent-pallotti-svp.svg?v=svp-exact-picture-1"],
-  ["Georgetown Prep", "/mascots/score-marks/georgetown-prep-gp.svg?v=creative-2026-1"],
-  ["Georgetown Preparatory School", "/mascots/score-marks/georgetown-prep-gp.svg?v=creative-2026-1"],
-  ["Mt. Zion", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=creative-2026-1"],
-  ["Mt. Zion Prep", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=creative-2026-1"],
-  ["Mt. Zion Prep Academy", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=creative-2026-1"],
-  ["Riverdale Baptist", "/mascots/score-marks/riverdale-baptist-rbs.svg?v=creative-2026-1"],
-  ["Riverdale Baptist School", "/mascots/score-marks/riverdale-baptist-rbs.svg?v=creative-2026-1"],
+  ["Georgetown Prep", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-2026-2"],
+  ["Georgetown Preparatory School", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-2026-2"],
+  ["Mt. Zion", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-generated-2026-2"],
+  ["Mt. Zion Prep", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-generated-2026-2"],
+  ["Mt. Zion Prep Academy", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-generated-2026-2"],
+  ["Riverdale Baptist", "/mascots/score-marks/riverdale-baptist-rbs.svg?v=exact-generated-2026-2"],
+  ["Riverdale Baptist School", "/mascots/score-marks/riverdale-baptist-rbs.svg?v=exact-generated-2026-2"],
 ]);
 
 const teamFromAlt = (alt = "") =>
