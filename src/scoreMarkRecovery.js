@@ -1,12 +1,12 @@
 const SCORE_MARKS = new Map([
-  ["Bullis", "/mascots/custom/score/bullis-score.svg?v=creative-initials-1"],
-  ["St. Albans", "/mascots/custom/score/st-albans-score.svg?v=creative-initials-1"],
-  ["Landon", "/mascots/custom/score/landon-score.svg?v=creative-initials-1"],
-  ["National Christian Academy", "/mascots/custom/score/national-christian-academy-score.svg?v=creative-initials-1"],
-  ["Rock Creek Christian Academy", "/mascots/custom/score/rock-creek-christian-academy-score.svg?v=creative-initials-1"],
-  ["St. Mary's Ryken", "/mascots/custom/score/st-marys-ryken-score.svg?v=creative-initials-1"],
-  ["St. Mary’s Ryken", "/mascots/custom/score/st-marys-ryken-score.svg?v=creative-initials-1"],
-  ["St. Vincent Pallotti", "/mascots/custom/score/st-vincent-pallotti-score.svg?v=creative-initials-1"],
+  ["Bullis", "/mascots/score-marks/bullis-b.svg?v=creative-initials-2"],
+  ["St. Albans", "/mascots/score-marks/st-albans-sa.svg?v=creative-initials-2"],
+  ["Landon", "/mascots/score-marks/landon-l.svg?v=creative-initials-2"],
+  ["National Christian Academy", "/mascots/score-marks/national-christian-academy-nca.svg?v=creative-initials-2"],
+  ["Rock Creek Christian Academy", "/mascots/score-marks/rock-creek-christian-academy-rc.svg?v=creative-initials-2"],
+  ["St. Mary's Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=creative-initials-2"],
+  ["St. Mary’s Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=creative-initials-2"],
+  ["St. Vincent Pallotti", "/mascots/score-marks/st-vincent-pallotti-svp.svg?v=creative-initials-2"],
 ]);
 
 const teamFromAlt = (alt = "") =>
