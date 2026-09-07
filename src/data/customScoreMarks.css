@@ -1,8 +1,4 @@
-/* Test-branch two-logo system: full custom crest on team pages, exact approved score marks on score/game views. */
-
-/* iOS Safari does not reliably render CSS content:url() on replaced <img> elements.
-   Use the approved artwork as the element background instead, and hide the original image only
-   for these score/game contexts. This keeps the exact art visible instead of washed out. */
+/* Two-logo system: full custom crest on team pages, compact marks on score/game views. */
 
 .score-team-mascot,
 .game-details-team-logo {
@@ -13,11 +9,20 @@
   background-color: transparent !important;
 }
 
+/* Friendship now uses its actual <img> source directly. Do not hide it or paint an old cached background over it. */
 .score-team-mascot:has(img[alt="Friendship Collegiate Academy unofficial mascot"]),
 .score-team-mascot:has(img[alt="Friendship Collegiate unofficial mascot"]),
 .game-details-team-logo:has(img[alt="Friendship Collegiate Academy unofficial mascot"]),
 .game-details-team-logo:has(img[alt="Friendship Collegiate unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/friendship-collegiate-score.svg') !important;
+  background-image: none !important;
+}
+
+.score-team-mascot:has(img[alt="Friendship Collegiate Academy unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="Friendship Collegiate unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="Friendship Collegiate Academy unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="Friendship Collegiate unofficial mascot"]) img {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .score-team-mascot:has(img[alt="St. Albans unofficial mascot"]),
@@ -60,8 +65,6 @@
   background-image: url('/mascots/custom/score/st-vincent-pallotti-score.svg') !important;
 }
 
-.score-team-mascot:has(img[alt="Friendship Collegiate Academy unofficial mascot"]) img,
-.score-team-mascot:has(img[alt="Friendship Collegiate unofficial mascot"]) img,
 .score-team-mascot:has(img[alt="St. Albans unofficial mascot"]) img,
 .score-team-mascot:has(img[alt="Bullis unofficial mascot"]) img,
 .score-team-mascot:has(img[alt="Landon unofficial mascot"]) img,
@@ -70,8 +73,6 @@
 .score-team-mascot:has(img[alt="St. Mary's Ryken unofficial mascot"]) img,
 .score-team-mascot:has(img[alt="St. Mary’s Ryken unofficial mascot"]) img,
 .score-team-mascot:has(img[alt="St. Vincent Pallotti unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="Friendship Collegiate Academy unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="Friendship Collegiate unofficial mascot"]) img,
 .game-details-team-logo:has(img[alt="St. Albans unofficial mascot"]) img,
 .game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) img,
 .game-details-team-logo:has(img[alt="Landon unofficial mascot"]) img,
