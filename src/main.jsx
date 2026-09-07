@@ -4,6 +4,7 @@ import App from "./App";
 import "./data/customTrackedMascots.js";
 import "./friendshipGameDetailsFix.js";
 import "./scoreMarkRecovery.js";
+import "./teamLogoRecovery.js";
 import "./autoCenterScoreDate.js";
 import "./scoreFeatureEnhancements.js";
 import "./App.css";
