@@ -1,1 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 150" role="img" aria-label="St. Vincent Pallotti creative SVP score mark"><g font-family="Arial Black,Impact,sans-serif" font-weight="900" paint-order="stroke fill" stroke-linejoin="round"><text x="103" y="108" text-anchor="middle" font-size="78" letter-spacing="-10" fill="#111111" stroke="#D4AF37" stroke-width="14">SVP</text><text x="103" y="108" text-anchor="middle" font-size="78" letter-spacing="-10" fill="#111111" stroke="#FFFFFF" stroke-width="4">SVP</text></g><g transform="translate(160 72)"><path d="M5 24 17 3l18-9 19 3 18 13 8 20-7 20-17 13-24 1-21-12Z" fill="#111111" stroke="#D4AF37" stroke-width="5"/><path d="M20 19 31 8l13-2 14 7 8 12-9-2-8 4-13-1-8-6Z" fill="#D4AF37"/><path d="M30 22 22 31l8 13 13 7 14-6 8-11-15 4-10-3Z" fill="#FFFFFF"/><path d="M41 30 47 27l7 3-6 5Z" fill="#111111"/><path d="M24 13 12 2l18 4M58 7 73-2 2 16" fill="none" stroke="#111111" stroke-width="4" stroke-linecap="round"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" role="img" aria-label="St. Vincent Pallotti SVP panther compact mark">
+  <defs>
+    <linearGradient id="svpGreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b5a3b"/>
+      <stop offset="1" stop-color="#073d2b"/>
+    </linearGradient>
+    <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3d454d"/>
+      <stop offset="0.42" stop-color="#12171c"/>
+      <stop offset="1" stop-color="#05080a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- long athletic swoosh under the SVP -->
+  <path d="M25 154C63 193 145 211 250 203C190 196 135 177 92 150C65 133 43 132 25 154Z" fill="#05080a" stroke="#d9b45a" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M35 151C73 181 135 195 206 193C157 183 113 165 79 143C60 131 46 134 35 151Z" fill="#0b5a3b" stroke="#f4f4f2" stroke-width="4"/>
+
+  <!-- oversized collegiate SVP, green with black/white/gold borders -->
+  <g font-family="Impact, Haettenschweiler, Arial Black, sans-serif" font-weight="900" font-style="italic" text-anchor="middle" paint-order="stroke fill" stroke-linejoin="miter">
+    <text x="145" y="160" font-size="132" letter-spacing="-22" fill="#05080a" stroke="#d9b45a" stroke-width="20">SVP</text>
+    <text x="145" y="160" font-size="132" letter-spacing="-22" fill="#f4f4f2" stroke="#05080a" stroke-width="13">SVP</text>
+    <text x="145" y="160" font-size="132" letter-spacing="-22" fill="url(#svpGreen)" stroke="#f4f4f2" stroke-width="6">SVP</text>
+  </g>
+
+  <!-- panther head locked to right edge of VP -->
+  <g transform="translate(220 18)">
+    <path d="M22 32C35 10 61 4 81 13L99 4L106 27C126 33 141 47 146 66L158 77L144 91C140 111 125 129 104 137L90 156L73 141C50 141 29 128 19 109L4 99L15 83C9 64 11 45 22 32Z" fill="#05080a" stroke="#d9b45a" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M30 34C43 18 64 15 81 21L95 13L99 34C117 39 131 51 136 68L147 77L136 87C132 105 118 119 99 126L86 144L75 130C55 131 38 119 29 103L16 96L24 82C18 65 21 46 30 34Z" fill="url(#fur)" stroke="#f4f4f2" stroke-width="4"/>
+
+    <!-- ears / cheek / brow facets -->
+    <path d="M39 32L63 18L70 47Z" fill="#343b43"/>
+    <path d="M91 25L115 37L92 53Z" fill="#404851"/>
+    <path d="M40 57C58 45 80 45 96 56C79 55 64 61 51 74Z" fill="#4a525b"/>
+    <path d="M95 57C112 57 128 64 135 77C121 70 108 71 95 79Z" fill="#505861"/>
+    <path d="M40 80C56 72 71 74 82 83C67 83 56 90 48 101Z" fill="#2d3339"/>
+    <path d="M97 81C113 78 126 84 134 96C120 89 109 93 100 103Z" fill="#363d45"/>
+
+    <!-- green eyes -->
+    <path d="M58 62L79 59L71 72L57 70Z" fill="#71d846" stroke="#05080a" stroke-width="3"/>
+    <path d="M100 61L120 64L113 74L99 70Z" fill="#71d846" stroke="#05080a" stroke-width="3"/>
+    <circle cx="68" cy="65" r="3" fill="#05080a"/>
+    <circle cx="109" cy="67" r="3" fill="#05080a"/>
+
+    <!-- muzzle / nose / open mouth -->
+    <path d="M68 87C82 78 102 80 113 90C120 97 119 108 111 115C101 124 82 124 68 116C57 109 57 96 68 87Z" fill="#e7e7e5" stroke="#05080a" stroke-width="4"/>
+    <path d="M77 89C86 83 96 84 104 89L98 98H84Z" fill="#0b6a3d" stroke="#05080a" stroke-width="3"/>
+    <path d="M75 102C87 109 99 109 110 102C107 118 82 122 71 109Z" fill="#05080a"/>
+    <path d="M73 104L82 111L77 123Z" fill="#ffffff"/>
+    <path d="M103 109L111 104L108 122Z" fill="#ffffff"/>
+    <path d="M84 117C91 124 99 124 104 117L102 129H87Z" fill="#0b6a3d"/>
+
+    <!-- whiskers -->
+    <path d="M59 95L30 89M60 102L29 104M114 95L144 89M113 102L144 105" stroke="#f4f4f2" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>
