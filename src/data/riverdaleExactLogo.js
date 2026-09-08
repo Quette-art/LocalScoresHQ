@@ -2,14 +2,11 @@ import { teamMascots } from "./teamMascots";
 import full1 from "./exact-logo-chunks/riverdale-baptist-full.1.txt?raw";
 import full2 from "./exact-logo-chunks/riverdale-baptist-full.2.txt?raw";
 import full3 from "./exact-logo-chunks/riverdale-baptist-full.3.txt?raw";
-import compact1 from "./exact-logo-chunks/riverdale-baptist-rbs.1.txt?raw";
-import compact2 from "./exact-logo-chunks/riverdale-baptist-rbs.2.txt?raw";
 
 const pngData = (...parts) =>
   `data:image/png;base64,${parts.join("").replace(/\s+/g, "")}`;
 
 export const RIVERDALE_FULL = pngData(full1, full2, full3);
-export const RIVERDALE_COMPACT = pngData(compact1, compact2);
 
 teamMascots["Riverdale Baptist"] = RIVERDALE_FULL;
 teamMascots["Riverdale Baptist School"] = RIVERDALE_FULL;
@@ -23,21 +20,18 @@ const styleImage = (img) => {
   img.style.setProperty("visibility", "visible", "important");
 };
 
-const forceImage = (host, src, alt, marker) => {
+const forceImage = (host, src, alt) => {
   if (!host || !src) return;
 
   if (host.matches?.("img")) {
-    if (host.dataset[marker] !== "1" || host.getAttribute("src") !== src) {
-      host.setAttribute("src", src);
-      host.setAttribute("alt", alt);
-      host.setAttribute("loading", "eager");
-      host.dataset[marker] = "1";
-    }
+    if (host.getAttribute("src") !== src) host.setAttribute("src", src);
+    host.setAttribute("alt", alt);
+    host.setAttribute("loading", "eager");
     styleImage(host);
     return;
   }
 
-  let img = host.querySelector?.(`img[data-${marker.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`)}="1"]`);
+  let img = host.querySelector?.("img[data-riverdale-full='1']");
 
   if (!img) {
     host.textContent = "";
@@ -50,7 +44,7 @@ const forceImage = (host, src, alt, marker) => {
     host.style.setProperty("overflow", "visible", "important");
 
     img = document.createElement("img");
-    img.dataset[marker] = "1";
+    img.dataset.riverdaleFull = "1";
     host.appendChild(img);
   }
 
@@ -60,7 +54,7 @@ const forceImage = (host, src, alt, marker) => {
   styleImage(img);
 };
 
-const installRiverdaleExactLogos = () => {
+const installRiverdaleExactProfileLogo = () => {
   if (typeof document === "undefined") return;
 
   const profile = document.querySelector(".team-profile .team-header");
@@ -74,32 +68,17 @@ const installRiverdaleExactLogos = () => {
     forceImage(
       profile.querySelector(".team-logo"),
       RIVERDALE_FULL,
-      "Riverdale Baptist crest",
-      "riverdaleFull"
+      "Riverdale Baptist crest"
     );
   }
-
-  document.querySelectorAll(".game-details-team").forEach((row) => {
-    const name = row.querySelector("strong")?.textContent?.trim();
-    if (name !== "Riverdale Baptist" && name !== "Riverdale Baptist School") {
-      return;
-    }
-
-    forceImage(
-      row.querySelector(".game-details-team-logo"),
-      RIVERDALE_COMPACT,
-      "Riverdale Baptist RBS score mark",
-      "riverdaleCompact"
-    );
-  });
 };
 
 if (typeof document !== "undefined") {
-  queueMicrotask(installRiverdaleExactLogos);
-  window.addEventListener("load", installRiverdaleExactLogos, { once: true });
+  queueMicrotask(installRiverdaleExactProfileLogo);
+  window.addEventListener("load", installRiverdaleExactProfileLogo, { once: true });
 
   const observer = new MutationObserver(() => {
-    requestAnimationFrame(installRiverdaleExactLogos);
+    requestAnimationFrame(installRiverdaleExactProfileLogo);
   });
 
   observer.observe(document.documentElement, {
