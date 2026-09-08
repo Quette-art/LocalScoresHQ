@@ -1,47 +1,51 @@
 const TEAM_PROFILE_LOGOS = new Map([
-  ["Mt. Zion", "/mascots/mt-zion-prep.webp?v=direct-picture-2"],
-  ["Mt. Zion Prep", "/mascots/mt-zion-prep.webp?v=direct-picture-2"],
-  ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.webp?v=direct-picture-2"],
-  ["Riverdale Baptist", "/mascots/riverdale-baptist.webp?v=direct-picture-2"],
-  ["Riverdale Baptist School", "/mascots/riverdale-baptist.webp?v=direct-picture-2"],
+  ["Mt. Zion", "/mascots/mt-zion-prep.webp?v=exact-direct-img-3"],
+  ["Mt. Zion Prep", "/mascots/mt-zion-prep.webp?v=exact-direct-img-3"],
+  ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.webp?v=exact-direct-img-3"],
+  ["Riverdale Baptist", "/mascots/riverdale-baptist.webp?v=exact-direct-img-3"],
+  ["Riverdale Baptist School", "/mascots/riverdale-baptist.webp?v=exact-direct-img-3"],
 ]);
 
-const EMPTY_IMAGE =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'/%3E";
+const styleImage = (img) => {
+  img.style.setProperty("display", "block", "important");
+  img.style.setProperty("width", "100%", "important");
+  img.style.setProperty("height", "100%", "important");
+  img.style.setProperty("object-fit", "contain", "important");
+  img.style.setProperty("opacity", "1", "important");
+  img.style.setProperty("visibility", "visible", "important");
+  img.style.setProperty("background", "transparent", "important");
+};
 
-const applyPictureBackground = (logoHost, teamName, src) => {
-  logoHost.style.setProperty("background-image", `url("${src}")`, "important");
-  logoHost.style.setProperty("background-repeat", "no-repeat", "important");
-  logoHost.style.setProperty("background-position", "center", "important");
-  logoHost.style.setProperty("background-size", "contain", "important");
+const installPicture = (logoHost, teamName, src) => {
+  const current = logoHost.querySelector("img[data-exact-team-picture='1']");
+
+  if (
+    logoHost.dataset.exactTeamPicture === src &&
+    current?.getAttribute("src") === src
+  ) {
+    styleImage(current);
+    return;
+  }
+
+  logoHost.classList.remove("team-mascot-fallback");
+  logoHost.style.setProperty("background", "transparent", "important");
+  logoHost.style.setProperty("background-image", "none", "important");
   logoHost.style.setProperty("background-color", "transparent", "important");
   logoHost.style.setProperty("border", "0", "important");
   logoHost.style.setProperty("box-shadow", "none", "important");
   logoHost.style.setProperty("color", "transparent", "important");
   logoHost.style.setProperty("overflow", "visible", "important");
 
-  if (logoHost.matches("img")) {
-    logoHost.setAttribute("src", EMPTY_IMAGE);
-    logoHost.setAttribute("alt", `${teamName} team crest`);
-    logoHost.style.setProperty("display", "block", "important");
-    logoHost.style.setProperty("opacity", "1", "important");
-    logoHost.style.setProperty("visibility", "visible", "important");
-    return;
-  }
-
-  let img = logoHost.querySelector("img");
-  if (!img) {
-    logoHost.textContent = "";
-    img = document.createElement("img");
-    logoHost.appendChild(img);
-  }
-
-  img.setAttribute("src", EMPTY_IMAGE);
+  logoHost.textContent = "";
+  const img = document.createElement("img");
+  img.setAttribute("src", src);
   img.setAttribute("alt", `${teamName} team crest`);
-  img.style.setProperty("width", "100%", "important");
-  img.style.setProperty("height", "100%", "important");
-  img.style.setProperty("opacity", "0", "important");
-  img.style.setProperty("visibility", "hidden", "important");
+  img.setAttribute("loading", "eager");
+  img.setAttribute("decoding", "async");
+  img.dataset.exactTeamPicture = "1";
+  styleImage(img);
+  logoHost.appendChild(img);
+  logoHost.dataset.exactTeamPicture = src;
 };
 
 const applyTeamProfileLogos = () => {
@@ -60,7 +64,7 @@ const applyTeamProfileLogos = () => {
   const logoHost = teamHeader.querySelector(".team-logo");
   if (!logoHost) return;
 
-  applyPictureBackground(logoHost, teamName, matchedSrc);
+  installPicture(logoHost, teamName, matchedSrc);
 };
 
 if (typeof document !== "undefined") {
