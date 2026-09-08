@@ -1,9 +1,9 @@
 const TEAM_PROFILE_LOGOS = new Map([
-  ["Mt. Zion", "/mascots/mt-zion-prep.svg?v=team-profile-1"],
-  ["Mt. Zion Prep", "/mascots/mt-zion-prep.svg?v=team-profile-1"],
-  ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.svg?v=team-profile-1"],
-  ["Riverdale Baptist", "/mascots/riverdale-baptist.svg?v=team-profile-1"],
-  ["Riverdale Baptist School", "/mascots/riverdale-baptist.svg?v=team-profile-1"],
+  ["Mt. Zion", "/mascots/mt-zion-prep.svg?v=vector-crest-2"],
+  ["Mt. Zion Prep", "/mascots/mt-zion-prep.svg?v=vector-crest-2"],
+  ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.svg?v=vector-crest-2"],
+  ["Riverdale Baptist", "/mascots/riverdale-baptist.svg?v=vector-crest-2"],
+  ["Riverdale Baptist School", "/mascots/riverdale-baptist.svg?v=vector-crest-2"],
 ]);
 
 const styleCrest = (img) => {
@@ -61,8 +61,6 @@ if (typeof document !== "undefined") {
   queueMicrotask(applyTeamProfileLogos);
   window.addEventListener("load", applyTeamProfileLogos, { once: true });
 
-  // Keep this available for in-app navigation. It observes child changes only;
-  // once the image exists, styling/source updates do not retrigger the observer.
   const observer = new MutationObserver(() => {
     requestAnimationFrame(applyTeamProfileLogos);
   });
