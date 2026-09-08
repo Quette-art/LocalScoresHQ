@@ -1,13 +1,11 @@
 import { teamMascots } from "./teamMascots";
 
 const GEORGETOWN_PREP_CREST =
-  "/mascots/generated/georgetown-prep-team-exact.webp?v=team-page-exact-10";
+  "/mascots/generated/georgetown-prep-team-exact.webp?v=team-page-exact-11";
 
-// Keep the normal mascot lookup correct first.
 teamMascots["Georgetown Prep"] = GEORGETOWN_PREP_CREST;
 teamMascots["Georgetown Preparatory School"] = GEORGETOWN_PREP_CREST;
 
-// Put the exact approved Georgetown Prep picture directly into the team page.
 const installGeorgetownPrepCrest = () => {
   if (typeof document === "undefined") return;
 
@@ -26,31 +24,37 @@ const installGeorgetownPrepCrest = () => {
   const logoHost = header.querySelector(".team-logo");
   if (!logoHost) return;
 
-  let img = logoHost.matches("img") ? logoHost : logoHost.querySelector("img");
-
-  if (!img) {
-    logoHost.textContent = "";
-    img = document.createElement("img");
-    logoHost.appendChild(img);
+  if (logoHost.matches("img")) {
+    logoHost.setAttribute("src", GEORGETOWN_PREP_CREST);
+    logoHost.setAttribute("alt", "Georgetown Prep Hoyas crest");
+    logoHost.style.setProperty("display", "block", "important");
+    logoHost.style.setProperty("width", "100%", "important");
+    logoHost.style.setProperty("height", "100%", "important");
+    logoHost.style.setProperty("object-fit", "contain", "important");
+    logoHost.style.setProperty("opacity", "1", "important");
+    logoHost.style.setProperty("visibility", "visible", "important");
+    return;
   }
 
-  img.setAttribute("src", GEORGETOWN_PREP_CREST);
-  img.setAttribute("alt", "Georgetown Prep Hoyas crest");
-  img.setAttribute("loading", "eager");
+  logoHost.textContent = "";
+  logoHost.style.setProperty("background", "transparent", "important");
+  logoHost.style.setProperty("background-image", "none", "important");
+  logoHost.style.setProperty("border", "0", "important");
+  logoHost.style.setProperty("box-shadow", "none", "important");
+  logoHost.style.setProperty("color", "transparent", "important");
+  logoHost.style.setProperty("overflow", "visible", "important");
+
+  const img = document.createElement("img");
+  img.src = GEORGETOWN_PREP_CREST;
+  img.alt = "Georgetown Prep Hoyas crest";
+  img.loading = "eager";
   img.style.setProperty("display", "block", "important");
   img.style.setProperty("width", "100%", "important");
   img.style.setProperty("height", "100%", "important");
   img.style.setProperty("object-fit", "contain", "important");
   img.style.setProperty("opacity", "1", "important");
   img.style.setProperty("visibility", "visible", "important");
-
-  if (!logoHost.matches("img")) {
-    logoHost.style.setProperty("background", "transparent", "important");
-    logoHost.style.setProperty("background-image", "none", "important");
-    logoHost.style.setProperty("border", "0", "important");
-    logoHost.style.setProperty("box-shadow", "none", "important");
-    logoHost.style.setProperty("color", "transparent", "important");
-  }
+  logoHost.appendChild(img);
 };
 
 if (typeof document !== "undefined") {
