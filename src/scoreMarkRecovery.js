@@ -12,16 +12,12 @@ const SCORE_MARKS = new Map([
   ["Mt. Zion", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-existing-picture-4"],
   ["Mt. Zion Prep", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-existing-picture-4"],
   ["Mt. Zion Prep Academy", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-existing-picture-4"],
-  ["Riverdale Baptist", "/mascots/score-marks/riverdale-baptist-rbs.svg?v=exact-existing-picture-4"],
-  ["Riverdale Baptist School", "/mascots/score-marks/riverdale-baptist-rbs.svg?v=exact-existing-picture-4"],
 ]);
 
 const EXACT_PICTURE_TEAMS = new Set([
   "Mt. Zion",
   "Mt. Zion Prep",
   "Mt. Zion Prep Academy",
-  "Riverdale Baptist",
-  "Riverdale Baptist School",
 ]);
 
 const teamFromAlt = (alt = "") =>
