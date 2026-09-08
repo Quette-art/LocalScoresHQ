@@ -9,12 +9,23 @@ const SCORE_MARKS = new Map([
   ["St. Vincent Pallotti", "/mascots/score-marks/st-vincent-pallotti-svp.svg?v=svp-exact-picture-1"],
   ["Georgetown Prep", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
   ["Georgetown Preparatory School", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
-  ["Mt. Zion", "/mascots/score-marks/mt-zion-prep-mzp.webp?v=direct-picture-1"],
-  ["Mt. Zion Prep", "/mascots/score-marks/mt-zion-prep-mzp.webp?v=direct-picture-1"],
-  ["Mt. Zion Prep Academy", "/mascots/score-marks/mt-zion-prep-mzp.webp?v=direct-picture-1"],
-  ["Riverdale Baptist", "/mascots/score-marks/riverdale-baptist-rbs.webp?v=direct-picture-1"],
-  ["Riverdale Baptist School", "/mascots/score-marks/riverdale-baptist-rbs.webp?v=direct-picture-1"],
+  ["Mt. Zion", "/mascots/score-marks/mt-zion-prep-mzp.webp?v=direct-picture-2"],
+  ["Mt. Zion Prep", "/mascots/score-marks/mt-zion-prep-mzp.webp?v=direct-picture-2"],
+  ["Mt. Zion Prep Academy", "/mascots/score-marks/mt-zion-prep-mzp.webp?v=direct-picture-2"],
+  ["Riverdale Baptist", "/mascots/score-marks/riverdale-baptist-rbs.webp?v=direct-picture-2"],
+  ["Riverdale Baptist School", "/mascots/score-marks/riverdale-baptist-rbs.webp?v=direct-picture-2"],
 ]);
+
+const BACKGROUND_PICTURE_TEAMS = new Set([
+  "Mt. Zion",
+  "Mt. Zion Prep",
+  "Mt. Zion Prep Academy",
+  "Riverdale Baptist",
+  "Riverdale Baptist School",
+]);
+
+const EMPTY_IMAGE =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'/%3E";
 
 const teamFromAlt = (alt = "") =>
   alt
@@ -34,8 +45,46 @@ const setImageSource = (img, teamName, src) => {
   img.style.setProperty("object-fit", "contain", "important");
 };
 
+const paintPicture = (target, teamName, src) => {
+  if (!target) return;
+
+  target.style.setProperty("background-image", `url("${src}")`, "important");
+  target.style.setProperty("background-repeat", "no-repeat", "important");
+  target.style.setProperty("background-position", "center", "important");
+  target.style.setProperty("background-size", "contain", "important");
+  target.style.setProperty("background-color", "transparent", "important");
+
+  if (target.tagName === "IMG") {
+    target.setAttribute("src", EMPTY_IMAGE);
+    target.setAttribute("alt", `${teamName} score mark`);
+    target.style.setProperty("display", "block", "important");
+    target.style.setProperty("opacity", "1", "important");
+    target.style.setProperty("visibility", "visible", "important");
+    target.style.setProperty("object-fit", "contain", "important");
+    return;
+  }
+
+  let img = target.querySelector("img");
+  if (!img) {
+    img = document.createElement("img");
+    target.appendChild(img);
+  }
+
+  img.setAttribute("src", EMPTY_IMAGE);
+  img.setAttribute("alt", `${teamName} score mark`);
+  img.style.setProperty("width", "100%", "important");
+  img.style.setProperty("height", "100%", "important");
+  img.style.setProperty("opacity", "0", "important");
+  img.style.setProperty("visibility", "hidden", "important");
+};
+
 const installMark = (target, teamName, src) => {
   if (!target) return;
+
+  if (BACKGROUND_PICTURE_TEAMS.has(teamName)) {
+    paintPicture(target, teamName, src);
+    return;
+  }
 
   if (target.tagName === "IMG") {
     setImageSource(target, teamName, src);
