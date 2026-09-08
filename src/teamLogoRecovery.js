@@ -1,13 +1,11 @@
 const TEAM_PROFILE_LOGOS = new Map([
-  ["Georgetown Prep", "/mascots/generated/georgetown-prep-crest-fixed.webp?v=exact-crest-ios-1"],
-  ["Georgetown Preparatory School", "/mascots/generated/georgetown-prep-crest-fixed.webp?v=exact-crest-ios-1"],
+  ["Georgetown Prep", "/mascots/generated/georgetown-prep-crest-fixed.png?v=exact-crest-ios-3"],
+  ["Georgetown Preparatory School", "/mascots/generated/georgetown-prep-crest-fixed.png?v=exact-crest-ios-3"],
 ]);
 
 const applyTeamProfileLogos = () => {
   if (typeof document === "undefined") return;
 
-  // Only touch the actual team-profile header logo. Do not scan every image on the page,
-  // because that can accidentally replace the LocalScoresHQ header logo too.
   const profile = document.querySelector(".team-profile");
   if (!profile) return;
 
