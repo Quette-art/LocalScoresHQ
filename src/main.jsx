@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./data/customTrackedMascots.js";
+import "./data/georgetownPrepExactLogo.js";
 import "./georgetownProfileLogoOverride.js";
 import "./friendshipGameDetailsFix.js";
 import "./scoreMarkRecovery.js";
