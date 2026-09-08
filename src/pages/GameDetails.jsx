@@ -10,7 +10,7 @@ import {
 import { db } from "../firebase";
 import "../components/ScoresTab.css";
 import TeamMascot from "../components/TeamMascot";
-import { RIVERDALE_FULL } from "../data/riverdaleExactLogo";
+import { RIVERDALE_COMPACT } from "../data/riverdaleExactLogo";
 
 const getInitials = (teamName = "") =>
   teamName
@@ -284,8 +284,8 @@ const GameDetails = ({
           {isRiverdale ? (
             <span className={`team-mascot game-details-team-logo game-details-team-logo-${side}`}>
               <img
-                src={RIVERDALE_FULL}
-                alt="Riverdale Baptist logo"
+                src={RIVERDALE_COMPACT}
+                alt="Riverdale Baptist RBS compact logo"
                 loading="eager"
                 decoding="async"
               />
