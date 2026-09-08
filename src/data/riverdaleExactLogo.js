@@ -2,11 +2,14 @@ import { teamMascots } from "./teamMascots";
 import full1 from "./exact-logo-chunks/riverdale-baptist-full.1.txt?raw";
 import full2 from "./exact-logo-chunks/riverdale-baptist-full.2.txt?raw";
 import full3 from "./exact-logo-chunks/riverdale-baptist-full.3.txt?raw";
+import compact1 from "./exact-logo-chunks/riverdale-baptist-rbs.1.txt?raw";
+import compact2 from "./exact-logo-chunks/riverdale-baptist-rbs.2.txt?raw";
 
 const pngData = (...parts) =>
   `data:image/png;base64,${parts.join("").replace(/\s+/g, "")}`;
 
 export const RIVERDALE_FULL = pngData(full1, full2, full3);
+export const RIVERDALE_COMPACT = pngData(compact1, compact2);
 
 teamMascots["Riverdale Baptist"] = RIVERDALE_FULL;
 teamMascots["Riverdale Baptist School"] = RIVERDALE_FULL;
