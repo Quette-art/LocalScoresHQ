@@ -9,11 +9,11 @@ const SCORE_MARKS = new Map([
   ["St. Vincent Pallotti", "/mascots/score-marks/st-vincent-pallotti-svp.svg?v=svp-exact-picture-1"],
   ["Georgetown Prep", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
   ["Georgetown Preparatory School", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
-  ["Mt. Zion", "/mascots/score-marks/mt-zion-prep-mzp.webp?v=exact-direct-img-3"],
-  ["Mt. Zion Prep", "/mascots/score-marks/mt-zion-prep-mzp.webp?v=exact-direct-img-3"],
-  ["Mt. Zion Prep Academy", "/mascots/score-marks/mt-zion-prep-mzp.webp?v=exact-direct-img-3"],
-  ["Riverdale Baptist", "/mascots/score-marks/riverdale-baptist-rbs.webp?v=exact-direct-img-3"],
-  ["Riverdale Baptist School", "/mascots/score-marks/riverdale-baptist-rbs.webp?v=exact-direct-img-3"],
+  ["Mt. Zion", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-existing-picture-4"],
+  ["Mt. Zion Prep", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-existing-picture-4"],
+  ["Mt. Zion Prep Academy", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-existing-picture-4"],
+  ["Riverdale Baptist", "/mascots/score-marks/riverdale-baptist-rbs.svg?v=exact-existing-picture-4"],
+  ["Riverdale Baptist School", "/mascots/score-marks/riverdale-baptist-rbs.svg?v=exact-existing-picture-4"],
 ]);
 
 const EXACT_PICTURE_TEAMS = new Set([
