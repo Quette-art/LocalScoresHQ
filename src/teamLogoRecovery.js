@@ -2,8 +2,6 @@ const TEAM_PROFILE_LOGOS = new Map([
   ["Mt. Zion", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
   ["Mt. Zion Prep", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
   ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
-  ["Riverdale Baptist", "/mascots/riverdale-baptist.svg?v=exact-existing-picture-4"],
-  ["Riverdale Baptist School", "/mascots/riverdale-baptist.svg?v=exact-existing-picture-4"],
 ]);
 
 const styleImage = (img) => {
