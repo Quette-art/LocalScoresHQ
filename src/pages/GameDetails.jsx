@@ -10,6 +10,10 @@ import {
 import { db } from "../firebase";
 import "../components/ScoresTab.css";
 import TeamMascot from "../components/TeamMascot";
+import riverdaleCompact1 from "../data/exact-logo-chunks/riverdale-baptist-rbs.1.txt?raw";
+import riverdaleCompact2 from "../data/exact-logo-chunks/riverdale-baptist-rbs.2.txt?raw";
+
+const RIVERDALE_COMPACT = `data:image/png;base64,${`${riverdaleCompact1}${riverdaleCompact2}`.replace(/\s+/g, "")}`;
 
 const getInitials = (teamName = "") =>
   teamName
@@ -257,51 +261,68 @@ const GameDetails = ({
       alert("Failed to save score.");
     }
   };
-    const renderTeam = ({
+
+  const renderTeam = ({
     teamName,
     score,
     winner,
     onClick,
     side,
-  }) => (
-    <button
-      type="button"
-      className={`game-details-team ${
-        winner
-          ? "game-details-team-winner"
-          : ""
-      }`}
-      onClick={onClick}
-    >
-      <div className="game-details-team-identity">
-      
-          <TeamMascot
-  teamName={teamName}
-  className={`game-details-team-logo game-details-team-logo-${side}`}
-/>
+  }) => {
+    const isRiverdale =
+      teamName === "Riverdale Baptist" ||
+      teamName === "Riverdale Baptist School";
 
-        <div>
-          {winner && (
-            <span className="game-details-winner-label">
-              Winner
+    return (
+      <button
+        type="button"
+        className={`game-details-team ${
+          winner
+            ? "game-details-team-winner"
+            : ""
+        }`}
+        onClick={onClick}
+      >
+        <div className="game-details-team-identity">
+          {isRiverdale ? (
+            <span className={`team-mascot game-details-team-logo game-details-team-logo-${side}`}>
+              <img
+                src={RIVERDALE_COMPACT}
+                alt="Riverdale Baptist compact logo"
+                loading="eager"
+                decoding="async"
+              />
             </span>
+          ) : (
+            <TeamMascot
+              teamName={teamName}
+              className={`game-details-team-logo game-details-team-logo-${side}`}
+            />
           )}
 
-          {isTie && (
-            <span className="game-details-winner-label">
-              Tie
-            </span>
-          )}
+          <div>
+            {winner && (
+              <span className="game-details-winner-label">
+                Winner
+              </span>
+            )}
 
-          <strong>{teamName}</strong>
+            {isTie && (
+              <span className="game-details-winner-label">
+                Tie
+              </span>
+            )}
+
+            <strong>{teamName}</strong>
+          </div>
         </div>
-      </div>
 
-      <span className="game-details-team-score">
-        {isFinal ? score : "–"}
-      </span>
-    </button>
-  );
+        <span className="game-details-team-score">
+          {isFinal ? score : "–"}
+        </span>
+      </button>
+    );
+  };
 
   return (
     <div className="game-details-page">
