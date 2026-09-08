@@ -1,6 +1,6 @@
 const TEAM_PROFILE_LOGOS = new Map([
-  ["Georgetown Prep", "/mascots/generated/georgetown-prep-crest-fixed.png?v=exact-crest-ios-4"],
-  ["Georgetown Preparatory School", "/mascots/generated/georgetown-prep-crest-fixed.png?v=exact-crest-ios-4"],
+  ["Georgetown Prep", "/mascots/generated/georgetown-prep-crest-fixed.webp?v=exact-crest-ios-5"],
+  ["Georgetown Preparatory School", "/mascots/generated/georgetown-prep-crest-fixed.webp?v=exact-crest-ios-5"],
 ]);
 
 const applyTeamProfileLogos = () => {
