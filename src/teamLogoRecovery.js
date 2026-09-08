@@ -1,6 +1,6 @@
 const TEAM_PROFILE_LOGOS = new Map([
-  ["Georgetown Prep", "/mascots/generated/georgetown-prep-crest-fixed.png?v=exact-crest-ios-3"],
-  ["Georgetown Preparatory School", "/mascots/generated/georgetown-prep-crest-fixed.png?v=exact-crest-ios-3"],
+  ["Georgetown Prep", "/mascots/generated/georgetown-prep-crest-fixed.png?v=exact-crest-ios-4"],
+  ["Georgetown Preparatory School", "/mascots/generated/georgetown-prep-crest-fixed.png?v=exact-crest-ios-4"],
 ]);
 
 const applyTeamProfileLogos = () => {
@@ -24,14 +24,34 @@ const applyTeamProfileLogos = () => {
 
   if (!matchedSrc) return;
 
-  const img = teamHeader.querySelector("img.team-logo, .team-logo img, img");
-  if (!img) return;
+  const logoHost = teamHeader.querySelector(".team-logo");
+  const existingImg = teamHeader.querySelector("img.team-logo, .team-logo img");
 
-  if (img.getAttribute("src") !== matchedSrc) img.setAttribute("src", matchedSrc);
-  img.style.setProperty("object-fit", "contain", "important");
-  img.style.setProperty("display", "block", "important");
-  img.style.setProperty("opacity", "1", "important");
-  img.style.setProperty("visibility", "visible", "important");
+  if (existingImg) {
+    if (existingImg.getAttribute("src") !== matchedSrc) {
+      existingImg.setAttribute("src", matchedSrc);
+    }
+    existingImg.style.setProperty("object-fit", "contain", "important");
+    existingImg.style.setProperty("display", "block", "important");
+    existingImg.style.setProperty("opacity", "1", "important");
+    existingImg.style.setProperty("visibility", "visible", "important");
+    existingImg.style.setProperty("background", "transparent", "important");
+    return;
+  }
+
+  // TeamMascot renders its initials fallback as a square element instead of an img.
+  // Replace that fallback content directly with the approved crest image.
+  if (logoHost) {
+    logoHost.textContent = "";
+    logoHost.style.setProperty("background-image", `url('${matchedSrc}')`, "important");
+    logoHost.style.setProperty("background-size", "contain", "important");
+    logoHost.style.setProperty("background-repeat", "no-repeat", "important");
+    logoHost.style.setProperty("background-position", "center", "important");
+    logoHost.style.setProperty("background-color", "transparent", "important");
+    logoHost.style.setProperty("color", "transparent", "important");
+    logoHost.style.setProperty("border", "0", "important");
+    logoHost.style.setProperty("box-shadow", "none", "important");
+  }
 };
 
 if (typeof document !== "undefined") {
