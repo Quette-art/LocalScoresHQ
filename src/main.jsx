@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./data/customTrackedMascots.js";
 import "./data/georgetownPrepExactLogo.js";
+import "./teamLogoRecovery.js";
 import "./friendshipGameDetailsFix.js";
 import "./scoreMarkRecovery.js";
 import "./autoCenterScoreDate.js";
