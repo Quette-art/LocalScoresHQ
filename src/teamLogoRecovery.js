@@ -1,6 +1,9 @@
 const TEAM_PROFILE_LOGOS = new Map([
-  ["Georgetown Prep", "/mascots/generated/georgetown-prep-crest-fixed.webp?v=exact-crest-ios-6"],
-  ["Georgetown Preparatory School", "/mascots/generated/georgetown-prep-crest-fixed.webp?v=exact-crest-ios-6"],
+  ["Mt. Zion", "/mascots/mt-zion-prep.svg?v=team-profile-1"],
+  ["Mt. Zion Prep", "/mascots/mt-zion-prep.svg?v=team-profile-1"],
+  ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.svg?v=team-profile-1"],
+  ["Riverdale Baptist", "/mascots/riverdale-baptist.svg?v=team-profile-1"],
+  ["Riverdale Baptist School", "/mascots/riverdale-baptist.svg?v=team-profile-1"],
 ]);
 
 const styleCrest = (img) => {
@@ -22,16 +25,8 @@ const applyTeamProfileLogos = () => {
   const teamHeader = profile.querySelector(".team-header");
   if (!teamHeader) return;
 
-  const headerText = teamHeader.textContent || "";
-  let matchedSrc = null;
-
-  for (const [teamName, src] of TEAM_PROFILE_LOGOS) {
-    if (headerText.includes(teamName)) {
-      matchedSrc = src;
-      break;
-    }
-  }
-
+  const teamName = teamHeader.querySelector("h1")?.textContent?.trim() || "";
+  const matchedSrc = TEAM_PROFILE_LOGOS.get(teamName);
   if (!matchedSrc) return;
 
   const logoHost = teamHeader.querySelector(".team-logo");
@@ -49,7 +44,6 @@ const applyTeamProfileLogos = () => {
     logoHost.style.setProperty("overflow", "visible", "important");
 
     img = document.createElement("img");
-    img.alt = "Georgetown Prep approved team crest";
     logoHost.appendChild(img);
   }
 
@@ -57,12 +51,22 @@ const applyTeamProfileLogos = () => {
     img.setAttribute("src", matchedSrc);
   }
 
+  img.setAttribute("alt", `${teamName} team crest`);
+  img.setAttribute("loading", "eager");
+  img.setAttribute("decoding", "async");
   styleCrest(img);
 };
 
 if (typeof document !== "undefined") {
   queueMicrotask(applyTeamProfileLogos);
-  window.addEventListener("load", applyTeamProfileLogos);
-  const observer = new MutationObserver(() => requestAnimationFrame(applyTeamProfileLogos));
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  window.addEventListener("load", applyTeamProfileLogos, { once: true });
+
+  // Keep this available for in-app navigation. It observes child changes only;
+  // once the image exists, styling/source updates do not retrigger the observer.
+  const observer = new MutationObserver(() => {
+    requestAnimationFrame(applyTeamProfileLogos);
+  });
+
+  const root = document.getElementById("root") || document.documentElement;
+  observer.observe(root, { childList: true, subtree: true });
 }
