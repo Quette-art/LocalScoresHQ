@@ -1,0 +1,1 @@
+Exact transparent LocalScoresHQ generated logo assets for the missing-team batch.
