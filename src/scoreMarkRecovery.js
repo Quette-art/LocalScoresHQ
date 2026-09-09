@@ -1,3 +1,21 @@
+const EXACT_BATCH_SPRITE =
+  "/mascots/exact-batch/missing-team-batch-sprite.webp?v=direct-sprite-crop-2";
+
+const EXACT_BATCH_SCORE_TILES = new Map([
+  ["Woodberry Forest", { col: 0, row: 1 }],
+  ["Woodberry Forest School", { col: 0, row: 1 }],
+  ["Loyola Blakefield", { col: 1, row: 1 }],
+  ["Haverford School", { col: 2, row: 1 }],
+  ["The Haverford School", { col: 2, row: 1 }],
+  ["Boys Latin", { col: 3, row: 1 }],
+  ["Boys' Latin", { col: 3, row: 1 }],
+  ["Boys’ Latin", { col: 3, row: 1 }],
+  ["Boys Latin School", { col: 3, row: 1 }],
+  ["The Boys' Latin School of Maryland", { col: 3, row: 1 }],
+  ["McDonogh", { col: 4, row: 1 }],
+  ["McDonogh School", { col: 4, row: 1 }],
+]);
+
 const SCORE_MARKS = new Map([
   ["Bullis", "/mascots/score-marks/bullis-b.svg?v=creative-initials-2"],
   ["St. Albans", "/mascots/score-marks/st-albans-sa.svg?v=creative-initials-2"],
@@ -9,26 +27,11 @@ const SCORE_MARKS = new Map([
   ["St. Vincent Pallotti", "/mascots/score-marks/st-vincent-pallotti-svp.svg?v=svp-exact-picture-1"],
   ["Georgetown Prep", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
   ["Georgetown Preparatory School", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
-
-  ["Woodberry Forest", "/mascots/score-marks/woodberry-forest-wf.svg?v=exact-missing-team-batch-1"],
-  ["Woodberry Forest School", "/mascots/score-marks/woodberry-forest-wf.svg?v=exact-missing-team-batch-1"],
-
-  ["Loyola Blakefield", "/mascots/score-marks/loyola-blakefield-lb.svg?v=exact-missing-team-batch-1"],
-
-  ["Haverford School", "/mascots/score-marks/haverford-school-h.svg?v=exact-missing-team-batch-1"],
-  ["The Haverford School", "/mascots/score-marks/haverford-school-h.svg?v=exact-missing-team-batch-1"],
-
-  ["Boys Latin", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
-  ["Boys' Latin", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
-  ["Boys’ Latin", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
-  ["Boys Latin School", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
-  ["The Boys' Latin School of Maryland", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
-
-  ["McDonogh", "/mascots/score-marks/mcdonogh-mcd.svg?v=exact-missing-team-batch-1"],
-  ["McDonogh School", "/mascots/score-marks/mcdonogh-mcd.svg?v=exact-missing-team-batch-1"],
 ]);
 
 const EXACT_PICTURE_TEAMS = new Set([]);
+const TRANSPARENT_PIXEL =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 const teamFromAlt = (alt = "") =>
   alt
@@ -43,6 +46,40 @@ const styleImage = (img) => {
   img.style.setProperty("object-fit", "contain", "important");
   img.style.setProperty("opacity", "1", "important");
   img.style.setProperty("visibility", "visible", "important");
+};
+
+const applySpriteBackground = (target, teamName, tile) => {
+  if (!target || !tile) return;
+
+  target.classList.remove("team-mascot-fallback");
+
+  if (target.tagName === "IMG") {
+    target.setAttribute("src", TRANSPARENT_PIXEL);
+    target.setAttribute("alt", `${teamName} score mark`);
+  } else {
+    target.textContent = "";
+  }
+
+  target.style.setProperty(
+    "background-image",
+    `url("${EXACT_BATCH_SPRITE}")`,
+    "important"
+  );
+  target.style.setProperty("background-size", "500% 200%", "important");
+  target.style.setProperty(
+    "background-position",
+    `${tile.col * 25}% ${tile.row * 100}%`,
+    "important"
+  );
+  target.style.setProperty("background-repeat", "no-repeat", "important");
+  target.style.setProperty("background-color", "transparent", "important");
+  target.style.setProperty("border", "0", "important");
+  target.style.setProperty("box-shadow", "none", "important");
+  target.style.setProperty("color", "transparent", "important");
+  target.style.setProperty("opacity", "1", "important");
+  target.style.setProperty("visibility", "visible", "important");
+  target.style.setProperty("overflow", "hidden", "important");
+  target.dataset.exactSpriteScore = `${teamName}:${tile.col}:${tile.row}`;
 };
 
 const installExactPicture = (target, teamName, src) => {
@@ -115,13 +152,29 @@ const installMark = (target, teamName, src) => {
   target.style.setProperty("background-color", "transparent", "important");
 };
 
+const exactTeamFromText = (text = "") => {
+  const clean = text.trim();
+  for (const [teamName] of EXACT_BATCH_SCORE_TILES) {
+    if (clean === teamName || clean.includes(teamName)) return teamName;
+  }
+  return "";
+};
+
 const recoverExistingScoreMarks = () => {
   if (typeof document === "undefined") return;
 
   document.querySelectorAll(".score-team-mascot").forEach((target) => {
-    const exactTeam = target.getAttribute("aria-label") || "";
-    if (EXACT_PICTURE_TEAMS.has(exactTeam)) {
-      installMark(target, exactTeam, SCORE_MARKS.get(exactTeam));
+    const buttonText = target.closest("button")?.textContent || "";
+    const exactTeam =
+      exactTeamFromText(target.getAttribute("aria-label") || "") ||
+      exactTeamFromText(buttonText);
+
+    if (exactTeam) {
+      applySpriteBackground(
+        target,
+        exactTeam,
+        EXACT_BATCH_SCORE_TILES.get(exactTeam)
+      );
       return;
     }
 
@@ -132,11 +185,23 @@ const recoverExistingScoreMarks = () => {
   });
 
   document.querySelectorAll(".game-details-team").forEach((row) => {
-    const text = row.textContent || "";
+    const strongName = row.querySelector("strong")?.textContent?.trim() || "";
+    const exactTeam = exactTeamFromText(strongName || row.textContent || "");
+    const logoTarget = row.querySelector(".game-details-team-logo");
 
+    if (exactTeam) {
+      applySpriteBackground(
+        logoTarget,
+        exactTeam,
+        EXACT_BATCH_SCORE_TILES.get(exactTeam)
+      );
+      return;
+    }
+
+    const text = row.textContent || "";
     for (const [teamName, src] of SCORE_MARKS) {
       if (!text.includes(teamName)) continue;
-      installMark(row.querySelector(".game-details-team-logo"), teamName, src);
+      installMark(logoTarget, teamName, src);
       break;
     }
   });
