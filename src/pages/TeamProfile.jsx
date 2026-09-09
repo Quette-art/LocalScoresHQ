@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TeamMascot from "../components/TeamMascot";
+import ExactBatchLogo, { isExactBatchTeam } from "../components/ExactBatchLogo";
 import "../components/ScoresTab.css";
 import "./TeamProfileMobileFix.css";
 import "./TeamProfileFeatures.css";
@@ -284,10 +285,18 @@ export default function TeamProfile({
       </div>
 
       <div className="team-header">
-        <TeamMascot
-          teamName={teamName}
-          className={`team-logo ${teamName === "Benedictine" ? "team-logo-benedictine" : ""}`}
-        />
+        {isExactBatchTeam(teamName) ? (
+          <ExactBatchLogo
+            teamName={teamName}
+            variant="full"
+            className="team-logo"
+          />
+        ) : (
+          <TeamMascot
+            teamName={teamName}
+            className={`team-logo ${teamName === "Benedictine" ? "team-logo-benedictine" : ""}`}
+          />
+        )}
 
         <div className="team-header-info">
           <div className="team-name-record-row">
@@ -377,113 +386,33 @@ export default function TeamProfile({
             </strong>
             <span className="maxpreps-record-sub">{conferenceName}</span>
           </div>
-
-          <div className="maxpreps-record-mini-grid">
-            <div className="maxpreps-mini-stat"><span>PF</span><strong>{pf}</strong></div>
-            <div className="maxpreps-mini-stat"><span>PA</span><strong>{pa}</strong></div>
-            <div className="maxpreps-mini-stat">
-              <span>DIFF</span>
-              <strong className={diff > 0 ? "diff-pos" : diff < 0 ? "diff-neg" : ""}>
-                {diff > 0 ? "+" : ""}{diff}
-              </strong>
-            </div>
-            <div className="maxpreps-mini-stat"><span>Streak</span><strong>{streak}</strong></div>
-          </div>
         </div>
       </div>
 
-      <div className="team-section">
-        <h2>Schedule</h2>
-
-        {scheduleGames.length === 0 ? (
-          <p className="no-games">No games scheduled.</p>
-        ) : (
-          <div className="maxpreps-schedule-table">
-            <div className="maxpreps-schedule-header-row">
-              <span>Date/Time</span>
-              <span>Opponent</span>
-              <span>Game Info</span>
-            </div>
-
-            {scheduleGames.map((game) => {
-              const isTeam1 = game.team1 === teamName;
-              const opponent = isTeam1 ? game.team2 : game.team1;
-              const isPlayed =
-                game.score1 !== null && game.score1 !== undefined &&
-                game.score2 !== null && game.score2 !== undefined;
-              const teamScore = isTeam1 ? game.score1 : game.score2;
-              const opponentScore = isTeam1 ? game.score2 : game.score1;
-              const result = isPlayed ? getResult(game) : null;
-              const scheduleBadge = getScheduleBadge(game);
-
-              return (
-                <button
-                  type="button"
-                  key={game.id}
-                  className="maxpreps-schedule-row"
-                  onClick={() => onGameClick?.(game)}
-                  aria-label={`Open ${teamName} ${isTeam1 ? "versus" : "at"} ${opponent} game details`}
-                >
-                  <div className="maxpreps-schedule-date">
-                    <span>{formatDate(game.date)}</span>
-                    <span className="maxpreps-schedule-time">{game.time}</span>
-                  </div>
-
-                  <div className="maxpreps-schedule-opponent">
-                    <span className="scheduleVenue">{isTeam1 ? "vs" : "at"}</span>
-                    <span>{opponent}</span>
-                  </div>
-
-                  <div className="maxpreps-schedule-info">
-                    {scheduleBadge ? (
-                      <span className="schedule-change-badge">{scheduleBadge}</span>
-                    ) : isPlayed ? (
-                      <span className={`maxpreps-result-tag ${result === "W" ? "tag-win" : result === "L" ? "tag-loss" : "tag-tie"}`}>
-                        {result} {teamScore}-{opponentScore}
-                      </span>
-                    ) : (
-                      <span className="maxpreps-result-tag tag-upcoming">Upcoming</span>
-                    )}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
       {showAlerts && (
-        <div className="alertsOverlay" onClick={() => setShowAlerts(false)}>
-          <div className="alertsSheet" onClick={(event) => event.stopPropagation()}>
-            <h2>Team Alerts</h2>
+        <div className="scoreModalOverlay" onClick={() => setShowAlerts(false)}>
+          <div className="scoreModal" onClick={(event) => event.stopPropagation()}>
+            <h2>{teamName} Alerts</h2>
 
-            <div className="alertRow">
-              <span>Game Start</span>
-              <button
-                type="button"
-                className={`toggleBtn ${teamAlertSettings.gameStart ? "toggleOn" : ""}`}
-                onClick={() => toggleAlert("gameStart")}
-              >
-                {teamAlertSettings.gameStart ? "ON" : "OFF"}
-              </button>
-            </div>
+            <label>
+              <input
+                type="checkbox"
+                checked={teamAlertSettings.gameStart}
+                onChange={() => toggleAlert("gameStart")}
+              />
+              Game start alerts
+            </label>
 
-            <div className="alertRow">
-              <span>Game Finished</span>
-              <button
-                type="button"
-                className={`toggleBtn ${teamAlertSettings.gameFinished ? "toggleOn" : ""}`}
-                onClick={() => toggleAlert("gameFinished")}
-              >
-                {teamAlertSettings.gameFinished ? "ON" : "OFF"}
-              </button>
-            </div>
+            <label>
+              <input
+                type="checkbox"
+                checked={teamAlertSettings.gameFinished}
+                onChange={() => toggleAlert("gameFinished")}
+              />
+              Final score alerts
+            </label>
 
-            <button
-              type="button"
-              className="closeAlertsBtn"
-              onClick={() => setShowAlerts(false)}
-            >
+            <button type="button" onClick={() => setShowAlerts(false)}>
               Done
             </button>
           </div>
