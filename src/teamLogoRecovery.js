@@ -1,24 +1,25 @@
+const EXACT_BATCH_SPRITE =
+  "/mascots/exact-batch/missing-team-batch-sprite.webp?v=direct-sprite-crop-2";
+
+const EXACT_BATCH_PROFILE_TILES = new Map([
+  ["Woodberry Forest", { col: 0, row: 0 }],
+  ["Woodberry Forest School", { col: 0, row: 0 }],
+  ["Loyola Blakefield", { col: 1, row: 0 }],
+  ["Haverford School", { col: 2, row: 0 }],
+  ["The Haverford School", { col: 2, row: 0 }],
+  ["Boys Latin", { col: 3, row: 0 }],
+  ["Boys' Latin", { col: 3, row: 0 }],
+  ["Boys’ Latin", { col: 3, row: 0 }],
+  ["Boys Latin School", { col: 3, row: 0 }],
+  ["The Boys' Latin School of Maryland", { col: 3, row: 0 }],
+  ["McDonogh", { col: 4, row: 0 }],
+  ["McDonogh School", { col: 4, row: 0 }],
+]);
+
 const TEAM_PROFILE_LOGOS = new Map([
   ["Mt. Zion", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
   ["Mt. Zion Prep", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
   ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
-
-  ["Woodberry Forest", "/mascots/woodberry-forest.svg?v=exact-missing-team-batch-1"],
-  ["Woodberry Forest School", "/mascots/woodberry-forest.svg?v=exact-missing-team-batch-1"],
-
-  ["Loyola Blakefield", "/mascots/loyola-blakefield.svg?v=exact-missing-team-batch-1"],
-
-  ["Haverford School", "/mascots/haverford-school.svg?v=exact-missing-team-batch-1"],
-  ["The Haverford School", "/mascots/haverford-school.svg?v=exact-missing-team-batch-1"],
-
-  ["Boys Latin", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
-  ["Boys' Latin", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
-  ["Boys’ Latin", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
-  ["Boys Latin School", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
-  ["The Boys' Latin School of Maryland", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
-
-  ["McDonogh", "/mascots/mcdonogh.svg?v=exact-missing-team-batch-1"],
-  ["McDonogh School", "/mascots/mcdonogh.svg?v=exact-missing-team-batch-1"],
 ]);
 
 const styleImage = (img) => {
@@ -29,6 +30,40 @@ const styleImage = (img) => {
   img.style.setProperty("opacity", "1", "important");
   img.style.setProperty("visibility", "visible", "important");
   img.style.setProperty("background", "transparent", "important");
+};
+
+const installSpriteTile = (logoHost, teamName, tile) => {
+  if (!logoHost || !tile) return;
+
+  const key = `${teamName}:${tile.col}:${tile.row}`;
+  if (logoHost.dataset.exactSpriteTile === key) return;
+
+  logoHost.classList.remove("team-mascot-fallback");
+  logoHost.textContent = "";
+  logoHost.querySelectorAll("img").forEach((img) => img.remove());
+
+  logoHost.style.setProperty(
+    "background-image",
+    `url("${EXACT_BATCH_SPRITE}")`,
+    "important"
+  );
+  logoHost.style.setProperty("background-size", "500% 200%", "important");
+  logoHost.style.setProperty(
+    "background-position",
+    `${tile.col * 25}% ${tile.row * 100}%`,
+    "important"
+  );
+  logoHost.style.setProperty("background-repeat", "no-repeat", "important");
+  logoHost.style.setProperty("background-color", "transparent", "important");
+  logoHost.style.setProperty("border", "0", "important");
+  logoHost.style.setProperty("box-shadow", "none", "important");
+  logoHost.style.setProperty("color", "transparent", "important");
+  logoHost.style.setProperty("overflow", "hidden", "important");
+  logoHost.style.setProperty("opacity", "1", "important");
+  logoHost.style.setProperty("visibility", "visible", "important");
+
+  logoHost.setAttribute("aria-label", `${teamName} team crest`);
+  logoHost.dataset.exactSpriteTile = key;
 };
 
 const installPicture = (logoHost, teamName, src) => {
@@ -73,12 +108,17 @@ const applyTeamProfileLogos = () => {
   if (!teamHeader) return;
 
   const teamName = teamHeader.querySelector("h1")?.textContent?.trim() || "";
-  const matchedSrc = TEAM_PROFILE_LOGOS.get(teamName);
-  if (!matchedSrc) return;
-
   const logoHost = teamHeader.querySelector(".team-logo");
   if (!logoHost) return;
 
+  const spriteTile = EXACT_BATCH_PROFILE_TILES.get(teamName);
+  if (spriteTile) {
+    installSpriteTile(logoHost, teamName, spriteTile);
+    return;
+  }
+
+  const matchedSrc = TEAM_PROFILE_LOGOS.get(teamName);
+  if (!matchedSrc) return;
   installPicture(logoHost, teamName, matchedSrc);
 };
 
