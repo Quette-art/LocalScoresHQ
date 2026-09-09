@@ -9,16 +9,9 @@ const SCORE_MARKS = new Map([
   ["St. Vincent Pallotti", "/mascots/score-marks/st-vincent-pallotti-svp.svg?v=svp-exact-picture-1"],
   ["Georgetown Prep", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
   ["Georgetown Preparatory School", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
-  ["Mt. Zion", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-existing-picture-4"],
-  ["Mt. Zion Prep", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-existing-picture-4"],
-  ["Mt. Zion Prep Academy", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=exact-existing-picture-4"],
 ]);
 
-const EXACT_PICTURE_TEAMS = new Set([
-  "Mt. Zion",
-  "Mt. Zion Prep",
-  "Mt. Zion Prep Academy",
-]);
+const EXACT_PICTURE_TEAMS = new Set([]);
 
 const teamFromAlt = (alt = "") =>
   alt
