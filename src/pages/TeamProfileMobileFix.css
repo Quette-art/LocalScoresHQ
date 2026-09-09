@@ -35,8 +35,8 @@
   min-width: 500% !important;
   max-width: none !important;
   object-fit: fill !important;
-  left: calc(var(--exact-batch-col) * -100%) !important;
-  top: calc(var(--exact-batch-row) * -100%) !important;
+  left: var(--exact-batch-left) !important;
+  top: var(--exact-batch-top) !important;
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
