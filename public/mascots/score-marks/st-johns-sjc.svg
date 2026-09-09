@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">St. John's compact SJC mark</title>
+  <desc id="desc">Compact scarlet, white, and dark outlined SJC initials for LocalScoresHQ score cards.</desc>
+  <path d="M64 5 113 23v37c0 31-18 51-49 63C33 111 15 91 15 60V23Z" fill="#b5122b" stroke="#111827" stroke-width="7"/>
+  <path d="M64 13 105 28v31c0 25-14 42-41 53-27-11-41-28-41-53V28Z" fill="none" stroke="#ffffff" stroke-width="3" opacity=".95"/>
+  <path d="M29 40h70" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+  <text x="64" y="82" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="37" font-weight="900" letter-spacing="-3" fill="#ffffff" stroke="#111827" stroke-width="7" stroke-linejoin="round">SJC</text>
+  <text x="64" y="82" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="37" font-weight="900" letter-spacing="-3" fill="#ffffff" stroke="#b5122b" stroke-width="2" stroke-linejoin="round">SJC</text>
+  <path d="M38 94h52" stroke="#111827" stroke-width="7" stroke-linecap="round"/>
+  <path d="M40 94h48" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+</svg>
