@@ -12,6 +12,9 @@ import {
 import { db } from "../firebase";
 import "../components/ScoresTab.css";
 import TeamMascot from "../components/TeamMascot";
+import ShareScoreLogo from "../components/ShareScoreLogo";
+
+const SITE_HOST = "local-scores-hq.vercel.app";
 
 const GameDetails = ({
   game,
@@ -150,6 +153,20 @@ const GameDetails = ({
 
   const waitForGraphicAssets = async () => {
     await document.fonts?.ready;
+
+    const started = Date.now();
+    while (Date.now() - started < 2500) {
+      const logos = Array.from(
+        shareCardRef.current?.querySelectorAll("[data-share-logo]") || []
+      );
+      if (
+        logos.length &&
+        logos.every((logo) => logo.getAttribute("data-share-logo") === "ready")
+      ) {
+        break;
+      }
+      await new Promise((resolve) => window.setTimeout(resolve, 50));
+    }
 
     const images = Array.from(
       shareCardRef.current?.querySelectorAll("img") || []
@@ -480,11 +497,10 @@ const GameDetails = ({
                 <div className="share-score-card-glow share-score-card-glow-two" />
 
                 <header className="share-score-brand">
-                  <img
-                    src="/logo.png"
-                    alt="Local Scores HQ"
-                    className="share-score-brand-logo"
-                  />
+                  <div className="share-score-wordmark">
+                    <img src="/icon-192.png" alt="" />
+                    <strong>LOCAL SCORES HQ</strong>
+                  </div>
                   <b>FINAL</b>
                 </header>
 
@@ -498,10 +514,7 @@ const GameDetails = ({
 
                 <div className="share-score-matchup">
                   <div className={team1Won ? "is-winner" : isTie ? "is-tie" : ""}>
-                    <TeamMascot
-                      teamName={localGame.team1}
-                      className="share-score-mascot game-details-team-logo"
-                    />
+                    <ShareScoreLogo teamName={localGame.team1} />
                     <strong>{localGame.team1}</strong>
                     <b>{localGame.score1}</b>
                     {team1Won && <span>WINNER</span>}
@@ -511,10 +524,7 @@ const GameDetails = ({
                   <i>—</i>
 
                   <div className={team2Won ? "is-winner" : isTie ? "is-tie" : ""}>
-                    <TeamMascot
-                      teamName={localGame.team2}
-                      className="share-score-mascot game-details-team-logo"
-                    />
+                    <ShareScoreLogo teamName={localGame.team2} />
                     <strong>{localGame.team2}</strong>
                     <b>{localGame.score2}</b>
                     {team2Won && <span>WINNER</span>}
@@ -523,8 +533,11 @@ const GameDetails = ({
                 </div>
 
                 <footer className="share-score-footer">
-                  <span>{localGame.location || "Location TBD"}</span>
-                  <strong>LOCALSCORESHQ</strong>
+                  <div className="share-score-footer-row">
+                    <span>{localGame.location || "Location TBD"}</span>
+                    <strong>LOCALSCORESHQ</strong>
+                  </div>
+                  <em>{SITE_HOST}</em>
                 </footer>
               </article>
             </div>
