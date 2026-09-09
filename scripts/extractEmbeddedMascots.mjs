@@ -1,6 +1,5 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
-import { createHash } from "node:crypto";
 
 const images = [
   ["public/mascots/mt-zion-prep.svg", "public/mascots/mt-zion-prep.webp"],
@@ -22,41 +21,27 @@ for (const [source, output] of images) {
   console.log(`Extracted ${output}`);
 }
 
-// Rebuild the exact five-team artwork from the ORIGINAL generated image data
-// stored in code. The previously committed public sprite was only ~15 KB and
-// was not the actual 416,794-byte transparent image, which is why the logo
-// container kept ending up blank even when the React/CSS logic was correct.
-const exactBatchBase64Path =
-  "src/data/exact-logo-chunks/missing-team-batch-sprite.base64.txt";
-const exactBatchSpritePath =
-  "public/mascots/exact-batch/missing-team-batch-sprite.webp";
-const exactBatchOutput = "src/generated/exactBatchSpriteData.js";
+// Exact generated pictures are stored as base64 text in source control because
+// the GitHub connector only writes text files. At build time they become normal
+// standalone WebP files, so React can render them through the same <img> path as
+// every other team logo. No SVG wrapper, sprite crop, or recovery layer needed.
+const directImages = [
+  [
+    "src/data/exact-logo-chunks/v4/woodberry-forest-full-v4.base64.txt",
+    "public/mascots/exact-v4/woodberry-forest-full-v4.webp",
+  ],
+  [
+    "src/data/exact-logo-chunks/v4/woodberry-forest-score-v4.base64.txt",
+    "public/mascots/exact-v4/woodberry-forest-score-v4.webp",
+  ],
+];
 
-const exactBatchBase64 = (await readFile(exactBatchBase64Path, "utf8"))
-  .replace(/\s+/g, "");
-const exactBatchBytes = Buffer.from(exactBatchBase64, "base64");
-const exactBatchHash = createHash("sha256").update(exactBatchBytes).digest("hex");
-const expectedSize = 416794;
-const expectedHash = "8d361e1a4a1bc9d297ab68a7c27482c62755764568a786a2c5608d0ae223c686";
+for (const [source, output] of directImages) {
+  const base64 = (await readFile(source, "utf8")).replace(/\s+/g, "");
+  const bytes = Buffer.from(base64, "base64");
+  if (!bytes.length) throw new Error(`Empty embedded image: ${source}`);
 
-if (exactBatchBytes.length !== expectedSize || exactBatchHash !== expectedHash) {
-  throw new Error(
-    `Exact missing-team sprite failed verification: got ${exactBatchBytes.length} bytes / ${exactBatchHash}`
-  );
+  await mkdir(dirname(output), { recursive: true });
+  await writeFile(output, bytes);
+  console.log(`Restored exact image ${output} (${bytes.length} bytes)`);
 }
-
-await mkdir(dirname(exactBatchSpritePath), { recursive: true });
-await writeFile(exactBatchSpritePath, exactBatchBytes);
-console.log(
-  `Restored exact missing-team sprite (${exactBatchBytes.length} bytes, ${exactBatchHash})`
-);
-
-// Also bundle the verified image into the app itself, so the team profile and
-// score-card logos do not depend on a second network request or stale PWA cache.
-const exactBatchDataUri = `data:image/webp;base64,${exactBatchBase64}`;
-await mkdir(dirname(exactBatchOutput), { recursive: true });
-await writeFile(
-  exactBatchOutput,
-  `export const EXACT_BATCH_SPRITE_DATA = ${JSON.stringify(exactBatchDataUri)};\n`
-);
-console.log(`Embedded verified exact sprite into ${exactBatchOutput}`);
