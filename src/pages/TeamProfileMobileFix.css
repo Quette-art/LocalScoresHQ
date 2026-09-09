@@ -10,6 +10,22 @@
   flex: 0 0 112px;
 }
 
+/* These five generated crests are one exact transparent sprite. Keep this rule
+   authoritative so the generic blue fallback background cannot replace it. */
+.team-header .team-logo.exact-batch-logo {
+  background-image: var(--exact-batch-sprite) !important;
+  background-size: 500% 200% !important;
+  background-position: var(--exact-batch-position) !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 .team-header .team-logo svg {
   width: 100% !important;
   height: 100% !important;
