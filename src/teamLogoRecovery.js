@@ -2,6 +2,23 @@ const TEAM_PROFILE_LOGOS = new Map([
   ["Mt. Zion", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
   ["Mt. Zion Prep", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
   ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
+
+  ["Woodberry Forest", "/mascots/woodberry-forest.svg?v=exact-missing-team-batch-1"],
+  ["Woodberry Forest School", "/mascots/woodberry-forest.svg?v=exact-missing-team-batch-1"],
+
+  ["Loyola Blakefield", "/mascots/loyola-blakefield.svg?v=exact-missing-team-batch-1"],
+
+  ["Haverford School", "/mascots/haverford-school.svg?v=exact-missing-team-batch-1"],
+  ["The Haverford School", "/mascots/haverford-school.svg?v=exact-missing-team-batch-1"],
+
+  ["Boys Latin", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
+  ["Boys' Latin", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
+  ["Boys’ Latin", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
+  ["Boys Latin School", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
+  ["The Boys' Latin School of Maryland", "/mascots/boys-latin.svg?v=exact-missing-team-batch-1"],
+
+  ["McDonogh", "/mascots/mcdonogh.svg?v=exact-missing-team-batch-1"],
+  ["McDonogh School", "/mascots/mcdonogh.svg?v=exact-missing-team-batch-1"],
 ]);
 
 const styleImage = (img) => {

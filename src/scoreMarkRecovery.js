@@ -9,6 +9,23 @@ const SCORE_MARKS = new Map([
   ["St. Vincent Pallotti", "/mascots/score-marks/st-vincent-pallotti-svp.svg?v=svp-exact-picture-1"],
   ["Georgetown Prep", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
   ["Georgetown Preparatory School", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
+
+  ["Woodberry Forest", "/mascots/score-marks/woodberry-forest-wf.svg?v=exact-missing-team-batch-1"],
+  ["Woodberry Forest School", "/mascots/score-marks/woodberry-forest-wf.svg?v=exact-missing-team-batch-1"],
+
+  ["Loyola Blakefield", "/mascots/score-marks/loyola-blakefield-lb.svg?v=exact-missing-team-batch-1"],
+
+  ["Haverford School", "/mascots/score-marks/haverford-school-h.svg?v=exact-missing-team-batch-1"],
+  ["The Haverford School", "/mascots/score-marks/haverford-school-h.svg?v=exact-missing-team-batch-1"],
+
+  ["Boys Latin", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
+  ["Boys' Latin", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
+  ["Boys’ Latin", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
+  ["Boys Latin School", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
+  ["The Boys' Latin School of Maryland", "/mascots/score-marks/boys-latin-bl.svg?v=exact-missing-team-batch-1"],
+
+  ["McDonogh", "/mascots/score-marks/mcdonogh-mcd.svg?v=exact-missing-team-batch-1"],
+  ["McDonogh School", "/mascots/score-marks/mcdonogh-mcd.svg?v=exact-missing-team-batch-1"],
 ]);
 
 const EXACT_PICTURE_TEAMS = new Set([]);
@@ -29,7 +46,7 @@ const styleImage = (img) => {
 };
 
 const installExactPicture = (target, teamName, src) => {
-  if (!target) return;
+  if (!target || !src) return;
 
   const current = target.querySelector("img[data-exact-score-picture='1']");
   if (
@@ -61,7 +78,7 @@ const installExactPicture = (target, teamName, src) => {
 };
 
 const setImageSource = (img, teamName, src) => {
-  if (!img) return;
+  if (!img || !src) return;
   if (img.getAttribute("src") !== src) img.setAttribute("src", src);
   img.setAttribute("alt", `${teamName} score mark`);
   img.setAttribute("decoding", "async");
@@ -72,7 +89,7 @@ const setImageSource = (img, teamName, src) => {
 };
 
 const installMark = (target, teamName, src) => {
-  if (!target) return;
+  if (!target || !src) return;
 
   if (EXACT_PICTURE_TEAMS.has(teamName)) {
     installExactPicture(target, teamName, src);
