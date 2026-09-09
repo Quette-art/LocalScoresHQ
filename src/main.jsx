@@ -9,6 +9,7 @@ import "./friendshipGameDetailsFix.js";
 import "./scoreMarkRecovery.js";
 import "./autoCenterScoreDate.js";
 import "./scoreFeatureEnhancements.js";
+import "./potomacSearchLabels.js";
 import "./App.css";
 import "./scoreFeatureEnhancements.css";
 import "./mobileSearchFix.css";
