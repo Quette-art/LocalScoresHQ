@@ -1,6 +1,5 @@
 import React from "react";
-
-const SPRITE = "/mascots/exact-batch/missing-team-batch-sprite.webp?v=react-direct-3";
+import { EXACT_BATCH_SPRITE_DATA } from "../generated/exactBatchSpriteData";
 
 const TILE_INDEX = new Map([
   ["Woodberry Forest", 0],
@@ -35,9 +34,18 @@ export default function ExactBatchLogo({
       role="img"
       aria-label={`${teamName} ${variant === "full" ? "team crest" : "score mark"}`}
       style={{
-        "--exact-batch-sprite": `url("${SPRITE}")`,
-        "--exact-batch-position": `${col * 25}% ${row * 100}%`,
+        "--exact-batch-col": col,
+        "--exact-batch-row": row,
       }}
-    />
+    >
+      <img
+        className="exact-batch-sprite-image"
+        src={EXACT_BATCH_SPRITE_DATA}
+        alt=""
+        aria-hidden="true"
+        loading="eager"
+        decoding="async"
+      />
+    </span>
   );
 }
