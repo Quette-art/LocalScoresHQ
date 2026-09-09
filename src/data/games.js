@@ -49,7 +49,24 @@ const footballGamesWithSep5Finals = applyFootballResultsSep5Finals(
   footballGamesWithSep5Updates
 );
 
-export const games = footballGamesWithSep5Finals;
+const TEAM_NAME_ALIASES = new Map([
+  ["Mt. Zion", "Mt. Zion Prep Academy"],
+  ["Mt. Zion Prep", "Mt. Zion Prep Academy"],
+  ["Georgetown Preparatory School", "Georgetown Prep"],
+]);
+
+const canonicalTeamName = (teamName = "") => {
+  const normalizedApostrophe = String(teamName).replace(/[’‘]/g, "'").trim();
+  return TEAM_NAME_ALIASES.get(normalizedApostrophe) || normalizedApostrophe;
+};
+
+const canonicalizeTeamNames = (game) => ({
+  ...game,
+  team1: canonicalTeamName(game.team1),
+  team2: canonicalTeamName(game.team2),
+});
+
+export const games = footballGamesWithSep5Finals.map(canonicalizeTeamNames);
 
 export const upcomingGames = games;
 
