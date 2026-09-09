@@ -34,8 +34,8 @@ export default function ExactBatchLogo({
       role="img"
       aria-label={`${teamName} ${variant === "full" ? "team crest" : "score mark"}`}
       style={{
-        "--exact-batch-col": col,
-        "--exact-batch-row": row,
+        "--exact-batch-left": `-${col * 100}%`,
+        "--exact-batch-top": `-${row * 100}%`,
       }}
     >
       <img
