@@ -1,5 +1,4 @@
-const EXACT_BATCH_SPRITE =
-  "/mascots/exact-batch/missing-team-batch-sprite.webp?v=direct-sprite-crop-2";
+import { EXACT_BATCH_SPRITE_DATA } from "./generated/exactBatchSpriteData";
 
 const EXACT_BATCH_SCORE_TILES = new Map([
   ["Woodberry Forest", { col: 0, row: 1 }],
@@ -29,17 +28,13 @@ const SCORE_MARKS = new Map([
   ["Georgetown Preparatory School", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
 ]);
 
-const EXACT_PICTURE_TEAMS = new Set([]);
-const TRANSPARENT_PIXEL =
-  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-
 const teamFromAlt = (alt = "") =>
   alt
     .replace(/ unofficial mascot$/i, "")
     .replace(/ score mark$/i, "")
     .trim();
 
-const styleImage = (img) => {
+const styleRegularImage = (img) => {
   img.style.setProperty("display", "block", "important");
   img.style.setProperty("width", "100%", "important");
   img.style.setProperty("height", "100%", "important");
@@ -48,70 +43,53 @@ const styleImage = (img) => {
   img.style.setProperty("visibility", "visible", "important");
 };
 
-const applySpriteBackground = (target, teamName, tile) => {
-  if (!target || !tile) return;
+const applyExactSpriteImage = (target, teamName, tile) => {
+  if (!target || !tile || target.tagName === "IMG") return;
+
+  const key = `${teamName}:${tile.col}:${tile.row}`;
+  const existing = target.querySelector("img[data-exact-batch-score='1']");
+  if (target.dataset.exactBatchScore === key && existing) return;
 
   target.classList.remove("team-mascot-fallback");
-
-  if (target.tagName === "IMG") {
-    target.setAttribute("src", TRANSPARENT_PIXEL);
-    target.setAttribute("alt", `${teamName} score mark`);
-  } else {
-    target.textContent = "";
-  }
-
-  target.style.setProperty(
-    "background-image",
-    `url("${EXACT_BATCH_SPRITE}")`,
-    "important"
-  );
-  target.style.setProperty("background-size", "500% 200%", "important");
-  target.style.setProperty(
-    "background-position",
-    `${tile.col * 25}% ${tile.row * 100}%`,
-    "important"
-  );
-  target.style.setProperty("background-repeat", "no-repeat", "important");
-  target.style.setProperty("background-color", "transparent", "important");
-  target.style.setProperty("border", "0", "important");
-  target.style.setProperty("box-shadow", "none", "important");
-  target.style.setProperty("color", "transparent", "important");
-  target.style.setProperty("opacity", "1", "important");
-  target.style.setProperty("visibility", "visible", "important");
-  target.style.setProperty("overflow", "hidden", "important");
-  target.dataset.exactSpriteScore = `${teamName}:${tile.col}:${tile.row}`;
-};
-
-const installExactPicture = (target, teamName, src) => {
-  if (!target || !src) return;
-
-  const current = target.querySelector("img[data-exact-score-picture='1']");
-  if (
-    target.dataset.exactScorePicture === src &&
-    current?.getAttribute("src") === src
-  ) {
-    styleImage(current);
-    return;
-  }
-
-  target.classList.remove("team-mascot-fallback");
+  target.textContent = "";
+  target.style.setProperty("position", "relative", "important");
+  target.style.setProperty("display", "block", "important");
   target.style.setProperty("background", "transparent", "important");
   target.style.setProperty("background-image", "none", "important");
   target.style.setProperty("border", "0", "important");
   target.style.setProperty("box-shadow", "none", "important");
   target.style.setProperty("color", "transparent", "important");
-  target.style.setProperty("overflow", "visible", "important");
+  target.style.setProperty("overflow", "hidden", "important");
+  target.style.setProperty("opacity", "1", "important");
+  target.style.setProperty("visibility", "visible", "important");
 
-  target.textContent = "";
   const img = document.createElement("img");
-  img.setAttribute("src", src);
-  img.setAttribute("alt", `${teamName} score mark`);
-  img.setAttribute("decoding", "async");
+  img.setAttribute("src", EXACT_BATCH_SPRITE_DATA);
+  img.setAttribute("alt", "");
+  img.setAttribute("aria-hidden", "true");
   img.setAttribute("loading", "eager");
-  img.dataset.exactScorePicture = "1";
-  styleImage(img);
+  img.setAttribute("decoding", "async");
+  img.dataset.exactBatchScore = "1";
+
+  img.style.setProperty("position", "absolute", "important");
+  img.style.setProperty("display", "block", "important");
+  img.style.setProperty("width", "500%", "important");
+  img.style.setProperty("height", "200%", "important");
+  img.style.setProperty("min-width", "500%", "important");
+  img.style.setProperty("max-width", "none", "important");
+  img.style.setProperty("object-fit", "fill", "important");
+  img.style.setProperty("left", `-${tile.col * 100}%`, "important");
+  img.style.setProperty("top", `-${tile.row * 100}%`, "important");
+  img.style.setProperty("margin", "0", "important");
+  img.style.setProperty("padding", "0", "important");
+  img.style.setProperty("border", "0", "important");
+  img.style.setProperty("opacity", "1", "important");
+  img.style.setProperty("visibility", "visible", "important");
+  img.style.setProperty("pointer-events", "none", "important");
+
   target.appendChild(img);
-  target.dataset.exactScorePicture = src;
+  target.setAttribute("aria-label", `${teamName} score mark`);
+  target.dataset.exactBatchScore = key;
 };
 
 const setImageSource = (img, teamName, src) => {
@@ -119,19 +97,11 @@ const setImageSource = (img, teamName, src) => {
   if (img.getAttribute("src") !== src) img.setAttribute("src", src);
   img.setAttribute("alt", `${teamName} score mark`);
   img.setAttribute("decoding", "async");
-  img.style.setProperty("display", "block", "important");
-  img.style.setProperty("opacity", "1", "important");
-  img.style.setProperty("visibility", "visible", "important");
-  img.style.setProperty("object-fit", "contain", "important");
+  styleRegularImage(img);
 };
 
 const installMark = (target, teamName, src) => {
   if (!target || !src) return;
-
-  if (EXACT_PICTURE_TEAMS.has(teamName)) {
-    installExactPicture(target, teamName, src);
-    return;
-  }
 
   if (target.tagName === "IMG") {
     setImageSource(target, teamName, src);
@@ -170,7 +140,7 @@ const recoverExistingScoreMarks = () => {
       exactTeamFromText(buttonText);
 
     if (exactTeam) {
-      applySpriteBackground(
+      applyExactSpriteImage(
         target,
         exactTeam,
         EXACT_BATCH_SCORE_TILES.get(exactTeam)
@@ -190,7 +160,7 @@ const recoverExistingScoreMarks = () => {
     const logoTarget = row.querySelector(".game-details-team-logo");
 
     if (exactTeam) {
-      applySpriteBackground(
+      applyExactSpriteImage(
         logoTarget,
         exactTeam,
         EXACT_BATCH_SCORE_TILES.get(exactTeam)
