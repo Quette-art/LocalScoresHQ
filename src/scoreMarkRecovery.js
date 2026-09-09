@@ -4,8 +4,17 @@ const SCORE_MARKS = new Map([
   ["Landon", "/mascots/score-marks/landon-l.svg?v=creative-initials-2"],
   ["National Christian Academy", "/mascots/score-marks/national-christian-academy-nca.svg?v=creative-initials-2"],
   ["Rock Creek Christian Academy", "/mascots/score-marks/rock-creek-christian-academy-rc.svg?v=creative-initials-2"],
-  ["St. Mary's Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=creative-initials-2"],
-  ["St. Mary’s Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=creative-initials-2"],
+  ["Mt. Zion", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=compact-system-1"],
+  ["Mt. Zion Prep", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=compact-system-1"],
+  ["Mt. Zion Prep Academy", "/mascots/score-marks/mt-zion-prep-mzp.svg?v=compact-system-1"],
+  ["St. John's", "/mascots/score-marks/st-johns-sjc.svg?v=compact-system-1"],
+  ["St. John’s", "/mascots/score-marks/st-johns-sjc.svg?v=compact-system-1"],
+  ["St Johns", "/mascots/score-marks/st-johns-sjc.svg?v=compact-system-1"],
+  ["St. John's College High School", "/mascots/score-marks/st-johns-sjc.svg?v=compact-system-1"],
+  ["St. Mary's Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=compact-system-1"],
+  ["St. Mary’s Ryken", "/mascots/score-marks/st-marys-ryken-smr.svg?v=compact-system-1"],
+  ["St. Michael the Archangel (VA)", "/mascots/st-michael-warriors-score-sma.svg?v=compact-system-1"],
+  ["St. Michael the Archangel", "/mascots/st-michael-warriors-score-sma.svg?v=compact-system-1"],
   ["St. Vincent Pallotti", "/mascots/score-marks/st-vincent-pallotti-svp.svg?v=svp-exact-picture-1"],
   ["Georgetown Prep", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
   ["Georgetown Preparatory School", "/mascots/score-marks/georgetown-prep-gp.svg?v=exact-generated-mobile-1"],
@@ -72,7 +81,7 @@ const setImageSource = (img, teamName, src) => {
 };
 
 const installMark = (target, teamName, src) => {
-  if (!target) return;
+  if (!target || !src) return;
 
   if (EXACT_PICTURE_TEAMS.has(teamName)) {
     installExactPicture(target, teamName, src);
