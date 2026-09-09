@@ -1,7 +1,15 @@
 const TEAM_PROFILE_LOGOS = new Map([
-  ["Mt. Zion", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
-  ["Mt. Zion Prep", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
-  ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.svg?v=exact-existing-picture-4"],
+  ["Mt. Zion", "/mascots/mt-zion-prep.svg?v=full-crest-system-1"],
+  ["Mt. Zion Prep", "/mascots/mt-zion-prep.svg?v=full-crest-system-1"],
+  ["Mt. Zion Prep Academy", "/mascots/mt-zion-prep.svg?v=full-crest-system-1"],
+  ["St. John's", "/mascots/st-johns.svg?v=full-crest-system-1"],
+  ["St. John’s", "/mascots/st-johns.svg?v=full-crest-system-1"],
+  ["St Johns", "/mascots/st-johns.svg?v=full-crest-system-1"],
+  ["St. John's College High School", "/mascots/st-johns.svg?v=full-crest-system-1"],
+  ["St. Mary's Ryken", "/mascots/custom/st-marys-ryken-custom.svg?v=full-crest-system-1"],
+  ["St. Mary’s Ryken", "/mascots/custom/st-marys-ryken-custom.svg?v=full-crest-system-1"],
+  ["St. Michael the Archangel (VA)", "/mascots/st-michael-warriors-full-crest.svg?v=full-crest-system-1"],
+  ["St. Michael the Archangel", "/mascots/st-michael-warriors-full-crest.svg?v=full-crest-system-1"],
 ]);
 
 const styleImage = (img) => {
