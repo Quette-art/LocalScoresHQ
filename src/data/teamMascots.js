@@ -231,6 +231,8 @@ export const teamMascots = {
   "Manassas Park High School": "/mascots/manassas-park.svg",
   "Chester (PA)": "/mascots/chester-pa.svg",
   Chester: "/mascots/chester-pa.svg",
+  "Woodberry Forest": "/mascots/exact-v4/woodberry-forest-full-v4.webp",
+  "Woodberry Forest School": "/mascots/exact-v4/woodberry-forest-full-v4.webp",
 };
 
 const scoreMascots = {
@@ -389,6 +391,8 @@ const scoreMascots = {
   "Our Lady of Good Counsel": "/mascots/missing-teams/good-counsel-score-gc.webp",
   Maret: "/mascots/missing-teams/maret-score-m.webp",
   "Maret School": "/mascots/missing-teams/maret-score-m.webp",
+  "Woodberry Forest": "/mascots/exact-v4/woodberry-forest-score-v4.webp",
+  "Woodberry Forest School": "/mascots/exact-v4/woodberry-forest-score-v4.webp",
 };
 
 const standingsMascots = {
