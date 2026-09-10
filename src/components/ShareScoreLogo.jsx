@@ -51,6 +51,11 @@ const SCORE_ART = {
   "Abraham Lincoln": "/mascots/missing-teams/abraham-lincoln-score-l.webp",
   "Long Island Lutheran": "/mascots/missing-teams/long-island-lutheran-score-lh.webp",
   "North East": "/mascots/missing-teams/north-east-score-ne.webp",
+  Gilman: "/mascots/missing-teams/gilman-score-g.webp",
+  "St. Mary's": "/mascots/missing-teams/st-marys-score-sm.webp",
+  "St. Christopher's": "/mascots/missing-teams/st-christophers-score-sc.webp",
+  "St. Frances": "/mascots/missing-teams/st-frances-score-sf.webp",
+  "St. Frances Academy": "/mascots/missing-teams/st-frances-score-sf.webp",
 };
 
 const getInitials = (teamName = "") =>

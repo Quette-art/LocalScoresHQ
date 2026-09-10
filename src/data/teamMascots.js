@@ -82,6 +82,8 @@ export const teamMascots = {
   "Saint John Paul the Great Catholic": "/mascots/missing-teams/john-paul-great-wolfpack-full.webp",
   "Saint John Paul the Great Catholic High School": "/mascots/missing-teams/john-paul-great-wolfpack-full.webp",
   "John Paul the Great": "/mascots/missing-teams/john-paul-great-wolfpack-full.webp",
+  "St. John Paul the Great": "/mascots/missing-teams/john-paul-great-wolfpack-full.webp",
+  "St. John Paul the Great Catholic": "/mascots/missing-teams/john-paul-great-wolfpack-full.webp",
   "Glen Burnie": "/mascots/missing-teams/glen-burnie-gophers-full.webp",
   "Glen Burnie High School": "/mascots/missing-teams/glen-burnie-gophers-full.webp",
   "Lake Clifton": "/mascots/missing-teams/lake-clifton-lakers-full.webp",
@@ -175,6 +177,8 @@ export const teamMascots = {
   "Sidwell Friends School": "/mascots/missing-teams/sidwell-friends-quakers-full.webp",
   "St. John's": "/mascots/st-johns.svg",
   "St. John’s": "/mascots/st-johns.svg",
+  "St. John's Gray": "/mascots/st-johns.svg",
+  "St. John’s Gray": "/mascots/st-johns.svg",
   "St Johns": "/mascots/st-johns.svg",
   Benedictine: "/mascots/benedictine-cadets-hq.svg",
   "Calvert Hall": "/mascots/missing-teams/calvert-hall-cardinals-full.webp",
@@ -279,6 +283,15 @@ export const teamMascots = {
   LuHi: "/mascots/missing-teams/long-island-lutheran-crusaders-full.webp",
   "North East": "/mascots/missing-teams/north-east-full.webp",
   "North East High School": "/mascots/missing-teams/north-east-full.webp",
+  Gilman: "/mascots/missing-teams/gilman-greyhounds-full.webp",
+  "Gilman School": "/mascots/missing-teams/gilman-greyhounds-full.webp",
+  "St. Mary's": "/mascots/missing-teams/st-marys-saints-full.webp",
+  "St. Mary’s": "/mascots/missing-teams/st-marys-saints-full.webp",
+  "St. Mary's Annapolis": "/mascots/missing-teams/st-marys-saints-full.webp",
+  "St. Christopher's": "/mascots/missing-teams/st-christophers-saints-full.webp",
+  "St. Christopher’s": "/mascots/missing-teams/st-christophers-saints-full.webp",
+  "St. Frances": "/mascots/missing-teams/st-frances-panthers-full.webp",
+  "St. Frances Academy": "/mascots/missing-teams/st-frances-panthers-full.webp",
 };
 
 const scoreMascots = {
@@ -376,6 +389,8 @@ const scoreMascots = {
   "Saint John Paul the Great Catholic": "/mascots/missing-teams/john-paul-great-score-jp.webp",
   "Saint John Paul the Great Catholic High School": "/mascots/missing-teams/john-paul-great-score-jp.webp",
   "John Paul the Great": "/mascots/missing-teams/john-paul-great-score-jp.webp",
+  "St. John Paul the Great": "/mascots/missing-teams/john-paul-great-score-jp.webp",
+  "St. John Paul the Great Catholic": "/mascots/missing-teams/john-paul-great-score-jp.webp",
   "Glen Burnie": "/mascots/missing-teams/glen-burnie-score-gb.webp",
   "Glen Burnie High School": "/mascots/missing-teams/glen-burnie-score-gb.webp",
   "Lake Clifton": "/mascots/missing-teams/lake-clifton-score-lc.webp",
@@ -485,6 +500,15 @@ const scoreMascots = {
   LuHi: "/mascots/missing-teams/long-island-lutheran-score-lh.webp",
   "North East": "/mascots/missing-teams/north-east-score-ne.webp",
   "North East High School": "/mascots/missing-teams/north-east-score-ne.webp",
+  Gilman: "/mascots/missing-teams/gilman-score-g.webp",
+  "Gilman School": "/mascots/missing-teams/gilman-score-g.webp",
+  "St. Mary's": "/mascots/missing-teams/st-marys-score-sm.webp",
+  "St. Mary’s": "/mascots/missing-teams/st-marys-score-sm.webp",
+  "St. Mary's Annapolis": "/mascots/missing-teams/st-marys-score-sm.webp",
+  "St. Christopher's": "/mascots/missing-teams/st-christophers-score-sc.webp",
+  "St. Christopher’s": "/mascots/missing-teams/st-christophers-score-sc.webp",
+  "St. Frances": "/mascots/missing-teams/st-frances-score-sf.webp",
+  "St. Frances Academy": "/mascots/missing-teams/st-frances-score-sf.webp",
 };
 
 const standingsMascots = {
