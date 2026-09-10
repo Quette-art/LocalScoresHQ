@@ -26,8 +26,10 @@
 }
 
 .score-team-mascot:has(img[alt="St. Albans unofficial mascot"]),
-.game-details-team-logo:has(img[alt="St. Albans unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/st-albans-score.svg') !important;
+.score-team-mascot:has(img[alt="St. Albans score mark"]),
+.game-details-team-logo:has(img[alt="St. Albans unofficial mascot"]),
+.game-details-team-logo:has(img[alt="St. Albans score mark"]) {
+  background-image: none !important;
 }
 
 .score-team-mascot:has(img[alt="Bullis unofficial mascot"]),
@@ -39,25 +41,46 @@
 }
 
 .score-team-mascot:has(img[alt="Landon unofficial mascot"]),
-.game-details-team-logo:has(img[alt="Landon unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/landon-score.svg') !important;
+.score-team-mascot:has(img[alt="Landon score mark"]),
+.game-details-team-logo:has(img[alt="Landon unofficial mascot"]),
+.game-details-team-logo:has(img[alt="Landon score mark"]) {
+  background-image: none !important;
 }
 
 .score-team-mascot:has(img[alt="National Christian Academy unofficial mascot"]),
-.game-details-team-logo:has(img[alt="National Christian Academy unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/national-christian-academy-score.svg') !important;
+.score-team-mascot:has(img[alt="National Christian Academy score mark"]),
+.game-details-team-logo:has(img[alt="National Christian Academy unofficial mascot"]),
+.game-details-team-logo:has(img[alt="National Christian Academy score mark"]) {
+  background-image: none !important;
 }
 
 .score-team-mascot:has(img[alt="Rock Creek Christian Academy unofficial mascot"]),
-.game-details-team-logo:has(img[alt="Rock Creek Christian Academy unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/rock-creek-christian-academy-score.svg') !important;
+.score-team-mascot:has(img[alt="Rock Creek Christian Academy score mark"]),
+.game-details-team-logo:has(img[alt="Rock Creek Christian Academy unofficial mascot"]),
+.game-details-team-logo:has(img[alt="Rock Creek Christian Academy score mark"]) {
+  background-image: none !important;
 }
 
 .score-team-mascot:has(img[alt="St. Mary's Ryken unofficial mascot"]),
 .score-team-mascot:has(img[alt="St. Mary’s Ryken unofficial mascot"]),
+.score-team-mascot:has(img[alt="St. Mary's Ryken score mark"]),
+.score-team-mascot:has(img[alt="St. Mary’s Ryken score mark"]),
 .game-details-team-logo:has(img[alt="St. Mary's Ryken unofficial mascot"]),
-.game-details-team-logo:has(img[alt="St. Mary’s Ryken unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/st-marys-ryken-score.svg') !important;
+.game-details-team-logo:has(img[alt="St. Mary’s Ryken unofficial mascot"]),
+.game-details-team-logo:has(img[alt="St. Mary's Ryken score mark"]),
+.game-details-team-logo:has(img[alt="St. Mary’s Ryken score mark"]) {
+  background-image: none !important;
+}
+
+.score-team-mascot:has(img[alt="Georgetown Prep unofficial mascot"]),
+.score-team-mascot:has(img[alt="Georgetown Prep score mark"]),
+.score-team-mascot:has(img[alt="Georgetown Preparatory School unofficial mascot"]),
+.score-team-mascot:has(img[alt="Georgetown Preparatory School score mark"]),
+.game-details-team-logo:has(img[alt="Georgetown Prep unofficial mascot"]),
+.game-details-team-logo:has(img[alt="Georgetown Prep score mark"]),
+.game-details-team-logo:has(img[alt="Georgetown Preparatory School unofficial mascot"]),
+.game-details-team-logo:has(img[alt="Georgetown Preparatory School score mark"]) {
+  background-image: none !important;
 }
 
 /* Pallotti renders directly from the score-mark <img> source, matching the working initials system. */
@@ -67,25 +90,47 @@
 }
 
 .score-team-mascot:has(img[alt="St. Vincent Pallotti score mark"]) img,
-.game-details-team-logo:has(img[alt="St. Vincent Pallotti score mark"]) img {
+.game-details-team-logo:has(img[alt="St. Vincent Pallotti score mark"]) img,
+.score-team-mascot:has(img[alt="St. Vincent Pallotti unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="St. Vincent Pallotti unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="St. Albans unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="St. Albans score mark"]) img,
+.score-team-mascot:has(img[alt="Landon unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="Landon score mark"]) img,
+.score-team-mascot:has(img[alt="St. Mary's Ryken unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="St. Mary’s Ryken unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="St. Mary's Ryken score mark"]) img,
+.score-team-mascot:has(img[alt="St. Mary’s Ryken score mark"]) img,
+.score-team-mascot:has(img[alt="Georgetown Prep unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="Georgetown Prep score mark"]) img,
+.score-team-mascot:has(img[alt="Georgetown Preparatory School unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="Georgetown Preparatory School score mark"]) img,
+.score-team-mascot:has(img[alt="National Christian Academy unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="National Christian Academy score mark"]) img,
+.score-team-mascot:has(img[alt="Rock Creek Christian Academy unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="Rock Creek Christian Academy score mark"]) img,
+.game-details-team-logo:has(img[alt="St. Albans unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="St. Albans score mark"]) img,
+.game-details-team-logo:has(img[alt="Landon unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="Landon score mark"]) img,
+.game-details-team-logo:has(img[alt="St. Mary's Ryken unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="St. Mary’s Ryken unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="St. Mary's Ryken score mark"]) img,
+.game-details-team-logo:has(img[alt="St. Mary’s Ryken score mark"]) img,
+.game-details-team-logo:has(img[alt="Georgetown Prep unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="Georgetown Prep score mark"]) img,
+.game-details-team-logo:has(img[alt="Georgetown Preparatory School unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="Georgetown Preparatory School score mark"]) img,
+.game-details-team-logo:has(img[alt="National Christian Academy unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="National Christian Academy score mark"]) img,
+.game-details-team-logo:has(img[alt="Rock Creek Christian Academy unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="Rock Creek Christian Academy score mark"]) img {
   opacity: 1 !important;
   visibility: visible !important;
 }
 
-.score-team-mascot:has(img[alt="St. Albans unofficial mascot"]) img,
 .score-team-mascot:has(img[alt="Bullis unofficial mascot"]) img,
-.score-team-mascot:has(img[alt="Landon unofficial mascot"]) img,
-.score-team-mascot:has(img[alt="National Christian Academy unofficial mascot"]) img,
-.score-team-mascot:has(img[alt="Rock Creek Christian Academy unofficial mascot"]) img,
-.score-team-mascot:has(img[alt="St. Mary's Ryken unofficial mascot"]) img,
-.score-team-mascot:has(img[alt="St. Mary’s Ryken unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="St. Albans unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="Landon unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="National Christian Academy unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="Rock Creek Christian Academy unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="St. Mary's Ryken unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="St. Mary’s Ryken unofficial mascot"]) img {
+.game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) img {
   opacity: 0 !important;
 }
 

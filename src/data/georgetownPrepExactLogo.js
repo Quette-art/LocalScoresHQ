@@ -1,7 +1,7 @@
 import { teamMascots } from "./teamMascots";
 
 const GEORGETOWN_PREP_CREST =
-  "/mascots/generated/georgetown-prep-team-exact.webp?v=team-page-exact-13";
+  "/mascots/missing-teams/georgetown-prep-hoyas-full.webp?v=identity-sheet-1";
 
 teamMascots["Georgetown Prep"] = GEORGETOWN_PREP_CREST;
 teamMascots["Georgetown Preparatory School"] = GEORGETOWN_PREP_CREST;

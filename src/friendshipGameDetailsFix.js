@@ -1,6 +1,6 @@
 const FRIENDSHIP_NAME = /Friendship Collegiate(?: Academy)?/i;
-const TRANSPARENT_PIXEL =
-  'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/%3E';
+const FRIENDSHIP_SCORE =
+  "/mascots/missing-teams/friendship-score-fc.webp?v=identity-sheet-1";
 
 const applyFriendshipGameDetailsFix = () => {
   if (typeof document === "undefined") return;
@@ -27,12 +27,9 @@ const applyFriendshipGameDetailsFix = () => {
       logo.appendChild(img);
     }
 
-    // This transparent hook deliberately matches friendshipCompactFix.css.
-    // That stylesheet contains the exact FC artwork already proven to render
-    // correctly on the Scores cards, so Game Details now uses the same source.
-    img.src = TRANSPARENT_PIXEL;
-    img.alt = "Friendship Collegiate Academy compact mark";
-    img.setAttribute("aria-hidden", "true");
+    if (img.getAttribute("src") !== FRIENDSHIP_SCORE) img.setAttribute("src", FRIENDSHIP_SCORE);
+    img.alt = "Friendship Collegiate Academy score mark";
+    img.removeAttribute("aria-hidden");
   });
 };
 

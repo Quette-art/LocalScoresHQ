@@ -4,18 +4,20 @@ import { RIVERDALE_FULL } from "../data/riverdaleExactLogo";
 
 const SCORE_ART = {
   Bullis: "/mascots/custom/score/bullis-score.svg",
-  "Friendship Collegiate": "/mascots/custom/score/friendship-collegiate-score.svg",
+  "Friendship Collegiate": "/mascots/missing-teams/friendship-score-fc.webp",
   "Friendship Collegiate Academy":
-    "/mascots/custom/score/friendship-collegiate-score.svg",
-  "St. Albans": "/mascots/custom/score/st-albans-score.svg",
-  Landon: "/mascots/custom/score/landon-score.svg",
+    "/mascots/missing-teams/friendship-score-fc.webp",
+  "St. Albans": "/mascots/missing-teams/st-albans-score-sa.webp",
+  Landon: "/mascots/missing-teams/landon-score-l.webp",
   "National Christian Academy":
-    "/mascots/custom/score/national-christian-academy-score.svg",
+    "/mascots/missing-teams/national-christian-score-nca.webp",
   "Rock Creek Christian Academy":
-    "/mascots/custom/score/rock-creek-christian-academy-score.svg",
-  "St. Mary's Ryken": "/mascots/custom/score/st-marys-ryken-score.svg",
-  "St. Mary’s Ryken": "/mascots/custom/score/st-marys-ryken-score.svg",
-  "St. Vincent Pallotti": "/mascots/custom/score/st-vincent-pallotti-score.svg",
+    "/mascots/missing-teams/rock-creek-score-rc.webp",
+  "St. Mary's Ryken": "/mascots/missing-teams/st-marys-ryken-score-smr.webp",
+  "St. Mary’s Ryken": "/mascots/missing-teams/st-marys-ryken-score-smr.webp",
+  "St. Vincent Pallotti": "/mascots/missing-teams/st-vincent-pallotti-score-svp.webp",
+  "Georgetown Prep": "/mascots/missing-teams/georgetown-prep-score-gp.webp",
+  "Georgetown Preparatory School": "/mascots/missing-teams/georgetown-prep-score-gp.webp",
   "St. Edward": "/mascots/st-edward-score-se.svg",
   "St Edward": "/mascots/st-edward-score-se.svg",
   "Riverdale Baptist": RIVERDALE_FULL,
