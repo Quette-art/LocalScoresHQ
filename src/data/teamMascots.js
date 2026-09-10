@@ -233,6 +233,18 @@ export const teamMascots = {
   Chester: "/mascots/chester-pa.svg",
   "Woodberry Forest": "/mascots/exact-v4/woodberry-forest-full-v4.webp",
   "Woodberry Forest School": "/mascots/exact-v4/woodberry-forest-full-v4.webp",
+  "Loyola Blakefield": "/mascots/missing-teams/loyola-blakefield-dons-full.webp",
+  "Loyola Blakefield School": "/mascots/missing-teams/loyola-blakefield-dons-full.webp",
+  Haverford: "/mascots/missing-teams/haverford-fords-full.webp",
+  "Haverford School": "/mascots/missing-teams/haverford-fords-full.webp",
+  "The Haverford School": "/mascots/missing-teams/haverford-fords-full.webp",
+  "Boys Latin": "/mascots/missing-teams/boys-latin-lakers-full.webp",
+  "Boys' Latin": "/mascots/missing-teams/boys-latin-lakers-full.webp",
+  "Boys’ Latin": "/mascots/missing-teams/boys-latin-lakers-full.webp",
+  "Boys Latin School": "/mascots/missing-teams/boys-latin-lakers-full.webp",
+  "The Boys' Latin School of Maryland": "/mascots/missing-teams/boys-latin-lakers-full.webp",
+  McDonogh: "/mascots/missing-teams/mcdonogh-eagles-full.webp",
+  "McDonogh School": "/mascots/missing-teams/mcdonogh-eagles-full.webp",
 };
 
 const scoreMascots = {
@@ -393,6 +405,18 @@ const scoreMascots = {
   "Maret School": "/mascots/missing-teams/maret-score-m.webp",
   "Woodberry Forest": "/mascots/exact-v4/woodberry-forest-score-v4.webp",
   "Woodberry Forest School": "/mascots/exact-v4/woodberry-forest-score-v4.webp",
+  "Loyola Blakefield": "/mascots/missing-teams/loyola-blakefield-score-lb.webp",
+  "Loyola Blakefield School": "/mascots/missing-teams/loyola-blakefield-score-lb.webp",
+  Haverford: "/mascots/missing-teams/haverford-score-hs.webp",
+  "Haverford School": "/mascots/missing-teams/haverford-score-hs.webp",
+  "The Haverford School": "/mascots/missing-teams/haverford-score-hs.webp",
+  "Boys Latin": "/mascots/missing-teams/boys-latin-score-bl.webp",
+  "Boys' Latin": "/mascots/missing-teams/boys-latin-score-bl.webp",
+  "Boys’ Latin": "/mascots/missing-teams/boys-latin-score-bl.webp",
+  "Boys Latin School": "/mascots/missing-teams/boys-latin-score-bl.webp",
+  "The Boys' Latin School of Maryland": "/mascots/missing-teams/boys-latin-score-bl.webp",
+  McDonogh: "/mascots/missing-teams/mcdonogh-score-m.webp",
+  "McDonogh School": "/mascots/missing-teams/mcdonogh-score-m.webp",
 };
 
 const standingsMascots = {
