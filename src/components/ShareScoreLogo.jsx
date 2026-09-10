@@ -33,6 +33,12 @@ const SCORE_ART = {
   "Boys Latin School": "/mascots/missing-teams/boys-latin-score-bl.webp",
   McDonogh: "/mascots/missing-teams/mcdonogh-score-m.webp",
   "McDonogh School": "/mascots/missing-teams/mcdonogh-score-m.webp",
+  "Mount St. Joseph": "/mascots/missing-teams/mount-st-joseph-score-ms.webp",
+  "Mount Saint Joseph": "/mascots/missing-teams/mount-st-joseph-score-ms.webp",
+  "Archbishop Curley": "/mascots/missing-teams/archbishop-curley-score-c.webp",
+  Severn: "/mascots/missing-teams/severn-score-s.webp",
+  "Severn School": "/mascots/missing-teams/severn-score-s.webp",
+  "John Carroll": "/mascots/missing-teams/john-carroll-score-jc.webp",
 };
 
 const getInitials = (teamName = "") =>

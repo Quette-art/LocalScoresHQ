@@ -245,6 +245,16 @@ export const teamMascots = {
   "The Boys' Latin School of Maryland": "/mascots/missing-teams/boys-latin-lakers-full.webp",
   McDonogh: "/mascots/missing-teams/mcdonogh-eagles-full.webp",
   "McDonogh School": "/mascots/missing-teams/mcdonogh-eagles-full.webp",
+  "Mount St. Joseph": "/mascots/missing-teams/mount-st-joseph-gaels-full.webp",
+  "Mount Saint Joseph": "/mascots/missing-teams/mount-st-joseph-gaels-full.webp",
+  "Mt. St. Joseph": "/mascots/missing-teams/mount-st-joseph-gaels-full.webp",
+  "Mount St Joseph": "/mascots/missing-teams/mount-st-joseph-gaels-full.webp",
+  "Archbishop Curley": "/mascots/missing-teams/archbishop-curley-friars-full.webp",
+  Curley: "/mascots/missing-teams/archbishop-curley-friars-full.webp",
+  Severn: "/mascots/missing-teams/severn-admirals-full.webp",
+  "Severn School": "/mascots/missing-teams/severn-admirals-full.webp",
+  "John Carroll": "/mascots/missing-teams/john-carroll-patriots-full.webp",
+  "The John Carroll School": "/mascots/missing-teams/john-carroll-patriots-full.webp",
 };
 
 const scoreMascots = {
@@ -417,6 +427,16 @@ const scoreMascots = {
   "The Boys' Latin School of Maryland": "/mascots/missing-teams/boys-latin-score-bl.webp",
   McDonogh: "/mascots/missing-teams/mcdonogh-score-m.webp",
   "McDonogh School": "/mascots/missing-teams/mcdonogh-score-m.webp",
+  "Mount St. Joseph": "/mascots/missing-teams/mount-st-joseph-score-ms.webp",
+  "Mount Saint Joseph": "/mascots/missing-teams/mount-st-joseph-score-ms.webp",
+  "Mt. St. Joseph": "/mascots/missing-teams/mount-st-joseph-score-ms.webp",
+  "Mount St Joseph": "/mascots/missing-teams/mount-st-joseph-score-ms.webp",
+  "Archbishop Curley": "/mascots/missing-teams/archbishop-curley-score-c.webp",
+  Curley: "/mascots/missing-teams/archbishop-curley-score-c.webp",
+  Severn: "/mascots/missing-teams/severn-score-s.webp",
+  "Severn School": "/mascots/missing-teams/severn-score-s.webp",
+  "John Carroll": "/mascots/missing-teams/john-carroll-score-jc.webp",
+  "The John Carroll School": "/mascots/missing-teams/john-carroll-score-jc.webp",
 };
 
 const standingsMascots = {
