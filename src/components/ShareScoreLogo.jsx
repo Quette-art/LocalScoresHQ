@@ -43,6 +43,10 @@ const SCORE_ART = {
   Maury: "/mascots/missing-teams/maury-score-m.webp",
   "Our Lady of Mount Carmel": "/mascots/missing-teams/mount-carmel-score-mc.webp",
   Dundalk: "/mascots/missing-teams/dundalk-score-d.webp",
+  "Bishop McDevitt": "/mascots/missing-teams/bishop-mcdevitt-score-md.webp",
+  "Bergen Catholic": "/mascots/missing-teams/bergen-catholic-score-bc.webp",
+  "Imhotep Charter": "/mascots/missing-teams/imhotep-score-i.webp",
+  Middletown: "/mascots/missing-teams/middletown-score-m.webp",
 };
 
 const getInitials = (teamName = "") =>

@@ -263,6 +263,14 @@ export const teamMascots = {
   "Mount Carmel": "/mascots/missing-teams/mount-carmel-cougars-full.webp",
   Dundalk: "/mascots/missing-teams/dundalk-owls-full.webp",
   "Dundalk High School": "/mascots/missing-teams/dundalk-owls-full.webp",
+  "Bishop McDevitt": "/mascots/missing-teams/bishop-mcdevitt-crusaders-full.webp",
+  McDevitt: "/mascots/missing-teams/bishop-mcdevitt-crusaders-full.webp",
+  "Bergen Catholic": "/mascots/missing-teams/bergen-catholic-crusaders-full.webp",
+  "Imhotep Charter": "/mascots/missing-teams/imhotep-panthers-full.webp",
+  Imhotep: "/mascots/missing-teams/imhotep-panthers-full.webp",
+  "Imhotep (PA)": "/mascots/missing-teams/imhotep-panthers-full.webp",
+  Middletown: "/mascots/missing-teams/middletown-cavaliers-full.webp",
+  "Middletown (DE)": "/mascots/missing-teams/middletown-cavaliers-full.webp",
 };
 
 const scoreMascots = {
@@ -453,6 +461,14 @@ const scoreMascots = {
   "Mount Carmel": "/mascots/missing-teams/mount-carmel-score-mc.webp",
   Dundalk: "/mascots/missing-teams/dundalk-score-d.webp",
   "Dundalk High School": "/mascots/missing-teams/dundalk-score-d.webp",
+  "Bishop McDevitt": "/mascots/missing-teams/bishop-mcdevitt-score-md.webp",
+  McDevitt: "/mascots/missing-teams/bishop-mcdevitt-score-md.webp",
+  "Bergen Catholic": "/mascots/missing-teams/bergen-catholic-score-bc.webp",
+  "Imhotep Charter": "/mascots/missing-teams/imhotep-score-i.webp",
+  Imhotep: "/mascots/missing-teams/imhotep-score-i.webp",
+  "Imhotep (PA)": "/mascots/missing-teams/imhotep-score-i.webp",
+  Middletown: "/mascots/missing-teams/middletown-score-m.webp",
+  "Middletown (DE)": "/mascots/missing-teams/middletown-score-m.webp",
 };
 
 const standingsMascots = {
