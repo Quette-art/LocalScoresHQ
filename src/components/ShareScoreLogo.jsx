@@ -20,6 +20,8 @@ const SCORE_ART = {
   "St Edward": "/mascots/st-edward-score-se.svg",
   "Riverdale Baptist": RIVERDALE_FULL,
   "Riverdale Baptist School": RIVERDALE_FULL,
+  "Woodberry Forest": "/mascots/exact-v4/woodberry-forest-score-v4.webp",
+  "Woodberry Forest School": "/mascots/exact-v4/woodberry-forest-score-v4.webp",
 };
 
 const getInitials = (teamName = "") =>
