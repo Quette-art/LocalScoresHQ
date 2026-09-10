@@ -33,11 +33,10 @@
 }
 
 .score-team-mascot:has(img[alt="Bullis unofficial mascot"]),
-.game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) {
-  background-image: url('/mascots/custom/score/bullis-score.svg?v=02996b1') !important;
-  background-position: center center !important;
-  background-size: contain !important;
-  background-color: transparent !important;
+.score-team-mascot:has(img[alt="Bullis score mark"]),
+.game-details-team-logo:has(img[alt="Bullis unofficial mascot"]),
+.game-details-team-logo:has(img[alt="Bullis score mark"]) {
+  background-image: none !important;
 }
 
 .score-team-mascot:has(img[alt="Landon unofficial mascot"]),
@@ -124,14 +123,13 @@
 .game-details-team-logo:has(img[alt="National Christian Academy unofficial mascot"]) img,
 .game-details-team-logo:has(img[alt="National Christian Academy score mark"]) img,
 .game-details-team-logo:has(img[alt="Rock Creek Christian Academy unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="Rock Creek Christian Academy score mark"]) img {
+.game-details-team-logo:has(img[alt="Rock Creek Christian Academy score mark"]) img,
+.score-team-mascot:has(img[alt="Bullis unofficial mascot"]) img,
+.score-team-mascot:has(img[alt="Bullis score mark"]) img,
+.game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) img,
+.game-details-team-logo:has(img[alt="Bullis score mark"]) img {
   opacity: 1 !important;
   visibility: visible !important;
-}
-
-.score-team-mascot:has(img[alt="Bullis unofficial mascot"]) img,
-.game-details-team-logo:has(img[alt="Bullis unofficial mascot"]) img {
-  opacity: 0 !important;
 }
 
 .game-details-team-logo {

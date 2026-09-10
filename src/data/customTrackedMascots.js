@@ -11,7 +11,8 @@ Object.assign(teamMascots, {
   "Friendship Collegiate": FRIENDSHIP_FULL,
   "St. Albans": "/mascots/missing-teams/st-albans-bulldogs-full.webp",
   "St. Albans School": "/mascots/missing-teams/st-albans-bulldogs-full.webp",
-  Bullis: "/mascots/custom/bullis-custom.svg",
+  Bullis: "/mascots/missing-teams/bullis-bulldogs-full.webp",
+  "Bullis School": "/mascots/missing-teams/bullis-bulldogs-full.webp",
   Landon: "/mascots/missing-teams/landon-bears-full.webp",
   "Landon School": "/mascots/missing-teams/landon-bears-full.webp",
   "National Christian Academy": "/mascots/missing-teams/national-christian-eagles-full.webp",
@@ -26,9 +27,12 @@ Object.assign(teamMascots, {
   "Our Lady of Good Counsel": "/mascots/missing-teams/good-counsel-falcons-full.webp",
   "Georgetown Prep": "/mascots/missing-teams/georgetown-prep-hoyas-full.webp",
   "Georgetown Preparatory School": "/mascots/missing-teams/georgetown-prep-hoyas-full.webp",
+  "Mt. Zion": "/mascots/missing-teams/mt-zion-warriors-full.webp",
+  "Mt. Zion Prep": "/mascots/missing-teams/mt-zion-warriors-full.webp",
+  "Mt. Zion Prep Academy": "/mascots/missing-teams/mt-zion-warriors-full.webp",
 });
 
-const BULLIS_SCORE_SVG = "/mascots/custom/score/bullis-score.svg?v=exact-direct-1";
+const BULLIS_SCORE_SVG = "/mascots/missing-teams/bullis-score-b.webp?v=identity-sheet-1";
 
 const friendshipText = (value = "") =>
   /Friendship Collegiate(?: Academy)?/i.test(String(value));

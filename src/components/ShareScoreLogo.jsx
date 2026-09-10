@@ -3,7 +3,15 @@ import { getScoreMascot, getTeamMascot } from "../data/teamMascots";
 import { RIVERDALE_FULL } from "../data/riverdaleExactLogo";
 
 const SCORE_ART = {
-  Bullis: "/mascots/custom/score/bullis-score.svg",
+  Bullis: "/mascots/missing-teams/bullis-score-b.webp",
+  "Bullis School": "/mascots/missing-teams/bullis-score-b.webp",
+  Ballou: "/mascots/missing-teams/ballou-score-bk.webp",
+  "Ballou High School": "/mascots/missing-teams/ballou-score-bk.webp",
+  Dunbar: "/mascots/missing-teams/dunbar-score-d.webp",
+  "Dunbar High School": "/mascots/missing-teams/dunbar-score-d.webp",
+  "Mt. Zion": "/mascots/missing-teams/mt-zion-score-mzp.webp",
+  "Mt. Zion Prep": "/mascots/missing-teams/mt-zion-score-mzp.webp",
+  "Mt. Zion Prep Academy": "/mascots/missing-teams/mt-zion-score-mzp.webp",
   "Friendship Collegiate": "/mascots/missing-teams/friendship-score-fc.webp",
   "Friendship Collegiate Academy":
     "/mascots/missing-teams/friendship-score-fc.webp",
