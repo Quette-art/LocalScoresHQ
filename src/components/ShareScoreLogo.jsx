@@ -56,6 +56,10 @@ const SCORE_ART = {
   "St. Christopher's": "/mascots/missing-teams/st-christophers-score-sc.webp",
   "St. Frances": "/mascots/missing-teams/st-frances-score-sf.webp",
   "St. Frances Academy": "/mascots/missing-teams/st-frances-score-sf.webp",
+  "Beltsville Bulls": "/mascots/missing-teams/beltsville-score-b.webp",
+  "Forestville Falcons": "/mascots/missing-teams/forestville-score-f.webp",
+  "Seat Pleasant Bobcats": "/mascots/missing-teams/seat-pleasant-score-sp.webp",
+  "Greenbelt Gators": "/mascots/missing-teams/greenbelt-score-g.webp",
 };
 
 const getInitials = (teamName = "") =>

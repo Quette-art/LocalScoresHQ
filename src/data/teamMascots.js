@@ -292,6 +292,12 @@ export const teamMascots = {
   "St. Christopher’s": "/mascots/missing-teams/st-christophers-saints-full.webp",
   "St. Frances": "/mascots/missing-teams/st-frances-panthers-full.webp",
   "St. Frances Academy": "/mascots/missing-teams/st-frances-panthers-full.webp",
+  "Beltsville Bulls": "/mascots/missing-teams/beltsville-bulls-full.webp",
+  "Forestville Falcons": "/mascots/missing-teams/forestville-falcons-full.webp",
+  "Forestville Falcons #1": "/mascots/missing-teams/forestville-falcons-full.webp",
+  "Forestville Falcons #2": "/mascots/missing-teams/forestville-falcons-full.webp",
+  "Seat Pleasant Bobcats": "/mascots/missing-teams/seat-pleasant-bobcats-full.webp",
+  "Greenbelt Gators": "/mascots/missing-teams/greenbelt-gators-full.webp",
 };
 
 const scoreMascots = {
@@ -509,6 +515,12 @@ const scoreMascots = {
   "St. Christopher’s": "/mascots/missing-teams/st-christophers-score-sc.webp",
   "St. Frances": "/mascots/missing-teams/st-frances-score-sf.webp",
   "St. Frances Academy": "/mascots/missing-teams/st-frances-score-sf.webp",
+  "Beltsville Bulls": "/mascots/missing-teams/beltsville-score-b.webp",
+  "Forestville Falcons": "/mascots/missing-teams/forestville-score-f.webp",
+  "Forestville Falcons #1": "/mascots/missing-teams/forestville-score-f.webp",
+  "Forestville Falcons #2": "/mascots/missing-teams/forestville-score-f.webp",
+  "Seat Pleasant Bobcats": "/mascots/missing-teams/seat-pleasant-score-sp.webp",
+  "Greenbelt Gators": "/mascots/missing-teams/greenbelt-score-g.webp",
 };
 
 const standingsMascots = {
