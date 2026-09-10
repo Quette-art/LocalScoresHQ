@@ -550,7 +550,6 @@ export default function ScoresTab({
   if (
     ![
       "Soccer",
-      "Flag Football",
       "Football",
     ].includes(selectedSport)
   ) {

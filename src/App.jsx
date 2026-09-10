@@ -90,7 +90,6 @@ function AppContent() {
 
   const baseSports = [
     { name: "Soccer", icon: "⚽" },
-    { name: "Flag Football", icon: "🚩" },
     { name: "Basketball", icon: "🏀" },
     { name: "Baseball", icon: "⚾" },
     { name: "Football", icon: "🏈" },
@@ -160,7 +159,6 @@ function AppContent() {
     Soccer: "⚽",
     Basketball: "🏀",
     Football: "🏈",
-    "Flag Football": "🚩",
   };
 
   useEffect(() => {

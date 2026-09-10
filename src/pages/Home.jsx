@@ -17,7 +17,6 @@ const getSportIcon = (sport) => {
   if (sport === "Baseball") return "⚾";
   if (sport === "Basketball") return "🏀";
   if (sport === "Football") return "🏈";
-  if (sport === "Flag Football") return "🚩";
 
   return "⚽";
 };

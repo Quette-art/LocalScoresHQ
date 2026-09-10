@@ -15,7 +15,6 @@ const sportIcons = {
   Soccer: "⚽",
   Basketball: "🏀",
   Football: "🏈",
-  "Flag Football": "🚩",
 };
 
 const getGameSport = (game) => game.sport || "Soccer";

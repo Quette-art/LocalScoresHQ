@@ -5,7 +5,6 @@ import "./ScoresTab.css";
 
 const SPORT_DEFS = [
   { name: "Soccer", icon: "⚽" },
-  { name: "Flag Football", icon: "🚩" },
   { name: "Basketball", icon: "🏀" },
   { name: "Baseball", icon: "⚾" },
   { name: "Football", icon: "🏈" },
@@ -30,7 +29,6 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
     if (sport === "Baseball") return "⚾";
     if (sport === "Basketball") return "🏀";
     if (sport === "Football") return "🏈";
-    if (sport === "Flag Football") return "🚩";
     return "⚽";
   };
 

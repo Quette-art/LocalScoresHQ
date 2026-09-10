@@ -56,14 +56,11 @@ const SCORE_ART = {
   "St. Christopher's": "/mascots/missing-teams/st-christophers-score-sc.webp",
   "St. Frances": "/mascots/missing-teams/st-frances-score-sf.webp",
   "St. Frances Academy": "/mascots/missing-teams/st-frances-score-sf.webp",
-  "Beltsville Bulls": "/mascots/missing-teams/beltsville-score-b.webp",
-  "Forestville Falcons": "/mascots/missing-teams/forestville-score-f.webp",
-  "Seat Pleasant Bobcats": "/mascots/missing-teams/seat-pleasant-score-sp.webp",
-  "Greenbelt Gators": "/mascots/missing-teams/greenbelt-score-g.webp",
-  "DMV Outlaws": "/mascots/missing-teams/dmv-outlaws-score-do.webp",
-  "Oxon Hill Roadrunners": "/mascots/missing-teams/oxon-hill-roadrunners-score-rr.webp",
-  "Marlboro Mustangs": "/mascots/missing-teams/marlboro-mustangs-score-mm.webp",
-  "NDO Jaguars": "/mascots/missing-teams/ndo-jaguars-score-nj.webp",
+  Gonzaga: "/mascots/missing-teams/gonzaga-score-g.webp",
+  "St. John's": "/mascots/missing-teams/st-johns-score-sj.webp",
+  "St. John’s": "/mascots/missing-teams/st-johns-score-sj.webp",
+  "Archbishop Carroll": "/mascots/missing-teams/archbishop-carroll-score-ac.webp",
+  Bell: "/mascots/missing-teams/bell-score-b.webp",
 };
 
 const getInitials = (teamName = "") =>
