@@ -271,6 +271,14 @@ export const teamMascots = {
   "Imhotep (PA)": "/mascots/missing-teams/imhotep-panthers-full.webp",
   Middletown: "/mascots/missing-teams/middletown-cavaliers-full.webp",
   "Middletown (DE)": "/mascots/missing-teams/middletown-cavaliers-full.webp",
+  McCallie: "/mascots/missing-teams/mccallie-blue-tornado-full.webp",
+  "McCallie School": "/mascots/missing-teams/mccallie-blue-tornado-full.webp",
+  "Abraham Lincoln": "/mascots/missing-teams/abraham-lincoln-railsplitters-full.webp",
+  "Abraham Lincoln High School": "/mascots/missing-teams/abraham-lincoln-railsplitters-full.webp",
+  "Long Island Lutheran": "/mascots/missing-teams/long-island-lutheran-crusaders-full.webp",
+  LuHi: "/mascots/missing-teams/long-island-lutheran-crusaders-full.webp",
+  "North East": "/mascots/missing-teams/north-east-full.webp",
+  "North East High School": "/mascots/missing-teams/north-east-full.webp",
 };
 
 const scoreMascots = {
@@ -469,6 +477,14 @@ const scoreMascots = {
   "Imhotep (PA)": "/mascots/missing-teams/imhotep-score-i.webp",
   Middletown: "/mascots/missing-teams/middletown-score-m.webp",
   "Middletown (DE)": "/mascots/missing-teams/middletown-score-m.webp",
+  McCallie: "/mascots/missing-teams/mccallie-score-m.webp",
+  "McCallie School": "/mascots/missing-teams/mccallie-score-m.webp",
+  "Abraham Lincoln": "/mascots/missing-teams/abraham-lincoln-score-l.webp",
+  "Abraham Lincoln High School": "/mascots/missing-teams/abraham-lincoln-score-l.webp",
+  "Long Island Lutheran": "/mascots/missing-teams/long-island-lutheran-score-lh.webp",
+  LuHi: "/mascots/missing-teams/long-island-lutheran-score-lh.webp",
+  "North East": "/mascots/missing-teams/north-east-score-ne.webp",
+  "North East High School": "/mascots/missing-teams/north-east-score-ne.webp",
 };
 
 const standingsMascots = {

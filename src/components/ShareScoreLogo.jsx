@@ -47,6 +47,10 @@ const SCORE_ART = {
   "Bergen Catholic": "/mascots/missing-teams/bergen-catholic-score-bc.webp",
   "Imhotep Charter": "/mascots/missing-teams/imhotep-score-i.webp",
   Middletown: "/mascots/missing-teams/middletown-score-m.webp",
+  McCallie: "/mascots/missing-teams/mccallie-score-m.webp",
+  "Abraham Lincoln": "/mascots/missing-teams/abraham-lincoln-score-l.webp",
+  "Long Island Lutheran": "/mascots/missing-teams/long-island-lutheran-score-lh.webp",
+  "North East": "/mascots/missing-teams/north-east-score-ne.webp",
 };
 
 const getInitials = (teamName = "") =>
