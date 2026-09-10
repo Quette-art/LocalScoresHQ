@@ -39,6 +39,10 @@ const SCORE_ART = {
   Severn: "/mascots/missing-teams/severn-score-s.webp",
   "Severn School": "/mascots/missing-teams/severn-score-s.webp",
   "John Carroll": "/mascots/missing-teams/john-carroll-score-jc.webp",
+  "Roman Catholic": "/mascots/missing-teams/roman-catholic-score-rc.webp",
+  Maury: "/mascots/missing-teams/maury-score-m.webp",
+  "Our Lady of Mount Carmel": "/mascots/missing-teams/mount-carmel-score-mc.webp",
+  Dundalk: "/mascots/missing-teams/dundalk-score-d.webp",
 };
 
 const getInitials = (teamName = "") =>

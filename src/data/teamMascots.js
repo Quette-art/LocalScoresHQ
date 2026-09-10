@@ -255,6 +255,14 @@ export const teamMascots = {
   "Severn School": "/mascots/missing-teams/severn-admirals-full.webp",
   "John Carroll": "/mascots/missing-teams/john-carroll-patriots-full.webp",
   "The John Carroll School": "/mascots/missing-teams/john-carroll-patriots-full.webp",
+  "Roman Catholic": "/mascots/missing-teams/roman-catholic-cahillites-full.webp",
+  "Roman Catholic High School": "/mascots/missing-teams/roman-catholic-cahillites-full.webp",
+  Maury: "/mascots/missing-teams/maury-commodores-full.webp",
+  "Maury High School": "/mascots/missing-teams/maury-commodores-full.webp",
+  "Our Lady of Mount Carmel": "/mascots/missing-teams/mount-carmel-cougars-full.webp",
+  "Mount Carmel": "/mascots/missing-teams/mount-carmel-cougars-full.webp",
+  Dundalk: "/mascots/missing-teams/dundalk-owls-full.webp",
+  "Dundalk High School": "/mascots/missing-teams/dundalk-owls-full.webp",
 };
 
 const scoreMascots = {
@@ -437,6 +445,14 @@ const scoreMascots = {
   "Severn School": "/mascots/missing-teams/severn-score-s.webp",
   "John Carroll": "/mascots/missing-teams/john-carroll-score-jc.webp",
   "The John Carroll School": "/mascots/missing-teams/john-carroll-score-jc.webp",
+  "Roman Catholic": "/mascots/missing-teams/roman-catholic-score-rc.webp",
+  "Roman Catholic High School": "/mascots/missing-teams/roman-catholic-score-rc.webp",
+  Maury: "/mascots/missing-teams/maury-score-m.webp",
+  "Maury High School": "/mascots/missing-teams/maury-score-m.webp",
+  "Our Lady of Mount Carmel": "/mascots/missing-teams/mount-carmel-score-mc.webp",
+  "Mount Carmel": "/mascots/missing-teams/mount-carmel-score-mc.webp",
+  Dundalk: "/mascots/missing-teams/dundalk-score-d.webp",
+  "Dundalk High School": "/mascots/missing-teams/dundalk-score-d.webp",
 };
 
 const standingsMascots = {
