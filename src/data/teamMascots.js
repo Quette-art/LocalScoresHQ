@@ -298,6 +298,12 @@ export const teamMascots = {
   "Forestville Falcons #2": "/mascots/missing-teams/forestville-falcons-full.webp",
   "Seat Pleasant Bobcats": "/mascots/missing-teams/seat-pleasant-bobcats-full.webp",
   "Greenbelt Gators": "/mascots/missing-teams/greenbelt-gators-full.webp",
+  "DMV Outlaws": "/mascots/missing-teams/dmv-outlaws-full.webp",
+  "Oxon Hill Roadrunners": "/mascots/missing-teams/oxon-hill-roadrunners-full.webp",
+  "Marlboro Mustangs": "/mascots/missing-teams/marlboro-mustangs-full.webp",
+  "NDO Jaguars": "/mascots/missing-teams/ndo-jaguars-full.webp",
+  "NDO Jaguars #1": "/mascots/missing-teams/ndo-jaguars-full.webp",
+  "NDO Jaguars #2": "/mascots/missing-teams/ndo-jaguars-full.webp",
 };
 
 const scoreMascots = {
@@ -521,6 +527,12 @@ const scoreMascots = {
   "Forestville Falcons #2": "/mascots/missing-teams/forestville-score-f.webp",
   "Seat Pleasant Bobcats": "/mascots/missing-teams/seat-pleasant-score-sp.webp",
   "Greenbelt Gators": "/mascots/missing-teams/greenbelt-score-g.webp",
+  "DMV Outlaws": "/mascots/missing-teams/dmv-outlaws-score-do.webp",
+  "Oxon Hill Roadrunners": "/mascots/missing-teams/oxon-hill-roadrunners-score-rr.webp",
+  "Marlboro Mustangs": "/mascots/missing-teams/marlboro-mustangs-score-mm.webp",
+  "NDO Jaguars": "/mascots/missing-teams/ndo-jaguars-score-nj.webp",
+  "NDO Jaguars #1": "/mascots/missing-teams/ndo-jaguars-score-nj.webp",
+  "NDO Jaguars #2": "/mascots/missing-teams/ndo-jaguars-score-nj.webp",
 };
 
 const standingsMascots = {
