@@ -35,12 +35,26 @@ const RESULTS = [
     time: "4:00 PM",
     location: "Landon",
   },
+  {
+    teams: ["Dunbar", "Dunbar (Baltimore)"],
+    scores: { Dunbar: 6, "Dunbar (Baltimore)": 34 },
+    time: "TBD",
+    location: "UA Stadium",
+  },
+  {
+    teams: ["Maret", "Tower Hill"],
+    scores: { Maret: 40, "Tower Hill": 7 },
+    time: "6:30 PM",
+    location: "Tower Hill",
+  },
 ];
 
 const ALIASES = {
   "Mt. Zion Prep Academy": ["Mt. Zion Prep Academy", "Mt. Zion Prep", "Mt. Zion"],
   McDonogh: ["McDonogh", "McDonogh School"],
   "St. Vincent Pallotti": ["St. Vincent Pallotti", "Pallotti"],
+  Dunbar: ["Dunbar", "Dunbar (DC)", "DC Dunbar"],
+  "Dunbar (Baltimore)": ["Dunbar (Baltimore)", "Baltimore Dunbar", "Dunbar Baltimore"],
 };
 
 const namesFor = (team) => ALIASES[team] || [team];
@@ -54,10 +68,26 @@ const scoreForName = (name, result) => {
 };
 const slug = (v) => String(v).toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
+const normalizeSep10Matchup = (game) => {
+  if (game.date === "2026-09-10" && gameHas(game, "Maret") && !gameHas(game, "Tower Hill")) {
+    const maretIsTeam1 = namesFor("Maret").includes(game.team1);
+    return {
+      ...game,
+      team1: maretIsTeam1 ? "Maret" : "Tower Hill",
+      team2: maretIsTeam1 ? "Tower Hill" : "Maret",
+      time: "6:30 PM",
+      location: "Tower Hill",
+    };
+  }
+  return game;
+};
+
 const toFinal = (game, result) => ({
   ...game,
   score1: scoreForName(game.team1, result),
   score2: scoreForName(game.team2, result),
+  time: result.time || game.time,
+  location: result.location || game.location,
   scheduleStatus: "Final",
   subjectToChange: false,
   verificationStatus: "Final",
@@ -68,7 +98,8 @@ const toFinal = (game, result) => ({
 
 export function applyFootballResultsSep10Finals(games) {
   const found = new Set();
-  const updated = games.map((game) => {
+  const updated = games.map((originalGame) => {
+    const game = normalizeSep10Matchup(originalGame);
     const index = RESULTS.findIndex((result) => sameMatchup(game, result.teams));
     if (index < 0) return game;
     found.add(index);
