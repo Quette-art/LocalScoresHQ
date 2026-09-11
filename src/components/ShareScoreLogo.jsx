@@ -9,6 +9,8 @@ const SCORE_ART = {
   "Ballou High School": "/mascots/missing-teams/ballou-score-bk.webp",
   Dunbar: "/mascots/missing-teams/dunbar-score-d.webp",
   "Dunbar High School": "/mascots/missing-teams/dunbar-score-d.webp",
+  "Dunbar (Baltimore)": "/mascots/missing-teams/dunbar-baltimore-score-db.webp",
+  "Dunbar (Balt)": "/mascots/missing-teams/dunbar-baltimore-score-db.webp",
   "Mt. Zion": "/mascots/missing-teams/mt-zion-score-mzp.webp",
   "Mt. Zion Prep": "/mascots/missing-teams/mt-zion-score-mzp.webp",
   "Mt. Zion Prep Academy": "/mascots/missing-teams/mt-zion-score-mzp.webp",
