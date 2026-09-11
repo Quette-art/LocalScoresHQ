@@ -3,8 +3,12 @@ const SCORE_MARKS = new Map([
   ["Bullis School", "/mascots/missing-teams/bullis-score-b.webp?v=identity-sheet-1"],
   ["Ballou", "/mascots/missing-teams/ballou-score-bk.webp?v=identity-sheet-1"],
   ["Ballou High School", "/mascots/missing-teams/ballou-score-bk.webp?v=identity-sheet-1"],
-  ["Dunbar", "/mascots/missing-teams/dunbar-score-d.webp?v=identity-sheet-2"],
-  ["Dunbar High School", "/mascots/missing-teams/dunbar-score-d.webp?v=identity-sheet-2"],
+  ["Dunbar (Baltimore)", "/mascots/missing-teams/dunbar-baltimore-score-db.webp?v=identity-sheet-2"],
+  ["Dunbar (Balt)", "/mascots/missing-teams/dunbar-baltimore-score-db.webp?v=identity-sheet-2"],
+  ["Baltimore Dunbar", "/mascots/missing-teams/dunbar-baltimore-score-db.webp?v=identity-sheet-2"],
+  ["Dunbar Baltimore", "/mascots/missing-teams/dunbar-baltimore-score-db.webp?v=identity-sheet-2"],
+  ["Dunbar", "/mascots/missing-teams/dunbar-score-d.webp?v=identity-sheet-3"],
+  ["Dunbar High School", "/mascots/missing-teams/dunbar-score-d.webp?v=identity-sheet-3"],
   ["Mt. Zion", "/mascots/missing-teams/mt-zion-score-mzp.webp?v=identity-sheet-1"],
   ["Mt. Zion Prep", "/mascots/missing-teams/mt-zion-score-mzp.webp?v=identity-sheet-1"],
   ["Mt. Zion Prep Academy", "/mascots/missing-teams/mt-zion-score-mzp.webp?v=identity-sheet-1"],
@@ -133,11 +137,18 @@ const recoverExistingScoreMarks = () => {
 
   document.querySelectorAll(".game-details-team").forEach((row) => {
     const text = row.textContent || "";
+    let bestName = "";
+    let bestSrc = null;
 
     for (const [teamName, src] of SCORE_MARKS) {
-      if (!text.includes(teamName)) continue;
-      installMark(row.querySelector(".game-details-team-logo"), teamName, src);
-      break;
+      if (text.includes(teamName) && teamName.length > bestName.length) {
+        bestName = teamName;
+        bestSrc = src;
+      }
+    }
+
+    if (bestSrc) {
+      installMark(row.querySelector(".game-details-team-logo"), bestName, bestSrc);
     }
   });
 };
