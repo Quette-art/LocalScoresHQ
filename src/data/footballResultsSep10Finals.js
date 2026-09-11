@@ -17,11 +17,30 @@ const RESULTS = [
     time: "TBD",
     location: "TBD",
   },
+  {
+    teams: ["St. Vincent Pallotti", "Guilford Park"],
+    scores: { "St. Vincent Pallotti": 0, "Guilford Park": 21 },
+    time: "6:30 PM",
+    location: "Guilford Park",
+  },
+  {
+    teams: ["Crossland", "Alexandria City"],
+    scores: { Crossland: 0, "Alexandria City": 35 },
+    time: "6:00 PM",
+    location: "Alexandria City",
+  },
+  {
+    teams: ["Paul VI", "Landon"],
+    scores: { "Paul VI": 0, Landon: 27 },
+    time: "4:00 PM",
+    location: "Landon",
+  },
 ];
 
 const ALIASES = {
   "Mt. Zion Prep Academy": ["Mt. Zion Prep Academy", "Mt. Zion Prep", "Mt. Zion"],
   McDonogh: ["McDonogh", "McDonogh School"],
+  "St. Vincent Pallotti": ["St. Vincent Pallotti", "Pallotti"],
 };
 
 const namesFor = (team) => ALIASES[team] || [team];
