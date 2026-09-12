@@ -34,9 +34,24 @@ const RESULTS = [
   },
   {
     teams: ["Archbishop Carroll", "KIPP DC Legacy"],
-    scores: { "Archbishop Carroll": 38, "KIPP DC Legacy": 0 },
+    scores: { "Archbishop Carroll": 30, "KIPP DC Legacy": 0 },
     time: "6:00 PM",
     location: "KIPP DC Legacy College Preparatory",
+  },
+  {
+    teams: ["Ballou", "Annapolis Area Christian"],
+    scores: { Ballou: 32, "Annapolis Area Christian": 0 },
+    location: "Ballou",
+  },
+  {
+    teams: ["Eastern", "Gonzaga"],
+    scores: { Eastern: 0, Gonzaga: 18 },
+    time: "6:30 PM",
+    location: "Buchanan Field",
+  },
+  {
+    teams: ["Digital Pioneers Academy", "Roosevelt"],
+    scores: { "Digital Pioneers Academy": 28, Roosevelt: 29 },
   },
   {
     teams: ["Jackson-Reed", "Flint Hill"],
@@ -92,6 +107,8 @@ const ALIASES = {
   "Friendship Collegiate Academy": ["Friendship Collegiate Academy", "Friendship Collegiate", "FCA"],
   "Good Counsel": ["Good Counsel", "Our Lady of Good Counsel"],
   "Frederick Douglass": ["Frederick Douglass", "Frederick Douglass High School"],
+  "Annapolis Area Christian": ["Annapolis Area Christian", "Annapolis Area Christian School", "AACS"],
+  "Digital Pioneers Academy": ["Digital Pioneers Academy", "DPA"],
 };
 
 const namesFor = (team) => ALIASES[team] || [team];
