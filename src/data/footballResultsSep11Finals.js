@@ -34,7 +34,7 @@ const RESULTS = [
   },
   {
     teams: ["Archbishop Carroll", "KIPP DC Legacy"],
-    scores: { "Archbishop Carroll": 30, "KIPP DC Legacy": 0 },
+    scores: { "Archbishop Carroll": 38, "KIPP DC Legacy": 0 },
     time: "6:00 PM",
     location: "KIPP DC Legacy College Preparatory",
   },
