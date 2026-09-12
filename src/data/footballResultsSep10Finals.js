@@ -12,6 +12,12 @@ const RESULTS = [
     location: "Glen Burnie",
   },
   {
+    teams: ["Central", "Lewis"],
+    scores: { Central: 38, Lewis: 12 },
+    time: "3:45 PM",
+    location: "Central",
+  },
+  {
     teams: ["McDonogh", "Mt. Zion Prep Academy"],
     scores: { McDonogh: 38, "Mt. Zion Prep Academy": 6 },
     time: "TBD",
@@ -55,6 +61,7 @@ const ALIASES = {
   "St. Vincent Pallotti": ["St. Vincent Pallotti", "Pallotti"],
   Dunbar: ["Dunbar", "Dunbar (DC)", "DC Dunbar"],
   "Dunbar (Baltimore)": ["Dunbar (Baltimore)", "Baltimore Dunbar", "Dunbar Baltimore"],
+  Lewis: ["Lewis", "Reginald F. Lewis", "Reginald F Lewis"],
 };
 
 const namesFor = (team) => ALIASES[team] || [team];
@@ -69,6 +76,15 @@ const scoreForName = (name, result) => {
 const slug = (v) => String(v).toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const normalizeSep10Matchup = (game) => {
+  if (gameHas(game, "Central") && gameHas(game, "Lewis") && ["2026-09-10", "2026-09-11"].includes(game.date)) {
+    return {
+      ...game,
+      date: "2026-09-10",
+      time: "3:45 PM",
+      location: "Central",
+    };
+  }
+
   if (game.date === "2026-09-10" && gameHas(game, "Maret") && !gameHas(game, "Tower Hill")) {
     const maretIsTeam1 = namesFor("Maret").includes(game.team1);
     return {
@@ -92,8 +108,8 @@ const toFinal = (game, result) => ({
   subjectToChange: false,
   verificationStatus: "Final",
   sourceTier: "Verified score source",
-  notes: "Final score verified Sept. 11, 2026.",
-  lastChecked: "2026-09-11",
+  notes: "Final score verified Sept. 12, 2026.",
+  lastChecked: "2026-09-12",
 });
 
 export function applyFootballResultsSep10Finals(games) {
@@ -125,9 +141,9 @@ export function applyFootballResultsSep10Finals(games) {
       subjectToChange: false,
       verificationStatus: "Final",
       sourceTier: "Verified score source",
-      notes: "Final score verified Sept. 11, 2026.",
+      notes: "Final score verified Sept. 12, 2026.",
       sourceUrl: "",
-      lastChecked: "2026-09-11",
+      lastChecked: "2026-09-12",
     });
   });
 
