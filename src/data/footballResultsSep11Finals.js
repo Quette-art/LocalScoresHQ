@@ -54,6 +54,28 @@ const RESULTS = [
     scores: { "Digital Pioneers Academy": 28, Roosevelt: 29 },
   },
   {
+    teams: ["Bowie", "Bladensburg"],
+    scores: { Bowie: 28, Bladensburg: 0 },
+    time: "5:00 PM",
+    location: "Bladensburg",
+  },
+  {
+    teams: ["Potomac", "Parkdale"],
+    scores: { Potomac: 27, Parkdale: 6 },
+    time: "4:00 PM",
+    location: "Parkdale",
+  },
+  {
+    teams: ["Ron Brown", "H.D. Woodson"],
+    scores: { "Ron Brown": 18, "H.D. Woodson": 15 },
+  },
+  {
+    teams: ["Fairmont Heights", "Douglass BM"],
+    scores: { "Fairmont Heights": 16, "Douglass BM": 0 },
+    time: "3:45 PM",
+    location: "Douglass BM",
+  },
+  {
     teams: ["Jackson-Reed", "Flint Hill"],
     scores: { "Jackson-Reed": 7, "Flint Hill": 47 },
     time: "4:30 PM",
