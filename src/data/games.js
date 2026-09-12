@@ -14,6 +14,7 @@ import { applyFootballResultsSep4 } from "./footballResultsSep4.js";
 import { applyFootballUpdatesSep5 } from "./footballUpdatesSep5.js";
 import { applyFootballResultsSep5Finals } from "./footballResultsSep5Finals.js";
 import { applyFootballResultsSep10Finals } from "./footballResultsSep10Finals.js";
+import { applyFootballResultsSep11Finals } from "./footballResultsSep11Finals.js";
 import { applyDunbarFootballScheduleSep10 } from "./dunbarFootballScheduleSep10.js";
 
 const correctedFootballGames = applyFootballScheduleCorrections(footballGames);
@@ -56,6 +57,9 @@ const footballGamesWithDunbarSchedule = applyDunbarFootballScheduleSep10(
 const footballGamesWithSep10Finals = applyFootballResultsSep10Finals(
   footballGamesWithDunbarSchedule
 );
+const footballGamesWithSep11Finals = applyFootballResultsSep11Finals(
+  footballGamesWithSep10Finals
+);
 
 const TEAM_NAME_ALIASES = new Map([
   ["Mt. Zion", "Mt. Zion Prep Academy"],
@@ -77,7 +81,7 @@ const canonicalizeTeamNames = (game) => ({
   team2: canonicalTeamName(game.team2),
 });
 
-export const games = footballGamesWithSep10Finals.map(canonicalizeTeamNames);
+export const games = footballGamesWithSep11Finals.map(canonicalizeTeamNames);
 
 export const upcomingGames = games;
 
