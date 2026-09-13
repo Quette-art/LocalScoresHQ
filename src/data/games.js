@@ -75,6 +75,9 @@ const TEAM_NAME_ALIASES = new Map([
   ["Dunbar (Balt)", "Dunbar (Baltimore)"],
   ["Baltimore Dunbar", "Dunbar (Baltimore)"],
   ["Dunbar Baltimore", "Dunbar (Baltimore)"],
+  ["Mervo", "Mervo (Baltimore)"],
+  ["Mergenthaler Vocational-Technical", "Mervo (Baltimore)"],
+  ["Independence High School", "Independence"],
 ]);
 
 const canonicalTeamName = (teamName = "") => {

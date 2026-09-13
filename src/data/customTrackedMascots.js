@@ -30,6 +30,11 @@ Object.assign(teamMascots, {
   "Mt. Zion": "/mascots/missing-teams/mt-zion-warriors-full.webp",
   "Mt. Zion Prep": "/mascots/missing-teams/mt-zion-warriors-full.webp",
   "Mt. Zion Prep Academy": "/mascots/missing-teams/mt-zion-warriors-full.webp",
+  Independence: "/mascots/missing-teams/independence-patriots-full.webp?v=identity-sheet-1",
+  "Independence High School": "/mascots/missing-teams/independence-patriots-full.webp?v=identity-sheet-1",
+  "Mervo (Baltimore)": "/mascots/missing-teams/mervo-mustangs-full.webp?v=identity-sheet-1",
+  Mervo: "/mascots/missing-teams/mervo-mustangs-full.webp?v=identity-sheet-1",
+  "Mergenthaler Vocational-Technical": "/mascots/missing-teams/mervo-mustangs-full.webp?v=identity-sheet-1",
 });
 
 const BULLIS_SCORE_SVG = "/mascots/missing-teams/bullis-score-b.webp?v=identity-sheet-1";
