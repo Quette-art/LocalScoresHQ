@@ -6,6 +6,7 @@ import { applyFootballScheduleCorrectionsAug30 } from "./footballScheduleCorrect
 import { applyFootballScheduleCorrectionsSep6 } from "./footballScheduleCorrectionsSep6.js";
 import { applyBullisFootballScheduleSep5 } from "./bullisFootballScheduleSep5.js";
 import { applyTrackedPrivateFootballSchedulesSep5 } from "./trackedPrivateFootballSchedulesSep5.js";
+import { applyWcacMetroFootballSchedulesSep13 } from "./wcacMetroFootballSchedulesSep13.js";
 import { applyFootballResultsAug28Ryken } from "./footballResultsAug28Ryken.js";
 import { applyFootballResultsAug29 } from "./footballResultsAug29.js";
 import { applyFootballResultCorrectionsAug29 } from "./footballResultCorrectionsAug29.js";
@@ -68,6 +69,9 @@ const footballGamesWithSep11Finals = applyFootballResultsSep11Finals(
 const footballGamesWithSep12Finals = applyFootballResultsSep12Finals(
   footballGamesWithSep11Finals
 );
+const footballGamesWithWcacMetroSchedules = applyWcacMetroFootballSchedulesSep13(
+  footballGamesWithSep12Finals
+);
 
 const TEAM_NAME_ALIASES = new Map([
   ["Mt. Zion", "Mt. Zion Prep Academy"],
@@ -82,6 +86,12 @@ const TEAM_NAME_ALIASES = new Map([
   ["Mervo", "Mervo (Baltimore)"],
   ["Mergenthaler Vocational-Technical", "Mervo (Baltimore)"],
   ["Independence High School", "Independence"],
+  ["Bishop Ireton High School", "Bishop Ireton"],
+  ["Bishop Denis J. O'Connell High School", "Bishop O'Connell"],
+  ["Bishop O'Connell High School", "Bishop O'Connell"],
+  ["Paul VI Catholic", "Paul VI"],
+  ["St. Paul VI Catholic", "Paul VI"],
+  ["St. Paul VI Catholic High School", "Paul VI"],
 ]);
 
 const canonicalTeamName = (teamName = "") => {
@@ -95,7 +105,7 @@ const canonicalizeTeamNames = (game) => ({
   team2: canonicalTeamName(game.team2),
 });
 
-export const games = footballGamesWithSep12Finals.map(canonicalizeTeamNames);
+export const games = footballGamesWithWcacMetroSchedules.map(canonicalizeTeamNames);
 
 export const upcomingGames = games;
 
