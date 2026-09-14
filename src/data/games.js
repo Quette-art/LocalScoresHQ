@@ -9,6 +9,7 @@ import { applyTrackedPrivateFootballSchedulesSep5 } from "./trackedPrivateFootba
 import { applyWcacMetroFootballSchedulesSep13 } from "./wcacMetroFootballSchedulesSep13.js";
 import { applyIacFootballSchedulesSep13 } from "./iacFootballSchedulesSep13.js";
 import { applyMacFootballSchedulesSep13 } from "./macFootballSchedulesSep13.js";
+import { applyFootballRecordCorrectionsSep13 } from "./footballRecordCorrectionsSep13.js";
 import { applyFootballResultsAug28Ryken } from "./footballResultsAug28Ryken.js";
 import { applyFootballResultsAug29 } from "./footballResultsAug29.js";
 import { applyFootballResultCorrectionsAug29 } from "./footballResultCorrectionsAug29.js";
@@ -80,6 +81,9 @@ const footballGamesWithIacSchedules = applyIacFootballSchedulesSep13(
 const footballGamesWithMacSchedules = applyMacFootballSchedulesSep13(
   footballGamesWithIacSchedules
 );
+const footballGamesWithRecordCorrections = applyFootballRecordCorrectionsSep13(
+  footballGamesWithMacSchedules
+);
 
 const TEAM_NAME_ALIASES = new Map([
   ["Mt. Zion", "Mt. Zion Prep Academy"],
@@ -108,6 +112,10 @@ const TEAM_NAME_ALIASES = new Map([
   ["Saint James School", "Saint James"],
   ["St. James School", "Saint James"],
   ["The Potomac School", "Potomac School"],
+  ["Saint John Paul the Great Catholic", "St. John Paul the Great"],
+  ["Saint John Paul the Great Catholic High School", "St. John Paul the Great"],
+  ["St. John Paul the Great Catholic", "St. John Paul the Great"],
+  ["St. John Paul the Great Catholic High School", "St. John Paul the Great"],
 ]);
 
 const canonicalTeamName = (teamName = "") => {
@@ -121,7 +129,7 @@ const canonicalizeTeamNames = (game) => ({
   team2: canonicalTeamName(game.team2),
 });
 
-export const games = footballGamesWithMacSchedules.map(canonicalizeTeamNames);
+export const games = footballGamesWithRecordCorrections.map(canonicalizeTeamNames);
 
 export const upcomingGames = games;
 
