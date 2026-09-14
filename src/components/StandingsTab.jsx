@@ -286,10 +286,6 @@ export default function StandingsTab({
           <span>{standings.length} tracked teams</span>
         </div>
 
-        {activeConfig.note && (
-          <p className="standingsNotice">{activeConfig.note}</p>
-        )}
-
         <div className="footballStandingsScroller">
           <div className="footballStandingsTable">
             <div className="footballStandingsRow footballStandingsHeader">
