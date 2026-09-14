@@ -7,6 +7,8 @@ import { applyFootballScheduleCorrectionsSep6 } from "./footballScheduleCorrecti
 import { applyBullisFootballScheduleSep5 } from "./bullisFootballScheduleSep5.js";
 import { applyTrackedPrivateFootballSchedulesSep5 } from "./trackedPrivateFootballSchedulesSep5.js";
 import { applyWcacMetroFootballSchedulesSep13 } from "./wcacMetroFootballSchedulesSep13.js";
+import { applyIacFootballSchedulesSep13 } from "./iacFootballSchedulesSep13.js";
+import { applyMacFootballSchedulesSep13 } from "./macFootballSchedulesSep13.js";
 import { applyFootballResultsAug28Ryken } from "./footballResultsAug28Ryken.js";
 import { applyFootballResultsAug29 } from "./footballResultsAug29.js";
 import { applyFootballResultCorrectionsAug29 } from "./footballResultCorrectionsAug29.js";
@@ -72,6 +74,12 @@ const footballGamesWithSep12Finals = applyFootballResultsSep12Finals(
 const footballGamesWithWcacMetroSchedules = applyWcacMetroFootballSchedulesSep13(
   footballGamesWithSep12Finals
 );
+const footballGamesWithIacSchedules = applyIacFootballSchedulesSep13(
+  footballGamesWithWcacMetroSchedules
+);
+const footballGamesWithMacSchedules = applyMacFootballSchedulesSep13(
+  footballGamesWithIacSchedules
+);
 
 const TEAM_NAME_ALIASES = new Map([
   ["Mt. Zion", "Mt. Zion Prep Academy"],
@@ -92,6 +100,14 @@ const TEAM_NAME_ALIASES = new Map([
   ["Paul VI Catholic", "Paul VI"],
   ["St. Paul VI Catholic", "Paul VI"],
   ["St. Paul VI Catholic High School", "Paul VI"],
+  ["Episcopal High School", "Episcopal"],
+  ["St. Stephen's and St. Agnes", "St. Stephen's & St. Agnes"],
+  ["St. Stephen's and St. Agnes School", "St. Stephen's & St. Agnes"],
+  ["St. Stephens & St. Agnes School", "St. Stephen's & St. Agnes"],
+  ["Flint Hill School", "Flint Hill"],
+  ["Saint James School", "Saint James"],
+  ["St. James School", "Saint James"],
+  ["The Potomac School", "Potomac School"],
 ]);
 
 const canonicalTeamName = (teamName = "") => {
@@ -105,7 +121,7 @@ const canonicalizeTeamNames = (game) => ({
   team2: canonicalTeamName(game.team2),
 });
 
-export const games = footballGamesWithWcacMetroSchedules.map(canonicalizeTeamNames);
+export const games = footballGamesWithMacSchedules.map(canonicalizeTeamNames);
 
 export const upcomingGames = games;
 
