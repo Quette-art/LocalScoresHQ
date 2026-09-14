@@ -8,8 +8,8 @@ import {
 //
 // The site's coverage area is broader than a single league, so a football
 // "division" here means the standings group a tracked school competes in.
-// Opponent-only league members are included where needed so division records
-// can still be calculated when a tracked school plays an untracked league foe.
+// Conference standings may include full-league programs outside the DC/MD
+// overall coverage lists when their complete football schedules are maintained.
 
 const normalize = (value = "") =>
   String(value)
@@ -26,15 +26,23 @@ const opponentAliases = new Map([
   ["bell chec", "Bell"],
   ["phelps architecture construction engineering", "Phelps ACE"],
   ["phelps ace high school", "Phelps ACE"],
+  ["bishop ireton high school", "Bishop Ireton"],
   ["bishop oconnell", "Bishop O'Connell"],
   ["bishop o connell", "Bishop O'Connell"],
+  ["bishop oconnell high school", "Bishop O'Connell"],
   ["paul vi catholic", "Paul VI"],
+  ["st paul vi catholic", "Paul VI"],
+  ["st paul vi catholic high school", "Paul VI"],
   ["st pauls vi", "Paul VI"],
+  ["episcopal high school", "Episcopal"],
   ["st stephens st agnes", "St. Stephen's & St. Agnes"],
   ["st stephen s st agnes", "St. Stephen's & St. Agnes"],
   ["st stephens and st agnes", "St. Stephen's & St. Agnes"],
+  ["st stephens and st agnes school", "St. Stephen's & St. Agnes"],
+  ["flint hill school", "Flint Hill"],
   ["saint james", "Saint James"],
   ["saint james school", "Saint James"],
+  ["st james school", "Saint James"],
   ["the potomac school", "Potomac School"],
   ["potomac school", "Potomac School"],
   ["st andrews episcopal", "St. Andrew's Episcopal"],
@@ -146,7 +154,14 @@ export const footballCompetitionGroups = [
     label: "IAC",
     shortLabel: "IAC",
     region: "DMV",
-    trackedTeams: ["Bullis", "Georgetown Prep", "Landon", "St. Albans"],
+    trackedTeams: [
+      "Bullis",
+      "Georgetown Prep",
+      "Landon",
+      "St. Albans",
+      "Episcopal",
+      "St. Stephen's & St. Agnes",
+    ],
     leagueMembers: [
       "Bullis",
       "Georgetown Prep",
@@ -155,24 +170,28 @@ export const footballCompetitionGroups = [
       "Episcopal",
       "St. Stephen's & St. Agnes",
     ],
-    note: "Interstate Athletic Conference. Opponent-only members can count toward tracked-team league records.",
+    note: "Full 2026 Interstate Athletic Conference football table with schedule coverage for all six members.",
   }),
   group({
     id: "mac",
     label: "MAC",
     shortLabel: "MAC",
-    region: "DC",
-    trackedTeams: ["Maret", "Sidwell Friends"],
+    region: "DMV",
+    trackedTeams: [
+      "Maret",
+      "Sidwell Friends",
+      "Flint Hill",
+      "Saint James",
+      "Potomac School",
+    ],
     leagueMembers: [
       "Maret",
       "Sidwell Friends",
       "Flint Hill",
-      "Georgetown Day",
-      "St. Andrew's Episcopal",
       "Saint James",
       "Potomac School",
     ],
-    note: "Mid-Atlantic Athletic Conference. Only tracked schools are listed in LocalScoresHQ standings.",
+    note: "2026 MAC football table. Georgetown Day and St. Andrew's Episcopal are MAC schools but do not field varsity tackle football.",
   }),
   group({
     id: "pgcps-4a3a",
@@ -271,8 +290,8 @@ export const getFootballCompetitionGroupsForGame = (game = {}) => {
   return [...found.values()];
 };
 
-// Used by score filters: include a game when at least one tracked team belongs
-// to the selected competition group.
+// Used by score filters: include a game when at least one team belongs to the
+// selected competition group.
 export const gameMatchesFootballCompetitionGroup = (game = {}, groupId) => {
   if (!groupId || groupId === "ALL") return true;
 
