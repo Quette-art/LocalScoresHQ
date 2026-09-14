@@ -125,7 +125,13 @@ export const footballCompetitionGroups = [
     label: "WCAC Metro",
     shortLabel: "WCAC Metro",
     region: "DMV",
-    trackedTeams: ["Archbishop Carroll", "St. Mary's Ryken"],
+    trackedTeams: [
+      "Archbishop Carroll",
+      "St. Mary's Ryken",
+      "Bishop Ireton",
+      "Bishop O'Connell",
+      "Paul VI",
+    ],
     leagueMembers: [
       "Archbishop Carroll",
       "St. Mary's Ryken",
@@ -133,7 +139,7 @@ export const footballCompetitionGroups = [
       "Bishop O'Connell",
       "Paul VI",
     ],
-    note: "Only LocalScoresHQ tracked schools are listed; opponent-only WCAC Metro members still count toward division records.",
+    note: "Full 2026 WCAC Metro league table with schedule coverage for all five members.",
   }),
   group({
     id: "iac",
