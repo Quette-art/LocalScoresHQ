@@ -25,9 +25,10 @@ const RESULTS = [
   },
   {
     teams: ["St. Vincent Pallotti", "Guilford Park"],
-    scores: { "St. Vincent Pallotti": 0, "Guilford Park": 21 },
+    scores: { "St. Vincent Pallotti": null, "Guilford Park": null },
     time: "6:30 PM",
     location: "Guilford Park",
+    scoreUnderReview: true,
   },
   {
     teams: ["Crossland", "Alexandria City"],
@@ -104,12 +105,14 @@ const toFinal = (game, result) => ({
   score2: scoreForName(game.team2, result),
   time: result.time || game.time,
   location: result.location || game.location,
-  scheduleStatus: "Final",
-  subjectToChange: false,
-  verificationStatus: "Final",
-  sourceTier: "Verified score source",
-  notes: "Final score verified Sept. 12, 2026.",
-  lastChecked: "2026-09-12",
+  scheduleStatus: result.scoreUnderReview ? "Score under review" : "Final",
+  subjectToChange: Boolean(result.scoreUnderReview),
+  verificationStatus: result.scoreUnderReview ? "Conflicting score reports" : "Final",
+  sourceTier: result.scoreUnderReview ? "Conflicting secondary sources" : "Verified score source",
+  notes: result.scoreUnderReview
+    ? "Final score withheld while conflicting 21-0 and 35-0 reports are reviewed."
+    : "Final score verified Sept. 12, 2026.",
+  lastChecked: result.scoreUnderReview ? "2026-09-17" : "2026-09-12",
 });
 
 export function applyFootballResultsSep10Finals(games) {
@@ -125,6 +128,7 @@ export function applyFootballResultsSep10Finals(games) {
   RESULTS.forEach((result, index) => {
     if (found.has(index)) return;
     const [team1, team2] = result.teams;
+    const scoreUnderReview = Boolean(result.scoreUnderReview);
     updated.push({
       id: `fb-2026-09-10-${slug(team1)}-${slug(team2)}`,
       sport: "Football",
@@ -137,13 +141,15 @@ export function applyFootballResultsSep10Finals(games) {
       score1: result.scores[team1],
       score2: result.scores[team2],
       location: result.location,
-      scheduleStatus: "Final",
-      subjectToChange: false,
-      verificationStatus: "Final",
-      sourceTier: "Verified score source",
-      notes: "Final score verified Sept. 12, 2026.",
+      scheduleStatus: scoreUnderReview ? "Score under review" : "Final",
+      subjectToChange: scoreUnderReview,
+      verificationStatus: scoreUnderReview ? "Conflicting score reports" : "Final",
+      sourceTier: scoreUnderReview ? "Conflicting secondary sources" : "Verified score source",
+      notes: scoreUnderReview
+        ? "Final score withheld while conflicting 21-0 and 35-0 reports are reviewed."
+        : "Final score verified Sept. 12, 2026.",
       sourceUrl: "",
-      lastChecked: "2026-09-12",
+      lastChecked: scoreUnderReview ? "2026-09-17" : "2026-09-12",
     });
   });
 

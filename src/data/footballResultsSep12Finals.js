@@ -10,6 +10,11 @@ const SATURDAY_UPDATES = [
     sourceUrl: "https://www.thehour.com/sports/article/saturday-s-scores-22429112.php",
   },
   {
+    teams: ["Lewis Bennett", "St. John’s"],
+    scores: { "Lewis Bennett": 0, "St. John’s": 55 },
+    sourceUrl: "https://www.stjohnschs.org/athletics/teams/team-page",
+  },
+  {
     teams: ["Coolidge", "Mervo (Baltimore)"],
     scores: { Coolidge: 0, "Mervo (Baltimore)": 6 },
     sourceUrl: "https://www.thehour.com/sports/article/saturday-s-scores-22429269.php",

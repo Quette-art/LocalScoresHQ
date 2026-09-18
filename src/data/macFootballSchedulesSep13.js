@@ -118,11 +118,26 @@ export function applyMacFootballSchedulesSep13(games) {
 
     if (existingIndex !== -1) {
       const existing = merged[existingIndex];
+      const existingIsFinal =
+        existing.scheduleStatus === "Final" &&
+        Number.isFinite(existing.score1) &&
+        Number.isFinite(existing.score2);
       merged[existingIndex] = {
         ...existing,
         ...auditedFields,
         score1: hasFinal ? row.score1 : existing.score1,
         score2: hasFinal ? row.score2 : existing.score2,
+        ...(existingIsFinal && !hasFinal
+          ? {
+              scheduleStatus: existing.scheduleStatus,
+              subjectToChange: existing.subjectToChange,
+              verificationStatus: existing.verificationStatus,
+              sourceTier: existing.sourceTier,
+              sourceUrl: existing.sourceUrl,
+              notes: existing.notes,
+              lastChecked: existing.lastChecked,
+            }
+          : {}),
       };
       continue;
     }
