@@ -50,6 +50,11 @@ const FINAL_RESULTS = [
     scores: { "John Paul the Great": 0, "Paul VI": 41 },
     sourceUrl: SOURCE_URLS.maryland,
   },
+  {
+    teams: ["Northwestern", "Laurel"],
+    scores: { Northwestern: 6, Laurel: 67 },
+    sourceUrl: SOURCE_URLS.maryland,
+  },
 ];
 
 const normalize = (value = "") =>
