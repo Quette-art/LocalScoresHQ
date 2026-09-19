@@ -1,6 +1,7 @@
 const SOURCE_URLS = {
   dc: "https://www.maxpreps.com/dc/football/scores/?date=9/18/2026",
   maryland: "https://www.maxpreps.com/md/football/scores/?date=9/18/2026",
+  marylandOnSI: "https://www.si.com/high-school/maryland",
 };
 
 const FINAL_RESULTS = [
@@ -9,6 +10,12 @@ const FINAL_RESULTS = [
     scores: { Anacostia: 38, Ballou: 0 },
     sourceUrl: "https://www.instagram.com/anaathleticdept/",
     sourceTier: "Official Anacostia Athletics post",
+  },
+  {
+    teams: ["Bell", "Maret"],
+    scores: { Bell: 30, Maret: 42 },
+    sourceUrl: SOURCE_URLS.dc,
+    sourceTier: "MaxPreps / High School On SI verified result",
   },
   {
     teams: ["Flint Hill", "Landon"],
@@ -51,9 +58,16 @@ const FINAL_RESULTS = [
     sourceUrl: SOURCE_URLS.maryland,
   },
   {
-    teams: ["Northwestern", "Laurel"],
-    scores: { Northwestern: 6, Laurel: 67 },
-    sourceUrl: SOURCE_URLS.maryland,
+    teams: ["Parkdale", "Eleanor Roosevelt"],
+    scores: { Parkdale: 7, "Eleanor Roosevelt": 28 },
+    sourceUrl: SOURCE_URLS.marylandOnSI,
+    sourceTier: "High School On SI verified result",
+  },
+  {
+    teams: ["Loudoun Sports Academy", "DeMatha"],
+    scores: { "Loudoun Sports Academy": 6, DeMatha: 27 },
+    sourceUrl: SOURCE_URLS.marylandOnSI,
+    sourceTier: "High School On SI verified result",
   },
 ];
 
