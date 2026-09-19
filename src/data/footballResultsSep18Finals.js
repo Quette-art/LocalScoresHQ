@@ -5,6 +5,12 @@ const SOURCE_URLS = {
 
 const FINAL_RESULTS = [
   {
+    teams: ["Anacostia", "Ballou"],
+    scores: { Anacostia: 38, Ballou: 0 },
+    sourceUrl: "https://www.instagram.com/anaathleticdept/",
+    sourceTier: "Official Anacostia Athletics post",
+  },
+  {
     teams: ["Flint Hill", "Landon"],
     scores: { "Flint Hill": 42, Landon: 48 },
     sourceUrl: SOURCE_URLS.maryland,
@@ -85,7 +91,7 @@ export function applyFootballResultsSep18Finals(games = []) {
       scheduleStatus: "Final",
       subjectToChange: false,
       verificationStatus: "Final",
-      sourceTier: "Verified result",
+      sourceTier: result.sourceTier || "Verified result",
       sourceUrl: result.sourceUrl,
       notes: `Final: ${game.team1} ${scoreForTeam(game.team1, result)}, ${game.team2} ${scoreForTeam(game.team2, result)}.`,
       lastChecked: "2026-09-19",
