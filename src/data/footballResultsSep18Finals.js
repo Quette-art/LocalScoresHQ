@@ -6,6 +6,30 @@ const SOURCE_URLS = {
 
 const FINAL_RESULTS = [
   {
+    teams: ["Potomac", "Bowie"],
+    scores: { Potomac: 36, Bowie: 14 },
+    sourceUrl: SOURCE_URLS.maryland,
+    sourceTier: "MaxPreps verified result",
+  },
+  {
+    teams: ["Surrattsville", "Frederick Douglass"],
+    scores: { Surrattsville: 6, "Frederick Douglass": 32 },
+    sourceUrl: SOURCE_URLS.maryland,
+    sourceTier: "MaxPreps verified result",
+  },
+  {
+    teams: ["DuVal", "Bladensburg"],
+    scores: { DuVal: 34, Bladensburg: 0 },
+    sourceUrl: SOURCE_URLS.maryland,
+    sourceTier: "MaxPreps verified result",
+  },
+  {
+    teams: ["Eastern", "Georgetown Prep"],
+    scores: { Eastern: 30, "Georgetown Prep": 18 },
+    sourceUrl: SOURCE_URLS.maryland,
+    sourceTier: "MaxPreps verified result",
+  },
+  {
     teams: ["Anacostia", "Ballou"],
     scores: { Anacostia: 38, Ballou: 0 },
     sourceUrl: "https://www.instagram.com/anaathleticdept/",
