@@ -5,6 +5,8 @@ const SOURCES = {
     "https://www.instagram.com/maryland_high_school_sports_/",
   suitlandFootball: "https://www.instagram.com/suitlandramsfb/",
   flowersFootball: "https://www.instagram.com/flowersfootball/",
+  bishopOConnell:
+    "https://www.bishopoconnell.org/athletics/teams/football",
   maxPrepsStJohns:
     "https://www.maxpreps.com/inter-state/football/game/st-johns-washington-dc-vs-west-boca-raton-fl/9-19-2026/?c=b031d257-314e-4546-8a1c-211ebbb42d62",
   dcSportsFan: "https://dcsportsfan.com/2026/09/19/football-scores/",
@@ -80,6 +82,14 @@ const RESULTS = [
     sourceTier: "MaxPreps + Maryland High School Sports",
     sourceUrl: SOURCES.maxPrepsMaryland,
     secondarySourceUrl: SOURCES.marylandHighSchoolSports,
+  },
+  {
+    team1: "Washington High School",
+    team2: "Bishop O'Connell",
+    date: "2026-09-19",
+    scores: { "washington high school": 20, "bishop o connell": 31 },
+    sourceTier: "Official Bishop O'Connell athletics result",
+    sourceUrl: SOURCES.bishopOConnell,
   },
 ];
 
