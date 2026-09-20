@@ -7,6 +7,8 @@ const SOURCES = {
   flowersFootball: "https://www.instagram.com/flowersfootball/",
   bishopOConnell:
     "https://www.bishopoconnell.org/athletics/teams/football",
+  saintJames:
+    "https://www.stjames.edu/athletics/teams/team-profile/~athletics-team-id/114",
   maxPrepsStJohns:
     "https://www.maxpreps.com/inter-state/football/game/st-johns-washington-dc-vs-west-boca-raton-fl/9-19-2026/?c=b031d257-314e-4546-8a1c-211ebbb42d62",
   dcSportsFan: "https://dcsportsfan.com/2026/09/19/football-scores/",
@@ -90,6 +92,14 @@ const RESULTS = [
     scores: { "washington high school": 20, "bishop o connell": 31 },
     sourceTier: "Official Bishop O'Connell athletics result",
     sourceUrl: SOURCES.bishopOConnell,
+  },
+  {
+    team1: "St. Stephen's & St. Agnes",
+    team2: "Saint James",
+    date: "2026-09-19",
+    scores: { "st stephen s st agnes": 0, "saint james": 43 },
+    sourceTier: "Official Saint James athletics result",
+    sourceUrl: SOURCES.saintJames,
   },
 ];
 
