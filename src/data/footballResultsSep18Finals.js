@@ -2,9 +2,18 @@ const SOURCE_URLS = {
   dc: "https://www.maxpreps.com/dc/football/scores/?date=9/18/2026",
   maryland: "https://www.maxpreps.com/md/football/scores/?date=9/18/2026",
   marylandOnSI: "https://www.si.com/high-school/maryland",
+  dcSportsFan: "https://dcsportsfan.com/2026/09/19/football-scores/",
 };
 
 const FINAL_RESULTS = [
+  {
+    teams: ["Digital Pioneers Academy", "H.D. Woodson"],
+    scores: { "Digital Pioneers Academy": 34, "H.D. Woodson": 0 },
+    sourceUrl: "https://www.instagram.com/reel/DdcyPV0gaxN/",
+    secondarySourceUrl: SOURCE_URLS.dcSportsFan,
+    sourceTier: "Official Digital Pioneers football + DCSportsFan",
+    lastChecked: "2026-09-21",
+  },
   {
     teams: ["Potomac", "Bowie"],
     scores: { Potomac: 36, Bowie: 14 },
@@ -136,8 +145,11 @@ export function applyFootballResultsSep18Finals(games = []) {
       verificationStatus: "Final",
       sourceTier: result.sourceTier || "Verified result",
       sourceUrl: result.sourceUrl,
+      ...(result.secondarySourceUrl
+        ? { secondarySourceUrl: result.secondarySourceUrl }
+        : {}),
       notes: `Final: ${game.team1} ${scoreForTeam(game.team1, result)}, ${game.team2} ${scoreForTeam(game.team2, result)}.`,
-      lastChecked: "2026-09-19",
+      lastChecked: result.lastChecked || "2026-09-19",
     };
   });
 }

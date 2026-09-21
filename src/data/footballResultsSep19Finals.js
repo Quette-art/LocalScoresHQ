@@ -9,6 +9,7 @@ const SOURCES = {
     "https://www.bishopoconnell.org/athletics/teams/football",
   saintJames:
     "https://www.stjames.edu/athletics/teams/team-profile/~athletics-team-id/114",
+  stGeorgesTech: "https://www.hawkssports.com/page9405",
   maxPrepsStJohns:
     "https://www.maxpreps.com/inter-state/football/game/st-johns-washington-dc-vs-west-boca-raton-fl/9-19-2026/?c=b031d257-314e-4546-8a1c-211ebbb42d62",
   dcSportsFan: "https://dcsportsfan.com/2026/09/19/football-scores/",
@@ -101,6 +102,15 @@ const RESULTS = [
     sourceTier: "Official Saint James athletics result",
     sourceUrl: SOURCES.saintJames,
   },
+  {
+    team1: "Friendship Collegiate Academy",
+    team2: "St. Georges Tech",
+    date: "2026-09-19",
+    scores: { "friendship collegiate academy": 26, "st georges tech": 6 },
+    sourceTier: "Official St. Georges Tech athletics result",
+    sourceUrl: SOURCES.stGeorgesTech,
+    lastChecked: "2026-09-21",
+  },
 ];
 
 const resultByMatchup = new Map(
@@ -128,7 +138,7 @@ const applyResult = (game, result) => {
     sourceUrl: result.sourceUrl,
     secondarySourceUrl: result.secondarySourceUrl,
     notes: `Final: ${game.team1} ${score1}, ${game.team2} ${score2}.${result.note ? ` ${result.note}` : ""}`,
-    lastChecked: "2026-09-20",
+    lastChecked: result.lastChecked || "2026-09-20",
   };
 };
 
