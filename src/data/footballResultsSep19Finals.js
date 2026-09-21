@@ -10,6 +10,14 @@ const SOURCES = {
   saintJames:
     "https://www.stjames.edu/athletics/teams/team-profile/~athletics-team-id/114",
   stGeorgesTech: "https://www.hawkssports.com/page9405",
+  maxPrepsRonBrownIreton:
+    "https://www.maxpreps.com/news/kJjah8knuk24aEFcKxw7lA/football-recap-bishop-ireton-pulls-away-from-ron-brown.htm",
+  associatedPressSep19:
+    "https://www.nhregister.com/sports/article/saturday-s-scores-22439954.php",
+  maxPrepsHobokenDunbar:
+    "https://www.maxpreps.com/inter-state/football/game/dunbar-washington-dc-vs-hoboken-nj/9-19-2026/?c=2f8f30b0-c602-463a-8121-1164f6c1df2e",
+  tapIntoHoboken:
+    "https://www.tapinto.net/towns/hoboken/articles/football-dunbar-hands-hoboken-first-loss-of-season-28-23",
   maxPrepsStJohns:
     "https://www.maxpreps.com/inter-state/football/game/st-johns-washington-dc-vs-west-boca-raton-fl/9-19-2026/?c=b031d257-314e-4546-8a1c-211ebbb42d62",
   dcSportsFan: "https://dcsportsfan.com/2026/09/19/football-scores/",
@@ -109,6 +117,26 @@ const RESULTS = [
     scores: { "friendship collegiate academy": 26, "st georges tech": 6 },
     sourceTier: "Official St. Georges Tech athletics result",
     sourceUrl: SOURCES.stGeorgesTech,
+    lastChecked: "2026-09-21",
+  },
+  {
+    team1: "Ron Brown",
+    team2: "Bishop Ireton",
+    date: "2026-09-19",
+    scores: { "ron brown": 6, "bishop ireton": 23 },
+    sourceTier: "MaxPreps + Associated Press verified result",
+    sourceUrl: SOURCES.maxPrepsRonBrownIreton,
+    secondarySourceUrl: SOURCES.associatedPressSep19,
+    lastChecked: "2026-09-21",
+  },
+  {
+    team1: "Hoboken (NJ)",
+    team2: "Dunbar",
+    date: "2026-09-19",
+    scores: { "hoboken nj": 23, dunbar: 28 },
+    sourceTier: "MaxPreps + TAPinto Hoboken verified result",
+    sourceUrl: SOURCES.maxPrepsHobokenDunbar,
+    secondarySourceUrl: SOURCES.tapIntoHoboken,
     lastChecked: "2026-09-21",
   },
 ];

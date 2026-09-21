@@ -3,9 +3,33 @@ const SOURCE_URLS = {
   maryland: "https://www.maxpreps.com/md/football/scores/?date=9/18/2026",
   marylandOnSI: "https://www.si.com/high-school/maryland",
   dcSportsFan: "https://dcsportsfan.com/2026/09/19/football-scores/",
+  maxPrepsPhelps:
+    "https://www.maxpreps.com/dc/washington/phelps-architecture-construction-and-engineering-panthers/football/",
+  on3SidwellPhelps:
+    "https://www.on3.com/high-school/scores/football/district-of-columbia/game/phelps-ace-vs-sidwell-friends-2026-09-18-1971327/",
+  maxPrepsNorthwestern:
+    "https://www.maxpreps.com/md/hyattsville/northwestern-wildcats/football/",
+  marylandSep18Finals:
+    "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-september-18-01m2wr6ycbgj",
 };
 
 const FINAL_RESULTS = [
+  {
+    teams: ["Sidwell Friends", "Phelps ACE"],
+    scores: { "Sidwell Friends": 20, "Phelps ACE": 28 },
+    sourceUrl: SOURCE_URLS.maxPrepsPhelps,
+    secondarySourceUrl: SOURCE_URLS.on3SidwellPhelps,
+    sourceTier: "MaxPreps + On3 verified result",
+    lastChecked: "2026-09-21",
+  },
+  {
+    teams: ["Northwestern", "Laurel"],
+    scores: { Northwestern: 6, Laurel: 67 },
+    sourceUrl: SOURCE_URLS.maxPrepsNorthwestern,
+    secondarySourceUrl: SOURCE_URLS.marylandSep18Finals,
+    sourceTier: "MaxPreps + High School On SI verified result",
+    lastChecked: "2026-09-21",
+  },
   {
     teams: ["Digital Pioneers Academy", "H.D. Woodson"],
     scores: { "Digital Pioneers Academy": 34, "H.D. Woodson": 0 },
