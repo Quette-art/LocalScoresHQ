@@ -11,9 +11,21 @@ const SOURCE_URLS = {
     "https://www.maxpreps.com/md/hyattsville/northwestern-wildcats/football/",
   marylandSep18Finals:
     "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-september-18-01m2wr6ycbgj",
+  maxPrepsLegacyJacksonReed:
+    "https://www.maxpreps.com/dc/football/game/jackson-reed-washington-vs-kipp-dc-legacy-college-prep-washington/9-18-2026/?c=da2d255d-3de5-4875-9557-1802bc11265c&tab=Recap",
+  siDcSep18:
+    "https://www.si.com/high-school/stats/washington-dc/football/scores?date=2026-09-18",
 };
 
 const FINAL_RESULTS = [
+  {
+    teams: ["KIPP DC Legacy", "Jackson-Reed"],
+    scores: { "KIPP DC Legacy": 32, "Jackson-Reed": 7 },
+    sourceUrl: SOURCE_URLS.maxPrepsLegacyJacksonReed,
+    secondarySourceUrl: SOURCE_URLS.siDcSep18,
+    sourceTier: "MaxPreps + High School On SI verified result",
+    lastChecked: "2026-09-23",
+  },
   {
     teams: ["Sidwell Friends", "Phelps ACE"],
     scores: { "Sidwell Friends": 20, "Phelps ACE": 28 },
