@@ -1,5 +1,3 @@
-const SOURCE_URL = "https://x.com/EasternHS_FB";
-
 const normalize = (value = "") =>
   String(value)
     .toLowerCase()
@@ -10,15 +8,33 @@ const normalize = (value = "") =>
 const matchupKey = (team1, team2) =>
   [normalize(team1), normalize(team2)].sort().join("|");
 
-const EASTERN_BALLOU_KEY = matchupKey("Eastern", "Ballou");
+const RESULTS = new Map([
+  [
+    matchupKey("Eastern", "Ballou"),
+    {
+      scores: { eastern: 57, ballou: 2 },
+      sourceTier: "Official Eastern football result",
+      sourceUrl: "https://x.com/EasternHS_FB",
+    },
+  ],
+  [
+    matchupKey("H.D. Woodson", "Roosevelt"),
+    {
+      scores: { "h d woodson": 16, roosevelt: 30 },
+      sourceTier: "User-confirmed result; MaxPreps report",
+      sourceUrl: "https://www.maxpreps.com/dc/washington/roosevelt-roughriders/football/schedule/",
+    },
+  ],
+]);
 
 export function applyFootballResultsSep24Finals(games = []) {
   return games.map((game) => {
-    if (matchupKey(game.team1, game.team2) !== EASTERN_BALLOU_KEY) return game;
+    if (game.date !== "2026-09-24") return game;
+    const result = RESULTS.get(matchupKey(game.team1, game.team2));
+    if (!result) return game;
 
-    const scores = { eastern: 57, ballou: 2 };
-    const score1 = scores[normalize(game.team1)];
-    const score2 = scores[normalize(game.team2)];
+    const score1 = result.scores[normalize(game.team1)];
+    const score2 = result.scores[normalize(game.team2)];
 
     return {
       ...game,
@@ -29,8 +45,8 @@ export function applyFootballResultsSep24Finals(games = []) {
       scheduleStatus: "Final",
       subjectToChange: false,
       verificationStatus: "Final",
-      sourceTier: "Official Eastern football result",
-      sourceUrl: SOURCE_URL,
+      sourceTier: result.sourceTier,
+      sourceUrl: result.sourceUrl,
       notes: `Final: ${game.team1} ${score1}, ${game.team2} ${score2}.`,
       lastChecked: "2026-09-25",
     };
