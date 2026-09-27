@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import TeamProfile from "./TeamProfile";
 import "../components/ScoresTab.css";
+import "./HomeScoreboardFix.css";
 import TeamMascot from "../components/TeamMascot";
 
 const getAgeGroup = (game) => {
@@ -156,7 +157,6 @@ const upcomingGames = useMemo(() => {
     }) ||
     finalGames[0];
 
-  // Games involving any favorite team, across finals + upcoming
   const favoriteTeamAllGames = useMemo(() => {
     return allGames.filter((game) => {
       const team1Key = `${game.team1}-${game.division}`;
@@ -167,7 +167,6 @@ const upcomingGames = useMemo(() => {
     });
   }, [allGames, favoriteTeams]);
 
-  // Hero game: favorite team's most recent final, else their soonest upcoming
   const favoriteHeroGame = useMemo(() => {
     const recentFinal = favoriteTeamAllGames
       .filter((g) => hasScore(g))
@@ -183,8 +182,6 @@ const upcomingGames = useMemo(() => {
   const heroGame = favoriteHeroGame || featuredGame;
   const hasFavoriteHero = Boolean(favoriteHeroGame);
 
-  // The sport your favorite team plays — or, with no favorites set, whichever
-  // sport has the most recent activity
   const activeSport = favoriteHeroGame?.sport || finalGames[0]?.sport;
 
   const sportScoreboard = useMemo(() => {
@@ -200,7 +197,6 @@ const upcomingGames = useMemo(() => {
       const start = new Date(`${game.date}T${game.time}`);
       if (isNaN(start.getTime())) return false;
       const elapsed = now - start;
-      // "live" window: kicked off, but not more than 2 hours ago
       return elapsed >= 0 && elapsed <= 2 * 60 * 60 * 1000;
     });
   }, [allGames]);
@@ -446,7 +442,7 @@ const upcomingGames = useMemo(() => {
           >
             <h2>Upcoming Games</h2>
 
-            <span>{showUpcoming ? "−" : "+"}</span>
+            <span>{showUpcoming ? "\u2212" : "+"}</span>
           </div>
 
           {showUpcoming && (
@@ -524,7 +520,7 @@ const upcomingGames = useMemo(() => {
           >
             <h2>Recent Finals</h2>
 
-            <span>{showFinals ? "−" : "+"}</span>
+            <span>{showFinals ? "\u2212" : "+"}</span>
           </div>
 
           {showFinals && (

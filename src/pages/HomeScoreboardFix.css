@@ -1,0 +1,67 @@
+/* Keep Football Scoreboard scores fully on-screen.
+   Long names were forcing the row wider than the card. */
+
+.home-page,
+.home-section-card,
+.sport-scoreboard-grid,
+.scoreboard-mini-row,
+.scoreboard-mini-teams {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.sport-scoreboard-grid {
+  width: 100%;
+  overflow: hidden;
+}
+
+.scoreboard-mini-row {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.scoreboard-mini-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.scoreboard-mini-team .team-avatar {
+  flex: 0 0 auto;
+}
+
+.scoreboard-mini-team span:not(.team-avatar) {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scoreboard-mini-team b {
+  flex: 0 0 2.25em;
+  min-width: 2.25em;
+  margin-left: 8px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .home-page {
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+  }
+
+  .home-section-card {
+    overflow: hidden;
+  }
+
+  .scoreboard-mini-team b {
+    flex-basis: 2.5em;
+    min-width: 2.5em;
+  }
+}
