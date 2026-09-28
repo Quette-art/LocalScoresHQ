@@ -10,6 +10,7 @@ const FINAL_RESULTS = new Map([
   ["md-fb-2026-09-26-laurel-suitland", [0, 44]],
   ["fb-2026-09-26-st-johns-st-edward", [21, 22]],
   ["fb-2026-09-26-bullis-loyola-blakefield", [14, 25]],
+  ["fb-2026-09-26-sidwell-friends-st-stephen-s-st-agnes", [6, 27]],
 ]);
 
 export function applyFootballResultsSep26Finals(games = []) {
@@ -34,6 +35,7 @@ export function applyFootballResultsSep26Finals(games = []) {
     const episcopalFinal = game.id === "fb-2026-09-26-flint-hill-episcopal";
     const stEdwardFinal = game.id === "fb-2026-09-26-st-johns-st-edward";
     const bullisFinal = game.id === "fb-2026-09-26-bullis-loyola-blakefield";
+    const sidwellFinal = game.id === "fb-2026-09-26-sidwell-friends-st-stephen-s-st-agnes";
     return {
       ...game,
       score1,
@@ -42,10 +44,12 @@ export function applyFootballResultsSep26Finals(games = []) {
       scheduleStatus: "Final",
       subjectToChange: false,
       verificationStatus: "Final",
-      sourceTier: episcopalFinal ? "Official school athletics" : stEdwardFinal ? "Ohio Sports Rankings and Maryland High School Sports roundup" : "Associated Press and MaxPreps",
-      sourceUrl: episcopalFinal ? "https://www.episcopalhighschool.org/football" : stEdwardFinal ? "https://ohsportsrank.com/football/school/1346" : "https://www.newstimes.com/sports/article/saturday-s-scores-22450729.php",
+      sourceTier: episcopalFinal || sidwellFinal ? "Official school athletics" : stEdwardFinal ? "Ohio Sports Rankings and Maryland High School Sports roundup" : "Associated Press and MaxPreps",
+      sourceUrl: episcopalFinal ? "https://www.episcopalhighschool.org/football" : sidwellFinal ? "https://www.sidwell.edu/athletics/upcoming-games" : stEdwardFinal ? "https://ohsportsrank.com/football/school/1346" : "https://www.newstimes.com/sports/article/saturday-s-scores-22450729.php",
       notes: episcopalFinal
         ? "Final: Flint Hill 0, Episcopal 43. Confirmed by Episcopal High School athletics."
+        : sidwellFinal
+        ? "Final: Sidwell Friends 6, St. Stephen\'s & St. Agnes 27. Confirmed by Sidwell Friends athletics scoreboard."
         : stEdwardFinal
         ? "Final: St. John's 21, St. Edward 22. Confirmed by Ohio Sports Rankings and a Maryland High School Sports roundup."
         : bullisFinal
