@@ -8,6 +8,8 @@ const FINAL_RESULTS = new Map([
   ["fb-2026-09-26-bishop-ireton-landon", [6, 35]],
   ["fb-2026-09-26-st-james-wyoming-seminary", [28, 19]],
   ["md-fb-2026-09-26-laurel-suitland", [0, 44]],
+  ["fb-2026-09-26-st-johns-st-edward", [21, 22]],
+  ["fb-2026-09-26-bullis-loyola-blakefield", [14, 25]],
 ]);
 
 export function applyFootballResultsSep26Finals(games = []) {
@@ -30,6 +32,8 @@ export function applyFootballResultsSep26Finals(games = []) {
 
     const [score1, score2] = scores;
     const episcopalFinal = game.id === "fb-2026-09-26-flint-hill-episcopal";
+    const stEdwardFinal = game.id === "fb-2026-09-26-st-johns-st-edward";
+    const bullisFinal = game.id === "fb-2026-09-26-bullis-loyola-blakefield";
     return {
       ...game,
       score1,
@@ -38,10 +42,14 @@ export function applyFootballResultsSep26Finals(games = []) {
       scheduleStatus: "Final",
       subjectToChange: false,
       verificationStatus: "Final",
-      sourceTier: episcopalFinal ? "Official school athletics" : "Associated Press and MaxPreps",
-      sourceUrl: episcopalFinal ? "https://www.episcopalhighschool.org/football" : "https://www.newstimes.com/sports/article/saturday-s-scores-22450729.php",
+      sourceTier: episcopalFinal ? "Official school athletics" : stEdwardFinal ? "Ohio Sports Rankings and Maryland High School Sports roundup" : "Associated Press and MaxPreps",
+      sourceUrl: episcopalFinal ? "https://www.episcopalhighschool.org/football" : stEdwardFinal ? "https://ohsportsrank.com/football/school/1346" : "https://www.newstimes.com/sports/article/saturday-s-scores-22450729.php",
       notes: episcopalFinal
         ? "Final: Flint Hill 0, Episcopal 43. Confirmed by Episcopal High School athletics."
+        : stEdwardFinal
+        ? "Final: St. John's 21, St. Edward 22. Confirmed by Ohio Sports Rankings and a Maryland High School Sports roundup."
+        : bullisFinal
+        ? "Final: Bullis 14, Loyola Blakefield 25. Confirmed by the Associated Press, MaxPreps and a Maryland High School Sports roundup."
         : `Final: ${game.team1} ${score1}, ${game.team2} ${score2}. Confirmed by the Associated Press and MaxPreps September 26 results.`,
       lastChecked: "2026-09-28",
     };
