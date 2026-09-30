@@ -1,4 +1,5 @@
 const FINAL_RESULTS = new Map([
+  ["fb-2026-09-26-mckinley-tech-st-albans", [0, 46]],
   ["fb-2026-09-26-maret-allegany", [21, 57]],
   ["md-fb-2026-09-26-frederick-douglass-crossland", [42, 0]],
   ["fb-2026-09-26-flint-hill-episcopal", [0, 43]],
@@ -38,6 +39,7 @@ export function applyFootballResultsSep26Finals(games = []) {
     const bullisFinal = game.id === "fb-2026-09-26-bullis-loyola-blakefield";
     const sidwellFinal = game.id === "fb-2026-09-26-sidwell-friends-st-stephen-s-st-agnes";
     const oconnellFinal = game.id === "fb-2026-09-26-northern-va-home-school-athletic-assoc-bishop-oconnell";
+    const stAlbansFinal = game.id === "fb-2026-09-26-mckinley-tech-st-albans";
     return {
       ...game,
       score1,
@@ -46,12 +48,14 @@ export function applyFootballResultsSep26Finals(games = []) {
       scheduleStatus: "Final",
       subjectToChange: false,
       verificationStatus: "Final",
-      sourceTier: episcopalFinal || sidwellFinal ? "Official school athletics" : oconnellFinal ? "Bishop O’Connell football social post and MaxPreps" : stEdwardFinal ? "Ohio Sports Rankings and Maryland High School Sports roundup" : "Associated Press and MaxPreps",
-      sourceUrl: episcopalFinal ? "https://www.episcopalhighschool.org/football" : sidwellFinal ? "https://www.sidwell.edu/athletics/upcoming-games" : oconnellFinal ? "https://www.maxpreps.com/va/football/game/bishop-oconnell-arlington-vs-northern-virginia-homeschool-manassas/9-26-2026/?c=a0b9186a-c7fd-43db-b4e0-0af20329fba8" : stEdwardFinal ? "https://ohsportsrank.com/football/school/1346" : "https://www.newstimes.com/sports/article/saturday-s-scores-22450729.php",
+      sourceTier: episcopalFinal || sidwellFinal || stAlbansFinal ? "Official school athletics" : oconnellFinal ? "Bishop O’Connell football social post and MaxPreps" : stEdwardFinal ? "Ohio Sports Rankings and Maryland High School Sports roundup" : "Associated Press and MaxPreps",
+      sourceUrl: episcopalFinal ? "https://www.episcopalhighschool.org/football" : sidwellFinal ? "https://www.sidwell.edu/athletics/upcoming-games" : stAlbansFinal ? "https://www.stalbansschool.org/athletics/schedules-and-scores" : oconnellFinal ? "https://www.maxpreps.com/va/football/game/bishop-oconnell-arlington-vs-northern-virginia-homeschool-manassas/9-26-2026/?c=a0b9186a-c7fd-43db-b4e0-0af20329fba8" : stEdwardFinal ? "https://ohsportsrank.com/football/school/1346" : "https://www.newstimes.com/sports/article/saturday-s-scores-22450729.php",
       notes: episcopalFinal
         ? "Final: Flint Hill 0, Episcopal 43. Confirmed by Episcopal High School athletics."
         : sidwellFinal
         ? "Final: Sidwell Friends 6, St. Stephen\'s & St. Agnes 27. Confirmed by Sidwell Friends athletics scoreboard."
+        : stAlbansFinal
+        ? "Final: McKinley Tech 0, St. Albans 46. Confirmed by St. Albans School athletics; other score listings reported 42-0."
         : oconnellFinal
         ? "Final: Northern Virginia HomeSchool 0, Bishop O’Connell 48. Confirmed by O’Connell football’s September 26 Instagram win graphic and MaxPreps game report."
         : stEdwardFinal
@@ -59,7 +63,7 @@ export function applyFootballResultsSep26Finals(games = []) {
         : bullisFinal
         ? "Final: Bullis 14, Loyola Blakefield 25. Confirmed by the Associated Press, MaxPreps and a Maryland High School Sports roundup."
         : `Final: ${game.team1} ${score1}, ${game.team2} ${score2}. Confirmed by the Associated Press and MaxPreps September 26 results.`,
-      lastChecked: "2026-09-28",
+      lastChecked: "2026-09-29",
     };
   });
 }
