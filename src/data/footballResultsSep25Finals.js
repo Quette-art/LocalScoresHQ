@@ -1,4 +1,5 @@
 const FINAL_RESULTS = new Map([
+  ["fb-2026-09-25-kipp-dc-legacy-anacostia", [14, 13]],
   ["fb-2026-09-25-st-vincent-st-vincent-pallotti-archbishop-curley", [0, 41]],
   ["md-fb-2026-09-25-bowie-wise", [0, 51]],
   ["md-fb-2026-09-25-parkdale-bladensburg", [53, 0]],
@@ -19,6 +20,7 @@ const FINAL_RESULTS = new Map([
 ]);
 
 const NEW_RESULT_SOURCES = {
+  "fb-2026-09-25-kipp-dc-legacy-anacostia": ["DCSportsFan and MaxPreps", "https://dcsportsfan.com/2026/09/26/football-scores/"],
   "fb-2026-09-25-gonzaga-benedictine": ["MaxPreps and High School On SI WCAC scoreboard", "https://www.si.com/high-school/stats/maryland/30705-washington-catholic-athletic-conference/football/scores?date=2026-09-25"],
   "fb-2026-09-25-friendship-collegiate-academy-roanoke-catholic": ["MaxPreps and High School On SI Virginia scoreboard", "https://www.si.com/high-school/virginia/virginia-high-school-football-final-scores-results-september-25-01m3e2kydydg"],
   "fb-2026-09-25-jackson-reed-thomas-jefferson-science-and-technology": ["MaxPreps and High School On SI Virginia scoreboard", "https://www.si.com/high-school/virginia/virginia-high-school-football-final-scores-results-september-25-01m3e2kydydg"],
@@ -56,7 +58,7 @@ export function applyFootballResultsSep25Finals(games = []) {
         : NEW_RESULT_SOURCES[game.id]
         ? `Final: ${game.team1} ${score1}, ${game.team2} ${score2}. Confirmed by ${NEW_RESULT_SOURCES[game.id][0]}.`
         : `Final: ${game.team1} ${score1}, ${game.team2} ${score2}. Also confirmed by @maryland_high_school_sports_ September 25 roundup.`,
-      lastChecked: ["fb-2026-09-25-bell-coolidge", "fb-2026-09-25-cardozo-manassas-park", "md-fb-2026-09-25-fairmont-heights-friendly", "fb-2026-09-25-good-counsel-malvern-prep"].includes(game.id) ? "2026-09-28" : "2026-09-26",
+      lastChecked: ["fb-2026-09-25-kipp-dc-legacy-anacostia", "fb-2026-09-25-bell-coolidge", "fb-2026-09-25-cardozo-manassas-park", "md-fb-2026-09-25-fairmont-heights-friendly", "fb-2026-09-25-good-counsel-malvern-prep"].includes(game.id) ? "2026-09-28" : "2026-09-26",
     };
   });
 }
