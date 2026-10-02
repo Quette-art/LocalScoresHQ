@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getMessaging } from "firebase/messaging";
+import { isNativeApp } from "./platform";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBwmD_2i3vH-fn2vmQcHcY53Rt_j-c7ROo",
@@ -19,7 +20,7 @@ export const auth = getAuth(app);
 
 let messaging = null;
 try {
-  messaging = getMessaging(app);
+  if (!isNativeApp) messaging = getMessaging(app);
 } catch (e) {
   console.log("Messaging not supported");
 }

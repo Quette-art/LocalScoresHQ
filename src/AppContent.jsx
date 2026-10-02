@@ -15,6 +15,7 @@ import {
 } from "firebase/auth";
 import { db, auth } from "./firebase";
 import { requestNotificationPermission } from "./notifications";
+import { isNativeApp } from "./platform";
 
 import Home from "./pages/Home";
 import TeamProfile from "./pages/TeamProfile";
@@ -338,8 +339,12 @@ export default function AppContent() {
         </div>
       </header>
 
-      <InstallAppButton />
-      <IphoneInstallTip />
+      {!isNativeApp && (
+        <>
+          <InstallAppButton />
+          <IphoneInstallTip />
+        </>
+      )}
 
       {showGlobalSearch && (
         <div className="search-overlay">

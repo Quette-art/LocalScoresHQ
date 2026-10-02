@@ -1,0 +1,8 @@
+{
+  "appId": "com.localscoreshq.app",
+  "appName": "LocalScoresHQ",
+  "webDir": "dist-native",
+  "ios": {
+    "contentInset": "never"
+  }
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { isNativeApp } from "./platform";
 import "./data/customTrackedMascots.js";
 import "./data/georgetownPrepExactLogo.js";
 import "./data/riverdaleExactLogo.js";
@@ -18,7 +19,7 @@ import "./mobileGameDetailsFix.css";
 import "./friendshipCompactFix.css";
 import "./friendshipGameDetailsFix.css";
 
-if ("serviceWorker" in navigator) {
+if (!isNativeApp && "serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.getRegistration().then((registration) => {
       registration?.update();

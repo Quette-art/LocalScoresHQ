@@ -23,3 +23,14 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Native builds and local signing settings
+dist-native/
+ios/App/App/public/
+ios/App/App/capacitor.config.json
+ios/App/Pods/
+ios/DerivedData/
+*.xcuserstate
+xcuserdata/
+*.p12
+*.mobileprovision
