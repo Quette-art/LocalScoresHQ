@@ -27,3 +27,9 @@ Opening and compiling the iOS project requires macOS and a compatible Xcode inst
 - Build and test an archive on macOS, then upload to TestFlight with an Apple Developer membership.
 
 This is the initial project foundation, not a tested or App Store-ready release. Native compilation is checked by the cloud workflow; see its latest result in GitHub Actions. Physical-device tests have not been performed.
+
+## First cloud verification — October 2, 2026
+
+Xcode compilation passed on the standard macOS runner. The app installed and launched on an iPhone 17 Pro simulator, and the captured home screen showed scores, the featured matchup, and bottom navigation. See `ios-preview.png`. Full navigation, notification, offline, and physical-device tests are still pending.
+
+The preview run reported a step timeout after successfully writing its screenshot and launch report. Its log was being piped through `tee`, which could remain waiting on output handles inherited by simulator processes. The workflow now writes directly to a log file and prints it after the Python process exits.
