@@ -1,0 +1,74 @@
+name: iPhone app build
+
+on:
+  push:
+    branches: [ios-app]
+    paths:
+      - '.github/workflows/ios-build.yml'
+      - 'ios/**'
+      - 'src/**'
+      - 'public/**'
+      - 'scripts/**'
+      - 'package*.json'
+      - 'capacitor.config.json'
+      - 'vite.config.js'
+      - 'index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and launch on iPhone simulator
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Check Xcode
+        run: xcodebuild -version
+      - name: Install dependencies
+        run: npm ci
+      - name: Build and sync app assets
+        run: npm run ios:sync
+      - name: Compile for iPhone simulator
+        run: |
+          set -o pipefail
+          mkdir -p build/reports
+          xcodebuild \
+            -project ios/App/App.xcodeproj \
+            -scheme App \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            build 2>&1 | tee build/reports/xcodebuild.log
+      - name: Launch app and capture preview
+        run: python3 scripts/ios-simulator-smoke.py
+      - name: Upload build report and simulator preview
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iphone-build-report
+          path: build/reports/
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Explain result
+        if: success()
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" <<'SUMMARY'
+          ## LocalScoresHQ iPhone build
+          The iOS project compiled and launched in an iPhone simulator.
+          Download **iphone-build-report** for the screenshot and build log.
+          This verifies compilation and launch only; inspect the preview and test app flows separately.
+          This is an unsigned simulator check, not an installable iPhone or TestFlight release.
+          Apple enrollment, signing, native notifications, and device testing are still required.
+          SUMMARY
