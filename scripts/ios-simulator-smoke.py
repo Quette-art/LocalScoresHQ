@@ -6,7 +6,8 @@ import time
 
 
 def run(*args):
-    return subprocess.check_output(args, text=True).strip()
+    print("Running:", " ".join(args), flush=True)
+    return subprocess.check_output(args, text=True, timeout=180).strip()
 
 
 inventory = json.loads(run("xcrun", "simctl", "list", "--json"))
@@ -26,9 +27,11 @@ if not phones:
     raise RuntimeError("No available iPhone simulator on this runner")
 phone = phones[0]
 udid = phone["udid"]
+print(f"Starting simulator: {phone["name"]}", flush=True)
+run("open", "-a", "Simulator", "--args", "-CurrentDeviceUDID", udid)
 if phone["state"] != "Booted":
     run("xcrun", "simctl", "boot", udid)
-run("xcrun", "simctl", "bootstatus", udid, "-b")
+subprocess.run(["xcrun", "simctl", "bootstatus", udid, "-b"], check=True, timeout=300)
 app_path = Path("build/DerivedData/Build/Products/Debug-iphonesimulator/App.app")
 if not app_path.is_dir():
     raise RuntimeError(f"Compiled app missing: {app_path}")

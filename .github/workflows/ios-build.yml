@@ -52,7 +52,10 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             build 2>&1 | tee build/reports/xcodebuild.log
       - name: Launch app and capture preview
-        run: python3 scripts/ios-simulator-smoke.py
+        timeout-minutes: 8
+        run: |
+          set -o pipefail
+          python3 -u scripts/ios-simulator-smoke.py 2>&1 | tee build/reports/simulator.log
       - name: Upload build report and simulator preview
         if: always()
         uses: actions/upload-artifact@v4
