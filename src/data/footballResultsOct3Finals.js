@@ -2,6 +2,25 @@ export function applyFootballResultsOct3Finals(games = []) {
   return games.map((game) => {
     const oconnell = game.id === "fb-2026-10-03-bishop-oconnell-potomac-school";
     const bullis = game.id === "fb-2026-10-03-bullis-roosevelt";
+    const eastern = game.id === "fb-2026-10-03-h-d-woodson-eastern";
+    const coolidge = game.id === "fb-2026-10-03-coolidge-ballou";
+    if (eastern || coolidge) {
+      return {
+        ...game,
+        score1: eastern ? 0 : 45,
+        score2: eastern ? 34 : 0,
+        status: undefined,
+        scheduleStatus: "Final",
+        subjectToChange: false,
+        verificationStatus: "Final",
+        sourceTier: "Official team account screenshot confirmed by user",
+        sourceUrl: eastern ? "https://www.instagram.com/easternhs_fb/" : "https://www.nfhsnetwork.com/events/ballou-high-school-washington-dc/gam9549b9ab2e",
+        notes: eastern
+          ? "Final: H.D. Woodson 0, Eastern 34. User supplied and confirmed Eastern's official Instagram story sharing @EasternHS_FB's homecoming final. Matchup date confirmed by Eastern High School's October 3 calendar."
+          : "Final: Coolidge 45, Ballou 0. User supplied and confirmed Coolidge athletics' official Instagram story showing the 45-0 win at Ballou. October 3 matchup corroborated by NFHS Network's varsity game listing.",
+        lastChecked: "2026-10-03",
+      };
+    }
     if (!oconnell && !bullis) return game;
     return {
       ...game,
