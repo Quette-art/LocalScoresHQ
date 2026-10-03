@@ -4,6 +4,21 @@ export function applyFootballResultsOct3Finals(games = []) {
     const bullis = game.id === "fb-2026-10-03-bullis-roosevelt";
     const eastern = game.id === "fb-2026-10-03-h-d-woodson-eastern";
     const coolidge = game.id === "fb-2026-10-03-coolidge-ballou";
+    if (game.id === "md-fb-2026-10-03-eleanor-roosevelt-suitland") {
+      return {
+        ...game,
+        score1: 6,
+        score2: 40,
+        status: undefined,
+        scheduleStatus: "Final",
+        subjectToChange: false,
+        verificationStatus: "Final",
+        sourceTier: "Maryland High School Football Scores and MaxPreps",
+        sourceUrl: "https://www.maxpreps.com/md/football/scores/?date=10/3/2026",
+        notes: "Final: Eleanor Roosevelt 6, Suitland 40. Confirmed by user-supplied @mdhsscores October 3 final graphic (https://www.instagram.com/mdhsscores/) and MaxPreps' October 3 varsity scoreboard.",
+        lastChecked: "2026-10-03",
+      };
+    }
     if (eastern || coolidge) {
       return {
         ...game,
