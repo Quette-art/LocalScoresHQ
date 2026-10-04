@@ -4,6 +4,21 @@ export function applyFootballResultsOct3Finals(games = []) {
     const bullis = game.id === "fb-2026-10-03-bullis-roosevelt";
     const eastern = game.id === "fb-2026-10-03-h-d-woodson-eastern";
     const coolidge = game.id === "fb-2026-10-03-coolidge-ballou";
+    if (game.id === "fb-2026-10-03-st-michael-the-archangel-bishop-mcnamara") {
+      return {
+        ...game,
+        score1: 15,
+        score2: 17,
+        status: undefined,
+        scheduleStatus: "Final",
+        subjectToChange: false,
+        verificationStatus: "Final",
+        sourceTier: "Fredericksburg Free Press and MaxPreps",
+        sourceUrl: "https://www.fredericksburgfreepress.com/2026/10/03/weekly-high-school-football-roundup-and-look-ahead-to-next-week-2/",
+        notes: "Final: St. Michael the Archangel 15, Bishop McNamara 17. Confirmed by Fredericksburg Free Press's Saturday result and MaxPreps' October 3 varsity scoreboard: https://www.maxpreps.com/md/football/scores/?date=10/3/2026",
+        lastChecked: "2026-10-04",
+      };
+    }
     if (game.id === "md-fb-2026-10-03-eleanor-roosevelt-suitland") {
       return {
         ...game,
