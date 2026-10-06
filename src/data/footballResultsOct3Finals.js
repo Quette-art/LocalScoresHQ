@@ -19,6 +19,21 @@ export function applyFootballResultsOct3Finals(games = []) {
         lastChecked: "2026-10-04",
       };
     }
+    if (game.id === "fb-2026-10-03-sidwell-friends-saint-james") {
+      return {
+        ...game,
+        score1: 0,
+        score2: 2,
+        status: "Cancelled — Saint James win by forfeit",
+        scheduleStatus: "Final",
+        subjectToChange: false,
+        verificationStatus: "Final",
+        sourceTier: "Official school athletics",
+        sourceUrl: "https://www.stjames.edu/athletics/teams/team-profile",
+        notes: "Final: Sidwell Friends 0, Saint James 2 (forfeit). Both schools' official athletics pages list the October 3 game as cancelled and record a 2-0 Saint James win: https://www.sidwell.edu/enhancements/upcoming-games-clone",
+        lastChecked: "2026-10-06",
+      };
+    }
     if (game.id === "md-fb-2026-10-03-eleanor-roosevelt-suitland") {
       return {
         ...game,
