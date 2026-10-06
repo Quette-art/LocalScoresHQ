@@ -6,6 +6,7 @@ const FINAL_RESULTS = new Map([
   ["fb-2026-10-02-malvern-prep-gonzaga", [27, 19]],
   ["md-fb-2026-10-02-friendly-crossland", [22, 51]],
   ["md-fb-2026-10-02-surrattsville-gwynn-park", [0, 49]],
+  ["md-fb-2026-10-02-fairmont-heights-largo", [0, 51]],
   ["fb-2026-10-02-episcopal-st-christophers", [48, 7]],
   ["fb-2026-10-02-friendship-collegiate-academy-loudoun-sports-academy", [10, 40]],
   ["fb-2026-10-02-maret-flint-hill", [25, 22]],
@@ -23,6 +24,7 @@ export function applyFootballResultsOct2Finals(games = []) {
     const [score1, score2] = scores;
     const saints = game.id === "fb-2026-10-02-bishop-ireton-st-stephens-st-agnes";
     const malvern = game.id === "fb-2026-10-02-malvern-prep-gonzaga";
+    const largo = game.id === "md-fb-2026-10-02-fairmont-heights-largo";
     const confirmation = saints
       ? "Confirmed by St. Stephen's & St. Agnes official varsity football schedule."
       : malvern
@@ -37,9 +39,13 @@ export function applyFootballResultsOct2Finals(games = []) {
       subjectToChange: false,
       verificationStatus: "Final",
       sourceTier: saints ? "Official school athletics" : malvern ? "High School On SI and Associated Press" : "High School On SI and MaxPreps",
-      sourceUrl: saints ? "https://www.sssas.org/fall-team-1/varsity-football" : ROUNDUP_URL,
+      sourceUrl: saints
+        ? "https://www.sssas.org/fall-team-1/varsity-football"
+        : largo
+        ? "https://www.si.com/high-school/stats/maryland/football/games/6834846-fairmont-heights-vs-largo"
+        : ROUNDUP_URL,
       notes: `Final: ${game.team1} ${score1}, ${game.team2} ${score2}. ${confirmation}`,
-      lastChecked: "2026-10-03",
+      lastChecked: largo ? "2026-10-06" : "2026-10-03",
     };
   });
 }
