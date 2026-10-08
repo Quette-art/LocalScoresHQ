@@ -13,6 +13,7 @@ const FINAL_RESULTS = new Map([
   ["fb-2026-10-02-st-albans-paul-vi", [29, 7]],
   ["fb-2026-10-02-digital-pioneers-academy-riverdale-baptist", [6, 14]],
   ["md-fb-2026-10-02-duval-wise", [6, 71]],
+  ["md-fb-2026-10-02-parkdale-flowers", [8, 27]],
   ["fb-2026-10-02-st-marys-ryken-good-counsel", [0, 42]],
   ["fb-2026-10-02-st-pauls-st-vincent-st-vincent-pallotti", [18, 0]],
 ]);
@@ -45,7 +46,7 @@ export function applyFootballResultsOct2Finals(games = []) {
         ? "https://www.si.com/high-school/stats/maryland/football/games/6834846-fairmont-heights-vs-largo"
         : ROUNDUP_URL,
       notes: `Final: ${game.team1} ${score1}, ${game.team2} ${score2}. ${confirmation}`,
-      lastChecked: largo ? "2026-10-06" : "2026-10-03",
+      lastChecked: game.id === "md-fb-2026-10-02-parkdale-flowers" ? "2026-10-08" : largo ? "2026-10-06" : "2026-10-03",
     };
   });
 }
