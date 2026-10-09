@@ -1,0 +1,56 @@
+@media (max-width: 900px) {
+  .bottomNav {
+    align-items: center !important;
+    padding: 4px 2px calc(6px + env(safe-area-inset-bottom, 0px)) !important;
+    min-height: 0 !important;
+    box-shadow: 0 -1px 0 #e5e7eb !important;
+  }
+
+  .bottomNavButton {
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 2px 0 1px !important;
+    gap: 1px !important;
+    justify-content: center !important;
+  }
+
+  .bottomNavIcon {
+    height: 22px !important;
+    font-size: 20px !important;
+    line-height: 22px !important;
+  }
+
+  .bottomNavLabel,
+  .bottomNavButton span:last-child {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    line-height: 12px !important;
+    letter-spacing: 0.1px;
+  }
+
+  .bottomNavButtonActive .bottomNavLabel,
+  .bottomNavButtonActive span:last-child {
+    font-weight: 700 !important;
+  }
+
+  .mainContent {
+    padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .bottomNav {
+    padding: 3px 0 calc(4px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .bottomNavIcon {
+    height: 21px !important;
+    font-size: 19px !important;
+  }
+
+  .bottomNavLabel,
+  .bottomNavButton span:last-child {
+    font-size: 10px !important;
+    line-height: 11px !important;
+  }
+}
