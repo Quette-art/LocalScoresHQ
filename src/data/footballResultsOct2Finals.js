@@ -2,6 +2,7 @@ const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-schoo
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/2/2026";
 
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-01-dunbar-bell", [40, 16]],
   ["fb-2026-10-02-bishop-ireton-st-stephens-st-agnes", [21, 28]],
   ["fb-2026-10-02-malvern-prep-gonzaga", [27, 19]],
   ["md-fb-2026-10-02-friendly-crossland", [22, 51]],
@@ -23,10 +24,13 @@ export function applyFootballResultsOct2Finals(games = []) {
     const scores = FINAL_RESULTS.get(game.id);
     if (!scores) return game;
     const [score1, score2] = scores;
+    const dunbarBell = game.id === "fb-2026-10-01-dunbar-bell";
     const saints = game.id === "fb-2026-10-02-bishop-ireton-st-stephens-st-agnes";
     const malvern = game.id === "fb-2026-10-02-malvern-prep-gonzaga";
     const largo = game.id === "md-fb-2026-10-02-fairmont-heights-largo";
-    const confirmation = saints
+    const confirmation = dunbarBell
+      ? "Confirmed by DCSportsFan and MaxPreps."
+      : saints
       ? "Confirmed by St. Stephen's & St. Agnes official varsity football schedule."
       : malvern
       ? "Confirmed by High School On SI and the Associated Press October 2 score report: https://www.cbsnews.com/pittsburgh/news/pennsylvania-high-school-football-scores-october-2-2026/"
@@ -39,14 +43,16 @@ export function applyFootballResultsOct2Finals(games = []) {
       scheduleStatus: "Final",
       subjectToChange: false,
       verificationStatus: "Final",
-      sourceTier: saints ? "Official school athletics" : malvern ? "High School On SI and Associated Press" : "High School On SI and MaxPreps",
-      sourceUrl: saints
+      sourceTier: dunbarBell ? "DCSportsFan and MaxPreps" : saints ? "Official school athletics" : malvern ? "High School On SI and Associated Press" : "High School On SI and MaxPreps",
+      sourceUrl: dunbarBell
+        ? "https://dcsportsfan.com/2026/10/03/football-scores/"
+        : saints
         ? "https://www.sssas.org/fall-team-1/varsity-football"
         : largo
         ? "https://www.si.com/high-school/stats/maryland/football/games/6834846-fairmont-heights-vs-largo"
         : ROUNDUP_URL,
       notes: `Final: ${game.team1} ${score1}, ${game.team2} ${score2}. ${confirmation}`,
-      lastChecked: game.id === "md-fb-2026-10-02-parkdale-flowers" ? "2026-10-08" : largo ? "2026-10-06" : "2026-10-03",
+      lastChecked: dunbarBell ? "2026-10-09" : game.id === "md-fb-2026-10-02-parkdale-flowers" ? "2026-10-08" : largo ? "2026-10-06" : "2026-10-03",
     };
   });
 }
