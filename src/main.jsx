@@ -17,6 +17,7 @@ import "./scrollPerformance.css";
 import "./mobileGameDetailsFix.css";
 import "./friendshipCompactFix.css";
 import "./friendshipGameDetailsFix.css";
+import "./bottomNavSpacing.css";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
