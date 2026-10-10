@@ -2,6 +2,20 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "fb-2026-10-03-cornerstone-christian-st-johns",
+    {
+      "id": "fb-2026-10-03-cornerstone-christian-st-johns",
+      "team1": "Cornerstone Christian",
+      "team2": "St. John's",
+      "date": "2026-10-03",
+      "score1": 28,
+      "score2": 35,
+      "sourceUrl": "https://www.stjohnschs.org/athletics/teams/team-page/~athletics-team-id/126",
+      "sourceTier": "Official school athletics",
+      "confirmation": "Confirmed by St. John's official varsity football results."
+    }
+  ],
+  [
     "fb-2026-10-10-bishop-oconnell-bishop-ireton",
     {
       "id": "fb-2026-10-10-bishop-oconnell-bishop-ireton",
