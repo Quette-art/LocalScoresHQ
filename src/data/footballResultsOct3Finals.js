@@ -1,5 +1,20 @@
 export function applyFootballResultsOct3Finals(games = []) {
   return games.map((game) => {
+    if (game.id === "md-fb-2026-10-03-frederick-douglass-central") {
+      return {
+        ...game,
+        score1: 16,
+        score2: 12,
+        status: undefined,
+        scheduleStatus: "Final",
+        subjectToChange: false,
+        verificationStatus: "Final",
+        sourceTier: "Maryland High School Football Scores and MaxPreps",
+        sourceUrl: "https://mdfootballscores.com/schools/douglass-pg/",
+        notes: "Final: Frederick Douglass 16, Central 12. Confirmed by Maryland High School Football Scores and MaxPreps' October 3 varsity game result: https://www.maxpreps.com/md/football/game/central-capitol-heights-vs-frederick-douglass-upper-marlboro/10-3-2026/?c=7b28d8d5-3d0f-4218-abbf-516e72763fa2",
+        lastChecked: "2026-10-10",
+      };
+    }
     const oconnell = game.id === "fb-2026-10-03-bishop-oconnell-potomac-school";
     const bullis = game.id === "fb-2026-10-03-bullis-roosevelt";
     const eastern = game.id === "fb-2026-10-03-h-d-woodson-eastern";
