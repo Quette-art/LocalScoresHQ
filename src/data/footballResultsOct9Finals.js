@@ -2,6 +2,20 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "md-fb-2026-10-10-friendly-surrattsville",
+    {
+      "id": "md-fb-2026-10-10-friendly-surrattsville",
+      "team1": "Friendly",
+      "team2": "Surrattsville",
+      "date": "2026-10-10",
+      "score1": 16,
+      "score2": 26,
+      "sourceUrl": "https://mdfootballscores.com/schools/friendly/",
+      "sourceTier": "Maryland High School Football Scores and MaxPreps",
+      "confirmation": "Confirmed by Maryland High School Football Scores and MaxPreps: https://www.maxpreps.com/md/clinton/surrattsville-hornets/football/"
+    }
+  ],
+  [
     "md-fb-2026-10-10-wise-eleanor-roosevelt",
     {
       "id": "md-fb-2026-10-10-wise-eleanor-roosevelt",
