@@ -2,6 +2,34 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "md-fb-2026-10-10-wise-eleanor-roosevelt",
+    {
+      "id": "md-fb-2026-10-10-wise-eleanor-roosevelt",
+      "team1": "Wise",
+      "team2": "Eleanor Roosevelt",
+      "date": "2026-10-10",
+      "score1": 46,
+      "score2": 21,
+      "sourceUrl": "https://mdfootballscores.com/schools/wise/",
+      "confirmation": "Confirmed by Maryland High School Football Scores and MaxPreps: https://www.maxpreps.com/md/upper-marlboro/wise-pumas/football/",
+      "sourceTier": "Maryland High School Football Scores and MaxPreps"
+    }
+  ],
+  [
+    "md-fb-2026-10-10-oxon-hill-parkdale",
+    {
+      "id": "md-fb-2026-10-10-oxon-hill-parkdale",
+      "team1": "Oxon Hill",
+      "team2": "Parkdale",
+      "date": "2026-10-10",
+      "score1": 47,
+      "score2": 0,
+      "sourceUrl": "https://mdfootballscores.com/schools/parkdale/",
+      "confirmation": "Confirmed by Maryland High School Football Scores and MaxPreps: https://www.maxpreps.com/md/oxon-hill/oxon-hill-clippers/football/",
+      "sourceTier": "Maryland High School Football Scores and MaxPreps"
+    }
+  ],
+  [
     "fb-2026-09-11-jackson-reed-flint-hill",
     {
       "id": "fb-2026-09-11-jackson-reed-flint-hill",
