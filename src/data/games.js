@@ -30,6 +30,7 @@ import { applyFootballResultsSep26Finals } from "./footballResultsSep26Finals.js
 import { applyFootballResultsBackfillSep28 } from "./footballResultsBackfillSep28.js";
 import { applyFootballResultsOct2Finals } from "./footballResultsOct2Finals.js";
 import { applyFootballResultsOct3Finals } from "./footballResultsOct3Finals.js";
+import { applyFootballResultsOct9Finals } from "./footballResultsOct9Finals.js";
 import { applyDunbarFootballScheduleSep10 } from "./dunbarFootballScheduleSep10.js";
 
 const correctedFootballGames = applyFootballScheduleCorrections(footballGames);
@@ -156,7 +157,7 @@ const canonicalizeTeamNames = (game) => ({
   team2: canonicalTeamName(game.team2),
 });
 
-export const games = applyFootballResultsOct3Finals(applyFootballResultsOct2Finals(applyFootballResultsBackfillSep28(footballGamesWithSep26Finals))).map(canonicalizeTeamNames);
+export const games = applyFootballResultsOct9Finals(applyFootballResultsOct3Finals(applyFootballResultsOct2Finals(applyFootballResultsBackfillSep28(footballGamesWithSep26Finals))).map(canonicalizeTeamNames));
 
 export const upcomingGames = games;
 
