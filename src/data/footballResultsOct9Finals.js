@@ -2,6 +2,20 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "fb-2026-09-11-jackson-reed-flint-hill",
+    {
+      "id": "fb-2026-09-11-jackson-reed-flint-hill",
+      "team1": "Jackson-Reed",
+      "team2": "Flint Hill",
+      "date": "2026-09-11",
+      "score1": 7,
+      "score2": 49,
+      "sourceUrl": "https://flinthill.myschoolapp.com/page/test-athletic-teams-schedule-2024?BlockId=3353828&SeasonLabel=2026+-+2027&Team=99828&fromId=295525&siteId=708",
+      "sourceTier": "Official school athletics",
+      "confirmation": "Confirmed by Flint Hill's official 2026-27 varsity football results, linked from its football athletics page."
+    }
+  ],
+  [
     "fb-2026-10-03-cornerstone-christian-st-johns",
     {
       "id": "fb-2026-10-03-cornerstone-christian-st-johns",
@@ -228,3 +242,4 @@ export function applyFootballResultsOct9Finals(games = []) {
     };
   });
 }
+
