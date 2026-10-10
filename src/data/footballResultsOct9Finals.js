@@ -2,6 +2,20 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "fb-2026-10-09-dunbar-h-d-woodson",
+    {
+      "id": "fb-2026-10-09-dunbar-h-d-woodson",
+      "team1": "Dunbar",
+      "team2": "H.D. Woodson",
+      "date": "2026-10-08",
+      "score1": 48,
+      "score2": 0,
+      "sourceUrl": "https://www.si.com/high-school/stats/washington-dc/football/games/6853884-dunbar-vs-woodson",
+      "confirmationUrl": "https://www.maxpreps.com/dc/washington/dunbar-crimson-tide/football/",
+      "sourceTier": "MaxPreps and High School On SI"
+    }
+  ],
+  [
     "fb-2026-10-08-episcopal-st-stephens-st-agnes",
     {
       "id": "fb-2026-10-08-episcopal-st-stephens-st-agnes",
@@ -164,7 +178,9 @@ export function applyFootballResultsOct9Finals(games = []) {
     const result = FINAL_RESULTS.get(game.id);
     if (!result || game.date !== result.date || game.team1 !== result.team1 || game.team2 !== result.team2) return game;
     const { score1, score2, sourceUrl, sourceTier } = result;
-    const confirmation = sourceTier === "Official school athletics"
+    const confirmation = result.confirmationUrl
+      ? `Confirmed by MaxPreps and High School On SI: ${result.confirmationUrl}`
+      : sourceTier === "Official school athletics"
       ? "Confirmed by St. Stephen's & St. Agnes official varsity football results."
       : sourceTier === "Maryland High School Football Scores and High School On SI"
       ? `Confirmed by Maryland High School Football Scores and High School On SI: ${ROUNDUP_URL}`
