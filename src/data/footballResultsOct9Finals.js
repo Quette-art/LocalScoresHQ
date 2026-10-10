@@ -2,6 +2,20 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "fb-2026-10-10-bishop-oconnell-bishop-ireton",
+    {
+      "id": "fb-2026-10-10-bishop-oconnell-bishop-ireton",
+      "team1": "Bishop O'Connell",
+      "team2": "Bishop Ireton",
+      "date": "2026-10-10",
+      "score1": 34,
+      "score2": 7,
+      "sourceUrl": "https://www.bishopoconnell.org/athletics/teams/football",
+      "sourceTier": "Official school athletics",
+      "confirmation": "Confirmed by Bishop O'Connell's official varsity football results."
+    }
+  ],
+  [
     "fb-2026-10-09-dunbar-h-d-woodson",
     {
       "id": "fb-2026-10-09-dunbar-h-d-woodson",
@@ -178,13 +192,13 @@ export function applyFootballResultsOct9Finals(games = []) {
     const result = FINAL_RESULTS.get(game.id);
     if (!result || game.date !== result.date || game.team1 !== result.team1 || game.team2 !== result.team2) return game;
     const { score1, score2, sourceUrl, sourceTier } = result;
-    const confirmation = result.confirmationUrl
+    const confirmation = result.confirmation || (result.confirmationUrl
       ? `Confirmed by MaxPreps and High School On SI: ${result.confirmationUrl}`
       : sourceTier === "Official school athletics"
       ? "Confirmed by St. Stephen's & St. Agnes official varsity football results."
       : sourceTier === "Maryland High School Football Scores and High School On SI"
       ? `Confirmed by Maryland High School Football Scores and High School On SI: ${ROUNDUP_URL}`
-      : `Confirmed by High School On SI and MaxPreps: ${SCOREBOARD_URL}`;
+      : `Confirmed by High School On SI and MaxPreps: ${SCOREBOARD_URL}`);
     return {
       ...game,
       score1,
