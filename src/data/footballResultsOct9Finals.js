@@ -2,6 +2,160 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "fb-2026-10-08-jackson-reed-mckinley-tech",
+    {
+      "id": "fb-2026-10-08-jackson-reed-mckinley-tech",
+      "team1": "Jackson-Reed",
+      "team2": "McKinley Tech",
+      "date": "2026-10-08",
+      "score1": 6,
+      "score2": 16,
+      "sourceUrl": "https://dcsportsfan.com/2026/10/11/football-scores/amp/",
+      "sourceTier": "DCSportsFan and MaxPreps",
+      "confirmation": "Confirmed by DCSportsFan and MaxPreps: https://www.maxpreps.com/dc/washington/mckinley-tech-trainers/football/"
+    }
+  ],
+  [
+    "fb-2026-10-09-ballou-bell",
+    {
+      "id": "fb-2026-10-09-ballou-bell",
+      "team1": "Ballou",
+      "team2": "Bell",
+      "date": "2026-10-09",
+      "score1": 14,
+      "score2": 50,
+      "sourceUrl": "https://dcsportsfan.com/2026/10/11/football-scores/amp/",
+      "sourceTier": "DCSportsFan and MaxPreps",
+      "confirmation": "Confirmed by DCSportsFan and MaxPreps: https://www.maxpreps.com/news/5MVmMy643kSQh_02QuLkxw/football-recap-bell-wins-high-profile-contest-against-ballou.htm"
+    }
+  ],
+  [
+    "fb-2026-10-09-cardozo-ron-brown",
+    {
+      "id": "fb-2026-10-09-cardozo-ron-brown",
+      "team1": "Cardozo",
+      "team2": "Ron Brown",
+      "date": "2026-10-09",
+      "score1": 6,
+      "score2": 26,
+      "sourceUrl": "https://dcsportsfan.com/2026/10/11/football-scores/amp/",
+      "sourceTier": "DCSportsFan and MaxPreps",
+      "confirmation": "Confirmed by DCSportsFan and MaxPreps: https://www.maxpreps.com/dc/football/game/cardozo-washington-vs-ron-brown-washington/10-9-2026/?c=42a50f48-68a5-489a-bbee-1f62cb13851e"
+    }
+  ],
+  [
+    "fb-2026-10-09-eastern-roosevelt",
+    {
+      "id": "fb-2026-10-09-eastern-roosevelt",
+      "team1": "Eastern",
+      "team2": "Roosevelt",
+      "date": "2026-10-09",
+      "score1": 20,
+      "score2": 12,
+      "sourceUrl": "https://dcsportsfan.com/2026/10/11/football-scores/amp/",
+      "sourceTier": "DCSportsFan and MaxPreps",
+      "confirmation": "Confirmed by DCSportsFan and MaxPreps: https://www.maxpreps.com/news/ouGw9Uf_lUCDeDnkCIrjBA/football-recap-eastern-takes-down-ranked-roosevelt.htm"
+    }
+  ],
+  [
+    "fb-2026-10-09-digital-pioneers-academy-kipp-college-prep",
+    {
+      "id": "fb-2026-10-09-digital-pioneers-academy-kipp-college-prep",
+      "team1": "Digital Pioneers Academy",
+      "team2": "KIPP College Prep",
+      "date": "2026-10-09",
+      "score1": 46,
+      "score2": 0,
+      "sourceUrl": "https://dcsportsfan.com/2026/10/11/football-scores/amp/",
+      "sourceTier": "DCSportsFan and MaxPreps",
+      "confirmation": "Confirmed by DCSportsFan and MaxPreps: https://www.maxpreps.com/dc/washington/digital-pioneers-academy-pythons/football/"
+    }
+  ],
+  [
+    "fb-2026-10-10-landon-archbishop-carroll",
+    {
+      "id": "fb-2026-10-10-landon-archbishop-carroll",
+      "team1": "Landon",
+      "team2": "Archbishop Carroll",
+      "date": "2026-10-10",
+      "score1": 13,
+      "score2": 27,
+      "sourceUrl": "https://dcsportsfan.com/2026/10/11/football-scores/amp/",
+      "sourceTier": "DCSportsFan and MaxPreps",
+      "confirmation": "Confirmed by DCSportsFan and MaxPreps: https://www.maxpreps.com/dc/washington/archbishop-carroll-lions/football/"
+    }
+  ],
+  [
+    "fb-2026-10-10-maret-potomac-school",
+    {
+      "id": "fb-2026-10-10-maret-potomac-school",
+      "team1": "Maret",
+      "team2": "Potomac School",
+      "date": "2026-10-10",
+      "score1": 36,
+      "score2": 33,
+      "sourceUrl": "https://dcsportsfan.com/2026/10/11/football-scores/amp/",
+      "sourceTier": "DCSportsFan and MaxPreps",
+      "confirmation": "Confirmed by DCSportsFan and MaxPreps: https://www.maxpreps.com/dc/washington/maret-frogs/football/"
+    }
+  ],
+  [
+    "fb-2026-10-10-bishop-mcnamara-gonzaga",
+    {
+      "id": "fb-2026-10-10-bishop-mcnamara-gonzaga",
+      "team1": "Bishop McNamara",
+      "team2": "Gonzaga",
+      "date": "2026-10-10",
+      "score1": 6,
+      "score2": 38,
+      "sourceUrl": "https://dcsportsfan.com/2026/10/11/football-scores/amp/",
+      "sourceTier": "DCSportsFan and MaxPreps",
+      "confirmation": "Confirmed by DCSportsFan and MaxPreps: https://www.maxpreps.com/dc/washington/gonzaga-eagles/football/"
+    }
+  ],
+  [
+    "fb-2026-10-10-woodberry-forest-georgetown-prep",
+    {
+      "id": "fb-2026-10-10-woodberry-forest-georgetown-prep",
+      "team1": "Woodberry Forest",
+      "team2": "Georgetown Prep",
+      "date": "2026-10-10",
+      "score1": 38,
+      "score2": 16,
+      "sourceUrl": "https://dcsportsfan.com/2026/10/11/football-scores/amp/",
+      "sourceTier": "DCSportsFan and MaxPreps",
+      "confirmation": "Confirmed by DCSportsFan and MaxPreps: https://www.maxpreps.com/va/woodberry-forest/woodberry-forest-tigers/football/"
+    }
+  ],
+  [
+    "md-fb-2026-10-10-crossland-fairmont-heights",
+    {
+      "id": "md-fb-2026-10-10-crossland-fairmont-heights",
+      "team1": "Crossland",
+      "team2": "Fairmont Heights",
+      "date": "2026-10-10",
+      "score1": 18,
+      "score2": 19,
+      "sourceUrl": "https://mdfootballscores.com/schools/crossland/",
+      "sourceTier": "Maryland High School Football Scores and MaxPreps",
+      "confirmation": "Confirmed by Maryland High School Football Scores and MaxPreps: https://www.maxpreps.com/md/temple-hills/crossland-cavaliers/football/"
+    }
+  ],
+  [
+    "fb-2026-10-10-long-island-lutheran-riverdale-baptist",
+    {
+      "id": "fb-2026-10-10-long-island-lutheran-riverdale-baptist",
+      "team1": "Long Island Lutheran",
+      "team2": "Riverdale Baptist",
+      "date": "2026-10-10",
+      "score1": 7,
+      "score2": 57,
+      "sourceUrl": "https://www.joeeitel.com/hsfoot/teams.jsp?teamID=15143&year=2026",
+      "sourceTier": "Joe Eitel and MaxPreps",
+      "confirmation": "Confirmed by Joe Eitel and MaxPreps: https://www.maxpreps.com/news/fGVyLykAuk6TPOdqrjb0bg/football-recap-riverdale-baptist-skates-past-long-island-lutheran-with-ease.htm"
+    }
+  ],
+  [
     "fb-2026-10-09-kipp-dc-legacy-eastern-tech",
     {
       "id": "fb-2026-10-09-kipp-dc-legacy-eastern-tech",
