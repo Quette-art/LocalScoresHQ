@@ -2,6 +2,20 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "fb-2026-10-09-kipp-dc-legacy-eastern-tech",
+    {
+      "id": "fb-2026-10-09-kipp-dc-legacy-eastern-tech",
+      "team1": "KIPP DC Legacy",
+      "team2": "Eastern Tech",
+      "date": "2026-10-09",
+      "score1": 47,
+      "score2": 6,
+      "sourceUrl": "https://www.maxpreps.com/inter-state/football/game/eastern-tech-baltimore-md-vs-kipp-dc-legacy-college-prep-washington-dc/10-9-2026/?c=b1d256d9-d776-402c-975f-28c341070fec",
+      "sourceTier": "Official team / coach direct message",
+      "confirmation": "Confirmed in a direct message provided by the user on October 10, 2026; the user confirmed the sender was the official team account or a coach. Screenshot: IMG_0731.jpeg. Public matchup link establishes the October 9 date."
+    }
+  ],
+  [
     "md-fb-2026-10-10-friendly-surrattsville",
     {
       "id": "md-fb-2026-10-10-friendly-surrattsville",
