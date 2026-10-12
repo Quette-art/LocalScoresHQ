@@ -14,7 +14,12 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { db, auth } from "./firebase";
-import { requestNotificationPermission } from "./notifications";
+import {
+  requestNotificationPermission,
+  notifyGameChanges,
+  getNotificationPrefs,
+  saveNotificationPrefs,
+} from "./notifications";
 
 import Home from "./pages/Home";
 import TeamProfile from "./pages/TeamProfile";
@@ -93,21 +98,22 @@ export default function AppContent() {
   const [password, setPassword] = useState("");
   const [showGlobalSearch, setShowGlobalSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [notifPrefs, setNotifPrefs] = useState(() => getNotificationPrefs());
 
   const isAdmin = !!adminUser;
 
   const sports = [
-    { name: "Soccer", icon: "⚽" },
-    { name: "Basketball", icon: "🏀" },
-    { name: "Baseball", icon: "⚾" },
-    { name: "Football", icon: "🏈" },
+    { name: "Soccer", icon: "\u26bd" },
+    { name: "Basketball", icon: "\uD83C\uDFC0" },
+    { name: "Baseball", icon: "\u26BE" },
+    { name: "Football", icon: "\uD83C\uDFC8" },
   ];
 
   const sportIcons = {
-    Baseball: "⚾",
-    Soccer: "⚽",
-    Basketball: "🏀",
-    Football: "🏈",
+    Baseball: "\u26BE",
+    Soccer: "\u26bd",
+    Basketball: "\uD83C\uDFC0",
+    Football: "\uD83C\uDFC8",
   };
 
   useEffect(() => {
@@ -118,7 +124,14 @@ export default function AppContent() {
   }, []);
 
   useEffect(() => {
-    requestNotificationPermission();
+    if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+      const prefs = getNotificationPrefs();
+      if (!prefs.enabled) {
+        const next = { ...prefs, enabled: true };
+        saveNotificationPrefs(next);
+        setNotifPrefs(next);
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -165,7 +178,12 @@ export default function AppContent() {
         }));
 
       const merged = [...localWithScores, ...extraGames];
-      setGames((prev) => (gamesLookSame(prev, merged) ? prev : merged));
+      setGames((prev) => {
+        const next = gamesLookSame(prev, merged) ? prev : merged;
+        if (next !== prev) notifyGameChanges(next);
+        else notifyGameChanges(merged);
+        return next;
+      });
 
       if (selectedGameRef.current) {
         const updated = merged.find((g) => g.id === selectedGameRef.current.id);
@@ -400,6 +418,63 @@ export default function AppContent() {
                 <button className="submit-score-btn" onClick={handleLogin}>Sign In</button>
               </>
             )}
+            <div className="settings-notif" style={{ margin: "16px 0", textAlign: "left" }}>
+              <p style={{ margin: "0 0 8px", fontWeight: 700 }}>Notifications</p>
+              <p style={{ margin: "0 0 12px", fontSize: 13, color: "#64748b" }}>
+                Alerts for your favorite teams when scores or schedules change.
+              </p>
+              <label style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, cursor: "pointer" }}>
+                <input
+                  type="checkbox"
+                  checked={!!notifPrefs.enabled}
+                  onChange={async (e) => {
+                    if (e.target.checked) {
+                      const token = await requestNotificationPermission();
+                      const next = {
+                        ...getNotificationPrefs(),
+                        enabled:
+                          !!token ||
+                          (typeof Notification !== "undefined" &&
+                            Notification.permission === "granted"),
+                      };
+                      saveNotificationPrefs(next);
+                      setNotifPrefs(next);
+                    } else {
+                      const next = { ...notifPrefs, enabled: false };
+                      saveNotificationPrefs(next);
+                      setNotifPrefs(next);
+                    }
+                  }}
+                />
+                <span>Enable notifications</span>
+              </label>
+              <label style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, cursor: "pointer", opacity: notifPrefs.enabled ? 1 : 0.5 }}>
+                <input
+                  type="checkbox"
+                  disabled={!notifPrefs.enabled}
+                  checked={!!notifPrefs.scores}
+                  onChange={(e) => {
+                    const next = { ...notifPrefs, scores: e.target.checked };
+                    saveNotificationPrefs(next);
+                    setNotifPrefs(next);
+                  }}
+                />
+                <span>Score updates</span>
+              </label>
+              <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", opacity: notifPrefs.enabled ? 1 : 0.5 }}>
+                <input
+                  type="checkbox"
+                  disabled={!notifPrefs.enabled}
+                  checked={!!notifPrefs.schedule}
+                  onChange={(e) => {
+                    const next = { ...notifPrefs, schedule: e.target.checked };
+                    saveNotificationPrefs(next);
+                    setNotifPrefs(next);
+                  }}
+                />
+                <span>Schedule changes</span>
+              </label>
+            </div>
             <button className="close-settings" onClick={() => setShowSettings(false)}>Close</button>
           </div>
         </div>
