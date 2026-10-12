@@ -67,23 +67,45 @@ export function showLocalNotification(title, body, options = {}) {
   const prefs = getPrefs();
   if (!prefs.enabled) return;
 
-  try {
-    const notification = new Notification(title, {
-      body,
-      icon: "/logo-option-1.png",
-      badge: "/logo-option-1.png",
-      tag: options.tag || `lshq-${Date.now()}`,
-      renotify: true,
-      data: options.data || {},
-    });
+  const notificationOptions = {
+    body,
+    icon: "/logo-option-1.png",
+    badge: "/logo-option-1.png",
+    tag: options.tag || `lshq-${Date.now()}`,
+    renotify: true,
+    data: options.data || {},
+  };
 
-    notification.onclick = () => {
-      window.focus();
-      notification.close();
-    };
-  } catch (error) {
-    console.error("Show notification failed:", error);
+  const fallbackToWindowNotification = () => {
+    try {
+      const notification = new Notification(title, notificationOptions);
+      notification.onclick = () => {
+        window.focus();
+        notification.close();
+      };
+    } catch (error) {
+      console.error("Show notification failed:", error);
+    }
+  };
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .getRegistration()
+      .then((registration) => {
+        if (registration) {
+          return registration.showNotification(title, notificationOptions);
+        }
+        fallbackToWindowNotification();
+        return null;
+      })
+      .catch((error) => {
+        console.error("Service worker notification failed:", error);
+        fallbackToWindowNotification();
+      });
+    return;
   }
+
+  fallbackToWindowNotification();
 }
 
 function favoriteKeys() {
@@ -126,14 +148,17 @@ function snapshotFromGames(games) {
 
 function loadSnapshot() {
   try {
-    return JSON.parse(sessionStorage.getItem(SNAPSHOT_KEY)) || null;
+    const saved =
+      localStorage.getItem(SNAPSHOT_KEY) ||
+      sessionStorage.getItem(SNAPSHOT_KEY);
+    return saved ? JSON.parse(saved) : null;
   } catch {
     return null;
   }
 }
 
 function saveSnapshot(map) {
-  sessionStorage.setItem(SNAPSHOT_KEY, JSON.stringify(map));
+  localStorage.setItem(SNAPSHOT_KEY, JSON.stringify(map));
 }
 
 /** Compare live games to the last snapshot and notify for favorite teams. */
@@ -173,6 +198,15 @@ export function notifyGameChanges(games) {
     }
 
     const label = `${after.team1} vs ${after.team2}`;
+
+    if (prefs.schedule && !before) {
+      showLocalNotification(
+        "New game added",
+        `${label} — ${after.date || "TBD"} ${after.time || ""}`.trim(),
+        { tag: `new-game-${id}` }
+      );
+      return;
+    }
 
     if (prefs.scores && before) {
       const scoreChanged =
