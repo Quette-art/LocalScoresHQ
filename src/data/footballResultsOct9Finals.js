@@ -2,6 +2,20 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "fb-2026-10-03-haverford-school-georgetown-prep",
+    {
+      "id": "fb-2026-10-03-haverford-school-georgetown-prep",
+      "team1": "Haverford School",
+      "team2": "Georgetown Prep",
+      "date": "2026-10-03",
+      "score1": 42,
+      "score2": 7,
+      "sourceUrl": "https://www.haverford.org/athletics/teams/team-details/~athletics-team-id/143",
+      "sourceTier": "Official school athletics",
+      "confirmation": "Confirmed by The Haverford School's official varsity football results."
+    }
+  ],
+  [
     "md-fb-2026-10-03-northwestern-bladensburg",
     {
       "id": "md-fb-2026-10-03-northwestern-bladensburg",
