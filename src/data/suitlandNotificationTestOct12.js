@@ -29,6 +29,7 @@ export function applySuitlandNotificationTestOct12(games) {
       notes: "Temporary notification test for the Suitland favorite-team alert. Remove after confirmation.",
       sourceUrl: "",
       lastChecked: "2026-10-12",
+      notificationTest: true,
     },
   ];
 }
