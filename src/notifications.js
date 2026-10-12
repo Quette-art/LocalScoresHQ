@@ -173,13 +173,26 @@ export function notifyGameChanges(games) {
     return;
   }
 
+  const favorites = favoriteKeys();
   const prev = loadSnapshot();
+
   if (!prev) {
+    if (prefs.schedule && favorites.length) {
+      games
+        .filter((game) => game?.notificationTest && isFavoriteGame(game, favorites))
+        .forEach((game) => {
+          const when = `${game.date || "TBD"} ${game.time || ""}`.trim();
+          showLocalNotification(
+            "New game added",
+            `${game.team1} vs ${game.team2} — ${when}`,
+            { tag: `new-game-${game.id}` }
+          );
+        });
+    }
     saveSnapshot(next);
     return;
   }
 
-  const favorites = favoriteKeys();
   if (!favorites.length) {
     saveSnapshot(next);
     return;
