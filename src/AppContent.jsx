@@ -20,6 +20,7 @@ import {
   getNotificationPrefs,
   saveNotificationPrefs,
   syncPushSubscription,
+  listenForForegroundPush,
 } from "./notifications";
 
 import Home from "./pages/Home";
@@ -139,6 +140,11 @@ export default function AppContent() {
 
       void syncPushSubscription({ prefs: next });
     }
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = listenForForegroundPush();
+    return () => unsubscribe?.();
   }, []);
 
   useEffect(() => {
