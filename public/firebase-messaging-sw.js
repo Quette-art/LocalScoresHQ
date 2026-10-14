@@ -13,8 +13,55 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  self.registration.showNotification(payload.notification.title, {
-    body: payload.notification.body,
-    icon: "/icon-192.png"
+  const title =
+    payload?.notification?.title ||
+    payload?.data?.title ||
+    "Local Scores HQ";
+  const body =
+    payload?.notification?.body ||
+    payload?.data?.body ||
+    "New update";
+
+  self.registration.showNotification(title, {
+    body,
+    icon: "/icon-192.png",
+    badge: "/icon-192.png",
+    tag: payload?.data?.tag || "lshq-background",
+    renotify: true,
+    data: {
+      url: payload?.data?.url || "/",
+      gameId: payload?.data?.gameId || "",
+      kind: payload?.data?.kind || "update",
+    },
   });
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+
+  const targetUrl =
+    event.notification?.data?.url ||
+    "https://localscoreshq.com/";
+
+  event.waitUntil(
+    clients
+      .matchAll({
+        type: "window",
+        includeUncontrolled: true,
+      })
+      .then((clientList) => {
+        for (const client of clientList) {
+          if ("focus" in client) {
+            client.navigate?.(targetUrl);
+            return client.focus();
+          }
+        }
+
+        if (clients.openWindow) {
+          return clients.openWindow(targetUrl);
+        }
+
+        return null;
+      })
+  );
 });
