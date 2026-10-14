@@ -83,13 +83,14 @@ export async function syncPushSubscription(overrides = {}) {
   const favorites = overrides.favorites || favoriteKeys();
 
   let token = overrides.token || localStorage.getItem(TOKEN_KEY);
+
   if (
     prefs.enabled &&
     typeof Notification !== "undefined" &&
-    Notification.permission === "granted" &&
-    (!token || token.length < 20)
+    Notification.permission === "granted"
   ) {
-    token = await getFirebaseMessagingToken();
+    const refreshedToken = await getFirebaseMessagingToken();
+    if (refreshedToken) token = refreshedToken;
   }
 
   if (!token || token.length < 20) return false;
@@ -392,26 +393,35 @@ export async function sendAdminGamePush(action, game, before = null) {
   }
 }
 
+function handleForegroundPayload(payload) {
+  const title =
+    payload?.notification?.title ||
+    payload?.data?.title ||
+    "Local Scores HQ";
+  const body =
+    payload?.notification?.body ||
+    payload?.data?.body ||
+    "New update";
+
+  showLocalNotification(title, body, {
+    tag: payload?.data?.tag || "fcm-foreground",
+    data: {
+      url: payload?.data?.url || "/",
+    },
+  });
+}
+
+export function listenForForegroundPush() {
+  if (!messaging) return () => {};
+  return onMessage(messaging, handleForegroundPayload);
+}
+
 export const onMessageListener = () =>
   new Promise((resolve) => {
     if (!messaging) return;
 
     onMessage(messaging, (payload) => {
-      const title =
-        payload?.notification?.title ||
-        payload?.data?.title ||
-        "Local Scores HQ";
-      const body =
-        payload?.notification?.body ||
-        payload?.data?.body ||
-        "New update";
-
-      showLocalNotification(title, body, {
-        tag: payload?.data?.tag || "fcm-foreground",
-        data: {
-          url: payload?.data?.url || "/",
-        },
-      });
+      handleForegroundPayload(payload);
       resolve(payload);
     });
   });
