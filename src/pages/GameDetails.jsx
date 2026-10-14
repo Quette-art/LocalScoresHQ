@@ -9,6 +9,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { sendAdminGamePush } from "../notifications";
 import "../components/ScoresTab.css";
 import TeamMascot from "../components/TeamMascot";
 import ShareScoreLogo from "../components/ShareScoreLogo";
@@ -648,6 +649,8 @@ const GameDetails = ({
         },
         { merge: true }
       );
+
+      void sendAdminGamePush("score", updatedGame);
 
       setShowScoreModal(false);
       alert("Score saved.");

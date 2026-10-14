@@ -6,6 +6,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { sendAdminGamePush } from "../notifications";
 import { gameMatchesRegion } from "../data/teamRegions";
 import TeamMascot from "./TeamMascot";
 import "./ScoresTab.css";
@@ -334,16 +335,22 @@ export default function ScoresTab({
     }
 
     try {
+      const updatedGame = {
+        ...selectedGame,
+        score1: Number(team1Score),
+        score2: Number(team2Score),
+      };
+
       await setDoc(
         doc(db, "scores", selectedGame.id),
         {
-          ...selectedGame,
+          ...updatedGame,
           gameId: selectedGame.id,
-          score1: Number(team1Score),
-          score2: Number(team2Score),
         },
         { merge: true }
       );
+
+      void sendAdminGamePush("score", updatedGame);
 
       closeScoreModal();
       alert("Score Saved");
@@ -369,7 +376,7 @@ export default function ScoresTab({
     setSaving(true);
 
     try {
-      await addDoc(collection(db, "games"), {
+      const addedGame = {
         team1: newGame.team1.trim(),
         team2: newGame.team2.trim(),
         score1:
@@ -380,7 +387,7 @@ export default function ScoresTab({
           newGame.score2 !== ""
             ? Number(newGame.score2)
             : null,
-                    date: newGame.date,
+        date: newGame.date,
         time: newGame.time || "TBD",
         location:
           newGame.location.trim() || "TBD",
@@ -390,7 +397,16 @@ export default function ScoresTab({
         ageGroup:
           newGame.division.split(" / ")[0] ||
           "Unknown",
+      };
+
+      const gameRef = await addDoc(collection(db, "games"), {
+        ...addedGame,
         createdAt: new Date().toISOString(),
+      });
+
+      void sendAdminGamePush("added", {
+        id: gameRef.id,
+        ...addedGame,
       });
 
       setShowAddGame(false);
@@ -447,33 +463,41 @@ export default function ScoresTab({
     setSaving(true);
 
     try {
+      const beforeGame = games.find((game) => game.id === editGame.id) || null;
+      const updatedGame = {
+        id: editGame.id,
+        team1: editGame.team1.trim(),
+        team2: editGame.team2.trim(),
+        score1:
+          editGame.score1 !== ""
+            ? Number(editGame.score1)
+            : null,
+        score2:
+          editGame.score2 !== ""
+            ? Number(editGame.score2)
+            : null,
+        date: editGame.date,
+        time: editGame.time || "TBD",
+        location:
+          editGame.location.trim() || "TBD",
+        division: editGame.division.trim(),
+        sport:
+          editGame.sport || selectedSport,
+        ageGroup:
+          editGame.division.split(" / ")[0] ||
+          "Unknown",
+      };
+
       await setDoc(
         doc(db, "games", editGame.id),
         {
-          team1: editGame.team1.trim(),
-          team2: editGame.team2.trim(),
-          score1:
-            editGame.score1 !== ""
-              ? Number(editGame.score1)
-              : null,
-          score2:
-            editGame.score2 !== ""
-              ? Number(editGame.score2)
-              : null,
-          date: editGame.date,
-          time: editGame.time || "TBD",
-          location:
-            editGame.location.trim() || "TBD",
-          division: editGame.division.trim(),
-          sport:
-            editGame.sport || selectedSport,
-          ageGroup:
-            editGame.division.split(" / ")[0] ||
-            "Unknown",
+          ...updatedGame,
           updatedAt: new Date().toISOString(),
         },
         { merge: true }
       );
+
+      void sendAdminGamePush("edited", updatedGame, beforeGame);
 
       setEditGame(null);
       alert("Game updated!");
@@ -512,6 +536,11 @@ export default function ScoresTab({
         { merge: true }
       );
 
+      void sendAdminGamePush("status", {
+        ...game,
+        status,
+      });
+
       alert(`Game marked as ${label}`);
     } catch (error) {
       console.error(error);
@@ -536,6 +565,8 @@ export default function ScoresTab({
       await deleteDoc(
         doc(db, "games", game.id)
       );
+
+      void sendAdminGamePush("removed", game);
 
       alert("Game deleted");
     } catch (error) {

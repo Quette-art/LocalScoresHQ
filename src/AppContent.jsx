@@ -19,6 +19,8 @@ import {
   notifyGameChanges,
   getNotificationPrefs,
   saveNotificationPrefs,
+  syncPushSubscription,
+  listenForForegroundPush,
 } from "./notifications";
 
 import Home from "./pages/Home";
@@ -124,14 +126,25 @@ export default function AppContent() {
   }, []);
 
   useEffect(() => {
-    if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+    if (
+      typeof Notification !== "undefined" &&
+      Notification.permission === "granted"
+    ) {
       const prefs = getNotificationPrefs();
+      const next = prefs.enabled ? prefs : { ...prefs, enabled: true };
+
       if (!prefs.enabled) {
-        const next = { ...prefs, enabled: true };
         saveNotificationPrefs(next);
         setNotifPrefs(next);
       }
+
+      void syncPushSubscription({ prefs: next });
     }
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = listenForForegroundPush();
+    return () => unsubscribe?.();
   }, []);
 
   useEffect(() => {
@@ -443,6 +456,7 @@ export default function AppContent() {
                       const next = { ...notifPrefs, enabled: false };
                       saveNotificationPrefs(next);
                       setNotifPrefs(next);
+                      void syncPushSubscription({ prefs: next });
                     }
                   }}
                 />
@@ -457,6 +471,7 @@ export default function AppContent() {
                     const next = { ...notifPrefs, scores: e.target.checked };
                     saveNotificationPrefs(next);
                     setNotifPrefs(next);
+                    void syncPushSubscription({ prefs: next });
                   }}
                 />
                 <span>Score updates</span>
@@ -470,6 +485,7 @@ export default function AppContent() {
                     const next = { ...notifPrefs, schedule: e.target.checked };
                     saveNotificationPrefs(next);
                     setNotifPrefs(next);
+                    void syncPushSubscription({ prefs: next });
                   }}
                 />
                 <span>Schedule changes</span>

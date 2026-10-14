@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import TeamMascot from "./TeamMascot";
+import { syncPushSubscription } from "../notifications";
 import { dcFootballTeams, marylandFootballTeams } from "../data/teamRegions";
 import "./ScoresTab.css";
 
@@ -126,12 +127,14 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
     const updated = [...favoriteTeams, key];
     setFavoriteTeams(updated);
     localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+    void syncPushSubscription({ favorites: updated });
   };
 
   const removeFavorite = (key) => {
     const updated = favoriteTeams.filter((favoriteKey) => favoriteKey !== key);
     setFavoriteTeams(updated);
     localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+    void syncPushSubscription({ favorites: updated });
   };
 
   const footballTeamsByRegion = useMemo(() => {
