@@ -289,7 +289,7 @@ async function sendStandardsWebPush({
   for (const recipient of recipients) {
     try {
       await webpush.sendNotification(recipient.subscription, payload, {
-        TTL: 86400,
+        TTL: 60,
         headers: {
           Urgency: "high",
         },
