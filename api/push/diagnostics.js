@@ -62,7 +62,7 @@ export default async function handler(req, res) {
       fcm: summarize(fcmSnapshot),
       webPush: summarize(
         webSnapshot,
-        "2026-10-14-v2"
+        "2026-10-14-v3"
       ),
     });
   } catch (error) {
