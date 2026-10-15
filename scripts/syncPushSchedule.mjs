@@ -96,7 +96,7 @@ const sendScheduleChange = async (before, after) => {
     title,
     body,
     kind: "schedule",
-    tag: `schedule-${after.id}`,
+    tag: `schedule-${after.id}-${after.date}-${after.time}-${after.location}`,
     preference: "schedule",
   });
 };
@@ -131,7 +131,7 @@ for (const [id, after] of Object.entries(current)) {
       title: "Final score",
       body: `${after.team1} ${after.score1}–${after.score2} ${after.team2}`,
       kind: "score",
-      tag: `score-${id}`,
+      tag: `score-${id}-${after.score1}-${after.score2}`,
       preference: "scores",
     });
     sentTotal += Number(result.sent || 0);
@@ -145,7 +145,7 @@ for (const [id, after] of Object.entries(current)) {
       title: status === "cancelled" ? "Game cancelled" : "Game postponed",
       body: `${after.team1} vs ${after.team2}`,
       kind: "schedule",
-      tag: `status-${id}`,
+      tag: `status-${id}-${String(after.status || "").toLowerCase()}`,
       preference: "schedule",
     });
     sentTotal += Number(result.sent || 0);
