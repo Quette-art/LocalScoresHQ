@@ -37,6 +37,14 @@ export default async function handler(req, res) {
         typeof body.fcmTokenToRemove === "string"
           ? body.fcmTokenToRemove
           : "",
+      keyVersion:
+        typeof body.keyVersion === "string"
+          ? body.keyVersion
+          : "",
+      installationId:
+        typeof body.installationId === "string"
+          ? body.installationId
+          : "",
     });
 
     return res.status(200).json({
