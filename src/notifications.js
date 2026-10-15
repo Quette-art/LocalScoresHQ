@@ -71,6 +71,19 @@ function favoriteKeys() {
   }
 }
 
+function getInstallationId() {
+  let id = localStorage.getItem("lshq_installation_id");
+  if (id) return id;
+
+  id =
+    typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `lshq-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+  localStorage.setItem("lshq_installation_id", id);
+  return id;
+}
+
 async function getMessagingServiceWorker() {
   if (typeof window === "undefined" || !("serviceWorker" in navigator)) {
     return null;
@@ -171,6 +184,8 @@ async function syncStandardsWebPush({ prefs, favorites }) {
         prefs,
         enabled: prefs.enabled !== false,
         fcmTokenToRemove: localStorage.getItem(TOKEN_KEY) || "",
+        keyVersion: WEB_PUSH_KEY_VERSION,
+        installationId: getInstallationId(),
       }),
     });
 
