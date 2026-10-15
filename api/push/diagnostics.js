@@ -21,9 +21,10 @@ export default async function handler(req, res) {
       db.collection("webPushSubscriptions").get(),
     ]);
 
-    const summarize = (snapshot) => {
+    const summarize = (snapshot, keyVersion = "") => {
       let suitland = 0;
       let enabled = 0;
+      let currentKey = 0;
 
       snapshot.forEach((docSnap) => {
         const data = docSnap.data() || {};
@@ -31,6 +32,12 @@ export default async function handler(req, res) {
         const favorites = normalizeFavorites(data.favorites);
 
         if (prefs.enabled !== false) enabled += 1;
+        if (
+          keyVersion &&
+          data.vapidKeyVersion === keyVersion
+        ) {
+          currentKey += 1;
+        }
         if (
           favorites.some(
             (favorite) =>
@@ -46,13 +53,17 @@ export default async function handler(req, res) {
         total: snapshot.size,
         enabled,
         suitland,
+        currentKey,
       };
     };
 
     return res.status(200).json({
       ok: true,
       fcm: summarize(fcmSnapshot),
-      webPush: summarize(webSnapshot),
+      webPush: summarize(
+        webSnapshot,
+        "2026-10-14-v2"
+      ),
     });
   } catch (error) {
     console.error("Push diagnostics failed:", error);
