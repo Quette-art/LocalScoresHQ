@@ -9,6 +9,7 @@ const SNAPSHOT_KEY = "lshq_game_snapshot";
 const TOKEN_KEY = "lshq_fcm_token";
 const WEB_PUSH_PUBLIC_VAPID_KEY =
   "BFWc_FY-H4KsGhe78um7ocXEpWz5EcRY8q_OI__yrdzRl9FtCzvY9rx2oW6ScjsdnovkXxumTrKw5jqmGHBUBsk";
+const WEB_PUSH_KEY_VERSION = "2026-10-14-v2";
 
 let messagingRegistrationPromise = null;
 
@@ -113,6 +114,16 @@ async function getStandardsWebPushSubscription({ create = true } = {}) {
     const registration = await navigator.serviceWorker.ready;
     let subscription = await registration.pushManager.getSubscription();
 
+    if (
+      subscription &&
+      create &&
+      localStorage.getItem("lshq_web_push_key_version") !==
+        WEB_PUSH_KEY_VERSION
+    ) {
+      await subscription.unsubscribe();
+      subscription = null;
+    }
+
     if (!subscription && create) {
       subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
@@ -120,6 +131,11 @@ async function getStandardsWebPushSubscription({ create = true } = {}) {
           WEB_PUSH_PUBLIC_VAPID_KEY
         ),
       });
+
+      localStorage.setItem(
+        "lshq_web_push_key_version",
+        WEB_PUSH_KEY_VERSION
+      );
     }
 
     return subscription;
