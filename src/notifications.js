@@ -7,8 +7,38 @@ const VAPID_KEY =
 const PREFS_KEY = "lshq_notification_prefs";
 const SNAPSHOT_KEY = "lshq_game_snapshot";
 const TOKEN_KEY = "lshq_fcm_token";
+const WEB_PUSH_PUBLIC_VAPID_KEY =
+  "BE7hosZGEGQL48LrbC_bZP-ZHs6SDj98sonanHiq1EujOsgviIFwmntsRflNpu8A8XLVS-TIXzQF07Tu-h7nUWs";
 
 let messagingRegistrationPromise = null;
+
+function isAppleMobileDevice() {
+  if (typeof navigator === "undefined") return false;
+
+  return (
+    /iPhone|iPad|iPod/i.test(navigator.userAgent || "") ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+  );
+}
+
+function shouldUseStandardsWebPush() {
+  return (
+    isAppleMobileDevice() &&
+    typeof window !== "undefined" &&
+    "PushManager" in window &&
+    "serviceWorker" in navigator
+  );
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding)
+    .replace(/-/g, "+")
+    .replace(/_/g, "/");
+  const rawData = window.atob(base64);
+
+  return Uint8Array.from([...rawData].map((char) => char.charCodeAt(0)));
+}
 
 function getPrefs() {
   try {
@@ -76,11 +106,81 @@ async function getFirebaseMessagingToken() {
   return null;
 }
 
+async function getStandardsWebPushSubscription({ create = true } = {}) {
+  if (!shouldUseStandardsWebPush()) return null;
+
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    let subscription = await registration.pushManager.getSubscription();
+
+    if (!subscription && create) {
+      subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(
+          WEB_PUSH_PUBLIC_VAPID_KEY
+        ),
+      });
+    }
+
+    return subscription;
+  } catch (error) {
+    console.error("Standards Web Push subscription error:", error);
+    return null;
+  }
+}
+
+async function syncStandardsWebPush({ prefs, favorites }) {
+  const shouldCreate =
+    prefs.enabled &&
+    typeof Notification !== "undefined" &&
+    Notification.permission === "granted";
+
+  const subscription = await getStandardsWebPushSubscription({
+    create: shouldCreate,
+  });
+
+  if (!subscription) {
+    return !shouldCreate;
+  }
+
+  try {
+    const response = await fetch("/api/push/register-web", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        subscription: subscription.toJSON(),
+        favorites,
+        prefs,
+        enabled: prefs.enabled !== false,
+        fcmTokenToRemove: localStorage.getItem(TOKEN_KEY) || "",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Web Push registration returned ${response.status}`
+      );
+    }
+
+    localStorage.removeItem(TOKEN_KEY);
+    return true;
+  } catch (error) {
+    console.error("Standards Web Push sync failed:", error);
+    return false;
+  }
+}
+
 export async function syncPushSubscription(overrides = {}) {
   if (typeof window === "undefined") return false;
 
   const prefs = overrides.prefs || getPrefs();
   const favorites = overrides.favorites || favoriteKeys();
+
+  if (shouldUseStandardsWebPush()) {
+    return syncStandardsWebPush({ prefs, favorites });
+  }
 
   let token = overrides.token || localStorage.getItem(TOKEN_KEY);
 
@@ -140,6 +240,14 @@ export const requestNotificationPermission = async () => {
 
     const next = { ...getPrefs(), enabled: true };
     saveNotificationPrefs(next);
+
+    if (shouldUseStandardsWebPush()) {
+      const registered = await syncStandardsWebPush({
+        prefs: next,
+        favorites: favoriteKeys(),
+      });
+      return registered ? "web-push" : null;
+    }
 
     const token = await getFirebaseMessagingToken();
     if (token) {

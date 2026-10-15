@@ -9,6 +9,10 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
 
+      workbox: {
+        importScripts: ["push-handler.js"],
+      },
+
       includeAssets: [
         "icon-192.png",
         "icon-512.png",
