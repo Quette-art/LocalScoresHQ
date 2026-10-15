@@ -19,7 +19,7 @@ export function applySuitlandNotificationTestOct12(games) {
       time: "3:45 PM",
       team1: "Suitland",
       team2: "Notification Test",
-      score1: 28,
+      score1: 35,
       score2: 14,
       location: "LocalScoresHQ Test",
       scheduleStatus: "TEST ONLY",
