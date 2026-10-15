@@ -16,7 +16,7 @@ export function applySuitlandNotificationTestOct12(games) {
       division: "Varsity",
       ageGroup: "Varsity",
       date: "2026-10-12",
-      time: "3:15 PM",
+      time: "3:30 PM",
       team1: "Suitland",
       team2: "Notification Test",
       score1: null,
