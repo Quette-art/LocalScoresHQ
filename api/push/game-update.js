@@ -66,7 +66,7 @@ async function sendScore(game) {
     title: "Final score",
     body: `${game.team1} ${game.score1}–${game.score2} ${game.team2}`,
     kind: "score",
-    tag: `score-${game.id}`,
+    tag: `score-${game.id}-${game.score1}-${game.score2}`,
     preference: "scores",
   });
 }
@@ -108,7 +108,7 @@ async function sendStatus(game) {
     title,
     body: `${game.team1} vs ${game.team2}`,
     kind: "schedule",
-    tag: `status-${game.id}`,
+    tag: `status-${game.id}-${String(game.status || "").toLowerCase()}`,
     preference: "schedule",
   });
 }
@@ -125,7 +125,7 @@ async function sendSchedule(before, after) {
     title,
     body,
     kind: "schedule",
-    tag: `schedule-${after.id}`,
+    tag: `schedule-${after.id}-${after.date}-${after.time}-${after.location}`,
     preference: "schedule",
   });
 }
