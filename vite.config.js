@@ -22,7 +22,7 @@ export default defineConfig({
       manifest: {
         name: "LocalScoresHQ",
 
-        short_name: "LSHQ",
+        short_name: "LocalScoresHQ",
 
         description:
           "Live scores, standings and schedules for DMV youth sports.",
