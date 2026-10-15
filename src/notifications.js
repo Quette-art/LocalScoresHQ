@@ -8,7 +8,7 @@ const PREFS_KEY = "lshq_notification_prefs";
 const SNAPSHOT_KEY = "lshq_game_snapshot";
 const TOKEN_KEY = "lshq_fcm_token";
 const WEB_PUSH_PUBLIC_VAPID_KEY =
-  "BE7hosZGEGQL48LrbC_bZP-ZHs6SDj98sonanHiq1EujOsgviIFwmntsRflNpu8A8XLVS-TIXzQF07Tu-h7nUWs";
+  "BFWc_FY-H4KsGhe78um7ocXEpWz5EcRY8q_OI__yrdzRl9FtCzvY9rx2oW6ScjsdnovkXxumTrKw5jqmGHBUBsk";
 
 let messagingRegistrationPromise = null;
 
