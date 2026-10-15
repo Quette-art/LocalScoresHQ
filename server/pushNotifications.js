@@ -1,17 +1,23 @@
 import crypto from "node:crypto";
+import webpush from "web-push";
 import { getFirebaseAdmin } from "./firebaseAdmin.js";
 
-const SUBSCRIPTIONS_COLLECTION = "pushSubscriptions";
+const FCM_SUBSCRIPTIONS_COLLECTION = "pushSubscriptions";
+const WEB_PUSH_SUBSCRIPTIONS_COLLECTION = "webPushSubscriptions";
+const WEB_PUSH_PUBLIC_VAPID_KEY =
+  "BE7hosZGEGQL48LrbC_bZP-ZHs6SDj98sonanHiq1EujOsgviIFwmntsRflNpu8A8XLVS-TIXzQF07Tu-h7nUWs";
 
 function cleanFavorites(favorites) {
   if (!Array.isArray(favorites)) return [];
-  return [...new Set(
-    favorites
-      .filter((value) => typeof value === "string")
-      .map((value) => value.trim())
-      .filter(Boolean)
-      .slice(0, 100)
-  )];
+  return [
+    ...new Set(
+      favorites
+        .filter((value) => typeof value === "string")
+        .map((value) => value.trim())
+        .filter(Boolean)
+        .slice(0, 100)
+    ),
+  ];
 }
 
 function normalizePrefs(prefs = {}) {
@@ -22,8 +28,37 @@ function normalizePrefs(prefs = {}) {
   };
 }
 
-function subscriptionId(token) {
-  return crypto.createHash("sha256").update(token).digest("hex");
+function hashId(value) {
+  return crypto.createHash("sha256").update(value).digest("hex");
+}
+
+function tokenSubscriptionId(token) {
+  return hashId(token);
+}
+
+function webSubscriptionId(subscription) {
+  return hashId(String(subscription?.endpoint || ""));
+}
+
+function normalizeWebSubscription(subscription) {
+  const endpoint = String(subscription?.endpoint || "");
+  const p256dh = String(subscription?.keys?.p256dh || "");
+  const auth = String(subscription?.keys?.auth || "");
+
+  if (
+    !endpoint.startsWith("https://") ||
+    endpoint.length > 4096 ||
+    !p256dh ||
+    !auth
+  ) {
+    throw new Error("Invalid Web Push subscription.");
+  }
+
+  return {
+    endpoint,
+    expirationTime: subscription?.expirationTime ?? null,
+    keys: { p256dh, auth },
+  };
 }
 
 export async function upsertPushSubscription({
@@ -37,15 +72,15 @@ export async function upsertPushSubscription({
   }
 
   const { db, FieldValue } = getFirebaseAdmin();
-  const id = subscriptionId(token);
+  const id = tokenSubscriptionId(token);
   const normalizedPrefs = normalizePrefs(prefs);
 
   if (!normalizedPrefs.enabled) {
-    await db.collection(SUBSCRIPTIONS_COLLECTION).doc(id).delete();
+    await db.collection(FCM_SUBSCRIPTIONS_COLLECTION).doc(id).delete();
     return { id, removed: true };
   }
 
-  await db.collection(SUBSCRIPTIONS_COLLECTION).doc(id).set(
+  await db.collection(FCM_SUBSCRIPTIONS_COLLECTION).doc(id).set(
     {
       token,
       favorites: cleanFavorites(favorites),
@@ -59,10 +94,52 @@ export async function upsertPushSubscription({
   return { id, removed: false };
 }
 
+export async function upsertWebPushSubscription({
+  subscription,
+  favorites,
+  prefs,
+  userAgent = "",
+  fcmTokenToRemove = "",
+}) {
+  const normalizedSubscription = normalizeWebSubscription(subscription);
+  const normalizedPrefs = normalizePrefs(prefs);
+  const { db, FieldValue } = getFirebaseAdmin();
+  const id = webSubscriptionId(normalizedSubscription);
+
+  if (fcmTokenToRemove && typeof fcmTokenToRemove === "string") {
+    await db
+      .collection(FCM_SUBSCRIPTIONS_COLLECTION)
+      .doc(tokenSubscriptionId(fcmTokenToRemove))
+      .delete();
+  }
+
+  if (!normalizedPrefs.enabled) {
+    await db.collection(WEB_PUSH_SUBSCRIPTIONS_COLLECTION).doc(id).delete();
+    return { id, removed: true };
+  }
+
+  await db.collection(WEB_PUSH_SUBSCRIPTIONS_COLLECTION).doc(id).set(
+    {
+      subscription: normalizedSubscription,
+      favorites: cleanFavorites(favorites),
+      prefs: normalizedPrefs,
+      userAgent: String(userAgent || "").slice(0, 500),
+      provider: "web-push",
+      updatedAt: FieldValue.serverTimestamp(),
+    },
+    { merge: true }
+  );
+
+  return { id, removed: false };
+}
+
 export async function removePushSubscription(token) {
   if (typeof token !== "string" || !token) return;
   const { db } = getFirebaseAdmin();
-  await db.collection(SUBSCRIPTIONS_COLLECTION).doc(subscriptionId(token)).delete();
+  await db
+    .collection(FCM_SUBSCRIPTIONS_COLLECTION)
+    .doc(tokenSubscriptionId(token))
+    .delete();
 }
 
 function favoriteCandidates(game = {}) {
@@ -104,34 +181,16 @@ const INVALID_TOKEN_CODES = new Set([
   "messaging/invalid-registration-token",
 ]);
 
-export async function sendFavoritePush({
+async function sendFcmPush({
+  recipients,
+  messaging,
   game,
   title,
   body,
   kind,
   tag,
-  preference = "schedule",
-  url = "https://localscoreshq.com/",
+  url,
 }) {
-  const { db, messaging } = getFirebaseAdmin();
-  const snapshot = await db.collection(SUBSCRIPTIONS_COLLECTION).get();
-
-  const recipients = snapshot.docs
-    .map((docSnap) => ({
-      id: docSnap.id,
-      ref: docSnap.ref,
-      ...docSnap.data(),
-    }))
-    .filter(
-      (subscription) =>
-        typeof subscription.token === "string" &&
-        subscriptionMatchesGame(subscription, game, preference)
-    );
-
-  if (!recipients.length) {
-    return { matched: 0, sent: 0, failed: 0, removed: 0 };
-  }
-
   let sent = 0;
   let failed = 0;
   let removed = 0;
@@ -174,10 +233,156 @@ export async function sendFavoritePush({
     }
   }
 
+  return { sent, failed, removed };
+}
+
+async function sendStandardsWebPush({
+  recipients,
+  game,
+  title,
+  body,
+  kind,
+  tag,
+  url,
+}) {
+  if (!recipients.length) {
+    return { sent: 0, failed: 0, removed: 0 };
+  }
+
+  const privateKey = process.env.WEB_PUSH_VAPID_PRIVATE_KEY;
+  if (!privateKey) {
+    throw new Error("WEB_PUSH_VAPID_PRIVATE_KEY is not configured.");
+  }
+
+  webpush.setVapidDetails(
+    "https://localscoreshq.com",
+    WEB_PUSH_PUBLIC_VAPID_KEY,
+    privateKey
+  );
+
+  const payload = JSON.stringify({
+    provider: "webpush",
+    title: String(title || "Local Scores HQ"),
+    body: String(body || "New update"),
+    tag: String(tag || `lshq-${Date.now()}`),
+    kind: String(kind || "update"),
+    gameId: String(game?.id || ""),
+    url: String(url || "https://localscoreshq.com/"),
+  });
+
+  let sent = 0;
+  let failed = 0;
+  let removed = 0;
+
+  for (const recipient of recipients) {
+    try {
+      await webpush.sendNotification(recipient.subscription, payload, {
+        TTL: 86400,
+        headers: {
+          Urgency: "high",
+        },
+      });
+      sent += 1;
+    } catch (error) {
+      failed += 1;
+      const statusCode = Number(error?.statusCode || 0);
+
+      if (statusCode === 404 || statusCode === 410) {
+        await recipient.ref.delete();
+        removed += 1;
+      } else {
+        console.error("Standards Web Push delivery failed:", {
+          statusCode,
+          message: error?.message || "Unknown error",
+        });
+      }
+    }
+  }
+
+  return { sent, failed, removed };
+}
+
+export async function sendFavoritePush({
+  game,
+  title,
+  body,
+  kind,
+  tag,
+  preference = "schedule",
+  url = "https://localscoreshq.com/",
+}) {
+  const { db, messaging } = getFirebaseAdmin();
+
+  const [fcmSnapshot, webPushSnapshot] = await Promise.all([
+    db.collection(FCM_SUBSCRIPTIONS_COLLECTION).get(),
+    db.collection(WEB_PUSH_SUBSCRIPTIONS_COLLECTION).get(),
+  ]);
+
+  const fcmRecipients = fcmSnapshot.docs
+    .map((docSnap) => ({
+      id: docSnap.id,
+      ref: docSnap.ref,
+      ...docSnap.data(),
+    }))
+    .filter(
+      (subscription) =>
+        typeof subscription.token === "string" &&
+        subscriptionMatchesGame(subscription, game, preference)
+    );
+
+  const webPushRecipients = webPushSnapshot.docs
+    .map((docSnap) => ({
+      id: docSnap.id,
+      ref: docSnap.ref,
+      ...docSnap.data(),
+    }))
+    .filter(
+      (subscription) =>
+        subscription?.subscription?.endpoint &&
+        subscriptionMatchesGame(subscription, game, preference)
+    );
+
+  if (!fcmRecipients.length && !webPushRecipients.length) {
+    return {
+      matched: 0,
+      sent: 0,
+      failed: 0,
+      removed: 0,
+      fcmMatched: 0,
+      webPushMatched: 0,
+    };
+  }
+
+  const [fcmResult, webPushResult] = await Promise.all([
+    sendFcmPush({
+      recipients: fcmRecipients,
+      messaging,
+      game,
+      title,
+      body,
+      kind,
+      tag,
+      url,
+    }),
+    sendStandardsWebPush({
+      recipients: webPushRecipients,
+      game,
+      title,
+      body,
+      kind,
+      tag,
+      url,
+    }),
+  ]);
+
   return {
-    matched: recipients.length,
-    sent,
-    failed,
-    removed,
+    matched: fcmRecipients.length + webPushRecipients.length,
+    sent: fcmResult.sent + webPushResult.sent,
+    failed: fcmResult.failed + webPushResult.failed,
+    removed: fcmResult.removed + webPushResult.removed,
+    fcmMatched: fcmRecipients.length,
+    webPushMatched: webPushRecipients.length,
+    fcmSent: fcmResult.sent,
+    webPushSent: webPushResult.sent,
   };
 }
