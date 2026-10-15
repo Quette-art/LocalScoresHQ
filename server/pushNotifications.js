@@ -294,6 +294,10 @@ async function sendStandardsWebPush({
         console.error("Standards Web Push delivery failed:", {
           statusCode,
           message: error?.message || "Unknown error",
+          body:
+            typeof error?.body === "string"
+              ? error.body.slice(0, 500)
+              : "",
         });
       }
     }
