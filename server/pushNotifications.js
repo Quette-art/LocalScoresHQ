@@ -5,7 +5,7 @@ import { getFirebaseAdmin } from "./firebaseAdmin.js";
 const FCM_SUBSCRIPTIONS_COLLECTION = "pushSubscriptions";
 const WEB_PUSH_SUBSCRIPTIONS_COLLECTION = "webPushSubscriptions";
 const WEB_PUSH_PUBLIC_VAPID_KEY =
-  "BFWc_FY-H4KsGhe78um7ocXEpWz5EcRY8q_OI__yrdzRl9FtCzvY9rx2oW6ScjsdnovkXxumTrKw5jqmGHBUBsk";
+  "BIOvNUEUHst_fzcKQQpuhmHSOJOBk_lf_VxBJfQH8zyyhlmbmHllPViAM-iYkuBGROMUSzYTstkb8CN2tgcjLRE";
 
 function cleanFavorites(favorites) {
   if (!Array.isArray(favorites)) return [];
