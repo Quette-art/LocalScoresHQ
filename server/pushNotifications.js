@@ -100,11 +100,19 @@ export async function upsertWebPushSubscription({
   prefs,
   userAgent = "",
   fcmTokenToRemove = "",
+  keyVersion = "",
+  installationId = "",
 }) {
   const normalizedSubscription = normalizeWebSubscription(subscription);
   const normalizedPrefs = normalizePrefs(prefs);
   const { db, FieldValue } = getFirebaseAdmin();
-  const id = webSubscriptionId(normalizedSubscription);
+  const cleanInstallationId =
+    typeof installationId === "string"
+      ? installationId.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 128)
+      : "";
+  const id = cleanInstallationId
+    ? `install-${cleanInstallationId}`
+    : webSubscriptionId(normalizedSubscription);
 
   if (fcmTokenToRemove && typeof fcmTokenToRemove === "string") {
     await db
@@ -125,6 +133,10 @@ export async function upsertWebPushSubscription({
       prefs: normalizedPrefs,
       userAgent: String(userAgent || "").slice(0, 500),
       provider: "web-push",
+      vapidKeyVersion:
+        typeof keyVersion === "string"
+          ? keyVersion.slice(0, 64)
+          : "",
       updatedAt: FieldValue.serverTimestamp(),
     },
     { merge: true }
@@ -287,17 +299,26 @@ async function sendStandardsWebPush({
       failed += 1;
       const statusCode = Number(error?.statusCode || 0);
 
-      if (statusCode === 404 || statusCode === 410) {
+      const errorBody =
+        typeof error?.body === "string"
+          ? error.body
+          : "";
+      const staleVapidSubscription =
+        statusCode === 400 &&
+        errorBody.includes("VapidPkHashMismatch");
+
+      if (
+        statusCode === 404 ||
+        statusCode === 410 ||
+        staleVapidSubscription
+      ) {
         await recipient.ref.delete();
         removed += 1;
       } else {
         console.error("Standards Web Push delivery failed:", {
           statusCode,
           message: error?.message || "Unknown error",
-          body:
-            typeof error?.body === "string"
-              ? error.body.slice(0, 500)
-              : "",
+          body: errorBody.slice(0, 500),
         });
       }
     }
