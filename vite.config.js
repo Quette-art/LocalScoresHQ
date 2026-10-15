@@ -33,6 +33,8 @@ export default defineConfig({
 
         display: "standalone",
 
+        id: "/",
+
         start_url: "/",
 
         icons: [
