@@ -183,6 +183,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
         {favoriteTeamDetails.map((team) => (
           <button
             key={team.key}
+            className="favorite-team-chip"
             onClick={() =>
               openTeamRoute({
                 teamName: team.teamName,
@@ -208,6 +209,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
               className="favorite-team-mascot"
             />
             <span
+              className="favorite-team-label"
               style={{
                 color: "#cbd5e1",
                 fontSize: "11px",
@@ -226,6 +228,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
 
         {/* ADD BUTTON */}
         <button
+          className="favorite-add-chip"
           onClick={() => setShowAddModal(true)}
           style={{
             display: "flex",
@@ -240,6 +243,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
           }}
         >
           <div
+            className="favorite-add-circle"
             style={{
               width: "56px",
               height: "56px",
@@ -255,7 +259,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
           >
             +
           </div>
-          <span style={{ color: "#cbd5e1", fontSize: "11px", fontWeight: 700 }}>Add</span>
+          <span className="favorite-add-label" style={{ color: "#cbd5e1", fontSize: "11px", fontWeight: 700 }}>Add</span>
         </button>
       </div>
 
@@ -268,16 +272,17 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
       )}
 
       {/* SPORTS LIST */}
-      <div style={{ padding: "0 16px" }}>
-        <p style={{ color: "#64748b", fontSize: "12px", fontWeight: 800, letterSpacing: "0.5px", margin: "0 0 10px" }}>
+      <div className="favorite-sports-section" style={{ padding: "0 16px" }}>
+        <p className="favorite-sports-heading" style={{ color: "#64748b", fontSize: "12px", fontWeight: 800, letterSpacing: "0.5px", margin: "0 0 10px" }}>
           ALL SPORTS
         </p>
-        <div style={{ background: "#ffffff", border: "1px solid #E5E7EB", borderRadius: "14px", overflow: "hidden" }}>
+        <div className="favorite-sports-list" style={{ background: "#ffffff", border: "1px solid #E5E7EB", borderRadius: "14px", overflow: "hidden" }}>
           {sortedSports.map((sport, i) => {
             const isExpanded = expandedSport === sport.name;
             return (
-              <div key={sport.name} style={{ borderBottom: i < sortedSports.length - 1 ? "1px solid #E5E7EB" : "none" }}>
+              <div className="favorite-sport-row" key={sport.name} style={{ borderBottom: i < sortedSports.length - 1 ? "1px solid #E5E7EB" : "none" }}>
                 <button
+                  className="favorite-sport-button"
                   onClick={() => toggleSport(sport.name)}
                   style={{
                     display: "flex",
@@ -292,10 +297,11 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
                     textAlign: "left",
                   }}
                 >
-                  <span style={{ fontSize: "15px", fontWeight: 700, display: "flex", alignItems: "center", gap: "10px" }}>
-                    <span style={{ fontSize: "20px" }}>{sport.icon}</span> {sport.name}
+                  <span className="favorite-sport-name" style={{ fontSize: "15px", fontWeight: 700, display: "flex", alignItems: "center", gap: "10px" }}>
+                    <span className="favorite-sport-icon" style={{ fontSize: "20px" }}>{sport.icon}</span> {sport.name}
                   </span>
                   <span
+                    className="favorite-sport-arrow"
                     style={{
                       color: "#475569",
                       fontSize: "16px",
