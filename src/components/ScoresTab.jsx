@@ -606,14 +606,9 @@ export default function ScoresTab({
 
       {selectedSport === "Football" && (
         <div
+          className="scores-region-filter"
           role="group"
           aria-label="Filter football games by area"
-          style={{
-            display: "flex",
-            gap: "8px",
-            padding: "0 16px 14px",
-            overflowX: "auto",
-          }}
         >
           {[
             { value: "ALL", label: "All Games" },
@@ -626,25 +621,11 @@ export default function ScoresTab({
               <button
                 key={region.value}
                 type="button"
+                className={`scores-region-btn ${active ? "active" : ""}`}
                 aria-pressed={active}
                 onClick={() => {
                   setRegionFilter(region.value);
                   setDivisionFilter("ALL");
-                }}
-                style={{
-                  flex: "0 0 auto",
-                  padding: "10px 16px",
-                  borderRadius: "999px",
-                  border: active
-                    ? "1px solid #1d64d8"
-                    : "1px solid #dbe2ea",
-                  background: active ? "#1d64d8" : "#ffffff",
-                  color: active ? "#ffffff" : "#0f172a",
-                  fontSize: "14px",
-                  fontWeight: 800,
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                  whiteSpace: "nowrap",
                 }}
               >
                 {region.label}

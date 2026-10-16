@@ -68,6 +68,116 @@
     color: #ffffff !important;
   }
 
+  /* Home page dark-mode readability */
+  .home-page {
+    color: #f8fafc !important;
+  }
+
+  .home-feed-header,
+  .home-hero-card,
+  .home-section-card,
+  .favorite-mini-card {
+    background: #0b1825 !important;
+    border-color: #223449 !important;
+    color: #f8fafc !important;
+  }
+
+  .home-feed-header h1,
+  .home-feed-header h2,
+  .home-section-card h2,
+  .section-header h2,
+  .hero-team span.winner,
+  .home-final-matchup button.winner,
+  .scoreboard-mini-team span.winner,
+  .scoreboard-mini-team b.winner,
+  .favorite-card-matchup button,
+  .feed-matchup button {
+    color: #f8fafc !important;
+  }
+
+  .home-page .home-kicker {
+    color: #2599ff !important;
+  }
+
+  .home-page .home-muted,
+  .home-page .featured-details,
+  .home-page .feed-game-meta,
+  .home-page .feed-game-info p,
+  .home-page .favorite-card-top,
+  .home-page .section-header > span,
+  .home-page .scoreboard-mini-status,
+  .home-page .hero-status,
+  .home-page .hero-team span.loser,
+  .home-page .home-final-matchup button.loser,
+  .home-page .scoreboard-mini-team span.loser,
+  .home-page .scoreboard-mini-team b.loser {
+    color: #94a3b8 !important;
+  }
+
+  .home-stat-item {
+    background: #091827 !important;
+    border-color: #2b3e52 !important;
+  }
+
+  .home-stat-item strong {
+    color: #f8fafc !important;
+  }
+
+  .home-stat-item span {
+    color: #94a3b8 !important;
+  }
+
+  .home-stat-live {
+    background: rgba(220, 38, 38, 0.10) !important;
+    border-color: rgba(248, 113, 113, 0.26) !important;
+  }
+
+  .home-stat-live strong {
+    color: #ef4444 !important;
+  }
+
+  .home-game-feed-row,
+  .home-final-row,
+  .scoreboard-mini-row {
+    border-color: #223449 !important;
+  }
+
+  .feed-sport-icon {
+    background: #091827 !important;
+    border-color: #223449 !important;
+  }
+
+  .upcoming-status {
+    background: rgba(100, 116, 139, 0.18) !important;
+    border-color: #2b3e52 !important;
+    color: #cbd5e1 !important;
+  }
+
+  .hero-score,
+  .score-display,
+  .scoreboard-mini-team b.winner {
+    color: #5aaeff !important;
+  }
+
+  .vs-text,
+  .favorite-card-matchup span:not(.team-avatar),
+  .feed-matchup span:not(.team-avatar),
+  .home-final-matchup span:not(.team-avatar) {
+    color: #64748b !important;
+  }
+
+  .scores-region-btn {
+    border-color: #223449 !important;
+    background: #0b1825 !important;
+    color: #dbe5f1 !important;
+  }
+
+  .scores-region-btn.active {
+    border-color: #1f8cff !important;
+    background: linear-gradient(135deg, #0876e8, #2599ff) !important;
+    color: #ffffff !important;
+  }
+
   .scores-tab {
     background:
       radial-gradient(circle at 82% -8%, rgba(31, 140, 255, 0.10), transparent 34%),
