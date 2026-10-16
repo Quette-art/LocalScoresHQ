@@ -1,43 +1,88 @@
-/* Pull sport chips, dates, and scores closer. Colors stay as they were. */
+/* Compact, aligned mobile score controls. */
 @media (max-width: 900px) {
   .topControls {
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 8px 0 4px !important;
   }
 
   .sportsBar {
-    margin: 6px 0 0 !important;
-    padding: 0 12px 2px !important;
-    gap: 8px !important;
+    margin: 0 !important;
+    padding: 0 14px 8px !important;
+    gap: 10px !important;
   }
 
-  .scores-tab [aria-label="Filter football games by area"] {
-    padding: 2px 12px 2px !important;
-    gap: 8px !important;
-    margin: 0 !important;
+  .scores-tab {
+    overflow-x: hidden;
+  }
+
+  .scores-region-filter {
+    display: grid !important;
+    grid-template-columns: 1.18fr 0.72fr 1fr;
+    align-items: stretch;
+    gap: 10px !important;
+    margin: 10px 0 8px !important;
+    padding: 0 14px !important;
+    overflow: visible !important;
+  }
+
+  .scores-region-btn {
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #dbe2ea;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #0f172a;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .scores-region-btn.active {
+    border-color: #1d64d8;
+    background: #1d64d8;
+    color: #ffffff;
   }
 
   .date-scroll {
-    margin: 0 !important;
-    padding: 0 8px 2px !important;
-    gap: 0 !important;
+    margin: 0 0 8px !important;
+    padding: 4px 14px 8px !important;
+    gap: 6px !important;
+    scroll-padding-inline: 14px;
   }
 
   .date-btn {
-    padding: 6px 12px 5px !important;
-    min-height: 0 !important;
-  }
-
-  .divisionSelect {
-    margin: 4px 16px 4px !important;
+    flex: 0 0 88px !important;
+    min-width: 88px !important;
+    min-height: 56px !important;
+    padding: 8px 10px 7px !important;
   }
 
   .games-list {
-    margin-top: 0 !important;
+    margin-top: 2px !important;
     padding-top: 0 !important;
   }
 
   .game-card:first-child {
     margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .scores-region-filter {
+    grid-template-columns: 1.2fr 0.78fr 1fr;
+    gap: 8px !important;
+    padding-inline: 10px !important;
+  }
+
+  .scores-region-btn {
+    padding-inline: 9px;
+    font-size: 13px;
+  }
+
+  .date-scroll {
+    padding-inline: 10px !important;
+    scroll-padding-inline: 10px;
   }
 }
