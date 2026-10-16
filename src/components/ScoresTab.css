@@ -4145,3 +4145,122 @@ button, input, select { font-family: inherit; }
     height: 32px;
   }
 }
+
+
+/* ================================================
+   SCORES PAGE — DARK NAVY THEME
+   Keeps the original scores layout with the newer
+   scoreboard background color.
+================================================ */
+.scores-tab {
+  min-height: 70vh;
+  padding: 22px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 82% -8%, rgba(31, 140, 255, 0.10), transparent 34%),
+    linear-gradient(180deg, #07131f 0%, #06111d 100%);
+  color: #f8fafc;
+}
+
+.scores-tab .scores-header h2 {
+  color: #ffffff;
+}
+
+.scores-tab .date-btn {
+  border-color: #223449;
+  background: #0b1825;
+  color: #cbd5e1;
+}
+
+.scores-tab .date-btn.active {
+  border-color: #1f8cff;
+  background: linear-gradient(135deg, #0876e8, #2599ff);
+  color: #ffffff;
+  box-shadow: 0 8px 22px rgba(31, 140, 255, 0.20);
+}
+
+.scores-tab .divisionSelect,
+.scores-tab .division-select {
+  border-color: #223449;
+  background: #0b1825;
+  color: #f8fafc;
+}
+
+.scores-tab .game-card {
+  background:
+    radial-gradient(circle at 90% 0%, rgba(31, 140, 255, 0.08), transparent 38%),
+    #0b1825;
+  border-color: #223449;
+  box-shadow: 0 10px 28px rgba(2, 8, 23, 0.30);
+}
+
+.scores-tab .game-card:hover {
+  border-color: rgba(31, 140, 255, 0.55);
+  box-shadow: 0 14px 32px rgba(2, 8, 23, 0.38);
+}
+
+.scores-tab .game-info,
+.scores-tab .game-division,
+.scores-tab .vs {
+  color: #94a3b8;
+}
+
+.scores-tab .team-name,
+.scores-tab .mobile-team {
+  color: #f8fafc;
+}
+
+.scores-tab .team-name:hover,
+.scores-tab .mobile-team:hover {
+  color: #5aaeff;
+}
+
+.scores-tab .winner {
+  color: #ffffff;
+}
+
+.scores-tab .score,
+.scores-tab .mobile-score {
+  color: #5aaeff;
+}
+
+.scores-tab .game-status.final,
+.scores-tab .mobile-status.final {
+  border-color: rgba(24, 184, 98, 0.34);
+  background: rgba(24, 184, 98, 0.12);
+  color: #54d98c;
+}
+
+.scores-tab .game-status.upcoming,
+.scores-tab .mobile-status.upcoming {
+  border-color: #2b3e52;
+  background: rgba(100, 116, 139, 0.16);
+  color: #cbd5e1;
+}
+
+.scores-tab [aria-label="Filter football games by area"] button {
+  border-color: #223449 !important;
+  background: #0b1825 !important;
+  color: #dbe5f1 !important;
+}
+
+.scores-tab [aria-label="Filter football games by area"] button[aria-pressed="true"] {
+  border-color: #1f8cff !important;
+  background: linear-gradient(135deg, #0876e8, #2599ff) !important;
+  color: #ffffff !important;
+}
+
+.scores-tab .skeleton-card {
+  border-color: #223449;
+  background: #0b1825;
+}
+
+@media (max-width: 900px) {
+  .scores-tab {
+    width: calc(100% + 28px);
+    min-height: calc(100vh - 180px);
+    margin: -12px -14px 0;
+    padding: 18px 14px 30px;
+    border-radius: 0;
+  }
+}
