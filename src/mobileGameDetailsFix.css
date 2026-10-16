@@ -26,6 +26,14 @@
     background: #f5f7fa !important;
   }
 
+  @media (prefers-color-scheme: dark) {
+    body,
+    #root,
+    .appShell {
+      background: #06111d !important;
+    }
+  }
+
   /* /game is rendered outside .mainContent, so it does not inherit the normal
      bottom-nav clearance. Older CSS also zeroes this page's padding with
      !important. Restore enough bottom space to scroll every details card fully
