@@ -494,6 +494,171 @@
     color: #f8fafc !important;
   }
 
+  /* Favorites page */
+  .favorite-team-chip,
+  .favorite-add-chip {
+    color: #f8fafc !important;
+  }
+
+  .favorite-team-label,
+  .favorite-add-label {
+    color: #cbd5e1 !important;
+  }
+
+  .favorite-add-circle {
+    border-color: #36506a !important;
+    background: #0b1825 !important;
+    color: #2599ff !important;
+  }
+
+  .favorite-sports-heading {
+    color: #94a3b8 !important;
+  }
+
+  .favorite-sports-list {
+    border-color: #223449 !important;
+    background: #0b1825 !important;
+  }
+
+  .favorite-sport-row {
+    border-bottom-color: #223449 !important;
+    background: #0b1825 !important;
+  }
+
+  .favorite-sport-button {
+    background: #0b1825 !important;
+    color: #f8fafc !important;
+  }
+
+  .favorite-sport-button:active,
+  .favorite-sport-button:hover {
+    background: #0f2030 !important;
+  }
+
+  .favorite-sport-name {
+    color: #f8fafc !important;
+  }
+
+  .favorite-sport-arrow {
+    color: #94a3b8 !important;
+  }
+
+  .favorite-region-group {
+    border-color: #223449 !important;
+    background: #0f2030 !important;
+  }
+
+  .favorite-region-button {
+    background: #0f2030 !important;
+    color: #f8fafc !important;
+  }
+
+  .favorite-region-button small {
+    color: #94a3b8 !important;
+  }
+
+  .favorite-region-team-list {
+    border-top-color: #223449 !important;
+    background: #0b1825 !important;
+  }
+
+  .favorite-region-team {
+    border-bottom-color: #223449 !important;
+    background: #0b1825 !important;
+    color: #f8fafc !important;
+  }
+
+  .favorite-region-team:hover,
+  .favorite-region-team:active {
+    background: #0f2030 !important;
+  }
+
+  .favorite-region-team-name {
+    color: #f8fafc !important;
+  }
+
+  .favorite-region-team-mascot {
+    background: #0f2030 !important;
+  }
+
+  .favorite-region-action {
+    background: rgba(37, 153, 255, 0.14) !important;
+    color: #5aaeff !important;
+  }
+
+  .favorite-region-action.is-favorite {
+    background: rgba(34, 197, 94, 0.16) !important;
+    color: #86efac !important;
+  }
+
+  /* Full-screen team search */
+  .search-overlay {
+    background: #06111d !important;
+    color: #f8fafc !important;
+  }
+
+  .search-page-bar {
+    background: transparent !important;
+  }
+
+  .search-input,
+  .search-input.full-search,
+  .teamSearchInput {
+    border-color: #2b3e52 !important;
+    background: #0f2030 !important;
+    color: #f8fafc !important;
+    caret-color: #2599ff !important;
+    box-shadow: none !important;
+  }
+
+  .search-input::placeholder,
+  .search-input.full-search::placeholder,
+  .teamSearchInput::placeholder {
+    color: #94a3b8 !important;
+    opacity: 1 !important;
+  }
+
+  .close-search-btn {
+    border-color: #2b3e52 !important;
+    background: #0f2030 !important;
+    color: #f8fafc !important;
+  }
+
+  .search-results-panel {
+    color: #f8fafc !important;
+  }
+
+  .search-results-panel .no-games {
+    border-color: #223449 !important;
+    background:
+      radial-gradient(circle at top, rgba(37, 153, 255, 0.06), transparent 40%),
+      #0b1825 !important;
+    color: #94a3b8 !important;
+  }
+
+  .team-search-result {
+    border-color: #223449 !important;
+    background: #0b1825 !important;
+    color: #f8fafc !important;
+  }
+
+  .team-search-result:active,
+  .team-search-result:hover {
+    background: #0f2030 !important;
+  }
+
+  .team-search-result strong {
+    color: #f8fafc !important;
+  }
+
+  .team-search-result span {
+    color: #94a3b8 !important;
+  }
+
+  .team-search-result .team-result-arrow {
+    color: #5aaeff !important;
+  }
+
   .favorites-page {
     background: #06111d !important;
     color: #f8fafc !important;
