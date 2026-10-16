@@ -179,15 +179,20 @@ export default function ScoresTab({
   const defaultDate = useMemo(() => {
     if (uniqueDates.length === 0) return "";
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    // Keep the previous day's scoreboard active through 3:59 AM.
+    // This gives late-night users time to review finals before the
+    // scores page automatically advances to the next day's games.
+    const scoreboardDate = new Date(
+      Date.now() - 4 * 60 * 60 * 1000
+    );
+    scoreboardDate.setHours(0, 0, 0, 0);
 
     const upcomingDate = uniqueDates.find((date) => {
       const gameDate = new Date(
         date + "T00:00:00"
       );
 
-      return gameDate >= today;
+      return gameDate >= scoreboardDate;
     });
 
     return upcomingDate || uniqueDates[0];
