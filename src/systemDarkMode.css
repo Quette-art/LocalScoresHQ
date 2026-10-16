@@ -1,0 +1,173 @@
+/* System dark mode. This file is intentionally loaded last so old
+   mobile/performance styles cannot force light surfaces on iPhone. */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-base: #06111d;
+    --bg-surface: #0b1825;
+    --bg-raised: #0f2030;
+    --bg-inset: #091827;
+    --border: rgba(148, 163, 184, 0.18);
+    --border-strong: #223449;
+    --accent: #2599ff;
+    --accent-dim: rgba(37, 153, 255, 0.12);
+    --accent-glow: rgba(37, 153, 255, 0.24);
+    --muted: #94a3b8;
+    --text: #f8fafc;
+    --text-mid: #cbd5e1;
+  }
+
+  html,
+  body,
+  #root {
+    background: #06111d !important;
+    color: #f8fafc !important;
+    color-scheme: dark;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  .app,
+  .appShell {
+    background:
+      radial-gradient(circle at top, rgba(31, 140, 255, 0.08), transparent 28%),
+      #06111d !important;
+    color: #f8fafc !important;
+  }
+
+  .mainContent {
+    background: transparent !important;
+    color: #f8fafc !important;
+  }
+
+  .mobileAppHeader {
+    background: #0f172a !important;
+    border-bottom-color: #1d64d8 !important;
+  }
+
+  .topControls {
+    background: #07131f !important;
+    border-bottom-color: #1d3044 !important;
+  }
+
+  .sportsBar {
+    background: transparent !important;
+  }
+
+  .sportPill {
+    border: 1px solid #223449 !important;
+    background: #0b1825 !important;
+    color: #e2e8f0 !important;
+  }
+
+  .sportPillActive {
+    border-color: #1f8cff !important;
+    background: linear-gradient(135deg, #0876e8, #2599ff) !important;
+    color: #ffffff !important;
+  }
+
+  .scores-tab {
+    background:
+      radial-gradient(circle at 82% -8%, rgba(31, 140, 255, 0.10), transparent 34%),
+      linear-gradient(180deg, #07131f 0%, #06111d 100%) !important;
+    color: #f8fafc !important;
+  }
+
+  .scores-tab .game-card {
+    background:
+      radial-gradient(circle at 90% 0%, rgba(31, 140, 255, 0.08), transparent 38%),
+      #0b1825 !important;
+    border-color: #223449 !important;
+  }
+
+  .scores-tab .game-info,
+  .scores-tab .game-division,
+  .scores-tab .vs {
+    color: #94a3b8 !important;
+  }
+
+  .scores-tab .team-name,
+  .scores-tab .mobile-team {
+    color: #f8fafc !important;
+  }
+
+  .scores-tab .score,
+  .scores-tab .mobile-score {
+    color: #5aaeff !important;
+  }
+
+  .scores-tab [aria-label="Filter football games by area"] button {
+    border-color: #223449 !important;
+    background: #0b1825 !important;
+    color: #dbe5f1 !important;
+  }
+
+  .scores-tab [aria-label="Filter football games by area"] button[aria-pressed="true"] {
+    border-color: #1f8cff !important;
+    background: linear-gradient(135deg, #0876e8, #2599ff) !important;
+    color: #ffffff !important;
+  }
+
+  .date-btn {
+    border-color: #223449 !important;
+    background: #0b1825 !important;
+    color: #cbd5e1 !important;
+  }
+
+  .date-btn.active {
+    border-color: #1f8cff !important;
+    background: #168df4 !important;
+    color: #ffffff !important;
+  }
+
+  .public-report-btn {
+    border-color: #2b3e52 !important;
+    background: #122235 !important;
+    color: #e2e8f0 !important;
+    box-shadow: none !important;
+  }
+
+  .public-report-btn:active {
+    border-color: #1f8cff !important;
+    background: #16304b !important;
+  }
+
+  .bottomNav,
+  .bottomNavWrapper,
+  .compactBottomNav {
+    background: #081522 !important;
+    border-color: #223449 !important;
+    border-top-color: #223449 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 -1px 0 #223449 !important;
+  }
+
+  .bottomNavButton {
+    background: transparent !important;
+    color: #94a3b8 !important;
+  }
+
+  .bottomNavButtonActive,
+  .activeBottomTab {
+    background: transparent !important;
+    color: #2599ff !important;
+  }
+
+  .bottomNavLabel,
+  .bottomNavButton span:last-child {
+    color: inherit !important;
+  }
+
+  .favorites-page {
+    background: #06111d !important;
+    color: #f8fafc !important;
+  }
+
+  .favorites-page .favorite-chip-label,
+  .favorites-page .favorite-add-label {
+    color: #cbd5e1 !important;
+  }
+}
