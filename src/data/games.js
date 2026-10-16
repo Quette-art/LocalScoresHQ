@@ -32,7 +32,6 @@ import { applyFootballResultsOct2Finals } from "./footballResultsOct2Finals.js";
 import { applyFootballResultsOct3Finals } from "./footballResultsOct3Finals.js";
 import { applyFootballResultsOct9Finals } from "./footballResultsOct9Finals.js";
 import { applyDunbarFootballScheduleSep10 } from "./dunbarFootballScheduleSep10.js";
-import { applySuitlandNotificationTestOct12 } from "./suitlandNotificationTestOct12.js";
 
 const correctedFootballGames = applyFootballScheduleCorrections(footballGames);
 const auditedFootballGames = applyFootballScheduleAuditAug29(correctedFootballGames);
@@ -166,10 +165,7 @@ const footballGamesWithOct9Finals = applyFootballResultsOct9Finals(
   )
 );
 
-const footballGamesWithSuitlandNotificationTest =
-  applySuitlandNotificationTestOct12(footballGamesWithOct9Finals);
-
-export const games = footballGamesWithSuitlandNotificationTest.map(
+export const games = footballGamesWithOct9Finals.map(
   canonicalizeTeamNames
 );
 
