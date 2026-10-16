@@ -356,9 +356,24 @@
   }
 
   .maxpreps-record-box,
-  .maxpreps-mini-stat {
+  .maxpreps-mini-stat,
+  .team-form-block,
+  .team-split-records {
     border-color: #223449 !important;
     background: #091827 !important;
+  }
+
+  .team-form-label,
+  .team-split-records span {
+    color: #94a3b8 !important;
+  }
+
+  .team-split-records strong {
+    color: #f8fafc !important;
+  }
+
+  .team-split-records > div + div {
+    border-left-color: #223449 !important;
   }
 
   .maxpreps-schedule-header-row,
