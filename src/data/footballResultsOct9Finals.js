@@ -2,6 +2,34 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "fb-2026-10-16-eastern-dunbar",
+    {
+      "id": "fb-2026-10-16-eastern-dunbar",
+      "team1": "Eastern",
+      "team2": "Dunbar",
+      "date": "2026-10-15",
+      "score1": 14,
+      "score2": 6,
+      "sourceUrl": "https://www.si.com/high-school/stats/washington-dc/football/games/6704320-dunbar-vs-eastern",
+      "sourceTier": "MaxPreps and High School On SI",
+      "confirmation": "Confirmed by High School On SI, MaxPreps and On3: https://www.maxpreps.com/dc/washington/eastern-ramblers/football/ ; https://www.on3.com/high-school/scores/football/district-of-columbia/game/eastern-vs-dunbar-2026-10-15-2005213/"
+    }
+  ],
+  [
+    "fb-2026-10-15-ballou-roosevelt",
+    {
+      "id": "fb-2026-10-15-ballou-roosevelt",
+      "team1": "Ballou",
+      "team2": "Roosevelt",
+      "date": "2026-10-15",
+      "score1": 6,
+      "score2": 20,
+      "sourceUrl": "https://www.si.com/high-school/stats/washington-dc/football/games/6704321-roosevelt-vs-ballou",
+      "sourceTier": "MaxPreps and High School On SI",
+      "confirmation": "Confirmed by High School On SI and MaxPreps: https://www.maxpreps.com/news/o6JSHMXiPUSoTO3VN6bAqQ/football-recap-roosevelt-wins-high-profile-matchup-against-ballou--how-to-watch.htm"
+    }
+  ],
+  [
     "fb-2026-10-03-haverford-school-georgetown-prep",
     {
       "id": "fb-2026-10-03-haverford-school-georgetown-prep",
