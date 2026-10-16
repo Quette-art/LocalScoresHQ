@@ -678,27 +678,6 @@ export default function ScoresTab({
         ))}
       </div>
 
-      <select
-        className="divisionSelect"
-        value={divisionFilter}
-        onChange={(event) =>
-          setDivisionFilter(
-            event.target.value
-          )
-        }
-      >
-        {divisions.map((division) => (
-          <option
-            key={division}
-            value={division}
-          >
-            {division === "ALL"
-              ? "All"
-              : division}
-          </option>
-        ))}
-      </select>
-
       {isAdmin && (
         <div
           style={{
