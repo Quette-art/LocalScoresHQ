@@ -1078,3 +1078,62 @@ select {
     margin-left: auto;
   }
 }
+
+/* ==================================================
+   SYSTEM DARK MODE — APP CHROME
+   Follows iPhone/iOS Appearance without changing light mode.
+================================================== */
+@media (prefers-color-scheme: dark) {
+  html,
+  body,
+  #root {
+    background: #06111d;
+    color: #f8fafc;
+    color-scheme: dark;
+  }
+
+  body,
+  .app,
+  .appShell {
+    background:
+      radial-gradient(circle at top, rgba(31, 140, 255, 0.08), transparent 28%),
+      #06111d;
+    color: #f8fafc;
+  }
+
+  .topControls {
+    background: #07131f;
+    border-bottom-color: #1d3044;
+  }
+
+  .sportPill {
+    border-color: #223449;
+    background: #0b1825;
+    color: #e2e8f0;
+  }
+
+  .sportPillActive {
+    border-color: #1f8cff;
+    background: linear-gradient(135deg, #0876e8, #2599ff);
+    color: #ffffff;
+  }
+
+  .bottomNav {
+    background: #081522;
+    border-top-color: #223449;
+    box-shadow: 0 -8px 26px rgba(2, 8, 23, 0.35);
+  }
+
+  .bottomNavButton {
+    color: #94a3b8;
+  }
+
+  .bottomNavButtonActive {
+    color: #2599ff !important;
+  }
+
+  .bottomNavLabel,
+  .bottomNavButton span:last-child {
+    color: inherit;
+  }
+}
