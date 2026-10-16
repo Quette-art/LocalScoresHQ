@@ -191,6 +191,43 @@ export default function TeamProfile({
     return `${resultType}${count}`;
   })();
 
+  const getResultLetter = (game) => {
+    const isTeam1 = game.team1 === teamName;
+    const teamScore = Number(isTeam1 ? game.score1 : game.score2);
+    const opponentScore = Number(isTeam1 ? game.score2 : game.score1);
+
+    if (teamScore > opponentScore) return "W";
+    if (teamScore < opponentScore) return "L";
+    return "T";
+  };
+
+  const lastFiveResults = lastFive
+    .slice()
+    .reverse()
+    .map(getResultLetter);
+
+  const getSplitRecord = (splitGames) => {
+    let splitWins = 0;
+    let splitLosses = 0;
+    let splitTies = 0;
+
+    splitGames.forEach((game) => {
+      const result = getResultLetter(game);
+      if (result === "W") splitWins += 1;
+      else if (result === "L") splitLosses += 1;
+      else splitTies += 1;
+    });
+
+    return `${splitWins}-${splitLosses}${splitTies ? `-${splitTies}` : ""}`;
+  };
+
+  const homeRecord = getSplitRecord(
+    completedGames.filter((game) => game.team1 === teamName)
+  );
+  const awayRecord = getSplitRecord(
+    completedGames.filter((game) => game.team2 === teamName)
+  );
+
   const scheduleGames = teamGames
     .slice()
     .sort((firstGame, secondGame) => {
@@ -388,6 +425,37 @@ export default function TeamProfile({
               </strong>
             </div>
             <div className="maxpreps-mini-stat"><span>Streak</span><strong>{streak}</strong></div>
+          </div>
+
+          <div className="team-form-summary">
+            <div className="team-form-block">
+              <span className="team-form-label">Last 5</span>
+              <div className="team-form-results" aria-label="Last five results">
+                {lastFiveResults.length > 0 ? (
+                  lastFiveResults.map((result, index) => (
+                    <span
+                      key={`form-${index}-${result}`}
+                      className={`team-form-result result-${result.toLowerCase()}`}
+                    >
+                      {result}
+                    </span>
+                  ))
+                ) : (
+                  <span className="team-form-empty">No results yet</span>
+                )}
+              </div>
+            </div>
+
+            <div className="team-split-records">
+              <div>
+                <span>Home</span>
+                <strong>{homeRecord}</strong>
+              </div>
+              <div>
+                <span>Away</span>
+                <strong>{awayRecord}</strong>
+              </div>
+            </div>
           </div>
         </div>
       </div>

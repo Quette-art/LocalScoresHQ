@@ -94,6 +94,8 @@ const renderScoreGraphicCanvas = async ({
   team2,
   score1,
   score2,
+  record1,
+  record2,
   team1Won,
   team2Won,
   isTie,
@@ -188,6 +190,11 @@ const renderScoreGraphicCanvas = async ({
   wrapCanvasText(ctx, team2, 400, 2).forEach((line, index) => {
     ctx.fillText(line, rightX, 590 + index * 42);
   });
+
+  ctx.fillStyle = "#9fb5d4";
+  ctx.font = "800 24px Arial, Helvetica, sans-serif";
+  ctx.fillText(record1 || "", leftX, 680);
+  ctx.fillText(record2 || "", rightX, 680);
 
   ctx.font = "900 168px Arial, Helvetica, sans-serif";
   ctx.fillStyle = team1Won ? "#7eb4ff" : "#ffffff";
@@ -406,6 +413,60 @@ const GameDetails = ({
   const isTie =
     isFinal && score1 === score2;
 
+  const getTeamRecord = (teamName) => {
+    const sourceGames = [
+      ...games.filter((item) => item.id !== localGame.id),
+      localGame,
+    ];
+
+    let wins = 0;
+    let losses = 0;
+    let ties = 0;
+
+    sourceGames
+      .filter((item) => {
+        const sameTeam =
+          item.team1 === teamName || item.team2 === teamName;
+        const sameSport =
+          (item.sport || "Football") ===
+          (localGame.sport || "Football");
+        const sameDivision =
+          !localGame.division ||
+          (item.division || "") === (localGame.division || "");
+        const completed =
+          item.score1 !== null &&
+          item.score1 !== undefined &&
+          item.score2 !== null &&
+          item.score2 !== undefined;
+        const onOrBeforeGame =
+          !localGame.date ||
+          !item.date ||
+          item.date <= localGame.date;
+
+        return (
+          sameTeam &&
+          sameSport &&
+          sameDivision &&
+          completed &&
+          onOrBeforeGame
+        );
+      })
+      .forEach((item) => {
+        const isTeam1 = item.team1 === teamName;
+        const teamScore = Number(isTeam1 ? item.score1 : item.score2);
+        const opponentScore = Number(isTeam1 ? item.score2 : item.score1);
+
+        if (teamScore > opponentScore) wins += 1;
+        else if (teamScore < opponentScore) losses += 1;
+        else ties += 1;
+      });
+
+    return `${wins}-${losses}${ties ? `-${ties}` : ""}`;
+  };
+
+  const team1Record = getTeamRecord(localGame.team1);
+  const team2Record = getTeamRecord(localGame.team2);
+
   const openScoreModal = () => {
     setTeam1Score(
       localGame.score1 ?? ""
@@ -517,6 +578,8 @@ const GameDetails = ({
       team2: localGame.team2,
       score1: localGame.score1,
       score2: localGame.score2,
+      record1: team1Record,
+      record2: team2Record,
       team1Won,
       team2Won,
       isTie,
@@ -585,7 +648,7 @@ const GameDetails = ({
       const shareData = {
         files: [file],
         title: `${localGame.team1} vs ${localGame.team2} final`,
-        text: `Final: ${localGame.team1} ${localGame.score1}, ${localGame.team2} ${localGame.score2} — LocalScoresHQ`,
+        text: `Final: ${localGame.team1} ${localGame.score1} (${team1Record}), ${localGame.team2} ${localGame.score2} (${team2Record}) — LocalScoresHQ`,
       };
 
       if (navigator.share && navigator.canShare?.(shareData)) {
@@ -974,6 +1037,7 @@ const GameDetails = ({
                   <div className={team1Won ? "is-winner" : isTie ? "is-tie" : ""}>
                     <ShareScoreLogo teamName={localGame.team1} />
                     <strong>{localGame.team1}</strong>
+                    <small>{team1Record}</small>
                     <b>{localGame.score1}</b>
                     {team1Won && <span>WINNER</span>}
                     {isTie && <span>TIE</span>}
@@ -984,6 +1048,7 @@ const GameDetails = ({
                   <div className={team2Won ? "is-winner" : isTie ? "is-tie" : ""}>
                     <ShareScoreLogo teamName={localGame.team2} />
                     <strong>{localGame.team2}</strong>
+                    <small>{team2Record}</small>
                     <b>{localGame.score2}</b>
                     {team2Won && <span>WINNER</span>}
                     {isTie && <span>TIE</span>}
@@ -1001,7 +1066,7 @@ const GameDetails = ({
             </div>
 
             <p className="share-score-hint">
-              4:5 Instagram post with both teams, logos, and the final score.
+              Instagram-ready final with both team logos, records, score, and LocalScoresHQ branding.
             </p>
 
             <div className="share-score-buttons">
