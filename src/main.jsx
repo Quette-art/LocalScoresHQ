@@ -19,6 +19,7 @@ import "./friendshipCompactFix.css";
 import "./friendshipGameDetailsFix.css";
 import "./bottomNavSpacing.css";
 import "./espnScoresHeader.css";
+import "./systemDarkMode.css";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
