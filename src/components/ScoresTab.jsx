@@ -9,7 +9,6 @@ import { db } from "../firebase";
 import { sendAdminGamePush } from "../notifications";
 import { gameMatchesRegion } from "../data/teamRegions";
 import TeamMascot from "./TeamMascot";
-import FootballScoreboardView from "./FootballScoreboardView";
 import "./ScoresTab.css";
 
 function TeamAutocomplete({
@@ -599,59 +598,106 @@ export default function ScoresTab({
 
   return (
     <div className="scores-tab">
-      {selectedSport === "Football" ? (
-        <FootballScoreboardView
-          games={games}
-          favoriteTeams={favoriteTeams}
-          regionFilter={regionFilter}
-          setRegionFilter={setRegionFilter}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          openTeamProfile={openTeamProfile}
-          openGameDetails={openGameDetails}
-          isAdmin={isAdmin}
-          openScoreModal={openScoreModal}
-          openEditGame={openEditGame}
-          updateGameStatus={updateGameStatus}
-          deleteGame={deleteGame}
-        />
-      ) : (
-        <>
-          <div className="scores-header">
-            <h2>{selectedSport.toUpperCase()}</h2>
-          </div>
+      <div className="scores-header">
+        <h2>
+          {selectedSport.toUpperCase()}
+        </h2>
+      </div>
 
-          <div className="date-scroll">
-            {uniqueDates.map((date) => (
+      {selectedSport === "Football" && (
+        <div
+          role="group"
+          aria-label="Filter football games by area"
+          style={{
+            display: "flex",
+            gap: "8px",
+            padding: "0 16px 14px",
+            overflowX: "auto",
+          }}
+        >
+          {[
+            { value: "ALL", label: "All Games" },
+            { value: "DC", label: "D.C." },
+            { value: "MD", label: "Maryland" },
+          ].map((region) => {
+            const active = regionFilter === region.value;
+
+            return (
               <button
-                key={date}
-                className={`date-btn ${selectedDate === date ? "active" : ""}`}
+                key={region.value}
+                type="button"
+                aria-pressed={active}
                 onClick={() => {
-                  setSelectedDate(date);
+                  setRegionFilter(region.value);
                   setDivisionFilter("ALL");
                 }}
+                style={{
+                  flex: "0 0 auto",
+                  padding: "10px 16px",
+                  borderRadius: "999px",
+                  border: active
+                    ? "1px solid #1d64d8"
+                    : "1px solid #dbe2ea",
+                  background: active ? "#1d64d8" : "#ffffff",
+                  color: active ? "#ffffff" : "#0f172a",
+                  fontSize: "14px",
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                  whiteSpace: "nowrap",
+                }}
               >
-                {new Date(date + "T00:00:00").toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })}
+                {region.label}
               </button>
-            ))}
-          </div>
-
-          <select
-            className="divisionSelect"
-            value={divisionFilter}
-            onChange={(event) => setDivisionFilter(event.target.value)}
-          >
-            {divisions.map((division) => (
-              <option key={division} value={division}>
-                {division === "ALL" ? "All" : division}
-              </option>
-            ))}
-          </select>
-        </>
+            );
+          })}
+        </div>
       )}
+
+      <div className="date-scroll">
+        {uniqueDates.map((date) => (
+          <button
+            key={date}
+            className={`date-btn ${
+              selectedDate === date
+                ? "active"
+                : ""
+            }`}
+            onClick={() => {
+              setSelectedDate(date);
+              setDivisionFilter("ALL");
+            }}
+          >
+            {new Date(
+              date + "T00:00:00"
+            ).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            })}
+          </button>
+        ))}
+      </div>
+
+      <select
+        className="divisionSelect"
+        value={divisionFilter}
+        onChange={(event) =>
+          setDivisionFilter(
+            event.target.value
+          )
+        }
+      >
+        {divisions.map((division) => (
+          <option
+            key={division}
+            value={division}
+          >
+            {division === "ALL"
+              ? "All"
+              : division}
+          </option>
+        ))}
+      </select>
 
       {isAdmin && (
         <div
@@ -854,7 +900,6 @@ export default function ScoresTab({
         </div>
       )}
 
-      {selectedSport !== "Football" && (
       <div className="games-list">
         {filteredGames.length === 0 ? (
           <div className="loadingWrapper">
@@ -1224,8 +1269,6 @@ export default function ScoresTab({
           })
         )}
       </div>
-
-      )}
 
       {selectedGame && (
         <div className="scoreModalOverlay">
