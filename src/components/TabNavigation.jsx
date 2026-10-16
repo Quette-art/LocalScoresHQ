@@ -12,7 +12,7 @@ export default function TabNavigation({
     },
     {
       key: "scores",
-      label: "Scores",
+      label: "Scoreboard",
       icon: "📊",
     },
     {
