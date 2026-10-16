@@ -160,6 +160,10 @@ for (const [id, after] of Object.entries(current)) {
 for (const [id, before] of Object.entries(previous)) {
   if (current[id]) continue;
 
+  // One-time cleanup: remove the temporary Suitland notification test
+  // from the snapshot without sending followers a fake "Game removed" alert.
+  if (id === "fb-test-2026-10-12-suitland-notification") continue;
+
   const result = await sendFavoritePush({
     game: before,
     title: "Game removed",
