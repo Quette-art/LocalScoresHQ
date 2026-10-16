@@ -105,10 +105,10 @@ export default function AppContent() {
   const isAdmin = !!adminUser;
 
   const sports = [
+    { name: "Football", icon: "\uD83C\uDFC8" },
     { name: "Soccer", icon: "\u26bd" },
     { name: "Basketball", icon: "\uD83C\uDFC0" },
     { name: "Baseball", icon: "\u26BE" },
-    { name: "Football", icon: "\uD83C\uDFC8" },
   ];
 
   const sportIcons = {
