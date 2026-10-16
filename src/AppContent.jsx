@@ -362,7 +362,7 @@ export default function AppContent() {
                 className={`headerNavLink${activeTab === tab ? " headerNavLinkActive" : ""}`}
                 onClick={() => handleTabChange(tab)}
               >
-                {tab[0].toUpperCase() + tab.slice(1)}
+                {tab === "scores" ? "Scoreboard" : tab[0].toUpperCase() + tab.slice(1)}
               </button>
             ))}
           </nav>
