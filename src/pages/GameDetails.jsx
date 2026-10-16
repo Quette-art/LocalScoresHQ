@@ -518,6 +518,16 @@ const GameDetails = ({
     }
   };
 
+  const copyGameLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setGraphicAction("copied");
+    } catch (error) {
+      console.error(error);
+      setGraphicAction("error");
+    }
+  };
+
   const getGraphicFilename = () =>
     `${localGame.team1}-vs-${localGame.team2}`
       .toLowerCase()
@@ -601,40 +611,6 @@ const GameDetails = ({
     anchor.download = getGraphicFilename();
     anchor.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-  };
-
-  const saveScoreGraphic = async () => {
-    setGraphicAction("saving");
-
-    try {
-      const blob = await createScoreGraphic();
-      const file = new File([blob], getGraphicFilename(), {
-        type: "image/png",
-      });
-
-      if (
-        /iP(hone|ad|od)/.test(navigator.userAgent) &&
-        navigator.canShare?.({ files: [file] })
-      ) {
-        await navigator.share({
-          files: [file],
-          title: `${localGame.team1} vs ${localGame.team2} final`,
-        });
-        setGraphicAction("saved");
-        return;
-      }
-
-      downloadGraphic(blob);
-      setGraphicAction("saved");
-    } catch (error) {
-      if (error?.name === "AbortError") {
-        setGraphicAction("");
-        return;
-      }
-
-      console.error(error);
-      setGraphicAction("error");
-    }
   };
 
   const shareScoreGraphic = async () => {
@@ -798,23 +774,18 @@ const GameDetails = ({
         </button>
 
         <div className="game-details-share-actions">
-          {isFinal && (
-            <button
-              type="button"
-              className="game-details-action game-details-action-primary"
-              onClick={() => {
-                setGraphicAction("");
-                setShowShareGraphic(true);
-              }}
-            >
-              Score Graphic
-            </button>
-          )}
-
           <button
             type="button"
-            className="game-details-action"
-            onClick={shareGame}
+            className="game-details-action game-details-action-primary"
+            onClick={() => {
+              if (isFinal) {
+                setGraphicAction("");
+                setShowShareGraphic(true);
+                return;
+              }
+
+              void shareGame();
+            }}
           >
             Share
             <span>↗</span>
@@ -1074,21 +1045,17 @@ const GameDetails = ({
                 type="button"
                 className="share-score-share"
                 onClick={shareScoreGraphic}
-                disabled={
-                  graphicAction === "sharing" || graphicAction === "saving"
-                }
+                disabled={graphicAction === "sharing"}
               >
                 {graphicAction === "sharing" ? "Creating…" : "Share Image"}
               </button>
 
               <button
                 type="button"
-                onClick={saveScoreGraphic}
-                disabled={
-                  graphicAction === "sharing" || graphicAction === "saving"
-                }
+                onClick={copyGameLink}
+                disabled={graphicAction === "sharing"}
               >
-                {graphicAction === "saving" ? "Creating…" : "Save Image"}
+                Copy Game Link
               </button>
             </div>
 
@@ -1099,6 +1066,9 @@ const GameDetails = ({
             )}
             {graphicAction === "shared" && (
               <p className="share-score-feedback">Score graphic shared.</p>
+            )}
+            {graphicAction === "copied" && (
+              <p className="share-score-feedback">Game link copied.</p>
             )}
             {graphicAction === "error" && (
               <p className="share-score-feedback is-error">
