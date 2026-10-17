@@ -301,7 +301,7 @@ const FINAL_RESULTS = new Map([
     {
       "id": "fb-2026-10-03-cornerstone-christian-st-johns",
       "team1": "Cornerstone Christian",
-      "team2": "St. John's",
+      "team2": "St. John’s",
       "date": "2026-10-03",
       "score1": 28,
       "score2": 35,
