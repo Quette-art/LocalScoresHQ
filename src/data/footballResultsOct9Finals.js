@@ -1,6 +1,42 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-16-st-johns-catholic-prep-st-stephens-st-agnes", {
+  "id": "fb-2026-10-16-st-johns-catholic-prep-st-stephens-st-agnes",
+  "team1": "St. John's Catholic Prep",
+  "team2": "St. Stephen's & St. Agnes",
+  "score1": 24,
+  "score2": 18,
+  "date": "2026-10-16",
+  "sourceUrl": "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-16-2026-01m54thtv6yd",
+  "sourceTier": "High School On SI and MaxPreps",
+  "confirmation": "Confirmed by Gary Adornato's October 16 Maryland final-score roundup and the MaxPreps October 16 scoreboard: https://www.maxpreps.com/md/maryland/football/scores/?date=10/16/2026",
+  "lastChecked": "2026-10-17"
+}],
+  ["fb-2026-10-16-riverdale-baptist-kipp-dc-legacy", {
+  "id": "fb-2026-10-16-riverdale-baptist-kipp-dc-legacy",
+  "team1": "Riverdale Baptist",
+  "team2": "KIPP DC Legacy",
+  "score1": 28,
+  "score2": 6,
+  "date": "2026-10-16",
+  "sourceUrl": "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-16-2026-01m54thtv6yd",
+  "sourceTier": "High School On SI and MaxPreps",
+  "confirmation": "Confirmed by Gary Adornato's October 16 Maryland final-score roundup and the MaxPreps October 16 scoreboard: https://www.maxpreps.com/md/maryland/football/scores/?date=10/16/2026",
+  "lastChecked": "2026-10-17"
+}],
+  ["fb-2026-10-16-st-johns-good-counsel", {
+  "id": "fb-2026-10-16-st-johns-good-counsel",
+  "team1": "St. John’s",
+  "team2": "Good Counsel",
+  "score1": 38,
+  "score2": 7,
+  "date": "2026-10-16",
+  "sourceUrl": "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-16-2026-01m54thtv6yd",
+  "sourceTier": "High School On SI and MaxPreps",
+  "confirmation": "Confirmed by Gary Adornato's October 16 Maryland final-score roundup and the MaxPreps October 16 scoreboard: https://www.maxpreps.com/md/maryland/football/scores/?date=10/16/2026",
+  "lastChecked": "2026-10-17"
+}],
   ["md-fb-2026-10-16-crossland-gwynn-park", {
   "id": "md-fb-2026-10-16-crossland-gwynn-park",
   "team1": "Crossland",
