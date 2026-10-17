@@ -1,6 +1,30 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["md-fb-2026-10-16-eleanor-roosevelt-bowie", {
+  "id": "md-fb-2026-10-16-eleanor-roosevelt-bowie",
+  "team1": "Eleanor Roosevelt",
+  "team2": "Bowie",
+  "date": "2026-10-16",
+  "score1": 34,
+  "score2": 20,
+  "sourceUrl": "https://www.maxpreps.com/md/football/game/bowie-vs-eleanor-roosevelt-greenbelt/10-16-2026/?c=67402aab-93b5-4907-b446-d29d1d9361a8",
+  "sourceTier": "Maryland High School Football Scores and MaxPreps",
+  "confirmation": "Confirmed by @mdhsscores final graphic supplied in IMG_0774.jpeg and MaxPreps Eleanor Roosevelt-Bowie recap.",
+  "lastChecked": "2026-10-17"
+}],
+  ["md-fb-2026-10-16-bladensburg-laurel", {
+  "id": "md-fb-2026-10-16-bladensburg-laurel",
+  "team1": "Bladensburg",
+  "team2": "Laurel",
+  "date": "2026-10-16",
+  "score1": 0,
+  "score2": 44,
+  "sourceUrl": "https://www.maxpreps.com/md/football/game/bladensburg-vs-laurel/10-16-2026/?c=9ee04d98-c28a-4c7c-b13c-78b4cb239b3d",
+  "sourceTier": "Maryland High School Football Scores and MaxPreps",
+  "confirmation": "Confirmed by @mdhsscores final graphic supplied in IMG_0773.jpeg and MaxPreps game final.",
+  "lastChecked": "2026-10-17"
+}],
   [
     "md-fb-2026-10-16-potomac-wise",
     {
