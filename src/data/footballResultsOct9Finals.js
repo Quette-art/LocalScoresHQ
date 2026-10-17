@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["md-fb-2026-10-17-central-largo", {
+  "id": "md-fb-2026-10-17-central-largo",
+  "team1": "Central",
+  "team2": "Largo",
+  "date": "2026-10-17",
+  "score1": 2,
+  "score2": 68,
+  "sourceUrl": "https://mdfootballscores.com/schools/largo/",
+  "sourceTier": "Maryland High School Football Scores and MaxPreps",
+  "confirmation": "Confirmed by Maryland High School Football Scores and MaxPreps final: https://www.maxpreps.com/md/football/game/central-capitol-heights-vs-largo-upper-marlboro/10-17-2026/?c=f763cf95-a40e-4ab3-9a28-54d8eee64f48",
+  "lastChecked": "2026-10-17"
+}],
   ["fb-2026-10-16-st-johns-catholic-prep-st-stephens-st-agnes", {
   "id": "fb-2026-10-16-st-johns-catholic-prep-st-stephens-st-agnes",
   "team1": "St. John's Catholic Prep",
