@@ -2,6 +2,21 @@ const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
   [
+    "md-fb-2026-10-16-potomac-wise",
+    {
+      "id": "md-fb-2026-10-16-potomac-wise",
+      "team1": "Potomac",
+      "team2": "Wise",
+      "date": "2026-10-16",
+      "score1": 14,
+      "score2": 51,
+      "sourceUrl": "https://www.instagram.com/wisepumasports/",
+      "sourceTier": "Official school athletics",
+      "confirmation": "Confirmed by Wise Athletics (@wisepumasports) final-score post, supplied in user screenshot IMG_0769.jpeg on October 16, 2026: Wise 51, Potomac 14.",
+      "lastChecked": "2026-10-16"
+    }
+  ],
+  [
     "fb-2026-10-16-eastern-dunbar",
     {
       "id": "fb-2026-10-16-eastern-dunbar",
@@ -504,7 +519,7 @@ export function applyFootballResultsOct9Finals(games = []) {
       sourceTier,
       sourceUrl,
       notes: `Final: ${game.team1} ${score1}, ${game.team2} ${score2}. ${confirmation}`,
-      lastChecked: "2026-10-10",
+      lastChecked: result.lastChecked || "2026-10-10",
     };
   });
 }
