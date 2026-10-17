@@ -1,6 +1,30 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["md-fb-2026-10-16-crossland-gwynn-park", {
+  "id": "md-fb-2026-10-16-crossland-gwynn-park",
+  "team1": "Crossland",
+  "team2": "Gwynn Park",
+  "date": "2026-10-16",
+  "score1": 0,
+  "score2": 43,
+  "sourceUrl": "https://www.maxpreps.com/news/Mdjpkn1ODk2Q1fbHVVpLXw/football-recap-gwynn-park-skates-past-crossland-with-ease--how-to-watch.htm",
+  "sourceTier": "MaxPreps - user-approved conflict resolution",
+  "confirmation": "MaxPreps reports 43-0; @mdhsscores graphic reports 42-0. User explicitly selected the MaxPreps result on October 17, 2026.",
+  "lastChecked": "2026-10-17"
+}],
+  ["fb-2026-10-16-kipp-college-prep-friendship-collegiate-academy", {
+  "id": "fb-2026-10-16-kipp-college-prep-friendship-collegiate-academy",
+  "team1": "KIPP College Prep",
+  "team2": "Friendship Collegiate Academy",
+  "date": "2026-10-16",
+  "score1": 0,
+  "score2": 54,
+  "sourceUrl": "https://www.maxpreps.com/dc/football/game/friendship-collegiate-academy-washington-vs-kipp-college-prep-washington/10-16-2026/?c=56775b0d-b1b5-4ad2-b452-26a1358cc6f9",
+  "sourceTier": "MaxPreps and independent game attendee report",
+  "confirmation": "Confirmed by MaxPreps final and @constancewalkerofficial game report supplied in IMG_0775.jpeg.",
+  "lastChecked": "2026-10-17"
+}],
   ["md-fb-2026-10-16-eleanor-roosevelt-bowie", {
   "id": "md-fb-2026-10-16-eleanor-roosevelt-bowie",
   "team1": "Eleanor Roosevelt",
