@@ -166,7 +166,9 @@ const footballGamesWithOct9Finals = applyFootballResultsOct9Finals(
 );
 
 export const games = footballGamesWithOct9Finals.map(
-  canonicalizeTeamNames
+  (game) => canonicalizeTeamNames(game.id === "md-fb-2026-10-24-wise-suitland"
+    ? { ...game, score1: 0, score2: 0, status: "Notification test", notes: "TEST ONLY: temporary 0-0 score for notification delivery check. Not a real result." }
+    : game)
 );
 
 export const upcomingGames = games;
