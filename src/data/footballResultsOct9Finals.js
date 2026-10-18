@@ -1,6 +1,30 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-17-flint-hill-sidwell-friends", {
+  "id": "fb-2026-10-17-flint-hill-sidwell-friends",
+  "team1": "Flint Hill",
+  "team2": "Sidwell Friends",
+  "date": "2026-10-17",
+  "score1": 45,
+  "score2": 0,
+  "sourceUrl": "https://www.sidwell.edu/athletics/team-page/~athletics-team-id/229",
+  "sourceTier": "Official school athletics",
+  "confirmation": "Confirmed by Sidwell Friends official varsity football results: October17 home loss0-45 against Flint Hill School.",
+  "lastChecked": "2026-10-17"
+}],
+  ["md-fb-2026-10-17-friendly-frederick-douglass", {
+  "id": "md-fb-2026-10-17-friendly-frederick-douglass",
+  "team1": "Friendly",
+  "team2": "Frederick Douglass",
+  "date": "2026-10-17",
+  "score1": 0,
+  "score2": 56,
+  "sourceUrl": "https://mdfootballscores.com/schools/douglass-pg/",
+  "sourceTier": "Maryland High School Football Scores and MaxPreps",
+  "confirmation": "Confirmed by Maryland High School Football Scores October17 final56-0 and MaxPreps final: https://www.maxpreps.com/md/football/game/frederick-douglass-upper-marlboro-vs-friendly-fort-washington/10-17-2026/?c=e7548d66-f8aa-41ca-95f4-2245436af552",
+  "lastChecked": "2026-10-17"
+}],
   ["md-fb-2026-10-17-duval-suitland", {
   "id": "md-fb-2026-10-17-duval-suitland",
   "team1": "DuVal",
