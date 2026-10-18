@@ -432,6 +432,33 @@ async function sendStandardsWebPush({
   return { sent, failed, removed };
 }
 
+// Keep only aggregate delivery counts. Never store push endpoints,
+// device tokens, user identities, or secret data in dashboard audit records.
+async function auditPushDelivery(db, game, title, kind, result) {
+  try {
+    const { FieldValue } = getFirebaseAdmin();
+    await db.collection("pushDispatches").add({
+      gameId: String(game?.id || ""),
+      team1: String(game?.team1 || ""),
+      team2: String(game?.team2 || ""),
+      kind: String(kind || ""),
+      title: String(title || ""),
+      matched: Number(result.matched || 0),
+      sent: Number(result.sent || 0),
+      failed: Number(result.failed || 0),
+      removed: Number(result.removed || 0),
+      webPushMatched: Number(result.webPushMatched || 0),
+      webPushSent: Number(result.webPushSent || 0),
+      fcmMatched: Number(result.fcmMatched || 0),
+      fcmSent: Number(result.fcmSent || 0),
+      createdAt: FieldValue.serverTimestamp(),
+    });
+  } catch (error) {
+    // An audit-storage outage must never block a fan notification.
+    console.error("Push audit write failed:", error?.message || "Unknown error");
+  }
+}
+
 export async function sendFavoritePush({
   game,
   title,
@@ -473,14 +500,18 @@ export async function sendFavoritePush({
     );
 
   if (!fcmRecipients.length && !webPushRecipients.length) {
-    return {
+    const result = {
       matched: 0,
       sent: 0,
       failed: 0,
       removed: 0,
       fcmMatched: 0,
       webPushMatched: 0,
+      fcmSent: 0,
+      webPushSent: 0,
     };
+    await auditPushDelivery(db, game, title, kind, result);
+    return result;
   }
 
   const [fcmResult, webPushResult] = await Promise.all([
@@ -505,7 +536,7 @@ export async function sendFavoritePush({
     }),
   ]);
 
-  return {
+  const result = {
     matched: fcmRecipients.length + webPushRecipients.length,
     sent: fcmResult.sent + webPushResult.sent,
     failed: fcmResult.failed + webPushResult.failed,
@@ -515,4 +546,6 @@ export async function sendFavoritePush({
     fcmSent: fcmResult.sent,
     webPushSent: webPushResult.sent,
   };
+  await auditPushDelivery(db, game, title, kind, result);
+  return result;
 }
