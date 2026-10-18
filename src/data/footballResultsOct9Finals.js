@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-17-st-james-potomac-school", {
+  "id": "fb-2026-10-17-st-james-potomac-school",
+  "team1": "Saint James",
+  "team2": "Potomac School",
+  "date": "2026-10-17",
+  "score1": 23,
+  "score2": 27,
+  "sourceUrl": "https://www.maxpreps.com/inter-state/football/game/potomac-school-mclean-va-vs-saint-james-hagerstown-md/10-17-2026/?c=f45966f7-3496-4224-b2bd-1eb5647c45d1",
+  "sourceTier": "MaxPreps and High School On SI",
+  "confirmation": "Confirmed October17 final Potomac School27 Saint James23 by MaxPreps and independent Scorebook Live/High School On SI: https://www.si.com/high-school/stats/virginia/football/games/6621907-st-james-vs-potomac-school",
+  "lastChecked": "2026-10-18"
+}],
   ["fb-2026-10-17-flint-hill-sidwell-friends", {
   "id": "fb-2026-10-17-flint-hill-sidwell-friends",
   "team1": "Flint Hill",
