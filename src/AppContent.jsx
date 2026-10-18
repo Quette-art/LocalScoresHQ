@@ -184,7 +184,13 @@ export default function AppContent() {
                 ...(firebaseOverride.status ? { status: firebaseOverride.status } : {}),
               }
             : {}),
-          ...(savedScore ? { score1: savedScore.score1, score2: savedScore.score2 } : {}),
+          ...(savedScore ? {
+            score1: savedScore.score1, score2: savedScore.score2,
+            ...(savedScore.sourceUrl ? { sourceUrl: savedScore.sourceUrl } : {}),
+            ...(savedScore.sourceTier ? { sourceTier: savedScore.sourceTier } : {}),
+            ...(savedScore.verificationStatus
+              ? { verificationStatus: savedScore.verificationStatus } : {}),
+          } : {}),
           ...(status ? { status } : {}),
         };
       });
@@ -226,6 +232,9 @@ export default function AppContent() {
         firebaseScores[docSnap.id] = {
           score1: Number(data.score1),
           score2: Number(data.score2),
+          sourceUrl: data.sourceUrl || "",
+          sourceTier: data.sourceTier || "",
+          verificationStatus: data.verificationStatus || "",
         };
       });
       initialSnapshots.scores = true;
