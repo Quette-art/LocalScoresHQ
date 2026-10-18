@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "test": "node --test tests/notificationPolicy.test.mjs",
+    "prebuild": "npm run test",
     "build": "node scripts/extractEmbeddedMascots.mjs && vite build",
     "lint": "eslint .",
     "preview": "vite preview",

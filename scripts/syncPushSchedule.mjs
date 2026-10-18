@@ -1,3 +1,5 @@
+import { classifyGameNotification } from "../src/notificationPolicy.js";
+
 const secret = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
 
 if (!secret) {
@@ -60,30 +62,6 @@ try {
   previous = {};
 }
 
-const scheduleFields = [
-  "team1",
-  "team2",
-  "division",
-  "date",
-  "time",
-  "location",
-];
-
-const scheduleChanged = (before, after) =>
-  scheduleFields.some((field) => before?.[field] !== after?.[field]);
-
-const scoreChanged = (before, after) =>
-  before?.score1 !== after?.score1 || before?.score2 !== after?.score2;
-
-const statusNeedsAlert = (before, after) => {
-  const next = String(after?.status || "").toLowerCase();
-  const prior = String(before?.status || "").toLowerCase();
-  return (
-    next !== prior &&
-    (next === "cancelled" || next === "postponed")
-  );
-};
-
 const sendScheduleChange = async (before, after) => {
   const locationChanged = before?.location !== after.location && after.location;
   const title = locationChanged ? "Location change" : "Schedule change";
@@ -106,26 +84,11 @@ let alertCount = 0;
 
 for (const [id, after] of Object.entries(current)) {
   const before = previous[id];
+  const kind = classifyGameNotification(before, after);
 
-  if (!before) {
-    const result = await sendFavoritePush({
-      game: after,
-      title: "New game added",
-      body: `${after.team1} vs ${after.team2} — ${after.date || "TBD"} ${after.time || ""}`.trim(),
-      kind: "schedule",
-      tag: `new-game-${id}`,
-      preference: "schedule",
-    });
-    sentTotal += Number(result.sent || 0);
-    alertCount += 1;
-    continue;
-  }
-
-  if (
-    scoreChanged(before, after) &&
-    after.score1 !== null &&
-    after.score2 !== null
-  ) {
+  // One publish = one game alert. New finals and score corrections take
+  // priority over a date/time/location edit included in that same publish.
+  if (kind === "score") {
     const result = await sendFavoritePush({
       game: after,
       title: "Final score",
@@ -144,21 +107,30 @@ for (const [id, after] of Object.entries(current)) {
     }));
     sentTotal += Number(result.sent || 0);
     alertCount += 1;
-  }
-
-  if (statusNeedsAlert(before, after)) {
+  } else if (kind === "added") {
+    const result = await sendFavoritePush({
+      game: after,
+      title: "New game added",
+      body: `${after.team1} vs ${after.team2} — ${after.date || "TBD"} ${after.time || ""}`.trim(),
+      kind: "schedule",
+      tag: `new-game-${id}`,
+      preference: "schedule",
+    });
+    sentTotal += Number(result.sent || 0);
+    alertCount += 1;
+  } else if (kind === "status") {
     const status = String(after.status || "").toLowerCase();
     const result = await sendFavoritePush({
       game: after,
       title: status === "cancelled" ? "Game cancelled" : "Game postponed",
       body: `${after.team1} vs ${after.team2}`,
       kind: "schedule",
-      tag: `status-${id}-${String(after.status || "").toLowerCase()}`,
+      tag: `status-${id}-${status}`,
       preference: "schedule",
     });
     sentTotal += Number(result.sent || 0);
     alertCount += 1;
-  } else if (scheduleChanged(before, after)) {
+  } else if (kind === "schedule") {
     const result = await sendScheduleChange(before, after);
     sentTotal += Number(result.sent || 0);
     alertCount += 1;
