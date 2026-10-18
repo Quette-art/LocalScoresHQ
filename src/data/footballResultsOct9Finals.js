@@ -1,16 +1,66 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["md-fb-2026-10-17-duval-suitland", {
+  "id": "md-fb-2026-10-17-duval-suitland",
+  "team1": "DuVal",
+  "team2": "Suitland",
+  "date": "2026-10-17",
+  "score1": 0,
+  "score2": 55,
+  "sourceUrl": "https://www.on3.com/high-school/duval-lanham-md-2237/football/scores/",
+  "sourceTier": "Maryland High School Football Scores and On3",
+  "confirmation": "Confirmed by @mdhsscores final graphic supplied in IMG_0796.jpeg and On3 55-0 final; MaxPreps game page also reports 55-0 while its team summary retains a conflicting 50-0. User requested addition after reviewing these sources.",
+  "lastChecked": "2026-10-17"
+}],
+  ["md-fb-2026-10-17-northwestern-parkdale", {
+  "id": "md-fb-2026-10-17-northwestern-parkdale",
+  "team1": "Northwestern",
+  "team2": "Parkdale",
+  "date": "2026-10-17",
+  "score1": 6,
+  "score2": 53,
+  "sourceUrl": "https://www.instagram.com/parkdalefootball/",
+  "sourceTier": "Official team social account and MaxPreps",
+  "confirmation": "Confirmed by Parkdale football's team story scoreboard at 0:00 fourth quarter, supplied in IMG_0792.jpeg, and MaxPreps October 17 Homecoming final: https://www.maxpreps.com/md/riverdale/parkdale-panthers/football/",
+  "lastChecked": "2026-10-17"
+}],
+  ["md-fb-2026-10-16-flowers-oxon-hill", {
+  "id": "md-fb-2026-10-16-flowers-oxon-hill",
+  "team1": "Flowers",
+  "team2": "Oxon Hill",
+  "date": "2026-10-17",
+  "expectedDate": "2026-10-16",
+  "score1": 14,
+  "score2": 12,
+  "sourceUrl": "https://www.maxpreps.com/md/football/game/flowers-springdale-vs-oxon-hill/10-17-2026/?c=077c1281-d89f-4d87-a0e3-83e030f13f61",
+  "sourceTier": "Maryland High School Football Scores and MaxPreps",
+  "confirmation": "Confirmed by MaxPreps October17 final and @mdhsscores October17 final graphic supplied in IMG_0797.jpeg. Date corrected from October16 after user requested adding the reviewed results.",
+  "lastChecked": "2026-10-17"
+}],
+  ["md-fb-2026-10-16-surrattsville-fairmont-heights", {
+  "id": "md-fb-2026-10-16-surrattsville-fairmont-heights",
+  "team1": "Surrattsville",
+  "team2": "Fairmont Heights",
+  "date": "2026-10-17",
+  "expectedDate": "2026-10-16",
+  "score1": 6,
+  "score2": 29,
+  "sourceUrl": "https://www.maxpreps.com/md/clinton/surrattsville-hornets/football/",
+  "sourceTier": "Maryland High School Football Scores and MaxPreps",
+  "confirmation": "Confirmed by MaxPreps October17 final and @mdhsscores October17 final graphic supplied in IMG_0795.jpeg. Date corrected from October16 after user requested adding the reviewed results.",
+  "lastChecked": "2026-10-17"
+}],
   ["md-fb-2026-10-17-central-largo", {
   "id": "md-fb-2026-10-17-central-largo",
   "team1": "Central",
   "team2": "Largo",
   "date": "2026-10-17",
   "score1": 2,
-  "score2": 68,
-  "sourceUrl": "https://mdfootballscores.com/schools/largo/",
-  "sourceTier": "Maryland High School Football Scores and MaxPreps",
-  "confirmation": "Confirmed by Maryland High School Football Scores and MaxPreps final: https://www.maxpreps.com/md/football/game/central-capitol-heights-vs-largo-upper-marlboro/10-17-2026/?c=f763cf95-a40e-4ab3-9a28-54d8eee64f48",
+  "score2": 69,
+  "sourceUrl": "https://www.instagram.com/largolionsfootball/",
+  "sourceTier": "Official team social account",
+  "confirmation": "Corrected to Largo69 Central2 using Largo football official team story @largolionsfootball, October17 dated FINAL SCORE graphic supplied in IMG_0791.jpeg. Official team result takes precedence over independent 68-2 reports.",
   "lastChecked": "2026-10-17"
 }],
   ["fb-2026-10-16-st-johns-catholic-prep-st-stephens-st-agnes", {
@@ -595,7 +645,7 @@ const FINAL_RESULTS = new Map([
 export function applyFootballResultsOct9Finals(games = []) {
   return games.map((game) => {
     const result = FINAL_RESULTS.get(game.id);
-    if (!result || game.date !== result.date || game.team1 !== result.team1 || game.team2 !== result.team2) return game;
+    if (!result || game.date !== (result.expectedDate || result.date) || game.team1 !== result.team1 || game.team2 !== result.team2) return game;
     const { score1, score2, sourceUrl, sourceTier } = result;
     const confirmation = result.confirmation || (result.confirmationUrl
       ? `Confirmed by MaxPreps and High School On SI: ${result.confirmationUrl}`
@@ -606,6 +656,7 @@ export function applyFootballResultsOct9Finals(games = []) {
       : `Confirmed by High School On SI and MaxPreps: ${SCOREBOARD_URL}`);
     return {
       ...game,
+      date: result.date,
       score1,
       score2,
       status: undefined,
