@@ -128,7 +128,7 @@ for (const [id, after] of Object.entries(current)) {
   ) {
     const result = await sendFavoritePush({
       game: after,
-      title: after.status === "Notification test" ? "TEST — score notification" : "Final score",
+      title: "Final score",
       body: `${after.team1} ${after.score1}–${after.score2} ${after.team2}`,
       kind: "score",
       tag: `score-${id}-${after.score1}-${after.score2}`,
