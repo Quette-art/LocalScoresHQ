@@ -30,6 +30,7 @@ import GameDetails from "./pages/GameDetails";
 import ScoresTab from "./components/ScoresTab";
 import StandingsTab from "./components/StandingsTab";
 import FavoritesTab from "./components/FavoritesTab";
+import AdminDashboard from "./components/AdminDashboard";
 import TabNavigation from "./components/TabNavigation";
 import InstallAppButton from "./components/InstallAppButton";
 import IphoneInstallTip from "./components/IphoneInstallTip";
@@ -384,6 +385,10 @@ export default function AppContent() {
                 {tab[0].toUpperCase() + tab.slice(1)}
               </button>
             ))}
+            {isAdmin && (
+              <button className={`headerNavLink${location.pathname === "/admin" ? " headerNavLinkActive" : ""}`}
+                onClick={() => navigate("/admin")}>Admin</button>
+            )}
           </nav>
         </div>
       </header>
@@ -440,7 +445,11 @@ export default function AppContent() {
             <h3>Settings</h3>
             {isAdmin ? (
               <>
-                <p className="settings-status">Signed in as admin</p>
+                <p className="settings-status">Signed in</p>
+                <button className="submit-score-btn" onClick={() => {
+                  setShowSettings(false);
+                  navigate("/admin");
+                }}>Open Score Management</button>
                 <button className="submit-score-btn" onClick={handleLogout}>Sign Out</button>
               </>
             ) : (
@@ -534,7 +543,7 @@ export default function AppContent() {
         </div>
       )}
 
-      <div className={`topControls${activeTab === "home" || activeTab === "favorites" ? " sports-bar-hidden" : ""}`}>
+      <div className={`topControls${location.pathname === "/admin" || activeTab === "home" || activeTab === "favorites" ? " sports-bar-hidden" : ""}`}>
         <div className="sportsBar">
           {sports.map((sport) => (
             <button
@@ -549,6 +558,7 @@ export default function AppContent() {
       </div>
 
       <Routes>
+        <Route path="/admin" element={<AdminDashboard user={adminUser} />} />
         <Route
           path="/game"
           element={
@@ -613,7 +623,7 @@ export default function AppContent() {
         />
       </Routes>
 
-      <TabNavigation activeTab={activeTab} setActiveTab={handleTabChange} />
+      {location.pathname !== "/admin" && <TabNavigation activeTab={activeTab} setActiveTab={handleTabChange} />}
     </div>
   );
 }
