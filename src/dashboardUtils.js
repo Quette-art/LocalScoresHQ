@@ -7,9 +7,11 @@ export const hasFinal = (game) =>
   !["cancelled", "postponed"].includes(String(game?.status || "").toLowerCase());
 
 export function todayEastern(now = new Date()) {
-  return new Intl.DateTimeFormat("en-CA", {
+  const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit",
-  }).format(now);
+  }).formatToParts(now);
+  const value = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  return `${value.year}-${value.month}-${value.day}`;
 }
 
 export function dashboardGames(games, today = todayEastern()) {
