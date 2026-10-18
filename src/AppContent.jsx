@@ -21,6 +21,7 @@ import {
   saveNotificationPrefs,
   syncPushSubscription,
   listenForForegroundPush,
+  sendIphonePushTest,
 } from "./notifications";
 
 import Home from "./pages/Home";
@@ -101,6 +102,7 @@ export default function AppContent() {
   const [showGlobalSearch, setShowGlobalSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [notifPrefs, setNotifPrefs] = useState(() => getNotificationPrefs());
+  const [notifTestStatus, setNotifTestStatus] = useState("");
 
   const isAdmin = !!adminUser;
 
@@ -131,14 +133,11 @@ export default function AppContent() {
       Notification.permission === "granted"
     ) {
       const prefs = getNotificationPrefs();
-      const next = prefs.enabled ? prefs : { ...prefs, enabled: true };
-
-      if (!prefs.enabled) {
-        saveNotificationPrefs(next);
-        setNotifPrefs(next);
+      // Having OS permission does not mean the user opted in, or that a
+      // push subscription was successfully created.
+      if (prefs.enabled) {
+        void syncPushSubscription({ prefs });
       }
-
-      void syncPushSubscription({ prefs: next });
     }
   }, []);
 
@@ -445,13 +444,11 @@ export default function AppContent() {
                       const token = await requestNotificationPermission();
                       const next = {
                         ...getNotificationPrefs(),
-                        enabled:
-                          !!token ||
-                          (typeof Notification !== "undefined" &&
-                            Notification.permission === "granted"),
+                        enabled: !!token,
                       };
                       saveNotificationPrefs(next);
                       setNotifPrefs(next);
+                      setNotifTestStatus(token ? "" : "Push registration did not complete. Open the Home Screen app and check iPhone notification permissions.");
                     } else {
                       const next = { ...notifPrefs, enabled: false };
                       saveNotificationPrefs(next);
@@ -490,6 +487,27 @@ export default function AppContent() {
                 />
                 <span>Schedule changes</span>
               </label>
+              <button
+                type="button"
+                className="submit-score-btn"
+                style={{ marginTop: 14, width: "100%" }}
+                onClick={async () => {
+                  setNotifTestStatus("Sending a test in five seconds. Lock your iPhone now.");
+                  try {
+                    await sendIphonePushTest();
+                    setNotifTestStatus("The push service accepted the test. Check your iPhone's Notification Center.");
+                  } catch (error) {
+                    setNotifTestStatus(error?.message || "The push test failed.");
+                  }
+                }}
+              >
+                Test iPhone background notification
+              </button>
+              {notifTestStatus && (
+                <p role="status" aria-live="polite" style={{ fontSize: 13, marginTop: 10 }}>
+                  {notifTestStatus}
+                </p>
+              )}
             </div>
             <button className="close-settings" onClick={() => setShowSettings(false)}>Close</button>
           </div>

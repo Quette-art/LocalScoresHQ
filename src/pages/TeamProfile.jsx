@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TeamMascot from "../components/TeamMascot";
+import { syncPushSubscription } from "../notifications";
 import "../components/ScoresTab.css";
 import "./TeamProfileMobileFix.css";
 import "./TeamProfileFeatures.css";
@@ -66,6 +67,7 @@ export default function TeamProfile({
 
     setFavoriteTeams(updated);
     localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+    void syncPushSubscription({ favorites: updated });
   };
 
   const toggleAlert = (type) => {
