@@ -45,6 +45,8 @@ export default async function handler(req, res) {
         typeof body.installationId === "string"
           ? body.installationId
           : "",
+      testSecret:
+        typeof body.testSecret === "string" ? body.testSecret : "",
     });
 
     return res.status(200).json({
