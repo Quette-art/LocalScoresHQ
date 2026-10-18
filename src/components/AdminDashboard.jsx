@@ -14,7 +14,7 @@ const TABS = [
 ];
 const n = (value) => Number(value || 0).toLocaleString();
 const dateLabel = (date) => {
-  if (!date || !/^\\d{4}-\\d{2}-\\d{2}$/.test(date)) return date || "Date TBD";
+  if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return date || "Date TBD";
   return new Date(`${date}T12:00:00`).toLocaleDateString("en-US", {
     month: "short", day: "numeric", year: "numeric",
   });
@@ -25,7 +25,7 @@ const timeLabel = (date) => {
   return Number.isNaN(parsed.getTime()) ? "Not recorded" :
     parsed.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
 };
-const safeSource = (value) => /^https:\/\/[^\\s]+$/i.test(String(value || "")) ? value : null;
+const safeSource = (value) => /^https:\/\/[^\s]+$/i.test(String(value || "")) ? value : null;
 
 function EmptyPanel({ icon: Icon, title, detail }) {
   return (
