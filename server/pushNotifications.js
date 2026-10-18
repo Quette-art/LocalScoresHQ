@@ -277,6 +277,15 @@ function configureStandardsWebPush(privateKey) {
   );
 }
 
+export function isStandardsWebPushReady() {
+  try {
+    configureStandardsWebPush();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function pushTestError(message, statusCode = 400) {
   const error = new Error(message);
   error.statusCode = statusCode;
