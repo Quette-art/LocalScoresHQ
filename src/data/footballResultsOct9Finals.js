@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-17-archbishop-carroll-bishop-ireton", {
+  "id": "fb-2026-10-17-archbishop-carroll-bishop-ireton",
+  "team1": "Archbishop Carroll",
+  "team2": "Bishop Ireton",
+  "date": "2026-10-17",
+  "score1": 36,
+  "score2": 0,
+  "sourceUrl": "https://www.maxpreps.com/inter-state/football/game/archbishop-carroll-washington-dc-vs-bishop-ireton-alexandria-va/10-17-2026/?c=d39f9de4-05eb-4f9e-9d38-f508e2b8854d",
+  "sourceTier": "MaxPreps and High School On SI",
+  "confirmation": "Confirmed October 17 varsity final Archbishop Carroll 36, Bishop Ireton 0 by MaxPreps and independent Scorebook Live/High School On SI: https://www.si.com/high-school/stats/virginia/football/games/6874465-archbishop-carroll-vs-bishop-ireton. Kickoff discrepancy (official noon versus tracked 1 PM) remains for review; schedule time unchanged.",
+  "lastChecked": "2026-10-18"
+}],
   ["fb-2026-10-16-bullis-landon", {
   "id": "fb-2026-10-16-bullis-landon",
   "team1": "Bullis",
