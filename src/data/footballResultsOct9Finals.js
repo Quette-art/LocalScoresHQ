@@ -1,6 +1,44 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-16-cardozo-phelps-ace", {
+  "id": "fb-2026-10-16-cardozo-phelps-ace",
+  "team1": "Cardozo",
+  "team2": "Phelps ACE",
+  "date": "2026-10-16",
+  "score1": 0,
+  "score2": 42,
+  "sourceUrl": "https://www.maxpreps.com/dc/football/game/cardozo-washington-vs-phelps-architecture-construction-and-engineering-washington/10-16-2026/?c=589ff4ac-8043-441d-bc15-c5481ff216e3",
+  "sourceTier": "MaxPreps and user-supplied NSMT scoreboard",
+  "confirmation": "User approved addition October18 after reviewing MaxPreps and NSMT October15-17 weekend scoreboard supplied in IMG_0810.jpeg; Friday final Phelps42 Cardozo0.",
+  "lastChecked": "2026-10-18"
+}],
+  ["fb-2026-10-16-bishop-mcnamara-dematha", {
+  "id": "fb-2026-10-16-bishop-mcnamara-dematha",
+  "team1": "Bishop McNamara",
+  "team2": "DeMatha",
+  "date": "2026-10-17",
+  "expectedDate": "2026-10-16",
+  "time": "2:00 PM",
+  "score1": 6,
+  "score2": 44,
+  "sourceUrl": "https://www.maxpreps.com/md/hyattsville/dematha-stags/football/",
+  "sourceTier": "MaxPreps; user-approved date correction",
+  "confirmation": "User approved October17 date correction and DeMatha44 McNamara6 after reviewing MaxPreps and NSMT Saturday final in IMG_0808.jpeg. October17 2PM kickoff also listed on official DeMatha schedule.",
+  "lastChecked": "2026-10-18"
+}],
+  ["fb-2026-10-16-bishop-oconnell-st-marys-ryken", {
+  "id": "fb-2026-10-16-bishop-oconnell-st-marys-ryken",
+  "team1": "Bishop O'Connell",
+  "team2": "St. Mary's Ryken",
+  "date": "2026-10-16",
+  "score1": 27,
+  "score2": 62,
+  "sourceUrl": "https://www.maxpreps.com/inter-state/football/game/bishop-oconnell-arlington-va-vs-st-marys-ryken-leonardtown-md/10-16-2026/?c=53719689-a0c9-4a9a-afb1-9f5290f4104e",
+  "sourceTier": "MaxPreps - user-approved conflict resolution",
+  "confirmation": "User explicitly approved62-27 on October18 after being informed OConnell official site reports62-28; MaxPreps,DCSportsFan and suppliedNSMT graphic IMG_0807.jpeg report62-27.",
+  "lastChecked": "2026-10-18"
+}],
   ["fb-2026-10-17-st-james-potomac-school", {
   "id": "fb-2026-10-17-st-james-potomac-school",
   "team1": "Saint James",
@@ -693,6 +731,7 @@ export function applyFootballResultsOct9Finals(games = []) {
     return {
       ...game,
       date: result.date,
+      ...(result.time ? { time: result.time } : {}),
       score1,
       score2,
       status: undefined,
