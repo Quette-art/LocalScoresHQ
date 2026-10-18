@@ -20,12 +20,12 @@ export function isAuthorizedDashboardAdmin(decoded = {}, env = {}) {
 
 export async function authorizeDashboardRequest(req, getAdmin) {
   const header = String(req?.headers?.authorization || "");
-  if (!/^Bearer\\s+[^\\s]+$/i.test(header)) {
+  if (!/^Bearer\s+[^\s]+$/i.test(header)) {
     const error = new Error("Admin sign-in required.");
     error.statusCode = 401;
     throw error;
   }
-  const token = header.replace(/^Bearer\\s+/i, "");
+  const token = header.replace(/^Bearer\s+/i, "");
   let decoded;
   try {
     decoded = await getAdmin().auth.verifyIdToken(token, true);
