@@ -187,3 +187,46 @@ await snapshotRef.set(
 console.log(
   `Push schedule sync complete: ${alertCount} change(s), ${sentTotal} notification(s) sent.`
 );
+
+/*
+ * Temporary single-run favorite-team push test (October 18, 2026).
+ * This changes no real games and is removed after confirming the delivery log.
+ * The Firestore claim prevents repeated sends across concurrent production builds.
+ */
+const suitlandTestRef = db.collection("pushMeta").doc("suitlandFavoriteTest20261018V1");
+const shouldSendSuitlandTest = await db.runTransaction(async (transaction) => {
+  const priorTest = await transaction.get(suitlandTestRef);
+  if (priorTest.exists) return false;
+  transaction.create(suitlandTestRef, {
+    initiatedAt: FieldValue.serverTimestamp(),
+    label: "TEST ONLY — Suitland favorite notification",
+  });
+  return true;
+});
+
+if (shouldSendSuitlandTest) {
+  try {
+    const suitlandTest = await sendFavoritePush({
+      game: {
+        id: "lshq-push-test-suitland-2026-10-18",
+        team1: "Suitland",
+        team2: "LocalScoresHQ Test",
+        division: "Varsity",
+      },
+      title: "TEST ONLY — Suitland",
+      body: "Suitland favorite-team alert test from LocalScoresHQ. No real game or score was changed.",
+      kind: "test",
+      tag: "test-only-suitland-2026-10-18",
+      preference: "schedule",
+      url: "https://localscoreshq.com/",
+    });
+    await suitlandTestRef.set(
+      { completedAt: FieldValue.serverTimestamp(), result: suitlandTest },
+      { merge: true }
+    );
+    console.log("Suitland favorite push TEST ONLY:", JSON.stringify(suitlandTest));
+  } catch (error) {
+    console.error("Suitland favorite push TEST ONLY failed:", error?.message || error);
+    throw error;
+  }
+}
