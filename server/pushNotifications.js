@@ -432,6 +432,20 @@ async function sendStandardsWebPush({
   return { sent, failed, removed };
 }
 
+async function recordPushDelivery(db, entry) {
+  // Counts only: never store subscriber endpoints, tokens, or personal data.
+  // Diagnostics must never block sending or cause a retry of a delivered push.
+  try {
+    const { FieldValue } = getFirebaseAdmin();
+    await db.collection("pushDeliveryLog").add({
+      ...entry,
+      createdAt: FieldValue.serverTimestamp(),
+    });
+  } catch (error) {
+    console.error("Push delivery audit write failed:", error?.message || error);
+  }
+}
+
 export async function sendFavoritePush({
   game,
   title,
@@ -473,14 +487,23 @@ export async function sendFavoritePush({
     );
 
   if (!fcmRecipients.length && !webPushRecipients.length) {
-    return {
+    const result = {
       matched: 0,
       sent: 0,
       failed: 0,
       removed: 0,
       fcmMatched: 0,
       webPushMatched: 0,
+      fcmSent: 0,
+      webPushSent: 0,
     };
+    await recordPushDelivery(db, {
+      gameId: String(game?.id || ""), team1: String(game?.team1 || ""),
+      team2: String(game?.team2 || ""), date: String(game?.date || ""),
+      kind: String(kind || "update"), preference, tag: String(tag || ""),
+      ...result,
+    });
+    return result;
   }
 
   const [fcmResult, webPushResult] = await Promise.all([
@@ -505,7 +528,7 @@ export async function sendFavoritePush({
     }),
   ]);
 
-  return {
+  const result = {
     matched: fcmRecipients.length + webPushRecipients.length,
     sent: fcmResult.sent + webPushResult.sent,
     failed: fcmResult.failed + webPushResult.failed,
@@ -515,4 +538,11 @@ export async function sendFavoritePush({
     fcmSent: fcmResult.sent,
     webPushSent: webPushResult.sent,
   };
+  await recordPushDelivery(db, {
+    gameId: String(game?.id || ""), team1: String(game?.team1 || ""),
+    team2: String(game?.team2 || ""), date: String(game?.date || ""),
+    kind: String(kind || "update"), preference, tag: String(tag || ""),
+    ...result,
+  });
+  return result;
 }
