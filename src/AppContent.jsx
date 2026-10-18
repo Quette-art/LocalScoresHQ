@@ -150,8 +150,15 @@ export default function AppContent() {
     let firebaseScores = {};
     let firebaseGames = [];
     let gameStatuses = {};
+    // Initial Firestore collection snapshots are history, not new score alerts.
+    const initialSnapshots = { scores: false, games: false, status: false };
+    let resumedAt = Date.now();
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") resumedAt = Date.now();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
-    const buildMerged = () => {
+    const buildMerged = (announceLiveChanges = false) => {
       const localWithScores = upcomingGames.map((game) => {
         const savedScore = firebaseScores[game.id];
         const status = gameStatuses[game.id];
@@ -190,12 +197,15 @@ export default function AppContent() {
         }));
 
       const merged = [...localWithScores, ...extraGames];
-      setGames((prev) => {
-        const next = gamesLookSame(prev, merged) ? prev : merged;
-        if (next !== prev) notifyGameChanges(next);
-        else notifyGameChanges(merged);
-        return next;
-      });
+      setGames((prev) => gamesLookSame(prev, merged) ? prev : merged);
+
+      // Never emit notifications inside React state updaters, which React
+      // Strict Mode may invoke multiple times. Server push handles background
+      // delivery; loading old results must not replay them as fresh alerts.
+      const isActive =
+        document.visibilityState === "visible" &&
+        Date.now() - resumedAt > 10000;
+      notifyGameChanges(merged, { silent: !announceLiveChanges || !isActive });
 
       if (selectedGameRef.current) {
         const updated = merged.find((g) => g.id === selectedGameRef.current.id);
@@ -207,6 +217,8 @@ export default function AppContent() {
     };
 
     const unsubscribeScores = onSnapshot(collection(db, "scores"), (snapshot) => {
+      const announceLiveChanges =
+        initialSnapshots.scores && initialSnapshots.games && initialSnapshots.status;
       firebaseScores = {};
       snapshot.forEach((docSnap) => {
         const data = docSnap.data();
@@ -215,10 +227,13 @@ export default function AppContent() {
           score2: Number(data.score2),
         };
       });
-      buildMerged();
+      initialSnapshots.scores = true;
+      buildMerged(announceLiveChanges);
     });
 
     const unsubscribeGames = onSnapshot(collection(db, "games"), (snapshot) => {
+      const announceLiveChanges =
+        initialSnapshots.scores && initialSnapshots.games && initialSnapshots.status;
       firebaseGames = [];
       snapshot.forEach((docSnap) => {
         const data = docSnap.data();
@@ -237,18 +252,23 @@ export default function AppContent() {
           status: data.status || null,
         });
       });
-      buildMerged();
+      initialSnapshots.games = true;
+      buildMerged(announceLiveChanges);
     });
 
     const unsubscribeStatus = onSnapshot(collection(db, "gameStatus"), (snapshot) => {
+      const announceLiveChanges =
+        initialSnapshots.scores && initialSnapshots.games && initialSnapshots.status;
       gameStatuses = {};
       snapshot.forEach((docSnap) => {
         gameStatuses[docSnap.id] = docSnap.data().status;
       });
-      buildMerged();
+      initialSnapshots.status = true;
+      buildMerged(announceLiveChanges);
     });
 
     return () => {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       unsubscribeScores();
       unsubscribeGames();
       unsubscribeStatus();

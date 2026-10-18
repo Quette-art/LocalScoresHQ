@@ -134,6 +134,14 @@ for (const [id, after] of Object.entries(current)) {
       tag: `score-${id}-${after.score1}-${after.score2}`,
       preference: "scores",
     });
+    console.log("Score push dispatch:", JSON.stringify({
+      gameId: id,
+      matched: result.matched || 0,
+      fcmMatched: result.fcmMatched || 0,
+      webPushMatched: result.webPushMatched || 0,
+      sent: result.sent || 0,
+      failed: result.failed || 0,
+    }));
     sentTotal += Number(result.sent || 0);
     alertCount += 1;
   }
