@@ -1,5 +1,6 @@
 import { getFirebaseAdmin } from "../../server/firebaseAdmin.js";
 import { sendFavoritePush } from "../../server/pushNotifications.js";
+import { classifyGameNotification } from "../../src/notificationPolicy.js";
 
 function readBody(req) {
   if (!req.body) return {};
@@ -28,23 +29,6 @@ function cleanGame(game = {}) {
         ? null
         : Number(game.score2),
   };
-}
-
-function hasScheduleChange(before, after) {
-  if (!before) return false;
-  return (
-    before.team1 !== after.team1 ||
-    before.team2 !== after.team2 ||
-    before.date !== after.date ||
-    before.time !== after.time ||
-    before.location !== after.location ||
-    before.division !== after.division
-  );
-}
-
-function hasScoreChange(before, after) {
-  if (!before) return false;
-  return before.score1 !== after.score1 || before.score2 !== after.score2;
 }
 
 async function verifyAdmin(req) {
@@ -155,21 +139,26 @@ export default async function handler(req, res) {
     if (action === "score") {
       results.push(await sendScore(game));
     } else if (action === "added") {
-      results.push(await sendAdded(game));
+      // Adding a completed game should announce its final, not its schedule.
+      results.push(await (classifyGameNotification(null, game) === "score"
+        ? sendScore(game)
+        : sendAdded(game)));
     } else if (action === "removed") {
       results.push(await sendRemoved(game));
     } else if (action === "status") {
       results.push(await sendStatus(game));
     } else if (action === "edited") {
-      if (hasScheduleChange(before, game)) {
-        results.push(await sendSchedule(before, game));
-      }
-      if (
-        hasScoreChange(before, game) &&
-        game.score1 !== null &&
-        game.score2 !== null
-      ) {
+      // Do not send both final-score and schedule-change alerts for
+      // the same update. A new final wins even if the date was corrected.
+      const kind = classifyGameNotification(before, game);
+      if (kind === "score") {
         results.push(await sendScore(game));
+      } else if (kind === "added") {
+        results.push(await sendAdded(game));
+      } else if (kind === "schedule") {
+        results.push(await sendSchedule(before, game));
+      } else if (kind === "status") {
+        results.push(await sendStatus(game));
       }
     } else {
       return res.status(400).json({ error: "Unsupported push action." });
