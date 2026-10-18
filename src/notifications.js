@@ -1,5 +1,6 @@
 import { getToken, onMessage } from "firebase/messaging";
 import { auth, messaging } from "./firebase";
+import { classifyGameNotification } from "./notificationPolicy";
 
 const VAPID_KEY =
   "BNny-7eH1KX7HwtjWWaGl88kk6sk1XNfwuuAxpoLNxOFFCk1JhfIL5HMOGQ1EH-9FoCPckgDios-22-sFzH0x-A";
@@ -521,57 +522,45 @@ export function notifyGameChanges(games, { silent = false } = {}) {
     }
 
     const label = `${after.team1} vs ${after.team2}`;
+    const kind = classifyGameNotification(before, after);
 
-    if (prefs.schedule && !before) {
-      showLocalNotification(
-        "New game added",
-        `${label} — ${after.date || "TBD"} ${after.time || ""}`.trim(),
-        { tag: `new-game-${id}` }
-      );
-      return;
-    }
-
-    if (prefs.scores && before) {
-      const scoreChanged =
-        before.score1 !== after.score1 || before.score2 !== after.score2;
-
-      if (
-        scoreChanged &&
-        after.score1 != null &&
-        after.score2 != null
-      ) {
+    if (kind === "score") {
+      if (prefs.scores) {
         showLocalNotification(
           "Final score",
           `${after.team1} ${after.score1}–${after.score2} ${after.team2}`,
           { tag: `score-${id}-${after.score1}-${after.score2}` }
         );
       }
-    }
-
-    if (prefs.schedule && before) {
-      const status = String(after.status || "").toLowerCase();
-      const prevStatus = String(before.status || "").toLowerCase();
-
-      if (
-        status !== prevStatus &&
-        (status === "cancelled" || status === "postponed")
-      ) {
+    } else if (kind === "added") {
+      if (prefs.schedule) {
+        showLocalNotification(
+          "New game added",
+          `${label} — ${after.date || "TBD"} ${after.time || ""}`.trim(),
+          { tag: `new-game-${id}` }
+        );
+      }
+    } else if (kind === "status") {
+      if (prefs.schedule) {
+        const status = String(after.status || "").toLowerCase();
         showLocalNotification(
           status === "cancelled" ? "Game cancelled" : "Game postponed",
           label,
           { tag: `status-${id}` }
         );
-      } else if (before.date !== after.date || before.time !== after.time) {
-        showLocalNotification(
-          "Schedule change",
-          `${label} — ${after.date || "TBD"} ${after.time || ""}`.trim(),
-          { tag: `schedule-${id}` }
-        );
-      } else if (before.location !== after.location && after.location) {
+      }
+    } else if (kind === "schedule" && prefs.schedule) {
+      if (before?.location !== after.location && after.location) {
         showLocalNotification(
           "Location change",
           `${label} @ ${after.location}`,
           { tag: `location-${id}` }
+        );
+      } else {
+        showLocalNotification(
+          "Schedule change",
+          `${label} — ${after.date || "TBD"} ${after.time || ""}`.trim(),
+          { tag: `schedule-${id}` }
         );
       }
     }
