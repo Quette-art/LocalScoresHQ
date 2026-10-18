@@ -1,6 +1,20 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-16-bullis-landon", {
+  "id": "fb-2026-10-16-bullis-landon",
+  "team1": "Bullis",
+  "team2": "Landon",
+  "date": "2026-10-17",
+  "expectedDate": "2026-10-16",
+  "time": "12:00 PM",
+  "score1": 21,
+  "score2": 14,
+  "sourceUrl": "https://www.instagram.com/bullisathletics/",
+  "sourceTier": "Official school athletics",
+  "confirmation": "Confirmed by verified Bullis Athletics official October17 2026 FINAL graphic: Bullis21 Landon14, supplied in IMG_0815.jpeg. Caption notes lightning delay. User approved date correction from October16 to October17; MaxPreps lists October17 noon kickoff: https://www.maxpreps.com/md/potomac/bullis-bulldogs/football/schedule/",
+  "lastChecked": "2026-10-18"
+}],
   ["fb-2026-10-16-cardozo-phelps-ace", {
   "id": "fb-2026-10-16-cardozo-phelps-ace",
   "team1": "Cardozo",
