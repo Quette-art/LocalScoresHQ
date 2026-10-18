@@ -461,11 +461,18 @@ function saveSnapshot(map) {
 }
 
 /** Compare live games to the last snapshot and notify while the app is open. */
-export function notifyGameChanges(games) {
+export function notifyGameChanges(games, { silent = false } = {}) {
   if (!Array.isArray(games) || games.length === 0) return;
 
-  const prefs = getPrefs();
   const next = snapshotFromGames(games);
+  // Rehydrate without turning past changes into brand-new notifications.
+  // The server handles results published while the app is closed.
+  if (silent) {
+    saveSnapshot(next);
+    return;
+  }
+
+  const prefs = getPrefs();
 
   if (
     !prefs.enabled ||
@@ -536,7 +543,7 @@ export function notifyGameChanges(games) {
         showLocalNotification(
           "Final score",
           `${after.team1} ${after.score1}–${after.score2} ${after.team2}`,
-          { tag: `score-${id}` }
+          { tag: `score-${id}-${after.score1}-${after.score2}` }
         );
       }
     }
