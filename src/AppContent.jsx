@@ -28,6 +28,7 @@ import Home from "./pages/Home";
 import TeamProfile from "./pages/TeamProfile";
 import GameDetails from "./pages/GameDetails";
 import ScoresTab from "./components/ScoresTab";
+import AdminScoreDashboard from "./components/AdminScoreDashboard";
 import StandingsTab from "./components/StandingsTab";
 import FavoritesTab from "./components/FavoritesTab";
 import TabNavigation from "./components/TabNavigation";
@@ -295,6 +296,7 @@ export default function AppContent() {
 
   const handleTabChange = (tab) => {
     if (!tab || typeof tab !== "string") return;
+    if (tab === "admin" && !isAdmin) return;
     setActiveTab(tab);
     sessionStorage.setItem("activeTab", tab);
     setSelectedGame(null);
@@ -375,13 +377,13 @@ export default function AppContent() {
             {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
           </div>
           <nav className="headerNavLinks">
-            {["home", "scores", "standings", "favorites"].map((tab) => (
+            {["home", "scores", "standings", "favorites", ...(isAdmin ? ["admin"] : [])].map((tab) => (
               <button
                 key={tab}
                 className={`headerNavLink${activeTab === tab ? " headerNavLinkActive" : ""}`}
                 onClick={() => handleTabChange(tab)}
               >
-                {tab[0].toUpperCase() + tab.slice(1)}
+                {tab === "admin" ? "Admin Dashboard" : tab[0].toUpperCase() + tab.slice(1)}
               </button>
             ))}
           </nav>
@@ -441,6 +443,7 @@ export default function AppContent() {
             {isAdmin ? (
               <>
                 <p className="settings-status">Signed in as admin</p>
+                <button className="submit-score-btn" onClick={() => { handleTabChange("admin"); setShowSettings(false); }} style={{ width: "100%", marginBottom: 10 }}>Score Management Dashboard</button>
                 <button className="submit-score-btn" onClick={handleLogout}>Sign Out</button>
               </>
             ) : (
@@ -534,7 +537,7 @@ export default function AppContent() {
         </div>
       )}
 
-      <div className={`topControls${activeTab === "home" || activeTab === "favorites" ? " sports-bar-hidden" : ""}`}>
+      <div className={`topControls${activeTab === "home" || activeTab === "favorites" || activeTab === "admin" ? " sports-bar-hidden" : ""}`}>
         <div className="sportsBar">
           {sports.map((sport) => (
             <button
@@ -588,6 +591,12 @@ export default function AppContent() {
           element={
             <main className="mainContent">
               {activeTab === "home" && <Home games={games} openGameDetails={openGameDetails} />}
+              {activeTab === "admin" && isAdmin && (
+                <AdminScoreDashboard games={games} onOpenGame={openGameDetails} adminUser={adminUser} />
+              )}
+              {activeTab === "admin" && !isAdmin && (
+                <div className="no-games">Sign in through Settings to access the admin dashboard.</div>
+              )}
               {activeTab === "scores" && (
                 <ScoresTab
                   games={games}
