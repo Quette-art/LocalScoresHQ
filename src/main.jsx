@@ -22,10 +22,46 @@ import "./espnScoresHeader.css";
 import "./systemDarkMode.css";
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.getRegistration().then((registration) => {
-      registration?.update();
-    });
+  // Workbox installs updates automatically, but a running Home Screen app
+  // can keep its old JavaScript until the page actually reloads.
+  const hadControllerAtStartup = Boolean(navigator.serviceWorker.controller);
+  let pendingRefresh = false;
+  let refreshing = false;
+
+  const refreshIfSafe = () => {
+    if (!pendingRefresh || refreshing || document.visibilityState !== "visible") {
+      return;
+    }
+
+    // Don't wipe a partially entered score, login, or search.
+    if (document.activeElement?.matches("input, textarea, select, [contenteditable]")) {
+      return;
+    }
+
+    refreshing = true;
+    window.location.reload();
+  };
+
+  const checkForUpdates = () => {
+    navigator.serviceWorker.getRegistration("/")
+      .then((registration) => registration?.update())
+      .catch((error) => console.warn("App update check failed:", error));
+  };
+
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    // The first installation has no previous app version to refresh.
+    if (!hadControllerAtStartup) return;
+    pendingRefresh = true;
+    refreshIfSafe();
+  });
+
+  window.addEventListener("load", checkForUpdates);
+  window.addEventListener("pageshow", checkForUpdates);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      refreshIfSafe();
+      checkForUpdates();
+    }
   });
 }
 
