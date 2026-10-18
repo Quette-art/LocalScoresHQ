@@ -84,6 +84,72 @@ function getInstallationId() {
   return id;
 }
 
+function getPushTestSecret() {
+  const key = "lshq_web_push_test_secret";
+  let value = localStorage.getItem(key);
+  if (value && /^[a-zA-Z0-9_-]{43}$/.test(value)) return value;
+
+  // Never use Math.random for a device authorization secret.
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  value = btoa(String.fromCharCode(...bytes))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+  localStorage.setItem(key, value);
+  return value;
+}
+
+function isHomeScreenApp() {
+  return (
+    window.matchMedia?.("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true
+  );
+}
+
+/** Request a remote Apple Web Push test for this installation only. */
+export async function sendIphonePushTest() {
+  if (!isAppleMobileDevice()) {
+    throw new Error("This test is for the iPhone or iPad Home Screen app.");
+  }
+  if (!isHomeScreenApp()) {
+    throw new Error("Open LocalScoresHQ from the Home Screen icon, not a Safari tab.");
+  }
+  if (!shouldUseStandardsWebPush()) {
+    throw new Error("This device does not support Apple Web Push. Update iOS if needed.");
+  }
+  if (typeof Notification === "undefined" || Notification.permission !== "granted") {
+    throw new Error("Allow LocalScoresHQ notifications in your iPhone Settings first.");
+  }
+
+  const prefs = getPrefs();
+  if (!prefs.enabled) {
+    throw new Error("Turn on notifications in LocalScoresHQ before testing.");
+  }
+
+  const registered = await syncStandardsWebPush({
+    prefs,
+    favorites: favoriteKeys(),
+  });
+  if (!registered) {
+    throw new Error("Could not register this iPhone for push. Try disabling and re-enabling alerts.");
+  }
+
+  const response = await fetch("/api/push/test-web", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      installationId: getInstallationId(),
+      testSecret: getPushTestSecret(),
+    }),
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || !result.ok) {
+    throw new Error(result.error || "Unable to send the test notification.");
+  }
+  return true;
+}
+
 async function getMessagingServiceWorker() {
   if (typeof window === "undefined" || !("serviceWorker" in navigator)) {
     return null;
@@ -186,6 +252,7 @@ async function syncStandardsWebPush({ prefs, favorites }) {
         fcmTokenToRemove: localStorage.getItem(TOKEN_KEY) || "",
         keyVersion: WEB_PUSH_KEY_VERSION,
         installationId: getInstallationId(),
+        testSecret: getPushTestSecret(),
       }),
     });
 
@@ -277,6 +344,9 @@ export const requestNotificationPermission = async () => {
         prefs: next,
         favorites: favoriteKeys(),
       });
+      if (!registered) {
+        saveNotificationPrefs({ ...next, enabled: false });
+      }
       return registered ? "web-push" : null;
     }
 
@@ -289,6 +359,7 @@ export const requestNotificationPermission = async () => {
       return token;
     }
 
+    saveNotificationPrefs({ ...next, enabled: false });
     return null;
   } catch (error) {
     console.error("Notification permission error:", error);
