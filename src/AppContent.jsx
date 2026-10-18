@@ -310,10 +310,19 @@ export default function AppContent() {
     sessionStorage.setItem("activeTab", tab);
     setSelectedGame(null);
     sessionStorage.removeItem("selectedGame");
-    if (location.pathname !== "/") {
-      navigate("/");
+    const destination = tab === "admin" ? "/admin/scores" : "/";
+    if (location.pathname !== destination) {
+      navigate(destination);
     }
   };
+
+  // Direct preview links and browser refreshes must select the admin workspace.
+  useEffect(() => {
+    if (location.pathname === "/admin/scores") {
+      setActiveTab("admin");
+      sessionStorage.setItem("activeTab", "admin");
+    }
+  }, [location.pathname]);
 
   const getAgeGroup = (game) => {
     if (game.ageGroup) return game.ageGroup;
@@ -577,7 +586,7 @@ export default function AppContent() {
                 const previousTab = sessionStorage.getItem("prevTab") || "scores";
                 setActiveTab(previousTab);
                 sessionStorage.setItem("activeTab", previousTab);
-                navigate("/");
+                navigate(previousTab === "admin" ? "/admin/scores" : "/");
               }}
               onScoreSaved={(updatedGame) => {
                 setSelectedGame(updatedGame);
@@ -595,6 +604,23 @@ export default function AppContent() {
           }
         />
         <Route path="/team" element={<TeamProfileRoute games={games} onGameClick={openGameDetails} />} />
+        <Route
+          path="/admin/scores"
+          element={
+            <main className="mainContent">
+              {isAdmin ? (
+                <AdminScoreDashboard games={games} onOpenGame={openGameDetails} adminUser={adminUser} />
+              ) : (
+                <div className="no-games">
+                  <p>Sign in through Settings to access the admin dashboard.</p>
+                  <button type="button" className="submit-score-btn" onClick={() => setShowSettings(true)}>
+                    Open admin sign in
+                  </button>
+                </div>
+              )}
+            </main>
+          }
+        />
         <Route
           path="/"
           element={
