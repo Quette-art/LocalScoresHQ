@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-17-episcopal-st-albans", {
+  "id": "fb-2026-10-17-episcopal-st-albans",
+  "team1": "Episcopal",
+  "team2": "St. Albans",
+  "date": "2026-10-17",
+  "score1": 28,
+  "score2": 6,
+  "sourceUrl": "https://www.maxpreps.com/inter-state/football/game/episcopal-alexandria-va-vs-st-albans-washington-dc/10-17-2026/?c=e6cbce46-1f6a-4f3d-a47a-ab5aaf664e78",
+  "sourceTier": "MaxPreps and On3",
+  "confirmation": "Confirmed October 17 varsity final Episcopal 28, St. Albans 6 by MaxPreps and independent On3 results (actual Score field, not prediction): https://www.on3.com/high-school/scores/football/national/game/st-albans-school-vs-episcopal-2026-10-17-1992994/. Official school schedules establish the October 17 matchup.",
+  "lastChecked": "2026-10-18"
+}],
   ["fb-2026-09-18-st-johns-gray-riverdale-baptist", {
   "id": "fb-2026-09-18-st-johns-gray-riverdale-baptist",
   "team1": "St. John's Gray",
