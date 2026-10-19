@@ -1,6 +1,30 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-09-18-st-johns-gray-riverdale-baptist", {
+  "id": "fb-2026-09-18-st-johns-gray-riverdale-baptist",
+  "team1": "St. John's Gray",
+  "team2": "Riverdale Baptist",
+  "date": "2026-09-18",
+  "score1": 0,
+  "score2": 2,
+  "sourceUrl": "https://www.maxpreps.com/inter-state/football/game/riverdale-baptist-rbs-upper-marlboro-md-vs-st-johns-gray-washington-dc/9-18-2026/?c=f821ad60-8ff5-4f45-857f-724c8466e5d6",
+  "sourceTier": "MaxPreps and High School On SI",
+  "confirmation": "Forfeit final: Riverdale Baptist 2, St. John's Gray 0. MaxPreps explicitly identifies the forfeit; Gary Adornato's independent September 18 final-score roundup agrees exactly: https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-september-18-01m2wr6ycbgj",
+  "lastChecked": "2026-10-18"
+}],
+  ["fb-2026-09-26-dunbar-chester-pa", {
+  "id": "fb-2026-09-26-dunbar-chester-pa",
+  "team1": "Dunbar",
+  "team2": "Chester (PA)",
+  "date": "2026-09-26",
+  "score1": 0,
+  "score2": 1,
+  "sourceUrl": "https://www.easternpafootball.com/db/schedules/viewteam.php5?id=43",
+  "sourceTier": "EasternPAFootball and MaxPreps",
+  "confirmation": "Forfeit final: Chester 1, Dunbar (Washington, DC) 0. EasternPAFootball's 2026 Chester schedule lists September 26, 1 PM, W 1-0 Forfeit win; MaxPreps independently agrees: https://www.maxpreps.com/inter-state/football/game/chester-pa-vs-dunbar-washington-dc/9-26-2026/?c=752272e5-3393-4052-90b6-501f53f4a2f9",
+  "lastChecked": "2026-10-18"
+}],
   ["fb-2026-10-17-archbishop-carroll-bishop-ireton", {
   "id": "fb-2026-10-17-archbishop-carroll-bishop-ireton",
   "team1": "Archbishop Carroll",
