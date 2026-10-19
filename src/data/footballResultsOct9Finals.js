@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-17-ron-brown-jackson-reed", {
+  "id": "fb-2026-10-17-ron-brown-jackson-reed",
+  "team1": "Ron Brown",
+  "team2": "Jackson-Reed",
+  "date": "2026-10-17",
+  "score1": 26,
+  "score2": 21,
+  "sourceUrl": "https://www.maxpreps.com/dc/football/game/jackson-reed-washington-vs-ron-brown-washington/10-17-2026/?c=b36fe79d-b169-4032-b0e6-3f164b70947f",
+  "sourceTier": "MaxPreps and On3",
+  "confirmation": "Confirmed October 17 varsity final Ron Brown 26, Jackson-Reed 21 by MaxPreps and independent On3 final results: https://www.on3.com/high-school/scores/football/national/game/jackson-reed-vs-brown-2026-10-17-2003354/. On3 identifies Brown as the DC Monarchs, with matching Cardozo and McKinley opponents. The actual game page is Final 26-21; its schedule preview and prediction are not used as final scores.",
+  "lastChecked": "2026-10-19"
+}],
   ["fb-2026-10-17-h-d-woodson-coolidge", {
   "id": "fb-2026-10-17-h-d-woodson-coolidge",
   "team1": "H.D. Woodson",
@@ -831,4 +843,5 @@ export function applyFootballResultsOct9Finals(games = []) {
     };
   });
 }
+
 
