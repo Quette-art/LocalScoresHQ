@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-17-h-d-woodson-coolidge", {
+  "id": "fb-2026-10-17-h-d-woodson-coolidge",
+  "team1": "H.D. Woodson",
+  "team2": "Coolidge",
+  "date": "2026-10-17",
+  "score1": 0,
+  "score2": 42,
+  "sourceUrl": "https://www.maxpreps.com/dc/football/game/coolidge-washington-vs-woodson-washington/10-17-2026/?c=76f14d5a-5b62-4429-a8a3-147940d54fcf",
+  "sourceTier": "MaxPreps and On3",
+  "confirmation": "Confirmed October 17 varsity final Coolidge 42, H.D. Woodson 0 by MaxPreps and independent On3 final results: https://www.on3.com/high-school/scores/football/national/game/coolidge-vs-woodson-hd-2026-10-17-2027799/. Previously flagged kickoff discrepancy (11 AM sources versus tracked 2 PM) remains for review; schedule time unchanged.",
+  "lastChecked": "2026-10-19"
+}],
   ["fb-2026-10-17-anacostia-mckinley-tech", {
   "id": "fb-2026-10-17-anacostia-mckinley-tech",
   "team1": "Anacostia",
@@ -819,3 +831,4 @@ export function applyFootballResultsOct9Finals(games = []) {
     };
   });
 }
+
