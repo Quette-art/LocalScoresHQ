@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-17-anacostia-mckinley-tech", {
+  "id": "fb-2026-10-17-anacostia-mckinley-tech",
+  "team1": "Anacostia",
+  "team2": "McKinley Tech",
+  "date": "2026-10-17",
+  "score1": 9,
+  "score2": 12,
+  "sourceUrl": "https://www.maxpreps.com/dc/washington/mckinley-tech-trainers/football/",
+  "sourceTier": "MaxPreps and On3",
+  "confirmation": "Confirmed October 17 varsity final McKinley Tech 12, Anacostia 9 by MaxPreps and independent On3 final results: https://www.on3.com/high-school/scores/football/national/game/mckinley-technology-vs-anacostia-2026-10-17-1971290/. Both sources agree on the October 17 matchup and 2 PM Eastern kickoff (18:00 UTC on On3).",
+  "lastChecked": "2026-10-18"
+}],
   ["fb-2026-10-17-episcopal-st-albans", {
   "id": "fb-2026-10-17-episcopal-st-albans",
   "team1": "Episcopal",
@@ -807,4 +819,3 @@ export function applyFootballResultsOct9Finals(games = []) {
     };
   });
 }
-
