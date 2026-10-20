@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   doc,
   setDoc,
@@ -9,6 +9,7 @@ import { db } from "../firebase";
 import { sendAdminGamePush } from "../notifications";
 import { gameMatchesRegion } from "../data/teamRegions";
 import TeamMascot from "./TeamMascot";
+import { selectScoreboardDate } from "../scoreboardDate.js";
 import "./ScoresTab.css";
 
 function TeamAutocomplete({
@@ -108,6 +109,24 @@ export default function ScoresTab({
   isAdmin,
 }) {
   const [selectedDate, setSelectedDate] = useState("");
+  const [clock, setClock] = useState(() => Date.now());
+  const manuallySelectedDate = useRef(false);
+
+  useEffect(() => {
+    const updateClock = () => setClock(Date.now());
+    const timer = window.setInterval(updateClock, 60_000);
+    document.addEventListener("visibilitychange", updateClock);
+    window.addEventListener("focus", updateClock);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", updateClock);
+      window.removeEventListener("focus", updateClock);
+    };
+  }, []);
+
+  useEffect(() => {
+    manuallySelectedDate.current = false;
+  }, [selectedSport, regionFilter]);
   const [divisionFilter, setDivisionFilter] = useState("ALL");
   const [regionFilter, setRegionFilter] = useState("ALL");
   const [selectedGame, setSelectedGame] = useState(null);
@@ -176,32 +195,17 @@ export default function ScoresTab({
     ].sort();
   }, [regionGames]);
 
-  const defaultDate = useMemo(() => {
-    if (uniqueDates.length === 0) return "";
-
-    // Keep the previous day's scoreboard active through 3:59 AM.
-    // This gives late-night users time to review finals before the
-    // scores page automatically advances to the next day's games.
-    const scoreboardDate = new Date(
-      Date.now() - 4 * 60 * 60 * 1000
-    );
-    scoreboardDate.setHours(0, 0, 0, 0);
-
-    const upcomingDate = uniqueDates.find((date) => {
-      const gameDate = new Date(
-        date + "T00:00:00"
-      );
-
-      return gameDate >= scoreboardDate;
-    });
-
-    return upcomingDate || uniqueDates[0];
-  }, [uniqueDates]);
+  const defaultDate = useMemo(
+    () => selectScoreboardDate(uniqueDates, new Date(clock)),
+    [uniqueDates, clock]
+  );
 
   useEffect(() => {
+    // Keep dates the visitor explicitly tapped, even when the clock rolls over.
+    if (manuallySelectedDate.current && uniqueDates.includes(selectedDate)) return;
     setSelectedDate(defaultDate);
     setDivisionFilter("ALL");
-  }, [defaultDate, selectedSport, regionFilter]);
+  }, [defaultDate, selectedSport, regionFilter, uniqueDates, selectedDate]);
 
   useEffect(() => {
     setNewGame((previousGame) => ({
@@ -650,6 +654,7 @@ export default function ScoresTab({
                 : ""
             }`}
             onClick={() => {
+              manuallySelectedDate.current = true;
               setSelectedDate(date);
               setDivisionFilter("ALL");
             }}
