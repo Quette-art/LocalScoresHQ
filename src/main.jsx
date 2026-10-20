@@ -20,6 +20,10 @@ import "./friendshipGameDetailsFix.css";
 import "./bottomNavSpacing.css";
 import "./espnScoresHeader.css";
 import "./systemDarkMode.css";
+import "./appPolish.css";
+import { installZoomGuard } from "./zoomGuard.js";
+
+installZoomGuard(document);
 
 if ("serviceWorker" in navigator) {
   // Workbox installs updates automatically, but a running Home Screen app

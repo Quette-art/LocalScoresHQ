@@ -1,3 +1,4 @@
+import { Search, Settings } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Routes,
@@ -378,7 +379,7 @@ export default function AppContent() {
       <header className="mobileAppHeader">
         <div className="mobileHeaderLeft">
           <button className="mobileHeaderAction" onClick={() => setShowGlobalSearch(true)} aria-label="Search">
-            {"\uD83D\uDD0D"}
+            <Search size={21} strokeWidth={1.8} aria-hidden="true" />
           </button>
         </div>
         <div className="mobileHeaderLogo">
@@ -386,7 +387,7 @@ export default function AppContent() {
         </div>
         <div className="mobileHeaderRight">
           <button className="mobileHeaderAction" onClick={() => setShowSettings(true)} aria-label="Settings">
-            {"\u2699\uFE0F"}
+            <Settings size={21} strokeWidth={1.8} aria-hidden="true" />
           </button>
         </div>
         <div className="desktopHeaderBrand">
