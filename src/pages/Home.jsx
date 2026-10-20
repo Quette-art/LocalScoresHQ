@@ -233,7 +233,7 @@ const upcomingGames = useMemo(() => {
         <div>
           <p className="home-kicker">LOCAL SCORES</p>
 
-          <h1>Today's Games</h1>
+          <h1>Your local scoreboard</h1>
         </div>
 
         <div className="home-stat-row">
@@ -262,6 +262,15 @@ const upcomingGames = useMemo(() => {
       {heroGame && (
         <div
           className="home-hero-card"
+          role="button"
+          tabIndex={0}
+          aria-label={`Open ${heroGame.team1} versus ${heroGame.team2}`}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openGame(heroGame);
+            }
+          }}
           onClick={() => openGame(heroGame)}
         >
           <div className="hero-top-row">

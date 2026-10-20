@@ -1,4 +1,5 @@
 import React from "react";
+import { House, ListFilter, Trophy, Star } from "lucide-react";
 
 export default function TabNavigation({
   activeTab,
@@ -8,27 +9,27 @@ export default function TabNavigation({
     {
       key: "home",
       label: "Home",
-      icon: "🏠",
+      icon: House,
     },
     {
       key: "scores",
       label: "Scores",
-      icon: "📊",
+      icon: ListFilter,
     },
     {
       key: "standings",
       label: "Standings",
-      icon: "🏆",
+      icon: Trophy,
     },
     {
       key: "favorites",
       label: "Favorites",
-      icon: "⭐",
+      icon: Star,
     },
   ];
 
   return (
-    <div className="bottomNav">
+    <nav className="bottomNav" aria-label="Main navigation">
       {tabs.map((tab) => (
         <button
           key={tab.key}
@@ -37,10 +38,11 @@ export default function TabNavigation({
               ? "bottomNavButtonActive"
               : ""
           }`}
+          aria-current={activeTab === tab.key ? "page" : undefined}
           onClick={() => setActiveTab(tab.key)}
         >
           <span className="bottomNavIcon">
-            {tab.icon}
+            <tab.icon size={22} strokeWidth={activeTab === tab.key ? 2.4 : 1.8} aria-hidden="true" />
           </span>
 
           <span className="bottomNavLabel">
@@ -48,6 +50,6 @@ export default function TabNavigation({
           </span>
         </button>
       ))}
-    </div>
+    </nav>
   );
 }

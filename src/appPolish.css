@@ -1,0 +1,212 @@
+/* Shared finish for the app shell; preserve team artwork and score layouts. */
+:root {
+  --app-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --app-shadow: 0 3px 14px rgb(15 23 42 / 4%);
+}
+
+html, body {
+  touch-action: pan-x pan-y !important;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body, button, input, select, textarea {
+  font-family: var(--app-font);
+}
+
+button, a, [role="button"] {
+  touch-action: manipulation;
+}
+
+button, a, input, select, textarea, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
+  outline: 3px solid var(--accent, #1d64d8);
+  outline-offset: 3px;
+}
+
+.home-feed-header h1 {
+  font-size: clamp(24px, 5.6vw, 34px) !important;
+  letter-spacing: -0.035em;
+  line-height: 1.16;
+  text-transform: none;
+  font-weight: 750;
+}
+
+.home-feed-header {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 8px 0 !important;
+}
+
+.home-kicker {
+  font-size: 10px !important;
+  letter-spacing: 0.14em !important;
+  font-weight: 750 !important;
+}
+
+.home-section-card, .favorite-mini-card, .game-card {
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--app-shadow) !important;
+}
+
+.home-section-card {
+  padding: 18px !important;
+  margin-bottom: 16px !important;
+}
+
+.home-hero-card {
+  border-radius: 20px !important;
+  box-shadow: var(--app-shadow) !important;
+  cursor: pointer;
+}
+
+.home-stat-row {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 !important;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+  padding: 14px 4px !important;
+}
+
+.home-stat-item {
+  min-width: 0 !important;
+  padding: 4px 8px !important;
+  background: transparent !important;
+  border: 0;
+  border-radius: 0;
+  border-right: 1px solid var(--border);
+}
+
+.home-stat-item:last-child { border-right: 0; }
+.home-stat-item strong { font-variant-numeric: tabular-nums; }
+
+.home-stat-item span {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+}
+
+.search-input, .teamSearchInput, .settings-panel input {
+  border-radius: 12px !important;
+  border: 1px solid var(--border-strong) !important;
+  box-shadow: none !important;
+}
+
+.scoreboard-mini-team b, .game-card b, .hero-score {
+  font-variant-numeric: tabular-nums;
+}
+
+.mobileHeaderAction {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.bottomNavIcon svg { display: block; }
+
+@media (max-width: 900px) {
+  input, select, textarea {
+    /* iOS otherwise enlarges the viewport when focusing small inputs. */
+    font-size: 16px !important;
+  }
+
+  .appShell {
+    --nav-height: calc(62px + env(safe-area-inset-top, 0px));
+    padding-top: var(--nav-height) !important;
+  }
+
+  .mobileAppHeader {
+    min-height: var(--nav-height) !important;
+    padding: env(safe-area-inset-top, 0px) 14px 0 !important;
+    border-bottom: 1px solid rgb(255 255 255 / 10%) !important;
+    background: #0f172a !important;
+  }
+
+  .mobileHeaderAction {
+    color: #f8fafc !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 12px !important;
+  }
+
+  .home-feed-header {
+    padding-top: 10px !important;
+    margin-bottom: 18px !important;
+    gap: 18px !important;
+  }
+
+  .home-page { padding-inline: 14px !important; }
+
+  .home-stat-row { width: 100%; }
+
+  .sportsBar { gap: 8px !important; }
+
+  .sportPill {
+    min-height: 40px !important;
+    padding: 9px 15px !important;
+    border-radius: 12px !important;
+    font-size: 13px !important;
+    font-weight: 650 !important;
+    box-shadow: none !important;
+  }
+
+  .scores-region-btn {
+    border-radius: 12px !important;
+    font-weight: 650 !important;
+    box-shadow: none !important;
+  }
+
+  .date-btn { border-radius: 12px !important; box-shadow: none !important; }
+
+  .bottomNav {
+    gap: 4px;
+    padding: 8px 10px max(14px, env(safe-area-inset-bottom, 0px)) !important;
+    min-height: 74px !important;
+    border-top: 1px solid var(--border) !important;
+    box-shadow: 0 -4px 18px rgb(15 23 42 / 4%) !important;
+  }
+
+  .bottomNavButton {
+    gap: 5px !important;
+    padding: 6px 4px !important;
+    min-height: 50px !important;
+    border-radius: 14px !important;
+    color: var(--muted) !important;
+  }
+
+  .bottomNavButtonActive {
+    background: var(--accent-dim) !important;
+    color: var(--accent) !important;
+  }
+
+  .bottomNavLabel { font-size: 11px !important; font-weight: 600 !important; }
+  .bottomNavIcon { height: 23px !important; line-height: 23px !important; }
+
+  .mainContent {
+    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+@media (hover: hover) {
+  .bottomNavButton:hover, .mobileHeaderAction:hover {
+    background: var(--accent-dim) !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bottomNavButton, .sportPill, .scores-region-btn {
+    transition: color 140ms ease, background-color 140ms ease;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { --app-shadow: 0 3px 14px rgb(0 0 0 / 12%); }
+}
