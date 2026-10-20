@@ -109,6 +109,8 @@ export default function ScoresTab({
   isAdmin,
 }) {
   const [selectedDate, setSelectedDate] = useState("");
+  const [divisionFilter, setDivisionFilter] = useState("ALL");
+  const [regionFilter, setRegionFilter] = useState("ALL");
   const [clock, setClock] = useState(() => Date.now());
   const manuallySelectedDate = useRef(false);
 
@@ -127,8 +129,6 @@ export default function ScoresTab({
   useEffect(() => {
     manuallySelectedDate.current = false;
   }, [selectedSport, regionFilter]);
-  const [divisionFilter, setDivisionFilter] = useState("ALL");
-  const [regionFilter, setRegionFilter] = useState("ALL");
   const [selectedGame, setSelectedGame] = useState(null);
   const [team1Score, setTeam1Score] = useState("");
   const [team2Score, setTeam2Score] = useState("");
