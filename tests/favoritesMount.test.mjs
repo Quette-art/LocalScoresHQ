@@ -9,7 +9,7 @@ test("Favorites renders result and next game together; empty view offers team se
   let favorites = ["Anacostia-Varsity"];
   globalThis.localStorage = { getItem: () => JSON.stringify(favorites) };
   const server = await createServer({
-    configFile: false, server: { middlewareMode: true }, appType: "custom",
+    configFile: false, server: { middlewareMode: true, hmr: false }, appType: "custom",
     plugins: [{
       name: "mock-favorite-notifications", enforce: "pre",
       resolveId(id, importer) {
