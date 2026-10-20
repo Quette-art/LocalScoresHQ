@@ -9,5 +9,19 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/admin/scores",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/game",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/team",
+      "destination": "/index.html"
+    }
   ]
 }

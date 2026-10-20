@@ -1,5 +1,11 @@
 import { classifyGameNotification } from "../src/notificationPolicy.js";
 
+// Preview builds must not update the live snapshot or send subscriber alerts.
+if (process.env.VERCEL_ENV === "preview") {
+  console.log("Push schedule sync skipped: preview deployment.");
+  process.exit(0);
+}
+
 const secret = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
 
 if (!secret) {

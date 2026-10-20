@@ -1,0 +1,94 @@
+.scoreAdminDashboard{max-width:1200px;margin:0 auto;padding:10px 0 96px;color:#0f172a}
+.scoreAdminDashboard *{box-sizing:border-box}
+.scoreAdminHero{background:linear-gradient(115deg,#0f2348,#1a3769 72%,#20539a);color:#fff;border-radius:19px;padding:26px 25px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;box-shadow:0 12px 26px rgba(15,35,72,.13)}
+.scoreAdminEyebrow{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:1.5px;font-weight:900;color:#93c5fd}
+.scoreAdminHero h1{font-size:clamp(23px,3.5vw,35px);margin:8px 0 7px;letter-spacing:-.8px;line-height:1.1}
+.scoreAdminHero p{font-size:13px;line-height:1.5;color:#dbeafe;max-width:530px;margin:0}
+.scoreAdminRefresh{border:1px solid #7091bb;background:#ffffff17;color:#fff;border-radius:10px;padding:10px 13px;display:flex;align-items:center;gap:8px;font-weight:800;white-space:nowrap}
+.scoreAdminRefresh:disabled{opacity:.65}
+.scoreAdminSpin{animation:scoreAdminSpin 1s linear infinite}
+@keyframes scoreAdminSpin{to{transform:rotate(360deg)}}
+.scoreAdminStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:17px 0}
+.scoreAdminStat{background:#fff;border:1px solid #e1e8f2;border-radius:14px;padding:16px 17px;box-shadow:0 2px 10px #17255408;min-width:0}
+.scoreAdminStat span,.scoreAdminStat small{display:block;color:#66758b;font-size:11px;font-weight:700}
+.scoreAdminStat strong{font-size:30px;font-weight:900;display:block;color:#122a52;line-height:1.4;font-variant-numeric:tabular-nums}
+.scoreAdminStat.urgent strong{color:#b45309}
+.scoreAdminToolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:13px}
+.scoreAdminTabs{display:flex;overflow-x:auto;flex:1;min-width:0;gap:5px;scrollbar-width:thin}
+.scoreAdminTabs button{border:1px solid transparent;background:transparent;padding:11px 12px;font-size:12px;font-weight:800;border-radius:10px;color:#596c86;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.scoreAdminTabs button.selected{background:#e6efff;color:#1d4ed8;border-color:#c6d9ff}
+.scoreAdminTabs button span{background:#dbeafe;padding:1px 6px;border-radius:99px}
+.scoreAdminSearch{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #dae3ef;border-radius:12px;color:#64748b;padding:0 12px;min-width:220px;max-width:270px}
+.scoreAdminSearch input{background:transparent;border:0;min-width:0;width:100%;height:42px;outline:none;color:#0f172a;font-size:13px}
+.scoreAdminPanel{background:#fff;border:1px solid #e1e8f2;border-radius:15px;padding:22px;min-height:235px}
+.scoreAdminSectionTitle{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}
+.scoreAdminSectionTitle>div{display:flex;align-items:center;gap:10px;color:#194c97}
+.scoreAdminSectionTitle h2{font-size:17px;margin:0;color:#162844}
+.scoreAdminSectionTitle>span{font-size:11px;font-weight:800;color:#64748b;white-space:nowrap}
+.scoreAdminHint{font-size:12px;line-height:1.5;color:#68768a;margin:6px 0 17px}
+.scoreAdminGameGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.scoreAdminGame,.scoreAdminReview{padding:16px;border-radius:13px;border:1px solid #e3eaf4;background:#fcfdff;min-width:0}
+.scoreAdminGameTop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.scoreAdminMeta{font-size:11px;color:#738096;font-weight:700}
+.scoreAdminPill{border-radius:99px;padding:5px 8px;font-size:10px;white-space:nowrap;font-weight:900}
+.scoreAdminPill.confirmed{color:#126241;background:#dff7ec}
+.scoreAdminPill.missing{color:#a75a10;background:#fff1dc}
+.scoreAdminTeams{display:flex;flex-direction:column;gap:6px}
+.scoreAdminTeams span{font-size:15px;display:flex;justify-content:space-between;gap:10px;font-weight:800}
+.scoreAdminTeams b{font-variant-numeric:tabular-nums;font-size:17px;color:#132e57}
+.scoreAdminActions{display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:8px;margin-top:14px}
+.scoreAdminActions button,.scoreAdminActions a{display:inline-flex;align-items:center;gap:4px;font-size:11px;border:0;background:#f0f5ff;border-radius:9px;color:#2156a0;padding:9px 10px;font-weight:800;text-decoration:none}
+.scoreAdminActions .scoreAdminPrimaryLink{background:#1d64d8;color:#fff}
+.scoreAdminActions .scoreAdminApprove{background:#dcfce7;color:#166534}
+.scoreAdminEmpty{padding:36px 12px;text-align:center;color:#65788e;font-size:13px;display:flex;justify-content:center;align-items:center;gap:8px}
+.scoreAdminEmpty svg{width:20px}
+.scoreAdminReview{margin:12px 0}
+.scoreAdminReview h3{font-size:16px;margin:4px 0 7px}
+.scoreAdminReview strong{font-size:13px}
+.scoreAdminReview p{margin:8px 0;font-size:12px;line-height:1.5;color:#54657e;overflow-wrap:anywhere}
+.scoreAdminReview>a{color:#2357a8;display:inline-flex;gap:5px;align-items:center;margin-top:8px;font-size:12px}
+.scoreAdminToggle{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#64748b;cursor:pointer}
+.scoreAdminTableWrap{overflow-x:auto}
+.scoreAdminTable{width:100%;border-collapse:collapse;min-width:420px}
+.scoreAdminTable thead{background:#f1f6fd}
+.scoreAdminTable th,.scoreAdminTable td{text-align:right;padding:11px 10px;border-bottom:1px solid #e8eef6;font-size:12px;font-variant-numeric:tabular-nums}
+.scoreAdminTable th:first-child{text-align:left;min-width:135px}
+.scoreAdminTable thead th{font-size:10px;text-transform:uppercase;color:#66758b;letter-spacing:.6px}
+.scoreAdminTable tbody th{font-weight:800}
+.scoreAdminDelivery{padding:14px 4px;border-bottom:1px solid #edf1f7;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.scoreAdminDelivery>div:first-child{min-width:0}
+.scoreAdminDelivery b{display:block;font-size:13px}
+.scoreAdminDelivery span,.scoreAdminDelivery small{display:block;margin-top:5px;font-size:11px;color:#718198}
+.scoreAdminDeliveryCounts{text-align:right;flex-shrink:0}
+.scoreAdminDeliveryCounts strong{font-size:14px;color:#185b42}
+.scoreAdminAlert,.scoreAdminSuccess{padding:12px 14px;margin:10px 0;border-radius:10px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700}
+.scoreAdminAlert{background:#fff2ee;color:#9c3322}
+.scoreAdminSuccess{background:#e9f9f2;color:#126241}
+.scoreAdminModalBackdrop{position:fixed;inset:0;z-index:9999;background:#061734b3;display:flex;align-items:center;justify-content:center;padding:18px;overflow-y:auto}
+.scoreAdminModal{background:#fff;border-radius:18px;padding:24px;max-width:440px;width:100%;position:relative;max-height:90dvh;overflow-y:auto;box-shadow:0 25px 70px #0004}
+.scoreAdminModal h2{margin:9px 0;font-size:20px}
+.scoreAdminModal p{font-size:12px;line-height:1.5;color:#64748b}
+.scoreAdminModal label{display:block;font-size:12px;font-weight:800;margin-top:13px}
+.scoreAdminModal input,.scoreAdminModal textarea{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid #cfd9e6;border-radius:9px;color:#0f172a;background:#fff;font-size:14px}
+.scoreAdminScoreInputs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.scoreAdminSubmit{width:100%;margin-top:17px;padding:13px;border:0;border-radius:10px;background:#1d64d8;color:#fff;font-weight:900}
+.scoreAdminSubmit:disabled{opacity:.55}
+.scoreAdminClose{position:absolute;right:15px;top:12px;border:0;background:transparent;color:#62748c;padding:8px}
+@media(max-width:740px){
+.scoreAdminDashboard{padding-top:1px}
+.scoreAdminHero{padding:20px 17px;flex-direction:column;gap:13px;border-radius:14px}
+.scoreAdminHero h1{font-size:26px}
+.scoreAdminRefresh{align-self:flex-start}
+.scoreAdminStats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}
+.scoreAdminStat{padding:13px}
+.scoreAdminStat strong{font-size:27px}
+.scoreAdminToolbar{display:block}
+.scoreAdminTabs{margin-bottom:10px;padding-bottom:2px}
+.scoreAdminTabs button{padding:9px 11px}
+.scoreAdminSearch{max-width:unset;width:100%}
+.scoreAdminPanel{padding:15px 12px}
+.scoreAdminGameGrid{grid-template-columns:1fr}
+.scoreAdminSectionTitle h2{font-size:15px}
+.scoreAdminGame{padding:14px}
+.scoreAdminModal{padding:21px}
+}

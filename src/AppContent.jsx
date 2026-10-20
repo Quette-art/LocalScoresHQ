@@ -28,6 +28,7 @@ import Home from "./pages/Home";
 import TeamProfile from "./pages/TeamProfile";
 import GameDetails from "./pages/GameDetails";
 import ScoresTab from "./components/ScoresTab";
+import AdminScoreDashboard from "./components/AdminScoreDashboard";
 import StandingsTab from "./components/StandingsTab";
 import FavoritesTab from "./components/FavoritesTab";
 import TabNavigation from "./components/TabNavigation";
@@ -183,7 +184,13 @@ export default function AppContent() {
                 ...(firebaseOverride.status ? { status: firebaseOverride.status } : {}),
               }
             : {}),
-          ...(savedScore ? { score1: savedScore.score1, score2: savedScore.score2 } : {}),
+          ...(savedScore ? {
+            score1: savedScore.score1, score2: savedScore.score2,
+            ...(savedScore.sourceUrl ? { sourceUrl: savedScore.sourceUrl } : {}),
+            ...(savedScore.sourceTier ? { sourceTier: savedScore.sourceTier } : {}),
+            ...(savedScore.verificationStatus
+              ? { verificationStatus: savedScore.verificationStatus } : {}),
+          } : {}),
           ...(status ? { status } : {}),
         };
       });
@@ -225,6 +232,9 @@ export default function AppContent() {
         firebaseScores[docSnap.id] = {
           score1: Number(data.score1),
           score2: Number(data.score2),
+          sourceUrl: data.sourceUrl || "",
+          sourceTier: data.sourceTier || "",
+          verificationStatus: data.verificationStatus || "",
         };
       });
       initialSnapshots.scores = true;
@@ -295,14 +305,24 @@ export default function AppContent() {
 
   const handleTabChange = (tab) => {
     if (!tab || typeof tab !== "string") return;
+    if (tab === "admin" && !isAdmin) return;
     setActiveTab(tab);
     sessionStorage.setItem("activeTab", tab);
     setSelectedGame(null);
     sessionStorage.removeItem("selectedGame");
-    if (location.pathname !== "/") {
-      navigate("/");
+    const destination = tab === "admin" ? "/admin/scores" : "/";
+    if (location.pathname !== destination) {
+      navigate(destination);
     }
   };
+
+  // Direct preview links and browser refreshes must select the admin workspace.
+  useEffect(() => {
+    if (location.pathname === "/admin/scores") {
+      setActiveTab("admin");
+      sessionStorage.setItem("activeTab", "admin");
+    }
+  }, [location.pathname]);
 
   const getAgeGroup = (game) => {
     if (game.ageGroup) return game.ageGroup;
@@ -375,13 +395,13 @@ export default function AppContent() {
             {isAdmin && <div className="adminBadge">ADMIN MODE</div>}
           </div>
           <nav className="headerNavLinks">
-            {["home", "scores", "standings", "favorites"].map((tab) => (
+            {["home", "scores", "standings", "favorites", ...(isAdmin ? ["admin"] : [])].map((tab) => (
               <button
                 key={tab}
                 className={`headerNavLink${activeTab === tab ? " headerNavLinkActive" : ""}`}
                 onClick={() => handleTabChange(tab)}
               >
-                {tab[0].toUpperCase() + tab.slice(1)}
+                {tab === "admin" ? "Admin Dashboard" : tab[0].toUpperCase() + tab.slice(1)}
               </button>
             ))}
           </nav>
@@ -441,6 +461,7 @@ export default function AppContent() {
             {isAdmin ? (
               <>
                 <p className="settings-status">Signed in as admin</p>
+                <button className="submit-score-btn" onClick={() => { handleTabChange("admin"); setShowSettings(false); }} style={{ width: "100%", marginBottom: 10 }}>Score Management Dashboard</button>
                 <button className="submit-score-btn" onClick={handleLogout}>Sign Out</button>
               </>
             ) : (
@@ -534,7 +555,7 @@ export default function AppContent() {
         </div>
       )}
 
-      <div className={`topControls${activeTab === "home" || activeTab === "favorites" ? " sports-bar-hidden" : ""}`}>
+      <div className={`topControls${activeTab === "home" || activeTab === "favorites" || activeTab === "admin" ? " sports-bar-hidden" : ""}`}>
         <div className="sportsBar">
           {sports.map((sport) => (
             <button
@@ -565,7 +586,7 @@ export default function AppContent() {
                 const previousTab = sessionStorage.getItem("prevTab") || "scores";
                 setActiveTab(previousTab);
                 sessionStorage.setItem("activeTab", previousTab);
-                navigate("/");
+                navigate(previousTab === "admin" ? "/admin/scores" : "/");
               }}
               onScoreSaved={(updatedGame) => {
                 setSelectedGame(updatedGame);
@@ -584,10 +605,33 @@ export default function AppContent() {
         />
         <Route path="/team" element={<TeamProfileRoute games={games} onGameClick={openGameDetails} />} />
         <Route
+          path="/admin/scores"
+          element={
+            <main className="mainContent">
+              {isAdmin ? (
+                <AdminScoreDashboard games={games} onOpenGame={openGameDetails} adminUser={adminUser} />
+              ) : (
+                <div className="no-games">
+                  <p>Sign in through Settings to access the admin dashboard.</p>
+                  <button type="button" className="submit-score-btn" onClick={() => setShowSettings(true)}>
+                    Open admin sign in
+                  </button>
+                </div>
+              )}
+            </main>
+          }
+        />
+        <Route
           path="/"
           element={
             <main className="mainContent">
               {activeTab === "home" && <Home games={games} openGameDetails={openGameDetails} />}
+              {activeTab === "admin" && isAdmin && (
+                <AdminScoreDashboard games={games} onOpenGame={openGameDetails} adminUser={adminUser} />
+              )}
+              {activeTab === "admin" && !isAdmin && (
+                <div className="no-games">Sign in through Settings to access the admin dashboard.</div>
+              )}
               {activeTab === "scores" && (
                 <ScoresTab
                   games={games}
