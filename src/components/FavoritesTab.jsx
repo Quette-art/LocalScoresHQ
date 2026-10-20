@@ -1,5 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import TeamMascot from "./TeamMascot";
+import FavoriteTeamSummary from "./FavoriteTeamSummary";
+import { todayEastern } from "../dashboardUtils.js";
+import { teamSearchLabel } from "../teamSummary.js";
 import { syncPushSubscription } from "../notifications";
 import { dcFootballTeams, marylandFootballTeams } from "../data/teamRegions";
 import "./ScoresTab.css";
@@ -17,7 +20,7 @@ const hasScore = (game) =>
   game.score1 !== null && game.score1 !== undefined &&
   game.score2 !== null && game.score2 !== undefined;
 
-export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, setSelectedSport }) {
+export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, setSelectedSport, onOpenGame }) {
   const [favoriteTeams, setFavoriteTeams] = useState(() => {
     return JSON.parse(localStorage.getItem("favoriteTeams")) || [];
   });
@@ -66,6 +69,17 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
       })
       .sort((a, b) => a.teamName.localeCompare(b.teamName));
   }, [favoriteTeams, allTeams]);
+
+  const [today, setToday] = useState(() => todayEastern());
+  useEffect(() => {
+    const refreshDate = () => setToday(todayEastern());
+    const timer = window.setInterval(refreshDate, 60_000);
+    document.addEventListener("visibilitychange", refreshDate);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", refreshDate);
+    };
+  }, []);
 
   // Sports that have at least one favorited team
   const favoriteSports = useMemo(() => {
@@ -263,12 +277,21 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
         </button>
       </div>
 
-      {favoriteTeamDetails.length === 0 && (
-        <div style={{ padding: "0 20px 20px", textAlign: "center" }}>
-          <p style={{ color: "#64748b", fontSize: "13px" }}>
-            Tap the + above to add your first favorite team.
-          </p>
+      {favoriteTeamDetails.length === 0 ? (
+        <div className="favoritesEmptyState">
+          <p>Follow your teams to see their latest result and next game here.</p>
+          <button type="button" onClick={() => setShowAddModal(true)}>Find your team</button>
         </div>
+      ) : (
+        <section className="favoriteSummarySection" aria-label="Your teams at a glance">
+          <h3>Your teams at a glance</h3>
+          <div className="favoriteSummaryGrid">
+            {favoriteTeamDetails.map((team) => (
+              <FavoriteTeamSummary key={team.key} team={team} games={games} today={today}
+                onOpenTeam={openTeamRoute} onOpenGame={onOpenGame} />
+            ))}
+          </div>
+        </section>
       )}
 
       {/* SPORTS LIST */}
@@ -431,6 +454,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
             />
             <button
               className="close-search-btn"
+              aria-label="Close team search"
               onClick={() => {
                 setShowAddModal(false);
                 setSearchTerm("");
@@ -458,7 +482,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
                   >
                     <div>
                       <strong>{getSportIcon(team.sport)} {team.teamName}</strong>
-                      <span>{team.sport} • {team.ageGroup} • {team.division}</span>
+                      <span>{teamSearchLabel(team)}</span>
                     </div>
                     <span className="team-result-arrow">+</span>
                   </button>

@@ -1,3 +1,4 @@
+import { teamSearchLabel } from "./teamSummary.js";
 import { Search, Settings } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -423,7 +424,7 @@ export default function AppContent() {
               autoFocus
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button className="close-search-btn" onClick={() => { setShowGlobalSearch(false); setSearchTerm(""); }}>
+            <button className="close-search-btn" aria-label="Close team search" onClick={() => { setShowGlobalSearch(false); setSearchTerm(""); }}>
               {"\u00D7"}
             </button>
           </div>
@@ -444,9 +445,9 @@ export default function AppContent() {
                   >
                     <div>
                       <strong>{team.icon} {team.teamName}</strong>
-                      <span>{team.sport} \u2022 {team.ageGroup} \u2022 {team.division}</span>
+                      <span>{teamSearchLabel(team)}</span>
                     </div>
-                    <span className="team-result-arrow">\u203A</span>
+                    <span className="team-result-arrow">›</span>
                   </button>
                 ))}
               </div>
@@ -648,6 +649,7 @@ export default function AppContent() {
               {activeTab === "favorites" && (
                 <FavoritesTab
                   games={games}
+                  onOpenGame={openGameDetails}
                   openTeamRoute={openTeamRoute}
                   setActiveTab={handleTabChange}
                   setSelectedSport={setSelectedSport}
