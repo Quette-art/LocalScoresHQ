@@ -184,6 +184,15 @@ export default async function handler(req, res) {
     res.setHeader("Allow", "GET, POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
+  // Reject unsigned requests before initializing any privileged services.
+  if (!/^Bearer\s+\S+$/i.test(String(req.headers.authorization || ""))) {
+    return res.status(403).json({ error: "Admin sign-in required." });
+  }
+  if (!process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+    return res.status(503).json({
+      error: "Dashboard service is not configured for this environment.",
+    });
+  }
   try {
     const { auth, db, FieldValue } = getFirebaseAdmin();
     const user = await requireAdmin(req, auth);
