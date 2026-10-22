@@ -23,8 +23,9 @@ export default function FavoriteTeamSummary({ team, games, today, onOpenTeam, on
         <button type="button" className="favoriteSummaryGame" onClick={() => openGame(lastGame)}>
           <span className="favoriteSummaryLabel"><CheckCircle2 size={14} aria-hidden="true" /> Latest result</span>
           <span className="favoriteSummaryMatchup">
+            <TeamMascot teamName={team.teamName} className="favoriteSummaryGameLogo" />
             <b className={`favoriteSummaryOutcome outcome${result.outcome}`}>{result.outcome} {result.ownScore}–{result.opponentScore}</b>
-            <span>vs {result.opponent}</span>
+            <span className="favoriteSummaryOpponent"><span>vs</span><TeamMascot teamName={result.opponent} className="favoriteSummaryGameLogo" /><span>{result.opponent}</span></span>
           </span>
           <small>{shortGameDate(lastGame.date)} · Final</small>
         </button>
@@ -34,7 +35,10 @@ export default function FavoriteTeamSummary({ team, games, today, onOpenTeam, on
       {nextGame ? (
         <button type="button" className="favoriteSummaryGame" onClick={() => openGame(nextGame)}>
           <span className="favoriteSummaryLabel"><CalendarDays size={14} aria-hidden="true" /> Next game</span>
-          <span className="favoriteSummaryMatchup"><strong>vs {nextOpponent}</strong></span>
+          <span className="favoriteSummaryMatchup">
+            <TeamMascot teamName={team.teamName} className="favoriteSummaryGameLogo" />
+            <span className="favoriteSummaryOpponent"><span>vs</span><TeamMascot teamName={nextOpponent} className="favoriteSummaryGameLogo" /><strong>{nextOpponent}</strong></span>
+          </span>
           <small>{shortGameDate(nextGame.date)} · {nextGame.time || "Time TBD"}</small>
           {nextGame.location && nextGame.location !== "TBD" && <small>{nextGame.location}</small>}
         </button>
