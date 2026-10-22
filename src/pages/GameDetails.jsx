@@ -4,6 +4,8 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { createPortal } from "react-dom";
+import { Share2, Download, Link, X, LoaderCircle } from "lucide-react";
 import {
   doc,
   setDoc,
@@ -306,6 +308,44 @@ const GameDetails = ({
     useState("");
 
   const shareCardRef = useRef(null);
+  const shareDialogRef = useRef(null);
+  const shareCloseRef = useRef(null);
+
+  useEffect(() => {
+    if (!showShareGraphic) return;
+    const opener = document.activeElement;
+    const body = document.body;
+    const scrollY = window.scrollY;
+    const previous = { position: body.style.position, top: body.style.top, width: body.style.width, overflow: body.style.overflow };
+    const shell = document.querySelector(".appShell");
+    const wasInert = shell?.inert;
+    if (shell) shell.inert = true;
+    Object.assign(body.style, { position: "fixed", top: `-${scrollY}px`, width: "100%", overflow: "hidden" });
+    shareCloseRef.current?.focus({ preventScroll: true });
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setShowShareGraphic(false);
+      }
+      if (event.key !== "Tab") return;
+      const controls = [...(shareDialogRef.current?.querySelectorAll('button:not([disabled]), a[href], [tabindex="0"]') || [])];
+      const first = controls[0];
+      const last = controls.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault(); last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      Object.assign(body.style, previous);
+      if (shell) shell.inert = wasInert;
+      window.scrollTo(0, scrollY);
+      if (opener?.isConnected) opener.focus({ preventScroll: true });
+    };
+  }, [showShareGraphic]);
 
   useEffect(() => {
     if (!savedGame) return;
@@ -524,7 +564,7 @@ const GameDetails = ({
       setGraphicAction("copied");
     } catch (error) {
       console.error(error);
-      setGraphicAction("error");
+      setGraphicAction("copy-error");
     }
   };
 
@@ -611,6 +651,17 @@ const GameDetails = ({
     anchor.download = getGraphicFilename();
     anchor.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  const saveScoreGraphic = async () => {
+    setGraphicAction("saving");
+    try {
+      downloadGraphic(await createScoreGraphic());
+      setGraphicAction("saved");
+    } catch (error) {
+      console.error(error);
+      setGraphicAction("error");
+    }
   };
 
   const shareScoreGraphic = async () => {
@@ -954,36 +1005,24 @@ const GameDetails = ({
         </div>
       </section>
 
-      {showShareGraphic && (
-        <div
-          className="share-score-overlay"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="share-score-title"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setShowShareGraphic(false);
-            }
-          }}
-        >
-          <section className="share-score-modal">
-            <div className="share-score-modal-header">
+      {showShareGraphic && createPortal(
+        <div className="share-score-overlay" onMouseDown={(event) => {
+          if (event.target === event.currentTarget) setShowShareGraphic(false);
+        }}>
+          <section className="share-score-modal" ref={shareDialogRef}
+            role="dialog" aria-modal="true" aria-labelledby="share-score-title" aria-describedby="share-score-hint">
+            <header className="share-score-modal-header">
               <div>
-                <span>INSTAGRAM READY</span>
+                <span>GAME GRAPHIC</span>
                 <h2 id="share-score-title">Share final score</h2>
               </div>
-
-              <button
-                type="button"
-                className="share-score-close"
-                aria-label="Close score graphic"
-                onClick={() => setShowShareGraphic(false)}
-              >
-                ×
+              <button type="button" className="share-score-close" ref={shareCloseRef}
+                aria-label="Close score graphic" onClick={() => setShowShareGraphic(false)}>
+                <X size={21} aria-hidden="true" />
               </button>
-            </div>
-
-            <div className="share-score-preview">
+            </header>
+            <div className="share-score-preview-stage">
+              <div className="share-score-preview">
               <article className="share-score-card" ref={shareCardRef}>
                 <div className="share-score-card-glow share-score-card-glow-one" />
                 <div className="share-score-card-glow share-score-card-glow-two" />
@@ -1034,49 +1073,36 @@ const GameDetails = ({
                   <em>{SITE_HOST}</em>
                 </footer>
               </article>
+              </div>
             </div>
-
-            <p className="share-score-hint">
-              Instagram-ready final with both team logos, records, score, and LocalScoresHQ branding.
-            </p>
-
-            <div className="share-score-buttons">
-              <button
-                type="button"
-                className="share-score-share"
-                onClick={shareScoreGraphic}
-                disabled={graphicAction === "sharing"}
-              >
-                {graphicAction === "sharing" ? "Creating…" : "Share Image"}
-              </button>
-
-              <button
-                type="button"
-                onClick={copyGameLink}
-                disabled={graphicAction === "sharing"}
-              >
-                Copy Game Link
-              </button>
-            </div>
-
-            {graphicAction === "saved" && (
-              <p className="share-score-feedback">
-                Image saved. Post it to Instagram from your camera roll.
-              </p>
-            )}
-            {graphicAction === "shared" && (
-              <p className="share-score-feedback">Score graphic shared.</p>
-            )}
-            {graphicAction === "copied" && (
-              <p className="share-score-feedback">Game link copied.</p>
-            )}
-            {graphicAction === "error" && (
-              <p className="share-score-feedback is-error">
-                The image could not be created. Please try again.
-              </p>
-            )}
+            <footer className="share-score-controls">
+              <p className="share-score-hint" id="share-score-hint">Share the graphic or send a link to this game.</p>
+              <div className="share-score-buttons">
+                <button type="button" className="share-score-share" onClick={shareScoreGraphic}
+                  disabled={graphicAction === "sharing" || graphicAction === "saving"}>
+                  {graphicAction === "sharing" ? <LoaderCircle className="share-score-spinner" size={18} aria-hidden="true" /> : <Share2 size={18} aria-hidden="true" />}
+                  {graphicAction === "sharing" ? "Preparing image…" : "Share Image"}
+                </button>
+                <button type="button" onClick={saveScoreGraphic}
+                  disabled={graphicAction === "sharing" || graphicAction === "saving"}>
+                  <Download size={17} aria-hidden="true" />{graphicAction === "saving" ? "Saving…" : "Save Image"}
+                </button>
+                <button type="button" onClick={copyGameLink}
+                  disabled={graphicAction === "sharing" || graphicAction === "saving"}>
+                  <Link size={17} aria-hidden="true" />Copy Game Link
+                </button>
+              </div>
+              <div className="share-score-feedback-wrap" role="status" aria-live="polite" aria-atomic="true">
+                {graphicAction === "saved" && <p className="share-score-feedback">Image downloaded.</p>}
+                {graphicAction === "shared" && <p className="share-score-feedback">Score graphic shared.</p>}
+                {graphicAction === "copied" && <p className="share-score-feedback">Game link copied.</p>}
+                {graphicAction === "copy-error" && <p className="share-score-feedback is-error">Couldn’t copy the link. Please try again.</p>}
+                {graphicAction === "error" && <p className="share-score-feedback is-error">Couldn’t create the image. Please try again.</p>}
+              </div>
+            </footer>
           </section>
-        </div>
+        </div>,
+        document.body
       )}
 
       {showScoreModal && (
