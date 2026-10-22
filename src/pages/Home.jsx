@@ -418,11 +418,12 @@ const upcomingGames = useMemo(() => {
                         openTeam(game, game.team1);
                       }}
                     >
-                      {team1Favorite ? "⭐ " : ""}
-                      {game.team1}
+                      <TeamMascot teamName={game.team1} className="favorite-game-logo" />
+                      <span className="favorite-game-name">{game.team1}</span>
+                      {team1Favorite && <span className="favorite-game-star" aria-label="Favorite team">★</span>}
                     </button>
 
-                    <span>VS</span>
+                    <span className="favorite-game-versus">VS</span>
 
                     <button
                       onClick={(e) => {
@@ -430,8 +431,9 @@ const upcomingGames = useMemo(() => {
                         openTeam(game, game.team2);
                       }}
                     >
-                      {team2Favorite ? "⭐ " : ""}
-                      {game.team2}
+                      <TeamMascot teamName={game.team2} className="favorite-game-logo" />
+                      <span className="favorite-game-name">{game.team2}</span>
+                      {team2Favorite && <span className="favorite-game-star" aria-label="Favorite team">★</span>}
                     </button>
                   </div>
 
