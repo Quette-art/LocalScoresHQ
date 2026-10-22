@@ -21,6 +21,7 @@ import "./bottomNavSpacing.css";
 import "./espnScoresHeader.css";
 import "./systemDarkMode.css";
 import "./appPolish.css";
+import "./shareWorkspace.css";
 import { installZoomGuard } from "./zoomGuard.js";
 
 installZoomGuard(document);
