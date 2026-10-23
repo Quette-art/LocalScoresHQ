@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-08-29-st-annes-belfield-episcopal", {
+  "id": "fb-2026-08-29-st-annes-belfield-episcopal",
+  "team1": "St. Anne's-Belfield",
+  "team2": "Episcopal",
+  "date": "2026-08-29",
+  "score1": 0,
+  "score2": 28,
+  "sourceUrl": "https://www.si.com/high-school/stats/virginia/football/games/6620378-st-annesbelfield-vs-episcopal",
+  "sourceTier": "MaxPreps and High School On SI",
+  "confirmation": "Confirmed August 29 varsity final Episcopal 28, St. Anne's-Belfield 0 by independent SBLive final game page and MaxPreps August 29 postgame recap: https://www.maxpreps.com/news/fzcpQ92Z-EK-N4uK8qAc3Q/football-recap-episcopal-skates-past-st-annes-belfield-with-ease.htm. Official Episcopal varsity schedule establishes August 29, 2 PM home matchup; its result field remains blank, not a conflicting score. Score added once to the shared game for both teams' derived records.",
+  "lastChecked": "2026-10-23"
+}],
   ["fb-2026-10-23-eastern-coolidge", {
   "id": "fb-2026-10-23-eastern-coolidge",
   "team1": "Eastern",
