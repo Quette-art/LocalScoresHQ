@@ -1,6 +1,20 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-23-eastern-coolidge", {
+  "id": "fb-2026-10-23-eastern-coolidge",
+  "team1": "Eastern",
+  "team2": "Coolidge",
+  "date": "2026-10-22",
+  "expectedDate": "2026-10-23",
+  "time": "6:00 PM",
+  "score1": 7,
+  "score2": 10,
+  "sourceUrl": "https://www.maxpreps.com/dc/football/game/coolidge-washington-vs-eastern-washington/10-22-2026/?c=1a497fab-81f2-4036-af54-79c8da200b51",
+  "sourceTier": "MaxPreps and user-supplied Self Stock Football report; user-approved date correction",
+  "confirmation": "MaxPreps confirms October 22 varsity final Coolidge 10, Eastern 7, agreeing with Self Stock Football report supplied by user in IMG_0831.png. Eastern official calendar lists October 22, 6 PM: https://www.easternhighschooldcps.org/. User explicitly approved correcting tracked October 23 date to October 22 and publishing the final, resolving the conflicting official schedule graphics.",
+  "lastChecked": "2026-10-23"
+}],
   ["fb-2026-10-22-cardozo-anacostia", {
   "id": "fb-2026-10-22-cardozo-anacostia",
   "team1": "Cardozo",
