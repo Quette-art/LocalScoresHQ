@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-22-cardozo-anacostia", {
+  "id": "fb-2026-10-22-cardozo-anacostia",
+  "team1": "Cardozo",
+  "team2": "Anacostia",
+  "date": "2026-10-22",
+  "score1": 0,
+  "score2": 55,
+  "sourceUrl": "https://www.maxpreps.com/dc/football/game/anacostia-washington-vs-cardozo-washington/10-22-2026/?c=828ae7ac-b6ef-4424-99d5-f63cd9108c7d",
+  "sourceTier": "MaxPreps and High School On SI; user-confirmed date",
+  "confirmation": "MaxPreps and independent SBLive both report October 22 varsity final Anacostia 55, Cardozo 0: https://www.si.com/high-school/stats/washington-dc/football/games/6891738-cardozo-vs-anacostia. User confirmed October 22, 2026 as the played date, resolving the earlier conflicting official schedule graphics.",
+  "lastChecked": "2026-10-22"
+}],
   ["fb-2026-10-17-ron-brown-jackson-reed", {
   "id": "fb-2026-10-17-ron-brown-jackson-reed",
   "team1": "Ron Brown",
