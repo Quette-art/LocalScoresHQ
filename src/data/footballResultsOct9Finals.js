@@ -1,6 +1,30 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-23-st-vincent-st-vincent-pallotti-annapolis-area-christian", {
+  "id": "fb-2026-10-23-st-vincent-st-vincent-pallotti-annapolis-area-christian",
+  "team1": "St. Vincent Pallotti",
+  "team2": "Annapolis Area Christian",
+  "date": "2026-10-23",
+  "score1": 27,
+  "score2": 13,
+  "sourceUrl": "https://www.maxpreps.com/md/laurel/pallotti-panthers/football/schedule/",
+  "sourceTier": "MaxPreps and High School On SI",
+  "confirmation": "Confirmed October 23 varsity final Pallotti 27, Annapolis Area Christian 13 by MaxPreps and independent SBLive final: https://www.si.com/high-school/stats/maryland/football/games/6629828-st-vincent-pallotti-vs-annapolis-area-christian. User-supplied Pallotti spirit club post IMG_0836.jpeg explicitly reports the 27-13 win; scoreboard photo has 21 seconds left and is supporting evidence, not sole final confirmation. Official AACS calendar establishes October 23 4:15 PM matchup. Previously reported 4 PM tracked vs 4:15 PM source discrepancy remains held for review; schedule time unchanged.",
+  "lastChecked": "2026-10-23"
+}],
+  ["fb-2026-10-23-digital-pioneers-academy-steubenville", {
+  "id": "fb-2026-10-23-digital-pioneers-academy-steubenville",
+  "team1": "Digital Pioneers Academy",
+  "team2": "Steubenville",
+  "date": "2026-10-23",
+  "score1": 6,
+  "score2": 40,
+  "sourceUrl": "https://wtov9.com/sports/scoreboard/oct-23-24-2026-high-school-football-scoreboard",
+  "sourceTier": "WTOV9 and Joe Eitel",
+  "confirmation": "Confirmed October 23 varsity final Steubenville 40, Digital Pioneers Academy (DC) 6 by original local WTOV9 scoreboard and independent Joe Eitel 2026 Steubenville results: https://joeeitel.com/hsfoot/teams.jsp?teamID=1488&year=2026. MaxPreps matchup establishes October 23, 7 PM varsity game but its final field is unreported, not conflicting. Added once to shared game for both teams' derived records.",
+  "lastChecked": "2026-10-23"
+}],
   ["md-fb-2026-10-23-surrattsville-largo", {
   "id": "md-fb-2026-10-23-surrattsville-largo",
   "team1": "Surrattsville",
