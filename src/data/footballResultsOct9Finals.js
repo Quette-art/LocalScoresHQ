@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-23-bishop-ireton-st-marys-ryken", {
+  "id": "fb-2026-10-23-bishop-ireton-st-marys-ryken",
+  "team1": "Bishop Ireton",
+  "team2": "St. Mary's Ryken",
+  "date": "2026-10-23",
+  "score1": 6,
+  "score2": 49,
+  "sourceUrl": "https://www.maxpreps.com/md/leonardtown/st-marys-ryken-knights/football/schedule/",
+  "sourceTier": "MaxPreps and High School On SI",
+  "confirmation": "Confirmed October 23 varsity final St. Mary's Ryken 49, Bishop Ireton 6 by MaxPreps current Ryken results and independent SBLive final: https://www.si.com/high-school/stats/maryland/football/games/6621993-bishop-ireton-vs-st-marys-ryken. Both official school schedules establish October 23, 7 PM matchup; their result fields remain blank, not conflicting. Dedicated MaxPreps game page and SI statewide roundup are still awaiting updates, but current Ryken schedule and SBLive game page agree exactly. Added once to shared game for both teams' derived records.",
+  "lastChecked": "2026-10-24"
+}],
   ["fb-2026-10-23-gonzaga-good-counsel", {
   "id": "fb-2026-10-23-gonzaga-good-counsel",
   "team1": "Gonzaga",
