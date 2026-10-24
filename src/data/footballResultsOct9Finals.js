@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["md-fb-2026-10-23-gwynn-park-friendly", {
+  "id": "md-fb-2026-10-23-gwynn-park-friendly",
+  "team1": "Gwynn Park",
+  "team2": "Friendly",
+  "date": "2026-10-23",
+  "score1": 100,
+  "score2": 0,
+  "sourceUrl": "https://www.maxpreps.com/md/fort-washington/friendly-patriots/football/schedule/",
+  "sourceTier": "MaxPreps and High School On SI",
+  "confirmation": "October 23 varsity final Gwynn Park 100, Friendly 0 independently listed by current MaxPreps team results and SBLive final game page: https://www.si.com/high-school/stats/maryland/football/games/6629849-gwynn-park-vs-friendly. Previously held single-source result now corroborated; SI Maryland roundup also lists 100-0. Dedicated MaxPreps matchup remains stale/unscored, not conflicting. Added once to shared game for both teams derived records; date/time unchanged.",
+  "lastChecked": "2026-10-24"
+}],
   ["fb-2026-10-23-bishop-ireton-st-marys-ryken", {
   "id": "fb-2026-10-23-bishop-ireton-st-marys-ryken",
   "team1": "Bishop Ireton",
