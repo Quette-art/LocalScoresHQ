@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["md-fb-2026-10-23-surrattsville-largo", {
+  "id": "md-fb-2026-10-23-surrattsville-largo",
+  "team1": "Surrattsville",
+  "team2": "Largo",
+  "date": "2026-10-23",
+  "score1": 0,
+  "score2": 53,
+  "sourceUrl": "https://www.instagram.com/largolionsfootball/",
+  "sourceTier": "Official team account; MaxPreps corroboration",
+  "confirmation": "Official Largo Lions Football final scoreboard photo supplied by user in IMG_0835.jpeg shows Lions 53, Guest 0, fourth quarter 0:00. MaxPreps independently identifies October 23 varsity opponent Surrattsville and final Largo 53-0: https://www.maxpreps.com/md/football/game/largo-upper-marlboro-vs-surrattsville-clinton/10-23-2026/?c=0c929857-6190-477e-9ff9-782aba179d04. Reported 7 PM kickoff versus tracked 6:30 PM remains held for review; schedule time unchanged. Result added once to shared game for both teams' derived records.",
+  "lastChecked": "2026-10-23"
+}],
   ["fb-2026-08-29-st-annes-belfield-episcopal", {
   "id": "fb-2026-08-29-st-annes-belfield-episcopal",
   "team1": "St. Anne's-Belfield",
