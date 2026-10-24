@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-23-phelps-ace-jackson-reed", {
+  "id": "fb-2026-10-23-phelps-ace-jackson-reed",
+  "team1": "Phelps ACE",
+  "team2": "Jackson-Reed",
+  "date": "2026-10-23",
+  "score1": 54,
+  "score2": 14,
+  "sourceUrl": "https://www.instagram.com/phelpspanthersfb/",
+  "sourceTier": "official",
+  "confirmation": "Official team post supplied by user: scoreboard Panthers54 Tigers14, 0:00 Q4; MaxPreps agrees.",
+  "lastChecked": "2026-10-24"
+}],
   ["fb-2026-10-23-mckinley-tech-ron-brown", {
   "id": "fb-2026-10-23-mckinley-tech-ron-brown",
   "team1": "McKinley Tech",
