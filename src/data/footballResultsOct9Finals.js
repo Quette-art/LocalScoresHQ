@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-23-mckinley-tech-ron-brown", {
+  "id": "fb-2026-10-23-mckinley-tech-ron-brown",
+  "team1": "McKinley Tech",
+  "team2": "Ron Brown",
+  "date": "2026-10-23",
+  "score1": 7,
+  "score2": 0,
+  "sourceUrl": "https://www.maxpreps.com/dc/football/game/mckinley-tech-washington-vs-ron-brown-washington/10-23-2026/?c=ed4e2a9e-0da1-48e2-b42b-6a0747231d44",
+  "sourceTier": "MaxPreps and DCSportsFan",
+  "confirmation": "October 23 varsity final McKinley Tech 7, Ron Brown 0 confirmed by MaxPreps final box score (7-0 in overtime) and independent original local DCSportsFan October 24 results: https://dcsportsfan.com/2026/10/24/football-scores/. Added once to shared game for both teams derived records; date/time unchanged.",
+  "lastChecked": "2026-10-24"
+}],
   ["md-fb-2026-10-23-gwynn-park-friendly", {
   "id": "md-fb-2026-10-23-gwynn-park-friendly",
   "team1": "Gwynn Park",
