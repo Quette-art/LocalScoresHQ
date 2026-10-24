@@ -1,6 +1,18 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-23-gonzaga-good-counsel", {
+  "id": "fb-2026-10-23-gonzaga-good-counsel",
+  "team1": "Gonzaga",
+  "team2": "Good Counsel",
+  "date": "2026-10-23",
+  "score1": 21,
+  "score2": 3,
+  "sourceUrl": "https://www.maxpreps.com/inter-state/football/game/gonzaga-washington-dc-vs-our-lady-of-good-counsel-olney-md/10-23-2026/?c=95a09ef7-f6b7-43a7-aacc-f7ff5082e646",
+  "sourceTier": "MaxPreps and High School On SI",
+  "confirmation": "Confirmed October 23 varsity final Gonzaga 21, Good Counsel 3 by MaxPreps and independent SBLive final: https://www.si.com/high-school/stats/maryland/football/games/6629857-gonzaga-vs-our-lady-of-good-counsel. Official Gonzaga schedule confirms October 23, 7 PM away matchup. Result added once to shared game for both teams' derived records.",
+  "lastChecked": "2026-10-24"
+}],
   ["fb-2026-10-23-st-vincent-st-vincent-pallotti-annapolis-area-christian", {
   "id": "fb-2026-10-23-st-vincent-st-vincent-pallotti-annapolis-area-christian",
   "team1": "St. Vincent Pallotti",
