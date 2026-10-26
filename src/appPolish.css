@@ -257,3 +257,162 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
   font-weight: 600;
   letter-spacing: .05em;
 }
+
+/* Mobile Home uses the screen width, with one readable inner gutter. */
+@media (max-width: 900px) {
+  .appShell:has(.home-page) {
+    padding-inline: 0 !important;
+  }
+
+  .mainContent:has(.home-page) {
+    padding-inline: 0 !important;
+  }
+
+  .home-page {
+    width: 100%;
+    padding-inline: 0 !important;
+  }
+
+  .home-page .home-feed-header {
+    margin: 0 16px 18px !important;
+  }
+
+  .home-page .home-hero-card {
+    margin: 0 12px 18px !important;
+    padding: 16px !important;
+  }
+
+  .home-page .home-feed-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin: 0 !important;
+  }
+
+  .home-page .home-section-card {
+    width: 100%;
+    margin: 0 0 12px !important;
+    padding: 20px 16px 8px !important;
+    border: 0 !important;
+    border-block: 1px solid var(--border) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .home-page .section-header {
+    margin-bottom: 16px;
+  }
+
+  .home-page .section-header h2 {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .home-page .sport-scoreboard-grid,
+  .home-page .favorite-strip {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .home-page .favorite-mini-card {
+    padding: 16px 0;
+    border: 0 !important;
+    border-top: 1px solid var(--border) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .home-page .favorite-mini-card > p {
+    margin: 10px 0 0;
+    font-size: 13px;
+  }
+
+  .home-page .scoreboard-mini-row,
+  .home-page .home-game-feed-row,
+  .home-page .home-final-row {
+    padding: 16px 0;
+    border-top-color: var(--border);
+  }
+
+  .home-page .scoreboard-mini-team span:not(.team-avatar) {
+    white-space: normal;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    line-height: 1.3;
+  }
+
+  .home-page .home-game-feed-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  /* Sport is already in the metadata; let the team marks lead the row. */
+  .home-page .feed-sport-icon {
+    display: none;
+  }
+
+  .home-page .feed-game-info,
+  .home-page .home-final-info {
+    min-width: 0;
+  }
+
+  .home-page .feed-game-meta {
+    white-space: normal;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .home-page .feed-matchup,
+  .home-page .home-final-matchup {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+  }
+
+  .home-page .feed-matchup button,
+  .home-page .home-final-matchup button {
+    min-width: 0;
+    max-width: none;
+    min-height: 44px;
+    white-space: normal;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .home-page .feed-matchup .team-avatar,
+  .home-page .home-final-matchup .team-avatar {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .home-page .upcoming-status {
+    grid-column: 1;
+    justify-self: start;
+    margin: 0;
+  }
+
+  .home-page .home-final-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .home-page .score-display {
+    justify-self: end;
+  }
+
+  .home-page .hero-team {
+    min-width: 0;
+  }
+
+  .home-page .hero-team span:not(.team-avatar) {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
