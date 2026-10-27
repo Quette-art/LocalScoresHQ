@@ -460,19 +460,6 @@ export default function AppContent() {
         <div className="settings-modal">
           <div className="settings-card">
             <h3>Settings</h3>
-            {isAdmin ? (
-              <>
-                <p className="settings-status">Signed in as admin</p>
-                <button className="submit-score-btn" onClick={() => { handleTabChange("admin"); setShowSettings(false); }} style={{ width: "100%", marginBottom: 10 }}>Score Management Dashboard</button>
-                <button className="submit-score-btn" onClick={handleLogout}>Sign Out</button>
-              </>
-            ) : (
-              <>
-                <input className="submit-input" type="email" placeholder="Admin email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input className="submit-input" type="password" placeholder="Admin password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <button className="submit-score-btn" onClick={handleLogin}>Sign In</button>
-              </>
-            )}
             <div className="settings-notif" style={{ margin: "16px 0", textAlign: "left" }}>
               <p style={{ margin: "0 0 8px", fontWeight: 700 }}>Notifications</p>
               <p style={{ margin: "0 0 12px", fontSize: 13, color: "#64748b" }}>
@@ -556,6 +543,24 @@ export default function AppContent() {
                 </p>
               )}
             </div>
+            <details className="admin-access">
+              <summary>Admin access</summary>
+              <div className="admin-access-content">
+                {isAdmin ? (
+                  <>
+                    <p className="settings-status">Signed in as admin</p>
+                    <button className="submit-score-btn" onClick={() => { handleTabChange("admin"); setShowSettings(false); }} style={{ width: "100%", marginBottom: 10 }}>Score Management Dashboard</button>
+                    <button className="submit-score-btn" onClick={handleLogout}>Sign Out</button>
+                  </>
+                ) : (
+                  <>
+                    <input className="submit-input" type="email" placeholder="Admin email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input className="submit-input" type="password" placeholder="Admin password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <button className="submit-score-btn" onClick={handleLogin}>Sign In</button>
+                  </>
+                )}
+              </div>
+            </details>
             <button className="close-settings" onClick={() => setShowSettings(false)}>Close</button>
           </div>
         </div>
