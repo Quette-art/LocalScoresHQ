@@ -479,12 +479,12 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 }
 
 
-.notification-troubleshooting {
+.notification-troubleshooting, .admin-access {
   margin-top: 12px;
   border-top: 1px solid var(--border);
 }
 
-.notification-troubleshooting summary {
+.notification-troubleshooting summary, .admin-access summary {
   display: flex;
   align-items: center;
   min-height: 44px;
@@ -496,12 +496,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
   list-style: none;
 }
 
-.notification-troubleshooting summary::-webkit-details-marker { display: none; }
-.notification-troubleshooting summary::before { content: "▸"; }
-.notification-troubleshooting[open] summary::before { content: "▾"; }
+.notification-troubleshooting summary::-webkit-details-marker, .admin-access summary::-webkit-details-marker { display: none; }
+.notification-troubleshooting summary::before, .admin-access summary::before { content: "▸"; }
+.notification-troubleshooting[open] summary::before, .admin-access[open] summary::before { content: "▾"; }
 .notification-troubleshooting p {
   margin: 0;
   color: var(--muted);
   font-size: 13px;
   line-height: 1.4;
 }
+
+.admin-access-content {
+  display: grid;
+  gap: 10px;
+  padding-bottom: 8px;
+}
+.admin-access-content .settings-status { margin: 0; }
+.admin-access-content .submit-score-btn { width: 100%; }
