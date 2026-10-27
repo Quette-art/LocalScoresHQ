@@ -363,16 +363,14 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
     margin-bottom: 8px;
   }
 
-  .home-page .feed-matchup,
-  .home-page .home-final-matchup {
+  .home-page .feed-matchup {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     gap: 8px;
   }
 
-  .home-page .feed-matchup button,
-  .home-page .home-final-matchup button {
+  .home-page .feed-matchup button {
     min-width: 0;
     max-width: none;
     min-height: 44px;
@@ -385,8 +383,7 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
     line-height: 1.35;
   }
 
-  .home-page .feed-matchup .team-avatar,
-  .home-page .home-final-matchup .team-avatar {
+  .home-page .feed-matchup .team-avatar {
     flex: 0 0 24px;
     width: 24px;
     height: 24px;
@@ -415,4 +412,68 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
     white-space: normal;
     overflow-wrap: anywhere;
   }
+}
+
+
+/* Keep every final score on the same line as its team. */
+.home-page .home-final-row {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.home-page .home-final-teams {
+  display: grid;
+  gap: 2px;
+  margin-top: 8px;
+}
+
+.home-page .home-final-team {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.5em;
+  align-items: center;
+  column-gap: 12px;
+  color: var(--text);
+}
+
+.home-page .home-final-team.is-loser {
+  color: var(--muted);
+}
+
+.home-page .home-final-team-link {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 44px;
+  gap: 10px;
+  border: 0;
+  padding: 4px 0;
+  background: transparent;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 750;
+  text-align: left;
+  line-height: 1.35;
+}
+
+.home-page .home-final-team-link .team-avatar {
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+}
+
+.home-page .home-final-team-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.home-page .home-final-score {
+  color: inherit;
+  text-align: right;
+  font-size: 20px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.home-page .home-final-team.is-winner .home-final-score {
+  color: var(--accent);
 }
