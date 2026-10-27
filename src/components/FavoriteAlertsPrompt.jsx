@@ -13,15 +13,14 @@ export default function FavoriteAlertsPrompt({ onPreferencesChanged }) {
   const dialogRef = useRef(null);
 
   useEffect(() => {
-    const open = (event, manage = false) => {
+    const open = (event) => {
       const current = getNotificationPrefs();
-      if (!manage && (current.enabled || sessionStorage.getItem("lshq_alert_prompt_later") === "1")) return;
       setPrefs(current);
       setMessage("");
       setTeam(event.detail?.teamName || "your team");
     };
     const added = (event) => open(event);
-    const manage = (event) => open(event, true);
+    const manage = (event) => open(event);
     window.addEventListener("lshq:favorite-added", added);
     window.addEventListener("lshq:manage-favorite-alerts", manage);
     return () => {
@@ -60,7 +59,7 @@ export default function FavoriteAlertsPrompt({ onPreferencesChanged }) {
   const isApple = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   const standalone = window.matchMedia?.("(display-mode: standalone)").matches || navigator.standalone === true;
   const needsHomeScreen = isApple && !standalone;
-  const later = () => { sessionStorage.setItem("lshq_alert_prompt_later", "1"); setTeam(null); };
+  const later = () => setTeam(null);
   const save = async () => {
     if (!prefs.scores && !prefs.schedule) { setMessage("Choose at least one alert type, or choose Not now."); return; }
     if (needsHomeScreen) { setMessage("Add LocalScoresHQ to your Home Screen, open it from there, then turn on alerts in Settings."); return; }
