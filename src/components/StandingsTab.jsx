@@ -289,7 +289,13 @@ export default function StandingsTab({
           <span>{standings.length} tracked teams</span>
         </div>
 
-        <div className="footballStandingsScroller">
+        <p className="standingsScrollHint">Swipe left to see more stats</p>
+        <div
+          className="footballStandingsScroller"
+          role="region"
+          aria-label="Standings table; scroll horizontally for more stats"
+          tabIndex={0}
+        >
           <div className="footballStandingsTable">
             <div className="footballStandingsRow footballStandingsHeader">
               <span className="footballTeamCell">TEAM</span>

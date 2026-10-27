@@ -1,0 +1,85 @@
+/* Mobile readability and touch targets for the app's main flows. */
+.standingsScrollHint {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .sportPill,
+  .scores-region-btn,
+  .date-btn,
+  .standingsDivisionTabs button,
+  .game-details-action,
+  .game-details-edit-score,
+  .close-search-btn {
+    min-height: 44px !important;
+  }
+
+  .mobile-matchup .mobile-team {
+    min-width: 0;
+    min-height: 44px;
+    text-align: left;
+  }
+
+  .mobile-matchup .mobile-team > span:not(.score-team-mascot) {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .footballTeamButton .standingsTeamText strong,
+  .footballTeamButton .standingsTeamText small,
+  .favorite-region-team-name {
+    overflow: visible;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    line-height: 1.3;
+  }
+
+  .standingsScrollHint {
+    display: block;
+    margin: 0;
+    padding: 8px 12px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .footballStandingsScroller:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: -3px;
+  }
+
+  .favorite-region-team {
+    min-height: 48px;
+  }
+
+  .game-details-team {
+    gap: 12px !important;
+  }
+
+  .game-details-team-identity > div {
+    min-width: 0;
+  }
+
+  .game-details-team-identity strong {
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+  }
+
+  .search-page-bar .search-input,
+  .team-search-result > div {
+    min-width: 0;
+  }
+
+  .team-search-result strong,
+  .team-search-result span {
+    overflow-wrap: anywhere;
+  }
+
+  .settings-card {
+    max-height: calc(100dvh - 40px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
