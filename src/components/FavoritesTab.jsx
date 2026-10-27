@@ -3,7 +3,7 @@ import TeamMascot from "./TeamMascot";
 import FavoriteTeamSummary from "./FavoriteTeamSummary";
 import { todayEastern } from "../dashboardUtils.js";
 import { teamSearchLabel } from "../teamSummary.js";
-import { syncPushSubscription } from "../notifications";
+import { getNotificationPrefs, syncPushSubscription } from "../notifications";
 import { dcFootballTeams, marylandFootballTeams } from "../data/teamRegions";
 import "./ScoresTab.css";
 
@@ -141,7 +141,10 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
     const updated = [...favoriteTeams, key];
     setFavoriteTeams(updated);
     localStorage.setItem("favoriteTeams", JSON.stringify(updated));
-    void syncPushSubscription({ favorites: updated });
+    if (getNotificationPrefs().enabled) {
+      void syncPushSubscription({ favorites: updated });
+    }
+    window.dispatchEvent(new CustomEvent("lshq:favorite-added", { detail: { teamName: allTeams.find((team) => team.key === key)?.teamName || "your team" } }));
   };
 
   const removeFavorite = (key) => {

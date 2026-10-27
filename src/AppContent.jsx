@@ -33,6 +33,7 @@ import ScoresTab from "./components/ScoresTab";
 import AdminScoreDashboard from "./components/AdminScoreDashboard";
 import StandingsTab from "./components/StandingsTab";
 import FavoritesTab from "./components/FavoritesTab";
+import FavoriteAlertsPrompt from "./components/FavoriteAlertsPrompt";
 import TabNavigation from "./components/TabNavigation";
 import InstallAppButton from "./components/InstallAppButton";
 import IphoneInstallTip from "./components/IphoneInstallTip";
@@ -669,6 +670,7 @@ export default function AppContent() {
         />
       </Routes>
 
+      <FavoriteAlertsPrompt onPreferencesChanged={setNotifPrefs} />
       <TabNavigation activeTab={activeTab} setActiveTab={handleTabChange} />
     </div>
   );
