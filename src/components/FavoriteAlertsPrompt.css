@@ -1,0 +1,20 @@
+.favorite-alert-backdrop { position: fixed; inset: 0; z-index: 100001; display: flex; justify-content: center; align-items: flex-end; padding: 12px 12px max(12px, env(safe-area-inset-bottom, 0px)); background: rgb(2 8 23 / 72%); }
+.favorite-alert-sheet { width: min(100%, 460px); max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px)); overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; padding: 20px; border: 1px solid var(--border-strong); border-radius: 22px; background: var(--bg-surface); color: var(--text); box-shadow: 0 14px 44px rgb(0 0 0 / 28%); }
+.favorite-alert-header { display: flex; align-items: center; gap: 12px; }
+.favorite-alert-header > div { min-width: 0; flex: 1; }
+.favorite-alert-header p { margin: 0 0 3px; color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+.favorite-alert-header h2 { margin: 0; font-size: 21px; line-height: 1.2; }
+.favorite-alert-icon { display: grid; place-items: center; flex: 0 0 44px; height: 44px; border-radius: 14px; color: var(--accent); background: var(--accent-dim); }
+.favorite-alert-close { width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--bg-inset); color: var(--text); }
+.favorite-alert-description { color: var(--muted); line-height: 1.45; font-size: 14px; margin: 18px 0 10px; overflow-wrap: anywhere; }
+.favorite-alert-option { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 10px 0; border-top: 1px solid var(--border); cursor: pointer; }
+.favorite-alert-option span { display: grid; gap: 4px; min-width: 0; }
+.favorite-alert-option strong { font-size: 15px; }
+.favorite-alert-option small { color: var(--muted); font-size: 12px; line-height: 1.35; }
+.favorite-alert-option input { width: 24px; height: 24px; flex: 0 0 24px; accent-color: var(--accent); }
+.favorite-alert-note { margin: 10px 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+.favorite-alert-primary, .favorite-alert-later { width: 100%; min-height: 48px; border: 0; border-radius: 13px; font: inherit; font-weight: 750; cursor: pointer; }
+.favorite-alert-primary { margin-top: 10px; background: var(--accent); color: #fff; }
+.favorite-alert-later { margin-top: 6px; background: transparent; color: var(--muted); }
+.favorite-alert-primary:disabled, .favorite-alert-later:disabled { opacity: .6; }
+@media (min-width: 700px) { .favorite-alert-backdrop { align-items: center; } }

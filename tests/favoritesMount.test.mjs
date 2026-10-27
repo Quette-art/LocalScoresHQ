@@ -16,7 +16,7 @@ test("Favorites renders result and next game together; empty view offers team se
         if (importer?.endsWith("/FavoritesTab.jsx") && id === "../notifications") return "\0favorite-notifications";
       },
       load(id) {
-        if (id === "\0favorite-notifications") return "export async function syncPushSubscription() {}";
+        if (id === "\0favorite-notifications") return "export async function syncPushSubscription() {} export function getNotificationPrefs() { return { enabled: false }; }";
       },
     }],
   });

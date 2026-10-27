@@ -353,10 +353,11 @@ export const requestNotificationPermission = async () => {
 
     const token = await getFirebaseMessagingToken();
     if (token) {
-      await syncPushSubscription({
-        token,
-        prefs: next,
-      });
+      const registered = await syncPushSubscription({ token, prefs: next });
+      if (!registered) {
+        saveNotificationPrefs({ ...next, enabled: false });
+        return null;
+      }
       return token;
     }
 

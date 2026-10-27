@@ -1,7 +1,7 @@
 import { resultValue } from "../dashboardUtils.js";
 import React, { useState } from "react";
 import TeamMascot from "../components/TeamMascot";
-import { syncPushSubscription } from "../notifications";
+import { getNotificationPrefs, syncPushSubscription } from "../notifications";
 import "../components/ScoresTab.css";
 import "./TeamProfileMobileFix.css";
 import "./TeamProfileFeatures.css";
@@ -43,19 +43,8 @@ export default function TeamProfile({
     JSON.parse(localStorage.getItem("favoriteTeams")) || []
   );
 
-  const [showAlerts, setShowAlerts] = useState(false);
-
-  const [alerts, setAlerts] = useState(
-    JSON.parse(localStorage.getItem("teamAlerts")) || {}
-  );
-
   const teamKey = `${teamName}-${division}`;
   const isFavorite = favoriteTeams.includes(teamKey);
-
-  const teamAlertSettings = alerts[teamKey] || {
-    gameStart: false,
-    gameFinished: false,
-  };
 
   const toggleFavorite = () => {
     let updated;
@@ -68,20 +57,12 @@ export default function TeamProfile({
 
     setFavoriteTeams(updated);
     localStorage.setItem("favoriteTeams", JSON.stringify(updated));
-    void syncPushSubscription({ favorites: updated });
-  };
-
-  const toggleAlert = (type) => {
-    const updatedAlerts = {
-      ...alerts,
-      [teamKey]: {
-        ...teamAlertSettings,
-        [type]: !teamAlertSettings[type],
-      },
-    };
-
-    setAlerts(updatedAlerts);
-    localStorage.setItem("teamAlerts", JSON.stringify(updatedAlerts));
+    if (getNotificationPrefs().enabled) {
+      void syncPushSubscription({ favorites: updated });
+    }
+    if (!isFavorite) {
+      window.dispatchEvent(new CustomEvent("lshq:favorite-added", { detail: { teamName } }));
+    }
   };
 
   const teamGames = games.filter(
@@ -309,7 +290,7 @@ export default function TeamProfile({
             type="button"
             className="alert-btn"
             aria-label="Manage team alerts"
-            onClick={() => setShowAlerts(true)}
+            onClick={() => window.dispatchEvent(new CustomEvent("lshq:manage-favorite-alerts", { detail: { teamName } }))}
           >
             🔔
           </button>
@@ -525,43 +506,6 @@ export default function TeamProfile({
         )}
       </div>
 
-      {showAlerts && (
-        <div className="alertsOverlay" onClick={() => setShowAlerts(false)}>
-          <div className="alertsSheet" onClick={(event) => event.stopPropagation()}>
-            <h2>Team Alerts</h2>
-
-            <div className="alertRow">
-              <span>Game Start</span>
-              <button
-                type="button"
-                className={`toggleBtn ${teamAlertSettings.gameStart ? "toggleOn" : ""}`}
-                onClick={() => toggleAlert("gameStart")}
-              >
-                {teamAlertSettings.gameStart ? "ON" : "OFF"}
-              </button>
-            </div>
-
-            <div className="alertRow">
-              <span>Game Finished</span>
-              <button
-                type="button"
-                className={`toggleBtn ${teamAlertSettings.gameFinished ? "toggleOn" : ""}`}
-                onClick={() => toggleAlert("gameFinished")}
-              >
-                {teamAlertSettings.gameFinished ? "ON" : "OFF"}
-              </button>
-            </div>
-
-            <button
-              type="button"
-              className="closeAlertsBtn"
-              onClick={() => setShowAlerts(false)}
-            >
-              Done
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
