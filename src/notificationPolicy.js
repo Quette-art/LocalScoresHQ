@@ -4,6 +4,7 @@
  * This is shared by production builds, admin updates, and foreground alerts.
  */
 export function hasFinalScore(game) {
+  if (game?.forfeit === true && ["W:L", "L:W"].includes(`${game.score1}:${game.score2}`)) return true;
   return (
     game?.score1 !== null &&
     game?.score1 !== undefined &&

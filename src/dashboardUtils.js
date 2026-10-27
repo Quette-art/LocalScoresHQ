@@ -1,9 +1,12 @@
+export const resultValue = (value) => value === "W" ? 1 : value === "L" ? 0 : Number(value);
+
 const validScore = (value) =>
   value !== null && value !== undefined && String(value).trim() !== "" &&
   Number.isFinite(Number(value)) && Number(value) >= 0;
 
 export const hasFinal = (game) =>
-  validScore(game?.score1) && validScore(game?.score2) &&
+  ((validScore(game?.score1) && validScore(game?.score2)) ||
+    (game?.forfeit === true && ["W:L", "L:W"].includes(`${game.score1}:${game.score2}`))) &&
   !["cancelled", "postponed"].includes(String(game?.status || "").toLowerCase());
 
 export function todayEastern(now = new Date()) {
@@ -32,7 +35,7 @@ export function calculateTeamRecords(games) {
   const teams = new Map();
   for (const game of games) {
     if (game.sport !== "Football" || !hasFinal(game)) continue;
-    const a = Number(game.score1), b = Number(game.score2);
+    const a = resultValue(game.score1), b = resultValue(game.score2);
     for (const [name, scored, conceded] of [
       [game.team1, a, b], [game.team2, b, a],
     ]) {
@@ -43,8 +46,10 @@ export function calculateTeamRecords(games) {
       if (scored > conceded) row.wins += 1;
       else if (scored < conceded) row.losses += 1;
       else row.ties += 1;
-      row.pointsFor += scored;
-      row.pointsAgainst += conceded;
+      if (!game.forfeit) {
+        row.pointsFor += scored;
+        row.pointsAgainst += conceded;
+      }
       teams.set(name, row);
     }
   }

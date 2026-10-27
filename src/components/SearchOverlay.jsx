@@ -1,3 +1,4 @@
+import { resultValue } from "../dashboardUtils.js";
 import { useMemo, useState } from "react";
 import { upcomingGames } from "../data/games";
 import { dcFootballTeams, marylandFootballTeams } from "../data/teamRegions";
@@ -139,8 +140,8 @@ export default function SearchOverlay({
       if (!isPlayed(game)) return stats;
 
       const isTeam1 = getTeamKey(game, 1) === selectedTeam.id;
-      const teamScore = Number(isTeam1 ? game.score1 : game.score2);
-      const oppScore = Number(isTeam1 ? game.score2 : game.score1);
+      const teamScore = resultValue(isTeam1 ? game.score1 : game.score2);
+      const oppScore = resultValue(isTeam1 ? game.score2 : game.score1);
 
       stats.g += 1;
       stats.f += teamScore;
@@ -759,9 +760,9 @@ function GameCard({ game, selectedTeam }) {
   const result =
     !played
       ? "Upcoming"
-      : Number(teamScore) > Number(oppScore)
+      : resultValue(teamScore) > resultValue(oppScore)
       ? "Win"
-      : Number(teamScore) < Number(oppScore)
+      : resultValue(teamScore) < resultValue(oppScore)
       ? "Loss"
       : "Tie";
 

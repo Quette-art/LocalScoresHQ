@@ -1,6 +1,17 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-24-dematha-st-johns", {"id": "fb-2026-10-24-dematha-st-johns", "team1": "DeMatha", "team2": "St. John’s", "date": "2026-10-24", "score1": 0, "score2": 12, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 1 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
+  ["fb-2026-10-24-episcopal-landon", {"id": "fb-2026-10-24-episcopal-landon", "team1": "Episcopal", "team2": "Landon", "date": "2026-10-24", "score1": 47, "score2": 7, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 6 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
+  ["fb-2026-10-24-bell-h-d-woodson", {"id": "fb-2026-10-24-bell-h-d-woodson", "team1": "Bell", "team2": "H.D. Woodson", "date": "2026-10-24", "score1": 38, "score2": 0, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 7 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
+  ["fb-2026-10-24-sidwell-friends-maret", {"id": "fb-2026-10-24-sidwell-friends-maret", "team1": "Sidwell Friends", "team2": "Maret", "date": "2026-10-24", "score1": 7, "score2": 42, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 7 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
+  ["fb-2026-10-23-st-stephens-st-agnes-st-john-paul-the-great", {"id": "fb-2026-10-23-st-stephens-st-agnes-st-john-paul-the-great", "team1": "St. Stephen's & St. Agnes", "team2": "Saint John Paul the Great", "date": "2026-10-23", "score1": 37, "score2": 18, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 4 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
+  ["fb-2026-10-24-flint-hill-st-james", {"id": "fb-2026-10-24-flint-hill-st-james", "team1": "Flint Hill", "team2": "Saint James", "date": "2026-10-24", "score1": 6, "score2": 34, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 6 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
+  ["md-fb-2026-10-23-fairmont-heights-frederick-douglass", {"id": "md-fb-2026-10-23-fairmont-heights-frederick-douglass", "team1": "Fairmont Heights", "team2": "Frederick Douglass", "date": "2026-10-23", "score1": 9, "score2": 36, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 4 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
+  ["md-fb-2026-10-23-flowers-potomac", {"id": "md-fb-2026-10-23-flowers-potomac", "team1": "Flowers", "team2": "Potomac", "date": "2026-10-24", "score1": 34, "score2": 7, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 7 of 7; explicitly approved these results on October 27. Saturday October 24 date shown; kickoff time not supplied.", "lastChecked": "2026-10-27", "expectedDate": "2026-10-23", "time": "TBD"}],
+  ["md-fb-2026-10-23-bladensburg-oxon-hill", {"id": "md-fb-2026-10-23-bladensburg-oxon-hill", "team1": "Bladensburg", "team2": "Oxon Hill", "date": "2026-10-24", "score1": 0, "score2": 56, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 6 of 7; explicitly approved these results on October 27. Saturday October 24 date shown; kickoff time not supplied.", "lastChecked": "2026-10-27", "expectedDate": "2026-10-23", "time": "TBD"}],
+  ["md-fb-2026-10-23-laurel-eleanor-roosevelt", {"id": "md-fb-2026-10-23-laurel-eleanor-roosevelt", "team1": "Laurel", "team2": "Eleanor Roosevelt", "date": "2026-10-24", "score1": 20, "score2": 17, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 6 of 7; explicitly approved these results on October 27. Saturday October 24 date shown; kickoff time not supplied.", "lastChecked": "2026-10-27", "expectedDate": "2026-10-23", "time": "TBD"}],
+  ["md-fb-2026-10-23-gwynn-park-friendly", {"id": "md-fb-2026-10-23-gwynn-park-friendly", "team1": "Gwynn Park", "team2": "Friendly", "date": "2026-10-23", "score1": "W", "score2": "L", "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 5 of 7; explicitly approved these results on October 27. Forfeit win/loss only; replaces erroneous 100-0 score without assigning points.", "lastChecked": "2026-10-27", "forfeit": true}],
   ["fb-2026-10-24-roosevelt-dunbar",{"id":"fb-2026-10-24-roosevelt-dunbar","team1":"Roosevelt","team2":"Dunbar","date":"2026-10-24","score1":19,"score2":34,"sourceUrl":"https://www.washingtonsun.com/sports/all-dmv/all-dmv-high-school-football-players-oct-26","sourceTier":"Independent reporting and MaxPreps","confirmation":"The Washington Sun original reporting and MaxPreps list Dunbar 34-19: https://www.maxpreps.com/dc/washington/dunbar-crimson-tide/football/schedule/","lastChecked":"2026-10-27"}],
   ["fb-2026-10-24-st-johns-catholic-prep-bishop-oconnell",{"id":"fb-2026-10-24-st-johns-catholic-prep-bishop-oconnell","team1":"St. John's Catholic Prep","team2":"Bishop O'Connell","date":"2026-10-24","score1":0,"score2":23,"sourceUrl":"https://www.arlnow.com/2026/10/26/oconnell-roundup-football-other-teams-are-enjoying-strong-seasons/","sourceTier":"Independent reporting and MaxPreps","confirmation":"ARLnow original game report and current MaxPreps recap confirm 23-0: https://www.maxpreps.com/news/Vlp-eFWmlUGL9xayeNxZGg/football-recap-st-johns-catholic-prep-falls-to-bishop-oconnell.htm","lastChecked":"2026-10-27"}],
   ["fb-2026-10-23-potomac-school-kipp-college-prep",{"id":"fb-2026-10-23-potomac-school-kipp-college-prep","team1":"Potomac School","team2":"KIPP College Prep","date":"2026-10-23","score1":35,"score2":12,"sourceUrl":"https://www.potomacschool.org/athletics/team/fall/varsity-football","sourceTier":"Official school","confirmation":"Potomac School official varsity schedule lists a 35-12 win at KIPP College Prep on October 23.","lastChecked":"2026-10-27"}],
@@ -32,18 +43,6 @@ const FINAL_RESULTS = new Map([
   "sourceUrl": "https://www.maxpreps.com/dc/football/game/mckinley-tech-washington-vs-ron-brown-washington/10-23-2026/?c=ed4e2a9e-0da1-48e2-b42b-6a0747231d44",
   "sourceTier": "MaxPreps and DCSportsFan",
   "confirmation": "October 23 varsity final McKinley Tech 7, Ron Brown 0 confirmed by MaxPreps final box score (7-0 in overtime) and independent original local DCSportsFan October 24 results: https://dcsportsfan.com/2026/10/24/football-scores/. Added once to shared game for both teams derived records; date/time unchanged.",
-  "lastChecked": "2026-10-24"
-}],
-  ["md-fb-2026-10-23-gwynn-park-friendly", {
-  "id": "md-fb-2026-10-23-gwynn-park-friendly",
-  "team1": "Gwynn Park",
-  "team2": "Friendly",
-  "date": "2026-10-23",
-  "score1": 100,
-  "score2": 0,
-  "sourceUrl": "https://www.maxpreps.com/md/fort-washington/friendly-patriots/football/schedule/",
-  "sourceTier": "MaxPreps and High School On SI",
-  "confirmation": "October 23 varsity final Gwynn Park 100, Friendly 0 independently listed by current MaxPreps team results and SBLive final game page: https://www.si.com/high-school/stats/maryland/football/games/6629849-gwynn-park-vs-friendly. Previously held single-source result now corroborated; SI Maryland roundup also lists 100-0. Dedicated MaxPreps matchup remains stale/unscored, not conflicting. Added once to shared game for both teams derived records; date/time unchanged.",
   "lastChecked": "2026-10-24"
 }],
   ["fb-2026-10-23-bishop-ireton-st-marys-ryken", {
@@ -975,13 +974,14 @@ export function applyFootballResultsOct9Finals(games = []) {
       ...(result.time ? { time: result.time } : {}),
       score1,
       score2,
+      ...(result.forfeit ? { forfeit: true } : {}),
       status: undefined,
-      scheduleStatus: "Final",
+      scheduleStatus: result.forfeit ? "Forfeit" : "Final",
       subjectToChange: false,
       verificationStatus: "Final",
       sourceTier,
       sourceUrl,
-      notes: `Final: ${game.team1} ${score1}, ${game.team2} ${score2}. ${confirmation}`,
+      notes: `${result.forfeit ? "Forfeit" : "Final"}: ${game.team1} ${score1}, ${game.team2} ${score2}. ${confirmation}`,
       lastChecked: result.lastChecked || "2026-10-10",
     };
   });

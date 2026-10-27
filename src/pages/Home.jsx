@@ -1,3 +1,4 @@
+import { resultValue } from "../dashboardUtils.js";
 import React, { useMemo, useState } from "react";
 import TeamProfile from "./TeamProfile";
 import "../components/ScoresTab.css";
@@ -278,7 +279,7 @@ const upcomingGames = useMemo(() => {
               {hasFavoriteHero ? "YOUR TEAM" : "FEATURED MATCHUP"}
             </p>
             <span className="hero-status">
-              {hasScore(heroGame) ? "FINAL" : "UPCOMING"}
+              {hasScore(heroGame) ? (heroGame.forfeit ? "FORFEIT" : "FINAL") : "UPCOMING"}
             </span>
           </div>
 
@@ -288,7 +289,7 @@ const upcomingGames = useMemo(() => {
               <span
                 className={
                   hasScore(heroGame)
-                    ? Number(heroGame.score1) > Number(heroGame.score2)
+                    ? resultValue(heroGame.score1) > resultValue(heroGame.score2)
                       ? "winner"
                       : "loser"
                     : ""
@@ -311,7 +312,7 @@ const upcomingGames = useMemo(() => {
               <span
                 className={
                   hasScore(heroGame)
-                    ? Number(heroGame.score2) > Number(heroGame.score1)
+                    ? resultValue(heroGame.score2) > resultValue(heroGame.score1)
                       ? "winner"
                       : "loser"
                     : ""
@@ -340,8 +341,8 @@ const upcomingGames = useMemo(() => {
 
           <div className="sport-scoreboard-grid">
             {sportScoreboard.map((game) => {
-              const team1Won = Number(game.score1) > Number(game.score2);
-              const team2Won = Number(game.score2) > Number(game.score1);
+              const team1Won = resultValue(game.score1) > resultValue(game.score2);
+              const team2Won = resultValue(game.score2) > resultValue(game.score1);
 
               return (
                 <div
@@ -371,7 +372,7 @@ const upcomingGames = useMemo(() => {
                     </div>
                   </div>
 
-                  <span className="scoreboard-mini-status">Final</span>
+                  <span className="scoreboard-mini-status">{game.forfeit ? "Forfeit" : "Final"}</span>
                 </div>
               );
             })}
@@ -540,8 +541,8 @@ const upcomingGames = useMemo(() => {
                 <p className="home-muted">No finals yet.</p>
               ) : (
                 finalGames.slice(0, 6).map((game) => {
-                  const team1Won = Number(game.score1) > Number(game.score2);
-                  const team2Won = Number(game.score2) > Number(game.score1);
+                  const team1Won = resultValue(game.score1) > resultValue(game.score2);
+                  const team2Won = resultValue(game.score2) > resultValue(game.score1);
 
                   return (
                   <div
@@ -590,7 +591,7 @@ const upcomingGames = useMemo(() => {
                           </div>
                         ))}
                       </div>
-                      <span className="scoreboard-mini-status">Final</span>
+                      <span className="scoreboard-mini-status">{game.forfeit ? "Forfeit" : "Final"}</span>
                     </div>
                   </div>
                   );

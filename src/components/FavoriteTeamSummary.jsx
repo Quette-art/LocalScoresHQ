@@ -24,10 +24,10 @@ export default function FavoriteTeamSummary({ team, games, today, onOpenTeam, on
           <span className="favoriteSummaryLabel"><CheckCircle2 size={14} aria-hidden="true" /> Latest result</span>
           <span className="favoriteSummaryMatchup">
             <TeamMascot teamName={team.teamName} className="favoriteSummaryGameLogo" />
-            <b className={`favoriteSummaryOutcome outcome${result.outcome}`}>{result.outcome} {result.ownScore}–{result.opponentScore}</b>
+            <b className={`favoriteSummaryOutcome outcome${result.outcome}`}>{lastGame.forfeit ? <>{result.outcome} · Forfeit</> : <>{result.outcome} {result.ownScore}–{result.opponentScore}</>}</b>
             <span className="favoriteSummaryOpponent"><span>vs</span><TeamMascot teamName={result.opponent} className="favoriteSummaryGameLogo" /><span>{result.opponent}</span></span>
           </span>
-          <small>{shortGameDate(lastGame.date)} · Final</small>
+          <small>{shortGameDate(lastGame.date)} · {lastGame.forfeit ? "Forfeit" : "Final"}</small>
         </button>
       ) : (
         <div className="favoriteSummaryEmpty"><span className="favoriteSummaryLabel">Latest result</span><p>No result recorded yet.</p></div>

@@ -1,3 +1,4 @@
+import { resultValue } from "../dashboardUtils.js";
 import React, { useState } from "react";
 import TeamMascot from "../components/TeamMascot";
 import { syncPushSubscription } from "../notifications";
@@ -120,8 +121,8 @@ export default function TeamProfile({
 
   conferenceGames.forEach((game) => {
     const isTeam1 = game.team1 === teamName;
-    const teamScore = Number(isTeam1 ? game.score1 : game.score2);
-    const opponentScore = Number(isTeam1 ? game.score2 : game.score1);
+    const teamScore = resultValue(isTeam1 ? game.score1 : game.score2);
+    const opponentScore = resultValue(isTeam1 ? game.score2 : game.score1);
 
     if (teamScore > opponentScore) {
       conferenceWins += 1;
@@ -140,11 +141,13 @@ export default function TeamProfile({
 
   completedGames.forEach((game) => {
     const isTeam1 = game.team1 === teamName;
-    const teamScore = Number(isTeam1 ? game.score1 : game.score2);
-    const opponentScore = Number(isTeam1 ? game.score2 : game.score1);
+    const teamScore = resultValue(isTeam1 ? game.score1 : game.score2);
+    const opponentScore = resultValue(isTeam1 ? game.score2 : game.score1);
 
-    pf += teamScore;
-    pa += opponentScore;
+    if (!game.forfeit) {
+      pf += teamScore;
+      pa += opponentScore;
+    }
 
     if (teamScore > opponentScore) {
       wins += 1;
@@ -171,8 +174,8 @@ export default function TeamProfile({
       .reverse()
       .map((game) => {
         const isTeam1 = game.team1 === teamName;
-        const teamScore = Number(isTeam1 ? game.score1 : game.score2);
-        const opponentScore = Number(isTeam1 ? game.score2 : game.score1);
+        const teamScore = resultValue(isTeam1 ? game.score1 : game.score2);
+        const opponentScore = resultValue(isTeam1 ? game.score2 : game.score1);
 
         if (teamScore > opponentScore) return "W";
         if (teamScore < opponentScore) return "L";
@@ -195,8 +198,8 @@ export default function TeamProfile({
 
   const getResultLetter = (game) => {
     const isTeam1 = game.team1 === teamName;
-    const teamScore = Number(isTeam1 ? game.score1 : game.score2);
-    const opponentScore = Number(isTeam1 ? game.score2 : game.score1);
+    const teamScore = resultValue(isTeam1 ? game.score1 : game.score2);
+    const opponentScore = resultValue(isTeam1 ? game.score2 : game.score1);
 
     if (teamScore > opponentScore) return "W";
     if (teamScore < opponentScore) return "L";
@@ -265,8 +268,8 @@ export default function TeamProfile({
 
   const getResult = (game) => {
     const isTeam1 = game.team1 === teamName;
-    const teamScore = Number(isTeam1 ? game.score1 : game.score2);
-    const opponentScore = Number(isTeam1 ? game.score2 : game.score1);
+    const teamScore = resultValue(isTeam1 ? game.score1 : game.score2);
+    const opponentScore = resultValue(isTeam1 ? game.score2 : game.score1);
 
     if (teamScore > opponentScore) return "W";
     if (teamScore < opponentScore) return "L";

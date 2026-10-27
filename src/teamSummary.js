@@ -1,4 +1,4 @@
-import { hasFinal, todayEastern } from "./dashboardUtils.js";
+import { hasFinal, todayEastern, resultValue } from "./dashboardUtils.js";
 
 export function teamSearchLabel(team) {
   const seen = new Set();
@@ -35,10 +35,11 @@ export function favoriteSummary(team, games, today = todayEastern()) {
   let result = null;
   if (lastGame) {
     const first = lastGame.team1 === team.teamName;
-    const ownScore = Number(first ? lastGame.score1 : lastGame.score2);
-    const opponentScore = Number(first ? lastGame.score2 : lastGame.score1);
+    const ownScore = resultValue(first ? lastGame.score1 : lastGame.score2);
+    const opponentScore = resultValue(first ? lastGame.score2 : lastGame.score1);
     result = {
-      ownScore, opponentScore,
+      ownScore: lastGame.forfeit ? (first ? lastGame.score1 : lastGame.score2) : ownScore,
+      opponentScore: lastGame.forfeit ? (first ? lastGame.score2 : lastGame.score1) : opponentScore,
       outcome: ownScore > opponentScore ? "W" : ownScore < opponentScore ? "L" : "T",
       opponent: first ? lastGame.team2 : lastGame.team1,
     };

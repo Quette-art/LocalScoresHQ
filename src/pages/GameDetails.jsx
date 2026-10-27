@@ -1,3 +1,4 @@
+import { resultValue } from "../dashboardUtils.js";
 import React, {
   useEffect,
   useMemo,
@@ -436,13 +437,9 @@ const GameDetails = ({
     localGame.score2 !== null &&
     localGame.score2 !== undefined;
 
-  const score1 = Number(
-    localGame.score1
-  );
+  const score1 = resultValue(localGame.score1);
 
-  const score2 = Number(
-    localGame.score2
-  );
+  const score2 = resultValue(localGame.score2);
 
   const team1Won =
     isFinal && score1 > score2;
@@ -493,8 +490,8 @@ const GameDetails = ({
       })
       .forEach((item) => {
         const isTeam1 = item.team1 === teamName;
-        const teamScore = Number(isTeam1 ? item.score1 : item.score2);
-        const opponentScore = Number(isTeam1 ? item.score2 : item.score1);
+        const teamScore = resultValue(isTeam1 ? item.score1 : item.score2);
+        const opponentScore = resultValue(isTeam1 ? item.score2 : item.score1);
 
         if (teamScore > opponentScore) wins += 1;
         else if (teamScore < opponentScore) losses += 1;
@@ -856,7 +853,7 @@ const GameDetails = ({
                 }`}
               >
                 {isFinal
-                  ? "FINAL"
+                  ? (localGame.forfeit ? "FORFEIT" : "FINAL")
                   : "UPCOMING"}
               </span>
 
@@ -925,7 +922,7 @@ const GameDetails = ({
 
           <div className="game-details-score-divider">
             <span>
-              {isFinal ? "FINAL" : "VS"}
+              {isFinal ? (localGame.forfeit ? "FORFEIT" : "FINAL") : "VS"}
             </span>
           </div>
 
@@ -997,7 +994,7 @@ const GameDetails = ({
 
               <strong>
                 {isFinal
-                  ? "Final"
+                  ? (localGame.forfeit ? "Forfeit" : "Final")
                   : "Scheduled"}
               </strong>
             </div>
@@ -1032,7 +1029,7 @@ const GameDetails = ({
                     <img src="/icon-192.png" alt="" />
                     <strong>LOCAL SCORES HQ</strong>
                   </div>
-                  <b>FINAL</b>
+                  <b>{localGame.forfeit ? "FORFEIT" : "FINAL"}</b>
                 </header>
 
                 <div className="share-score-event">

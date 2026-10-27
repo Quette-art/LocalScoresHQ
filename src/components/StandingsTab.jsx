@@ -1,3 +1,4 @@
+import { resultValue } from "../dashboardUtils.js";
 import React, { useMemo, useState } from "react";
 import { upcomingGames } from "../data/games";
 import {
@@ -119,9 +120,11 @@ const streak = (results) => {
   return `${latest}${count}`;
 };
 
-const addResult = (record, score, opponentScore, divisionGame) => {
-  record.pointsFor += score;
-  record.pointsAgainst += opponentScore;
+const addResult = (record, score, opponentScore, divisionGame, forfeit = false) => {
+  if (!forfeit) {
+    record.pointsFor += score;
+    record.pointsAgainst += opponentScore;
+  }
 
   const result = score > opponentScore ? "W" : score < opponentScore ? "L" : "T";
   record.results.push(result);
@@ -166,8 +169,8 @@ export default function StandingsTab({
       .forEach((game) => {
         const team1 = canonicalFootballTeamName(game.team1);
         const team2 = canonicalFootballTeamName(game.team2);
-        const score1 = Number(game.score1);
-        const score2 = Number(game.score2);
+        const score1 = resultValue(game.score1);
+        const score2 = resultValue(game.score2);
 
         [
           { name: team1, score: score1, opponentScore: score2 },
@@ -186,7 +189,7 @@ export default function StandingsTab({
               : false;
           }
 
-          addResult(table[name], score, opponentScore, divisionGame);
+          addResult(table[name], score, opponentScore, divisionGame, game.forfeit);
         });
       });
 

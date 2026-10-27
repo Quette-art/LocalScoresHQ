@@ -31,14 +31,15 @@ const pickGame = (game) => ({
   time: String(game.time || ""),
   location: String(game.location || ""),
   status: String(game.status || ""),
+  forfeit: game.forfeit === true,
   score1:
     game.score1 === null || game.score1 === undefined
       ? null
-      : Number(game.score1),
+      : game.forfeit ? game.score1 : Number(game.score1),
   score2:
     game.score2 === null || game.score2 === undefined
       ? null
-      : Number(game.score2),
+      : game.forfeit ? game.score2 : Number(game.score2),
 });
 
 const current = Object.fromEntries(

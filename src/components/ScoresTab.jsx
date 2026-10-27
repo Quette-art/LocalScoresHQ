@@ -1,3 +1,4 @@
+import { resultValue } from "../dashboardUtils.js";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   doc,
@@ -885,13 +886,13 @@ export default function ScoresTab({
 
             const team1Won =
               isFinal &&
-              Number(game.score1) >
-                Number(game.score2);
+              resultValue(game.score1) >
+                resultValue(game.score2);
 
             const team2Won =
               isFinal &&
-              Number(game.score2) >
-                Number(game.score1);
+              resultValue(game.score2) >
+                resultValue(game.score1);
 
             const team1Favorite =
               favoriteTeams.includes(
@@ -988,7 +989,7 @@ export default function ScoresTab({
                           "postponed"
                         ? "POSTPONED"
                         : isFinal
-                          ? "FINAL"
+                          ? (game.forfeit ? "FORFEIT" : "FINAL")
                           : "UPCOMING"}
                   </span>
                 </div>
@@ -1062,7 +1063,7 @@ export default function ScoresTab({
                           "postponed"
                         ? "POSTPONED"
                         : isFinal
-                          ? "FINAL"
+                          ? (game.forfeit ? "FORFEIT" : "FINAL")
                           : "UPCOMING"}
                   </span>
                 </div>

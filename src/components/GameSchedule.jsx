@@ -53,7 +53,7 @@ const GameSchedule = ({ games, selectedSport, selectedDivision }) => {
                 fontWeight: "600",
               }}
             >
-              {isFinal ? "FINAL" : "UPCOMING"}
+              {isFinal ? (game.forfeit ? "FORFEIT" : "FINAL") : "UPCOMING"}
             </div>
 
             {/* TEAM LOGOS AND NAMES */}
