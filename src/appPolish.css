@@ -477,3 +477,31 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .home-page .home-final-team.is-winner .home-final-score {
   color: var(--accent);
 }
+
+
+.notification-troubleshooting {
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.notification-troubleshooting summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.notification-troubleshooting summary::-webkit-details-marker { display: none; }
+.notification-troubleshooting summary::before { content: "▸"; }
+.notification-troubleshooting[open] summary::before { content: "▾"; }
+.notification-troubleshooting p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}

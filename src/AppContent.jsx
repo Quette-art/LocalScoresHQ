@@ -530,22 +530,26 @@ export default function AppContent() {
                 />
                 <span>Schedule changes</span>
               </label>
-              <button
-                type="button"
-                className="submit-score-btn"
-                style={{ marginTop: 14, width: "100%" }}
-                onClick={async () => {
-                  setNotifTestStatus("Sending a test in five seconds. Lock your iPhone now.");
-                  try {
-                    await sendIphonePushTest();
-                    setNotifTestStatus("The push service accepted the test. Check your iPhone's Notification Center.");
-                  } catch (error) {
-                    setNotifTestStatus(error?.message || "The push test failed.");
-                  }
-                }}
-              >
-                Test iPhone background notification
-              </button>
+              <details className="notification-troubleshooting">
+                <summary>Troubleshoot notifications</summary>
+                <p>Check whether notifications reach your iPhone while the app is in the background.</p>
+                <button
+                  type="button"
+                  className="submit-score-btn"
+                  style={{ marginTop: 14, width: "100%" }}
+                  onClick={async () => {
+                    setNotifTestStatus("Sending a test in five seconds. Lock your iPhone now.");
+                    try {
+                      await sendIphonePushTest();
+                      setNotifTestStatus("The push service accepted the test. Check your iPhone's Notification Center.");
+                    } catch (error) {
+                      setNotifTestStatus(error?.message || "The push test failed.");
+                    }
+                  }}
+                >
+                  Test iPhone background notification
+                </button>
+              </details>
               {notifTestStatus && (
                 <p role="status" aria-live="polite" style={{ fontSize: 13, marginTop: 10 }}>
                   {notifTestStatus}
