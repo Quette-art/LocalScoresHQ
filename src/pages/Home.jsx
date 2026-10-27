@@ -567,36 +567,31 @@ const upcomingGames = useMemo(() => {
     )}
   </span>
 
-                      <div className="home-final-matchup">
-                        <button
-                          className={team1Won ? "winner" : "loser"}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openTeam(game, game.team1);
-                          }}
-                        >
-                          <TeamAvatar name={game.team1} />
-                          {game.team1}
-                        </button>
-
-                        <span>VS</span>
-
-                        <button
-                          className={team2Won ? "winner" : "loser"}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openTeam(game, game.team2);
-                          }}
-                        >
-                          <TeamAvatar name={game.team2} />
-                          {game.team2}
-                        </button>
+                      <div className="home-final-teams">
+                        {[
+                          { name: game.team1, score: game.score1, won: team1Won },
+                          { name: game.team2, score: game.score2, won: team2Won },
+                        ].map(({ name, score, won }, index) => (
+                          <div
+                            className={`home-final-team ${won ? "is-winner" : team1Won || team2Won ? "is-loser" : "is-tied"}`}
+                            key={index}
+                          >
+                            <button
+                              className="home-final-team-link"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openTeam(game, name);
+                              }}
+                            >
+                              <TeamAvatar name={name} />
+                              <span className="home-final-team-name">{name}</span>
+                            </button>
+                            <b className="home-final-score">{score}</b>
+                          </div>
+                        ))}
                       </div>
+                      <span className="scoreboard-mini-status">Final</span>
                     </div>
-
-                    <b className="score-display">
-                      {game.score1} - {game.score2}
-                    </b>
                   </div>
                   );
                 })
