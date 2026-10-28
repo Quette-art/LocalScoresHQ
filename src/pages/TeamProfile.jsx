@@ -57,7 +57,7 @@ export default function TeamProfile({
 
     setFavoriteTeams(updated);
     localStorage.setItem("favoriteTeams", JSON.stringify(updated));
-    if (getNotificationPrefs().enabled) {
+    if (isFavorite || getNotificationPrefs().enabled) {
       void syncPushSubscription({ favorites: updated });
     }
     if (!isFavorite) {

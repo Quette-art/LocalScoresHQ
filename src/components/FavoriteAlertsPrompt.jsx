@@ -61,13 +61,30 @@ export default function FavoriteAlertsPrompt({ onPreferencesChanged }) {
   const needsHomeScreen = isApple && !standalone;
   const later = () => setTeam(null);
   const save = async () => {
-    if (!prefs.scores && !prefs.schedule) { setMessage("Choose at least one alert type, or choose Not now."); return; }
+    const previous = getNotificationPrefs();
+    if (!prefs.scores && !prefs.schedule) {
+      setBusy(true);
+      setMessage("");
+      const disabled = { ...previous, enabled: false, scores: false, schedule: false };
+      saveNotificationPrefs(disabled);
+      // Turning alerts off never asks for OS permission or creates a subscription.
+      const ok = !previous.enabled || await syncPushSubscription({ prefs: disabled });
+      if (!ok) {
+        saveNotificationPrefs(previous);
+        setMessage("We couldn't turn off alerts. Please try again.");
+        setBusy(false);
+        return;
+      }
+      onPreferencesChanged?.(disabled);
+      setBusy(false);
+      setTeam(null);
+      return;
+    }
     if (needsHomeScreen) { setMessage("Add LocalScoresHQ to your Home Screen, open it from there, then turn on alerts in Settings."); return; }
     if (!("Notification" in window)) { setMessage("Notifications aren't available in this browser. You can keep following your teams without alerts."); return; }
     if (Notification.permission === "denied") { setMessage("Notifications are blocked. Allow them in your device or browser settings, then try again."); return; }
     setBusy(true);
     setMessage("");
-    const previous = getNotificationPrefs();
     const selected = { ...previous, scores: prefs.scores, schedule: prefs.schedule };
     saveNotificationPrefs(selected);
     if (previous.enabled) {
@@ -98,7 +115,7 @@ export default function FavoriteAlertsPrompt({ onPreferencesChanged }) {
         <label className="favorite-alert-option"><span><strong>Schedule changes</strong><small>Changes, postponements, and cancellations</small></span><input type="checkbox" checked={!!prefs.schedule} onChange={(e) => setPrefs({ ...prefs, schedule: e.target.checked })} /></label>
         {needsHomeScreen && <p className="favorite-alert-note">On iPhone, add LocalScoresHQ to your Home Screen, open it there, and follow your teams again to enable alerts.</p>}
         {message && <p className="favorite-alert-note" role="status">{message}</p>}
-        <button type="button" className="favorite-alert-primary" disabled={busy} onClick={save}>{busy ? "Setting up…" : prefs.enabled ? "Save alert settings" : "Enable alerts"}</button>
+        <button type="button" className="favorite-alert-primary" disabled={busy} onClick={save}>{busy ? "Setting up…" : prefs.enabled || (!prefs.scores && !prefs.schedule) ? "Save alert settings" : "Enable alerts"}</button>
         <button type="button" className="favorite-alert-later" disabled={busy} onClick={later}>{prefs.enabled ? "Done" : "Not now"}</button>
       </section>
     </div>, document.body
