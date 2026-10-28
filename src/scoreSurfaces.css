@@ -73,3 +73,55 @@
     color: #b9cce0 !important;
   }
 }
+
+/* Mobile game lists reach both screen edges; only their content is inset. */
+@media (max-width: 900px) {
+  .appShell:has(.mainContent > .scores-tab),
+  .mainContent:has(> .scores-tab) {
+    padding-inline: 0 !important;
+  }
+
+  .mainContent > .scores-tab {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .scores-tab .games-list {
+    padding: 0 !important;
+    gap: 0;
+  }
+
+  .home-page .home-section-card {
+    padding-inline: 0 !important;
+  }
+
+  .home-page .home-section-card .section-header {
+    margin-inline: 16px;
+  }
+
+  .home-page .sport-scoreboard-grid,
+  .home-page .favorite-strip {
+    gap: 0;
+  }
+
+  .home-page .scoreboard-mini-row,
+  .home-page .home-game-feed-row,
+  .home-page .home-final-row,
+  .home-page .favorite-mini-card,
+  .scores-tab .game-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border-inline: 0 !important;
+    border-top: 0 !important;
+    padding: 16px !important;
+  }
+
+  .home-page .home-section-card > .home-muted {
+    margin-inline: 16px;
+  }
+}
