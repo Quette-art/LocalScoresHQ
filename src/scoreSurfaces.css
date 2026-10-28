@@ -1,17 +1,19 @@
 /* Separate each game from the page without adding extra outer containers. */
 :root {
-  --score-card-fill: #eef5ff;
-  --score-card-edge: #c9dcf4;
-  --score-feature-fill: linear-gradient(125deg, #e1edff 0%, #f1f7ff 70%);
-  --score-feature-edge: #9fc3ef;
+  --score-card-fill: linear-gradient(120deg, rgb(59 130 246 / 3%), transparent 45%), #ffffff;
+  --score-card-edge: #dce5ef;
+  --score-feature-fill: linear-gradient(125deg, #f0f5fc 0%, #ffffff 65%);
+  --score-feature-edge: #cedcec;
+  --score-feature-accent: #a6c5e7;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --score-card-fill: #132e47;
-    --score-card-edge: #2d4b69;
-    --score-feature-fill: linear-gradient(125deg, #194369 0%, #112b45 75%);
-    --score-feature-edge: #376893;
+    --score-card-fill: linear-gradient(120deg, rgb(59 130 246 / 5%), transparent 45%), #0c1926;
+    --score-card-edge: #24384d;
+    --score-feature-fill: linear-gradient(125deg, #102338 0%, #0b1825 65%);
+    --score-feature-edge: #294259;
+    --score-feature-accent: #365e83;
   }
 }
 
@@ -46,7 +48,7 @@
 .home-page .home-hero-card {
   background: var(--score-feature-fill) !important;
   border: 1px solid var(--score-feature-edge) !important;
-  border-top: 3px solid var(--accent) !important;
+  border-top: 2px solid var(--score-feature-accent) !important;
 }
 
 /* Upcoming teams have no winner/loser class, so set their contrast explicitly. */
