@@ -23,6 +23,7 @@ import "./systemDarkMode.css";
 import "./appPolish.css";
 import "./shareWorkspace.css";
 import "./mobileUsability.css";
+import "./scoreSurfaces.css";
 import { installZoomGuard } from "./zoomGuard.js";
 
 installZoomGuard(document);

@@ -1,0 +1,73 @@
+/* Separate each game from the page without adding extra outer containers. */
+:root {
+  --score-card-fill: #eef5ff;
+  --score-card-edge: #c9dcf4;
+  --score-feature-fill: linear-gradient(125deg, #e1edff 0%, #f1f7ff 70%);
+  --score-feature-edge: #9fc3ef;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --score-card-fill: #132e47;
+    --score-card-edge: #2d4b69;
+    --score-feature-fill: linear-gradient(125deg, #194369 0%, #112b45 75%);
+    --score-feature-edge: #376893;
+  }
+}
+
+.home-page .scoreboard-mini-row,
+.home-page .home-game-feed-row,
+.home-page .home-final-row,
+.home-page .favorite-mini-card,
+.scores-tab .game-card {
+  background: var(--score-card-fill) !important;
+  border: 1px solid var(--score-card-edge) !important;
+  border-radius: 14px !important;
+  padding: 14px !important;
+  box-shadow: none !important;
+  min-width: 0;
+}
+
+.home-page .sport-scoreboard-grid,
+.home-page .favorite-strip {
+  gap: 10px;
+}
+
+.home-page .home-game-feed-row,
+.home-page .home-final-row {
+  margin-bottom: 10px;
+}
+
+.scores-tab .games-list {
+  gap: 10px;
+  padding: 12px;
+}
+
+.home-page .home-hero-card {
+  background: var(--score-feature-fill) !important;
+  border: 1px solid var(--score-feature-edge) !important;
+  border-top: 3px solid var(--accent) !important;
+}
+
+/* Upcoming teams have no winner/loser class, so set their contrast explicitly. */
+.home-page .home-hero-card .hero-team > span:not(.team-avatar) {
+  color: var(--text) !important;
+}
+
+.home-page .home-hero-card .hero-team > span.loser {
+  color: var(--muted) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .home-page .home-section-card {
+    background: transparent !important;
+  }
+
+  .home-page .home-hero-card .hero-team > span:not(.team-avatar) {
+    color: #f8fafc !important;
+  }
+
+  .home-page .home-hero-card .hero-team > span.loser {
+    color: #b9cce0 !important;
+  }
+}
