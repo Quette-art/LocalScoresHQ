@@ -175,7 +175,7 @@ function favoriteCandidates(game = {}) {
   );
 }
 
-function subscriptionMatchesGame(subscription, game, preference) {
+export function subscriptionMatchesGame(subscription, game, preference) {
   const prefs = normalizePrefs(subscription.prefs);
   if (!prefs.enabled || !prefs[preference]) return false;
 
