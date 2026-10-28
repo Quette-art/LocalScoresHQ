@@ -82,7 +82,7 @@ export default function FavoriteAlertsPrompt({ onPreferencesChanged }) {
     setPrefs(updated);
     onPreferencesChanged?.(updated);
     setBusy(false);
-    setMessage("Alerts are on for your favorite teams.");
+    setTeam(null);
   };
 
   return createPortal(
