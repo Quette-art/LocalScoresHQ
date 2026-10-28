@@ -2225,7 +2225,7 @@ button, input, select { font-family: inherit; }
   gap: 0;
   padding: 0 4px;
   margin: 0;
-  border-bottom: 1px solid #E5E7EB;
+  border-bottom: 0;
 }
 
 .date-btn {
