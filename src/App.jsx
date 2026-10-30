@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, useLocation } from "react-router-dom";
+import { startActivityTracking } from "./siteActivity";
 import AppContent from "./AppContent";
 import "./components/ScoresTab.css";
 
@@ -14,6 +15,7 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  React.useEffect(() => startActivityTracking(), []);
   return (
     <BrowserRouter>
       <ScrollToTop />

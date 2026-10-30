@@ -1,3 +1,4 @@
+import { saveTrackedFavorites } from "../siteActivity";
 import React, { useEffect, useMemo, useState } from "react";
 import TeamMascot from "./TeamMascot";
 import FavoriteTeamSummary from "./FavoriteTeamSummary";
@@ -140,7 +141,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
   const addFavorite = (key) => {
     const updated = [...favoriteTeams, key];
     setFavoriteTeams(updated);
-    localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+    saveTrackedFavorites(updated);
     if (getNotificationPrefs().enabled) {
       void syncPushSubscription({ favorites: updated });
     }
@@ -150,7 +151,7 @@ export default function FavoritesTab({ games = [], openTeamRoute, setActiveTab, 
   const removeFavorite = (key) => {
     const updated = favoriteTeams.filter((favoriteKey) => favoriteKey !== key);
     setFavoriteTeams(updated);
-    localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+    saveTrackedFavorites(updated);
     void syncPushSubscription({ favorites: updated });
   };
 

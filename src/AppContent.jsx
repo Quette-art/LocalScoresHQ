@@ -1,3 +1,4 @@
+import AdminSiteStats from "./components/AdminSiteStats";
 import { teamSearchLabel } from "./teamSummary.js";
 import { Search, Settings } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
@@ -321,7 +322,7 @@ export default function AppContent() {
 
   // Direct preview links and browser refreshes must select the admin workspace.
   useEffect(() => {
-    if (location.pathname === "/admin/scores") {
+    if (location.pathname.startsWith("/admin/")) {
       setActiveTab("admin");
       sessionStorage.setItem("activeTab", "admin");
     }
@@ -544,12 +545,14 @@ export default function AppContent() {
                 </p>
               )}
             </div>
+            <p className="settings-status">Anonymous device activity and favorite-team totals help us improve LocalScoresHQ. No names or email addresses are collected for these stats.</p>
             <details className="admin-access">
               <summary>Admin access</summary>
               <div className="admin-access-content">
                 {isAdmin ? (
                   <>
                     <p className="settings-status">Signed in as admin</p>
+                    <button className="submit-score-btn" onClick={() => { navigate("/admin/stats"); setShowSettings(false); }} style={{ width: "100%", marginBottom: 10 }}>Audience & team stats</button>
                     <button className="submit-score-btn" onClick={() => { handleTabChange("admin"); setShowSettings(false); }} style={{ width: "100%", marginBottom: 10 }}>Score Management Dashboard</button>
                     <button className="submit-score-btn" onClick={handleLogout}>Sign Out</button>
                   </>
@@ -615,6 +618,7 @@ export default function AppContent() {
             />
           }
         />
+        <Route path="/admin/stats" element={<main className="mainContent">{isAdmin ? <AdminSiteStats /> : <div className="no-games"><p>Sign in through Settings to access audience stats.</p><button type="button" className="submit-score-btn" onClick={() => setShowSettings(true)}>Open admin sign in</button></div>}</main>} />
         <Route path="/team" element={<TeamProfileRoute games={games} onGameClick={openGameDetails} />} />
         <Route
           path="/admin/scores"
