@@ -1,6 +1,8 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-10-29-ballou-dunbar", {"id":"fb-2026-10-29-ballou-dunbar", "team1":"Ballou", "team2":"Dunbar", "date":"2026-10-29", "score1":0, "score2":35, "sourceUrl":"https://www.instagram.com/the_nsmt/", "sourceTier":"User-provided NSMT scoreboard", "confirmation":"User provided October 29 NSMT final scoreboard and requested publication.", "lastChecked":"2026-10-30"}],
+  ["fb-2026-10-30-phelps-ace-mckinley-tech", {"id":"fb-2026-10-30-phelps-ace-mckinley-tech", "team1":"Phelps ACE", "team2":"McKinley Tech", "expectedDate":"2026-10-30", "date":"2026-10-29", "score1":18, "score2":31, "sourceUrl":"https://www.instagram.com/the_nsmt/", "sourceTier":"User-provided NSMT scoreboard", "confirmation":"User provided October 29 NSMT final scoreboard and requested publication; game date corrected from October 30.", "lastChecked":"2026-10-30"}],
   ["fb-2026-10-24-dematha-st-johns", {"id": "fb-2026-10-24-dematha-st-johns", "team1": "DeMatha", "team2": "St. John’s", "date": "2026-10-24", "score1": 0, "score2": 12, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 1 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
   ["fb-2026-10-24-episcopal-landon", {"id": "fb-2026-10-24-episcopal-landon", "team1": "Episcopal", "team2": "Landon", "date": "2026-10-24", "score1": 47, "score2": 7, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 6 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
   ["fb-2026-10-24-bell-h-d-woodson", {"id": "fb-2026-10-24-bell-h-d-woodson", "team1": "Bell", "team2": "H.D. Woodson", "date": "2026-10-24", "score1": 38, "score2": 0, "sourceUrl": "https://www.instagram.com/the_nsmt/", "sourceTier": "User-approved NSMT original reporting", "confirmation": "User supplied NSMT October 25 weekend scoreboard, page 7 of 7; explicitly approved these results on October 27.", "lastChecked": "2026-10-27"}],
@@ -986,5 +988,6 @@ export function applyFootballResultsOct9Finals(games = []) {
     };
   });
 }
+
 
 
