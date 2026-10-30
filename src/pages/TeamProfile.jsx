@@ -1,3 +1,4 @@
+import { saveTrackedFavorites } from "../siteActivity";
 import { resultValue } from "../dashboardUtils.js";
 import React, { useState } from "react";
 import TeamMascot from "../components/TeamMascot";
@@ -56,7 +57,7 @@ export default function TeamProfile({
     }
 
     setFavoriteTeams(updated);
-    localStorage.setItem("favoriteTeams", JSON.stringify(updated));
+    saveTrackedFavorites(updated);
     if (isFavorite || getNotificationPrefs().enabled) {
       void syncPushSubscription({ favorites: updated });
     }

@@ -7,7 +7,7 @@ const app = readFileSync(new URL("../src/AppContent.jsx", import.meta.url), "utf
 
 test("dashboard, game, and team deep links load the single-page app", () => {
   const redirects = new Map((config.rewrites || []).map(({ source, destination }) => [source, destination]));
-  for (const route of ["/admin/scores", "/game", "/team"]) {
+  for (const route of ["/admin/scores", "/admin/stats", "/game", "/team"]) {
     assert.equal(redirects.get(route), "/index.html", route);
   }
 });
@@ -29,5 +29,5 @@ test("dashboard direct URL has a React route and an admin-only view", () => {
 
 test("opening dashboard from app navigation points to its shareable route", () => {
   assert.match(app, /tab === "admin" \? "\/admin\/scores" : "\/"/);
-  assert.match(app, /if \(location.pathname === "\/admin\/scores"\)/);
+  assert.match(app, /location.pathname.startsWith\("\/admin\/"\)/);
 });

@@ -3,6 +3,7 @@ import {
   AlertCircle, ArrowRight, Bell, Check, CheckCircle2, Clock3,
   ExternalLink, FileSearch, RefreshCw, Search, ShieldCheck, Trophy, X,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 import { calculateTeamRecords, dashboardGames, todayEastern } from "../dashboardUtils";
 import "./AdminScoreDashboard.css";
@@ -175,7 +176,7 @@ export default function AdminScoreDashboard({ games = [], onOpenGame, adminUser 
       <header className="scoreAdminHero">
         <div>
           <div className="scoreAdminEyebrow"><ShieldCheck size={14} /> PRIVATE ADMIN WORKSPACE</div>
-          <h1>Score Management</h1>
+          <Link to="/admin/stats" style={{ color: "#60a5fa", display: "inline-flex", padding: "12px 0", minHeight: 44 }}>Audience &amp; team stats →</Link><h1>Score Management</h1>
           <p>Track unfinished games, verify results, manage corrections, and see push-service activity.</p>
         </div>
         <button type="button" onClick={refresh} disabled={loading} className="scoreAdminRefresh">

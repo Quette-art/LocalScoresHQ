@@ -12,6 +12,10 @@
   ],
   "rewrites": [
     {
+      "source": "/admin/stats",
+      "destination": "/index.html"
+    },
+    {
       "source": "/admin/scores",
       "destination": "/index.html"
     },
