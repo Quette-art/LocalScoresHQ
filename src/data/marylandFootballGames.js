@@ -1003,6 +1003,9 @@ const schedule = [
   ],
 ];
 
-export const marylandFootballGames = schedule.map(makeGame);
+export const marylandFootballGames = [
+  ...schedule.map(makeGame),
+  {"id":"md-fb-2026-10-30-mcdonogh-concordia-prep","sport":"Football","division":"Varsity","ageGroup":"Varsity","date":"2026-10-30","time":"TBD","team1":"McDonogh","team2":"Concordia Prep","score1":45,"score2":7,"scheduleStatus":"Final","verificationStatus":"Final","subjectToChange":false,"sourceTier":"Team-shared final graphic","sourceUrl":"https://www.instagram.com/mcdonoghfootball/","notes":"Final: McDonogh 45, Concordia Prep 7. User supplied McDonogh football's repost of the Maryland Football Scores final graphic and requested publication.","lastChecked":"2026-10-31"},
+];
 
 export default marylandFootballGames;
