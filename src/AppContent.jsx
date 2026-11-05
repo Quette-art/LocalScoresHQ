@@ -89,7 +89,9 @@ export default function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(() => {
-    return sessionStorage.getItem("activeTab") || "home";
+    return new URLSearchParams(location.search).get("tab") === "favorites"
+      ? "favorites"
+      : sessionStorage.getItem("activeTab") || "home";
   });
   const [selectedSport, setSelectedSport] = useState("Football");
   const [games, setGames] = useState(upcomingGames);
@@ -315,10 +317,21 @@ export default function AppContent() {
     setSelectedGame(null);
     sessionStorage.removeItem("selectedGame");
     const destination = tab === "admin" ? "/admin/scores" : "/";
-    if (location.pathname !== destination) {
-      navigate(destination);
+    const search = tab === "favorites" ? "?tab=favorites" : "";
+    if (location.pathname !== destination || location.search !== search) {
+      navigate({ pathname: destination, search });
     }
   };
+
+  // Shareable Favorites links take precedence over a previously remembered tab.
+  useEffect(() => {
+    if (location.pathname === "/" && new URLSearchParams(location.search).get("tab") === "favorites") {
+      setActiveTab("favorites");
+      sessionStorage.setItem("activeTab", "favorites");
+      setSelectedGame(null);
+      sessionStorage.removeItem("selectedGame");
+    }
+  }, [location.pathname, location.search]);
 
   // Direct preview links and browser refreshes must select the admin workspace.
   useEffect(() => {
