@@ -1,6 +1,7 @@
 const SCOREBOARD_URL = "https://www.maxpreps.com/md/football/scores/?date=10/9/2026";
 const ROUNDUP_URL = "https://www.si.com/high-school/maryland/maryland-high-school-football-final-scores-friday-october-9-2026-01m4jkfexze5";
 const FINAL_RESULTS = new Map([
+  ["fb-2026-11-06-ron-brown-phelps-ace",{"id":"fb-2026-11-06-ron-brown-phelps-ace","team1":"Ron Brown","team2":"Phelps ACE","expectedDate":"2026-11-06","date":"2026-11-05","score1":30,"score2":28,"sourceUrl":"https://www.instagram.com/dmv_hs_football/reel/DfZwqn-hbMV/","sourceTier":"Original local reporting and MaxPreps","confirmation":"DMV HS Football and MaxPreps independently agree: https://www.maxpreps.com/news/Tm30rB3bHE6mUPinf0GQuQ/football-recap-ron-brown-rallies-for-the-win.htm. Phelps ACE official calendar confirms November 5 at 6:00 PM.","lastChecked":"2026-11-06"}],
 ["fb-2026-10-30-kipp-dc-legacy-digital-pioneers-academy",{"id":"fb-2026-10-30-kipp-dc-legacy-digital-pioneers-academy","team1":"KIPP DC Legacy","team2":"Digital Pioneers Academy","date":"2026-10-30","score1":6,"score2":42,"sourceUrl":"https://fan.hudl.com/usa/dc/washington/organization/175525/digital-pioneers-aca-high-school/team/737923/boys-varsity-football","sourceTier":"Official team Hudl","confirmation":"Official varsity team Hudl lists October30 win42-6 over KIPP DC Legacy; MaxPreps agrees. Shared canonical result updates both teams and derived records once.","lastChecked":"2026-11-03"}],
 ["fb-2026-10-30-st-vincent-st-vincent-pallotti-boys-latin",{"id":"fb-2026-10-30-st-vincent-st-vincent-pallotti-boys-latin","team1":"St. Vincent Pallotti","team2":"Boys Latin","date":"2026-10-30","score1":3,"score2":56,"sourceUrl":"https://www.boyslatinmd.com/athletics/schedule-and-teams","sourceTier":"Official school","confirmation":"Boys Latin official varsity results confirm56-3 over St Vincent Pallotti; MaxPreps agrees. Shared canonical game updates both teams and derived records once.","lastChecked":"2026-11-02"}],
 ["fb-2026-10-30-bishop-ireton-paul-vi",{"id":"fb-2026-10-30-bishop-ireton-paul-vi","team1":"Bishop Ireton","team2":"Paul VI","date":"2026-10-30","score1":22,"score2":35,"sourceUrl":"https://www.on3.com/sites/virginia-preps/news/virginia-high-school-football-scores-10-29-26-through-10-31-26-week-10-of-2026-season/","sourceTier":"Original local reporting and MaxPreps","confirmation":"Matthew Hatfield VirginiaPreps original Week10 scoreboard and MaxPreps final agree PaulVI35-22. RepositoryOct30 date retained. Shared canonical game updates both teams and derived records once.","lastChecked":"2026-11-02"}],
@@ -1071,11 +1072,6 @@ const NOVEMBER_5_PLAYOFF_FINALS = [
 ];
 
 const NOVEMBER_5_DATE_CORRECTIONS = {
-  "fb-2026-11-06-ron-brown-phelps-ace": [
-    "https://www.phelpshsdc.org/apps/events/event.jsp?d=2026-11-05&eREC_ID=5997573&id=0",
-    "Official school calendar",
-    "Phelps ACE’s November calendar lists the varsity game on November 5 at 6:00 PM, superseding the earlier graphic."
-  ],
   "fb-2026-11-06-mckinley-tech-cardozo": [
     "https://dcsportsfan.com/",
     "Cross-checked schedule",
