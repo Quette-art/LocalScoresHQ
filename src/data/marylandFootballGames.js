@@ -1003,7 +1003,7 @@ const schedule = [
   ],
 ];
 
-// MPSSAA first round. Team 1 is the visitor; kickoff times are Eastern.
+// MPSSAA first round. Kickoff times are Eastern.
 const playoffSchedule = [
   ["2026-11-06", "6:00 PM", "Meade", "Bowie", "4a"],
   ["2026-11-06", "6:30 PM", "North Caroline", "Largo", "2a"],
@@ -1022,12 +1022,13 @@ export const marylandFootballGames = [
   ...schedule.map(makeGame),
   ...playoffSchedule.map(([date, time, visitor, host, classification]) => ({
     ...makeGame([
-      date, time, visitor, host, host,
+      date, time, host, visitor, host,
       `MPSSAA Class ${classification.toUpperCase()} regional first round.`,
       false,
       `https://mdfootballscores.com/playoffs/2026-brackets/class-${classification}/`,
       "2026-11-06",
     ]),
+    id: `md-fb-${date}-${slugify(visitor)}-${slugify(host)}`,
     sourceTier: "Maryland High School Football Scores playoff bracket",
   })),
   {"id":"md-fb-2026-10-31-maryland-school-for-the-deaf-girard-college","sport":"Football","division":"Varsity","ageGroup":"Varsity","date":"2026-10-31","time":"TBD","team1":"Maryland School for the Deaf","team2":"Girard College","score1":50,"score2":14,"scheduleStatus":"Final","verificationStatus":"Final","subjectToChange":false,"sourceTier":"User-approved Maryland High School Football Scores report","sourceUrl":"https://www.instagram.com/mdhsscores/p/DfLG_tJNL7T/","notes":"Final: Maryland School for the Deaf 50, Girard College 14. Final caption read directly; user requested publication. Date follows October 31 Saturday finals reporting.","lastChecked":"2026-10-31"},
