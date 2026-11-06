@@ -988,9 +988,110 @@ const FINAL_RESULTS = new Map([
   ]
 ]);
 
+const NOVEMBER_5_PLAYOFF_FINALS = [
+  {
+    "id": "md-fb-2026-11-05-bladensburg-suitland",
+    "date": "2026-11-05",
+    "team1": "Bladensburg",
+    "team2": "Suitland",
+    "score1": 0,
+    "score2": 70,
+    "time": "6:00 PM",
+    "location": "Bladensburg High School",
+    "sport": "Football",
+    "division": "Varsity",
+    "ageGroup": "Varsity",
+    "scheduleStatus": "Final",
+    "subjectToChange": false,
+    "verificationStatus": "Final",
+    "sourceTier": "Independently corroborated",
+    "sourceUrl": "https://www.instagram.com/mdhsscores/p/DfYjOkGtZJX/",
+    "notes": "MPSSAA first round. Final: Bladensburg 0, Suitland 70. User-supplied photo shows the Bladensburg scoreboard at 0:00, 0–70; the Associated Press and Maryland High School Football Scores agree. Independent confirmation: https://www.thehour.com/sports/article/thursday-s-scores-22515695.php",
+    "lastChecked": "2026-11-06"
+  },
+  {
+    "id": "md-fb-2026-11-05-potomac-kennedy",
+    "date": "2026-11-05",
+    "team1": "Potomac",
+    "team2": "Kennedy",
+    "score1": 41,
+    "score2": 6,
+    "time": "6:30 PM",
+    "location": "Kennedy High School",
+    "sport": "Football",
+    "division": "Varsity",
+    "ageGroup": "Varsity",
+    "scheduleStatus": "Final",
+    "subjectToChange": false,
+    "verificationStatus": "Final",
+    "sourceTier": "Independently corroborated",
+    "sourceUrl": "https://www.instagram.com/mdhsscores/p/DfYgSWbt3Fe/",
+    "notes": "MPSSAA first round. Final: Potomac 41, Kennedy 6. Independent confirmation: https://mocoshow.com/2026/11/05/maryland-high-school-football-playoffs-first-round-scores-thursday-games/",
+    "lastChecked": "2026-11-06"
+  },
+  {
+    "id": "md-fb-2026-11-05-green-street-academy-lake-clifton",
+    "date": "2026-11-05",
+    "team1": "Green Street Academy",
+    "team2": "Lake Clifton",
+    "score1": 8,
+    "score2": 0,
+    "time": "TBD",
+    "sport": "Football",
+    "division": "Varsity",
+    "ageGroup": "Varsity",
+    "scheduleStatus": "Final",
+    "subjectToChange": false,
+    "verificationStatus": "Final",
+    "sourceTier": "Independently corroborated",
+    "sourceUrl": "https://www.instagram.com/mdhsscores/p/DfYVFgGtwQs/",
+    "notes": "MPSSAA first round. Final: Green Street Academy 8, Lake Clifton 0. Independent confirmation: https://www.thehour.com/sports/article/thursday-s-scores-22515695.php",
+    "lastChecked": "2026-11-06"
+  },
+  {
+    "id": "md-fb-2026-11-05-north-east-harford-tech",
+    "date": "2026-11-05",
+    "team1": "North East",
+    "team2": "Harford Tech",
+    "score1": 0,
+    "score2": 55,
+    "time": "TBD",
+    "location": "Harford Tech",
+    "sport": "Football",
+    "division": "Varsity",
+    "ageGroup": "Varsity",
+    "scheduleStatus": "Final",
+    "subjectToChange": false,
+    "verificationStatus": "Final",
+    "sourceTier": "Independently corroborated",
+    "sourceUrl": "https://www.instagram.com/mdhsscores/p/DfYZ-MotZPV/",
+    "notes": "MPSSAA first round. Final: North East 0, Harford Tech 55. Independent confirmation: https://www.maxpreps.com/news/quGfLFqJykeToa3DqqyqTA/football-recap-harford-tech-takes-down-north-east-in-a-playoff-battle--how-to-watch.htm",
+    "lastChecked": "2026-11-06"
+  }
+];
+
+const NOVEMBER_5_DATE_CORRECTIONS = {
+  "fb-2026-11-06-ron-brown-phelps-ace": [
+    "https://www.phelpshsdc.org/apps/events/event.jsp?d=2026-11-05&eREC_ID=5997573&id=0",
+    "Official school calendar",
+    "Phelps ACE’s November calendar lists the varsity game on November 5 at 6:00 PM, superseding the earlier graphic."
+  ],
+  "fb-2026-11-06-mckinley-tech-cardozo": [
+    "https://dcsportsfan.com/",
+    "Cross-checked schedule",
+    "DCSportsFan and MaxPreps list the varsity game on November 5 at 6:00 PM."
+  ]
+};
+
 export function applyFootballResultsOct9Finals(games = []) {
-  return games.map((game) => {
+  const existingIds = new Set(games.map((game) => game.id));
+  const updated = games.map((game) => {
     const result = FINAL_RESULTS.get(game.id);
+    const correction = NOVEMBER_5_DATE_CORRECTIONS[game.id];
+    if (!result && correction && game.date === "2026-11-06") {
+      const [sourceUrl, sourceTier, notes] = correction;
+      return { ...game, date: "2026-11-05", sourceUrl, sourceTier, notes, lastChecked: "2026-11-06" };
+    }
     if (!result || game.date !== (result.expectedDate || result.date) || game.team1 !== result.team1 || game.team2 !== result.team2) return game;
     const { score1, score2, sourceUrl, sourceTier } = result;
     const confirmation = result.confirmation || (result.confirmationUrl
@@ -1017,7 +1118,5 @@ export function applyFootballResultsOct9Finals(games = []) {
       lastChecked: result.lastChecked || "2026-10-10",
     };
   });
+  return [...updated, ...NOVEMBER_5_PLAYOFF_FINALS.filter((game) => !existingIds.has(game.id))];
 }
-
-
-
