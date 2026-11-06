@@ -1003,8 +1003,33 @@ const schedule = [
   ],
 ];
 
+// MPSSAA first round. Team 1 is the visitor; kickoff times are Eastern.
+const playoffSchedule = [
+  ["2026-11-06", "6:00 PM", "Meade", "Bowie", "4a"],
+  ["2026-11-06", "6:30 PM", "North Caroline", "Largo", "2a"],
+  ["2026-11-06", "6:00 PM", "Parkside", "Frederick Douglass", "2a"],
+  ["2026-11-06", "6:00 PM", "Crossland", "Wicomico", "2a"],
+  ["2026-11-06", "6:00 PM", "James M. Bennett", "Guilford Park", "3a"],
+  ["2026-11-06", "6:00 PM", "Reservoir", "Chesapeake", "3a"],
+  ["2026-11-06", "7:00 PM", "Blake", "Laurel", "4a"],
+  ["2026-11-06", "7:00 PM", "Eleanor Roosevelt", "Wise", "4a"],
+  ["2026-11-07", "1:00 PM", "Fairmont Heights", "Gwynn Park", "2a"],
+  ["2026-11-07", "1:00 PM", "Einstein", "Oxon Hill", "4a-3a"],
+  ["2026-11-07", "1:00 PM", "DuVal", "Parkdale", "4a"],
+];
+
 export const marylandFootballGames = [
   ...schedule.map(makeGame),
+  ...playoffSchedule.map(([date, time, visitor, host, classification]) => ({
+    ...makeGame([
+      date, time, visitor, host, host,
+      `MPSSAA Class ${classification.toUpperCase()} regional first round.`,
+      false,
+      `https://mdfootballscores.com/playoffs/2026-brackets/class-${classification}/`,
+      "2026-11-06",
+    ]),
+    sourceTier: "Maryland High School Football Scores playoff bracket",
+  })),
   {"id":"md-fb-2026-10-31-maryland-school-for-the-deaf-girard-college","sport":"Football","division":"Varsity","ageGroup":"Varsity","date":"2026-10-31","time":"TBD","team1":"Maryland School for the Deaf","team2":"Girard College","score1":50,"score2":14,"scheduleStatus":"Final","verificationStatus":"Final","subjectToChange":false,"sourceTier":"User-approved Maryland High School Football Scores report","sourceUrl":"https://www.instagram.com/mdhsscores/p/DfLG_tJNL7T/","notes":"Final: Maryland School for the Deaf 50, Girard College 14. Final caption read directly; user requested publication. Date follows October 31 Saturday finals reporting.","lastChecked":"2026-10-31"},
   {"id":"md-fb-2026-10-30-mcdonogh-concordia-prep","sport":"Football","division":"Varsity","ageGroup":"Varsity","date":"2026-10-30","time":"TBD","team1":"McDonogh","team2":"Concordia Prep","score1":45,"score2":7,"scheduleStatus":"Final","verificationStatus":"Final","subjectToChange":false,"sourceTier":"Team-shared final graphic","sourceUrl":"https://www.instagram.com/mcdonoghfootball/","notes":"Final: McDonogh 45, Concordia Prep 7. User supplied McDonogh football's repost of the Maryland Football Scores final graphic and requested publication.","lastChecked":"2026-10-31"},
 ];
