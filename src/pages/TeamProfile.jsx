@@ -1,5 +1,6 @@
 import { saveTrackedFavorites } from "../siteActivity";
-import { resultValue } from "../dashboardUtils.js";
+import { favoriteSummary, teamSearchLabel } from "../teamSummary.js";
+import { hasFinal, resultValue, todayEastern } from "../dashboardUtils.js";
 import React, { useState } from "react";
 import TeamMascot from "../components/TeamMascot";
 import { getNotificationPrefs, syncPushSubscription } from "../notifications";
@@ -36,6 +37,7 @@ export default function TeamProfile({
   teamName,
   division,
   ageGroup,
+  sport = "Football",
   games,
   onBack,
   onGameClick,
@@ -66,19 +68,21 @@ export default function TeamProfile({
     }
   };
 
-  const teamGames = games.filter(
+  const scheduleGames = games.filter(
     (game) =>
       (game.team1 === teamName || game.team2 === teamName) &&
-      game.division === division
-  );
+      (game.division || "Unknown") === division
+  ).sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
 
-  const completedGames = teamGames.filter(
-    (game) =>
-      game.score1 !== null &&
-      game.score2 !== null &&
-      game.score1 !== undefined &&
-      game.score2 !== undefined
-  );
+  const completedGames = scheduleGames.filter(hasFinal);
+  const today = todayEastern();
+  const { nextGame } = favoriteSummary({ teamName, division, sport }, scheduleGames, today);
+  const months = new Map();
+  for (const game of scheduleGames) {
+    const month = /^\d{4}-\d{2}-\d{2}$/.test(game.date || "") ? game.date.slice(0, 7) : "";
+    if (!months.has(month)) months.set(month, []);
+    months.get(month).push(game);
+  }
 
   const conferenceName = DCIAA_TEAMS.has(teamName)
     ? "DCIAA"
@@ -215,31 +219,9 @@ export default function TeamProfile({
     completedGames.filter((game) => game.team2 === teamName)
   );
 
-  const scheduleGames = teamGames
-    .slice()
-    .sort((firstGame, secondGame) => {
-      return new Date(firstGame.date) - new Date(secondGame.date);
-    });
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const nextGame = scheduleGames.find((game) => {
-    const gameDate = new Date(`${game.date}T00:00:00`);
-    const isPlayed =
-      game.score1 !== null && game.score1 !== undefined &&
-      game.score2 !== null && game.score2 !== undefined;
-    const status = String(game.status || game.scheduleStatus || "").toLowerCase();
-    return gameDate >= today && !isPlayed && !status.includes("cancel");
-  });
-
-  const recentResults = completedGames
-    .slice()
-    .sort((a, b) => new Date(`${b.date}T00:00:00`) - new Date(`${a.date}T00:00:00`))
-    .slice(0, 5);
-
   const formatDate = (date) => {
-    const formattedDate = new Date(`${date}T00:00:00`);
+    const formattedDate = new Date(`${date}T12:00:00`);
+    if (Number.isNaN(formattedDate.getTime())) return "Date TBD";
 
     return formattedDate.toLocaleDateString("en-US", {
       month: "short",
@@ -268,7 +250,7 @@ export default function TeamProfile({
     game.team1 === teamName ? game.score2 : game.score1;
 
   const getScheduleBadge = (game) => {
-    const status = String(game.status || game.scheduleStatus || "").toLowerCase();
+    const status = `${game.status || ""} ${game.scheduleStatus || ""}`.toLowerCase();
     const notes = String(game.notes || "").toLowerCase();
 
     if (status.includes("cancel")) return "CANCELED";
@@ -298,11 +280,13 @@ export default function TeamProfile({
 
           <button
             type="button"
-            className="favorite-btn"
+            className={`teamFollowButton${isFavorite ? " is-following" : ""}`}
+            aria-pressed={isFavorite}
             aria-label={isFavorite ? "Remove team from favorites" : "Add team to favorites"}
             onClick={toggleFavorite}
           >
-            {isFavorite ? "⭐" : "☆"}
+            <span aria-hidden="true">{isFavorite ? "★" : "☆"}</span>
+            {isFavorite ? "Following" : "Follow"}
           </button>
         </div>
       </div>
@@ -322,7 +306,7 @@ export default function TeamProfile({
           </div>
 
           <span>
-            {ageGroup || "Varsity"} Football • {conferenceName}
+            {teamSearchLabel({ sport, ageGroup, division })}{conferenceName !== "Independent" ? ` • ${conferenceName}` : ""}
           </span>
         </div>
       </div>
@@ -344,7 +328,7 @@ export default function TeamProfile({
               <span className="next-game-kicker">
                 {nextGame.team1 === teamName ? "VS" : "AT"}
               </span>
-              <strong>{getOpponent(nextGame)}</strong>
+              <strong className="teamNextOpponent"><TeamMascot teamName={getOpponent(nextGame)} className="teamScheduleCrest" />{getOpponent(nextGame)}</strong>
             </div>
             <div className="next-game-meta">
               <span>{formatDate(nextGame.date)}</span>
@@ -355,29 +339,43 @@ export default function TeamProfile({
         </div>
       )}
 
-      {recentResults.length > 0 && (
-        <div className="team-section team-feature-section">
-          <h2>Recent Results</h2>
-          <div className="recent-results-list">
-            {recentResults.map((game) => {
-              const result = getResult(game);
+      <section className="team-section teamSeasonSchedule" aria-label="Season schedule">
+        <h2>Season Schedule</h2>
+        {scheduleGames.length === 0 ? (
+          <p className="no-games">No games scheduled.</p>
+        ) : [...months].map(([month, monthGames]) => (
+          <section className="teamScheduleMonth" key={month}>
+            <h3>
+              {month ? new Date(`${month}-15T12:00:00`).toLocaleDateString("en-US", { month: "long", year: "numeric" }) : "Date TBD"}
+              <span>{monthGames.length} {monthGames.length === 1 ? "game" : "games"}</span>
+            </h3>
+            {monthGames.map((game) => {
+              const opponent = getOpponent(game);
+              const isPlayed = hasFinal(game);
+              const result = isPlayed ? getResultLetter(game) : "";
+              const badge = getScheduleBadge(game);
+              const status = badge || (isPlayed ? "Final" : game.date && game.date < today ? "Result pending" : "Upcoming");
               return (
-                <button
-                  type="button"
-                  key={`recent-${game.id}`}
-                  className="recent-result-row"
+                <button type="button" className="teamScheduleMatch" key={game.id}
                   onClick={() => onGameClick?.(game)}
-                >
-                  <span className={`recent-result-letter result-${result.toLowerCase()}`}>{result}</span>
-                  <span className="recent-result-opponent">{getOpponent(game)}</span>
-                  <strong>{getTeamScore(game)}-{getOpponentScore(game)}</strong>
-                  <span className="recent-result-date">{formatDate(game.date)}</span>
+                  aria-label={`${opponent}, ${formatDate(game.date)}, ${isPlayed ? `${result} ${getTeamScore(game)}–${getOpponentScore(game)}, ` : ""}${status}. Open game details`}>
+                  <span className="teamScheduleMatchup">
+                    <TeamMascot teamName={opponent} className="teamScheduleCrest" />
+                    <span><strong>{game.team1 === teamName ? "vs " : "at "}{opponent}</strong>
+                      <small>{formatDate(game.date)}{!isPlayed && game.time ? ` · ${game.time}` : ""}</small>
+                    </span>
+                  </span>
+                  <span className="teamScheduleOutcome">
+                    {isPlayed && <strong className={`teamScheduleResult result-${result.toLowerCase()}`}>{result} {getTeamScore(game)}–{getOpponentScore(game)}</strong>}
+                    <small>{status}</small>
+                  </span>
+                  <span className="teamScheduleArrow" aria-hidden="true">›</span>
                 </button>
               );
             })}
-          </div>
-        </div>
-      )}
+          </section>
+        ))}
+      </section>
 
       <div className="team-section">
         <h2>Standings</h2>
@@ -447,65 +445,6 @@ export default function TeamProfile({
         </div>
       </div>
 
-      <div className="team-section">
-        <h2>Schedule</h2>
-
-        {scheduleGames.length === 0 ? (
-          <p className="no-games">No games scheduled.</p>
-        ) : (
-          <div className="maxpreps-schedule-table">
-            <div className="maxpreps-schedule-header-row">
-              <span>Date/Time</span>
-              <span>Opponent</span>
-              <span>Game Info</span>
-            </div>
-
-            {scheduleGames.map((game) => {
-              const isTeam1 = game.team1 === teamName;
-              const opponent = isTeam1 ? game.team2 : game.team1;
-              const isPlayed =
-                game.score1 !== null && game.score1 !== undefined &&
-                game.score2 !== null && game.score2 !== undefined;
-              const teamScore = isTeam1 ? game.score1 : game.score2;
-              const opponentScore = isTeam1 ? game.score2 : game.score1;
-              const result = isPlayed ? getResult(game) : null;
-              const scheduleBadge = getScheduleBadge(game);
-
-              return (
-                <button
-                  type="button"
-                  key={game.id}
-                  className="maxpreps-schedule-row"
-                  onClick={() => onGameClick?.(game)}
-                  aria-label={`Open ${teamName} ${isTeam1 ? "versus" : "at"} ${opponent} game details`}
-                >
-                  <div className="maxpreps-schedule-date">
-                    <span>{formatDate(game.date)}</span>
-                    <span className="maxpreps-schedule-time">{game.time}</span>
-                  </div>
-
-                  <div className="maxpreps-schedule-opponent">
-                    <span className="scheduleVenue">{isTeam1 ? "vs" : "at"}</span>
-                    <span>{opponent}</span>
-                  </div>
-
-                  <div className="maxpreps-schedule-info">
-                    {scheduleBadge ? (
-                      <span className="schedule-change-badge">{scheduleBadge}</span>
-                    ) : isPlayed ? (
-                      <span className={`maxpreps-result-tag ${result === "W" ? "tag-win" : result === "L" ? "tag-loss" : "tag-tie"}`}>
-                        {result} {teamScore}-{opponentScore}
-                      </span>
-                    ) : (
-                      <span className="maxpreps-result-tag tag-upcoming">Upcoming</span>
-                    )}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        )}
-      </div>
 
     </div>
   );

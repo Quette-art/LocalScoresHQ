@@ -98,3 +98,63 @@
     height: 32px;
   }
 }
+
+.team-profile .teamFollowButton {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 999px;
+  border: 1px solid #367ada;
+  background: #1d64d8;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+.team-profile .teamFollowButton.is-following { background: #122b43; color: #b7dcff; }
+.teamNextOpponent, .teamScheduleMatchup { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.team-profile .teamScheduleCrest { width: 32px; height: 32px; flex: 0 0 32px; }
+.teamScheduleMonth { margin-top: 16px; }
+.teamScheduleMonth h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin: 0;
+  padding: 10px 12px;
+  background: #edf4fc;
+  color: #163452;
+  border-radius: 10px 10px 0 0;
+  font-size: 14px;
+}
+.teamScheduleMonth h3 span { font-size: 12px; font-weight: 600; }
+.team-profile .teamScheduleMatch {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 1px solid #8aa4c24a;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.teamScheduleMatchup strong { display: block; overflow-wrap: anywhere; }
+.teamScheduleMatch small { display: block; margin-top: 3px; opacity: .78; font-size: 12px; }
+.teamScheduleOutcome { text-align: right; max-width: 110px; }
+.teamScheduleResult { display: inline-block; padding: 3px 7px; border-radius: 6px; white-space: nowrap; font-size: 13px; }
+.teamScheduleArrow { opacity: .68; font-size: 22px; }
+.teamScheduleMatch:focus-visible, .teamFollowButton:focus-visible { outline: 2px solid #258aff; outline-offset: -2px; }
+@media (prefers-color-scheme: dark) {
+  .teamScheduleMonth h3 { background: #162b42; color: #c1e0ff; }
+}
+[data-theme="dark"] .teamScheduleMonth h3 { background: #162b42; color: #c1e0ff; }
