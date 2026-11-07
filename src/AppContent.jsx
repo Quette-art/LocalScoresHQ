@@ -52,6 +52,7 @@ function TeamProfileRoute({ games, onGameClick }) {
 
   return (
     <TeamProfile
+      key={params.toString()}
       teamName={teamName}
       division={division}
       ageGroup={ageGroup}
@@ -583,7 +584,7 @@ export default function AppContent() {
         </div>
       )}
 
-      <div className={`topControls${activeTab === "home" || activeTab === "favorites" || activeTab === "admin" ? " sports-bar-hidden" : ""}`}>
+      <div className={`topControls${location.pathname === "/team" || activeTab === "home" || activeTab === "favorites" || activeTab === "admin" ? " sports-bar-hidden" : ""}`}>
         <div className="sportsBar">
           {sports.map((sport) => (
             <button
