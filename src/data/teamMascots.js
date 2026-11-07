@@ -594,6 +594,27 @@ const standingsMascots = {
   "Maret School": "/mascots/missing-teams/maret-score-m.webp",
 };
 
+// Original LocalScoresHQ artwork for teams on the regional playoff schedule.
+const regionalPlayoffMarks = [
+  ["Meade", "M", "Mustangs", "#20242b", "#bbc3cf"],
+  ["North Caroline", "NC", "Bulldogs", "#174587", "#eef4ff"],
+  ["Parkside", "P", "Rams", "#145634", "#ecfdf3"],
+  ["Wicomico", "WI", "Wicomico", "#173676", "#ffcb47"],
+  ["James M. Bennett", "JMB", "Clippers", "#17181c", "#ff777b"],
+  ["Guilford Park", "GP", "Panthers", "#143d6b", "#6cdd9c"],
+  ["Reservoir", "R", "Gators", "#132b56", "#ff944d"],
+  ["Blake", "B", "Bengals", "#121823", "#7bc3ff"],
+  ["Einstein", "E", "Titans", "#a61f35", "#8cceef"],
+  ["Crossland", "C", "Cavaliers", "#a51e2e", "#f6c756"],
+  ["Eleanor Roosevelt", "ER", "Raiders", "#235481", "#a8ddfc"],
+];
+
+for (const [team, mark, mascot, primary, accent] of regionalPlayoffMarks) {
+  teamMascots[team] ??= makeCrest(mark, mascot, primary, accent);
+  scoreMascots[team] ??= makeScoreMark(mark, primary, accent);
+  standingsMascots[team] ??= scoreMascots[team];
+}
+
 // These source files are pixel-traced SVGs with thousands of tiny paths.
 // Decoding them as vectors while they enter the viewport blocks iOS Safari's
 // main thread and makes momentum scrolling visibly stall. The 192px WebP
