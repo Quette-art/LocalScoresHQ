@@ -1,7 +1,7 @@
 import { saveTrackedFavorites } from "../siteActivity";
 import { favoriteSummary, teamSearchLabel } from "../teamSummary.js";
 import { hasFinal, resultValue, todayEastern } from "../dashboardUtils.js";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TeamMascot from "../components/TeamMascot";
 import { getNotificationPrefs, syncPushSubscription } from "../notifications";
 import "../components/ScoresTab.css";
@@ -46,6 +46,10 @@ export default function TeamProfile({
     JSON.parse(localStorage.getItem("favoriteTeams")) || []
   );
 
+  const [view, setView] = useState("scores");
+  const [chosenMonth, setChosenMonth] = useState(null);
+  const monthRail = useRef(null);
+
   const teamKey = `${teamName}-${division}`;
   const isFavorite = favoriteTeams.includes(teamKey);
 
@@ -79,17 +83,26 @@ export default function TeamProfile({
   const { nextGame } = favoriteSummary({ teamName, division, sport }, scheduleGames, today);
   const months = new Map();
   for (const game of scheduleGames) {
-    if (game === nextGame) continue;
     const month = /^\d{4}-\d{2}-\d{2}$/.test(game.date || "") ? game.date.slice(0, 7) : "";
     if (!months.has(month)) months.set(month, []);
     months.get(month).push(game);
   }
 
   const currentMonth = today.slice(0, 7);
-  const monthOrder = (month) => !month ? 2 : month >= currentMonth ? 0 : 1;
-  const orderedMonths = [...months].sort(([a], [b]) =>
-    monthOrder(a) - monthOrder(b) || (monthOrder(a) === 1 ? b.localeCompare(a) : a.localeCompare(b))
-  );
+  const monthKeys = [...months.keys()].sort((a, b) => (a || "9999").localeCompare(b || "9999"));
+  const datedMonths = monthKeys.filter(Boolean);
+  const month = chosenMonth !== null && months.has(chosenMonth)
+    ? chosenMonth
+    : datedMonths.find((key) => key >= currentMonth) ?? datedMonths.at(-1) ?? "";
+  const monthLabel = (key, length) => key
+    ? new Date(`${key}-15T12:00:00`).toLocaleDateString("en-US", { month: length, ...(length === "long" ? { year: "numeric" } : {}) })
+    : "Date TBD";
+
+  useEffect(() => {
+    const rail = monthRail.current;
+    const active = rail?.querySelector('[aria-pressed="true"]');
+    if (active) rail.scrollLeft = active.offsetLeft - (rail.clientWidth - active.offsetWidth) / 2;
+  }, [month, view]);
 
   const conferenceName = DCIAA_TEAMS.has(teamName)
     ? "DCIAA"
@@ -233,6 +246,7 @@ export default function TeamProfile({
     return formattedDate.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
+      weekday: "short",
     });
   };
 
@@ -250,17 +264,16 @@ export default function TeamProfile({
 
   const renderMatch = (game, featured = false) => {
     const final = hasFinal(game);
-    const result = final ? getResultLetter(game) : "";
+    const winner = final ? Math.sign(resultValue(game.score1) - resultValue(game.score2)) : 0;
     const status = getScheduleBadge(game) ||
       (final ? "Final" : game.date && game.date < today ? "Result pending" : "Upcoming");
 
     return (
       <button type="button" className={`teamScheduleMatch${featured ? " is-next" : ""}`} key={game.id}
         onClick={() => onGameClick?.(game)}>
-        {featured && <span className="teamScheduleNextLabel">Next game</span>}
         <span className="teamScheduleTeams">
           {[[game.team1, game.score1], [game.team2, game.score2]].map(([name, score], index) => (
-            <span className="teamScheduleTeam" key={index}>
+            <span className={`teamScheduleTeam${winner && (winner > 0 ? index === 1 : index === 0) ? " is-trailing" : ""}`} key={index}>
               <span aria-hidden="true"><TeamMascot teamName={name} className="teamScheduleCrest" /></span>
               <strong>{name}</strong>
               {final && <b className="teamScheduleScore">{score ?? "—"}</b>}
@@ -268,11 +281,11 @@ export default function TeamProfile({
           ))}
         </span>
         <span className="teamScheduleOutcome">
-          {final && <strong className={`teamScheduleResult result-${result.toLowerCase()}`}>{result}</strong>}
+          {(final || featured) && <strong>{featured ? "Next game" : status}</strong>}
           <small>{formatDate(game.date)}</small>
           {!final && game.time && <strong>{game.time}</strong>}
-          {featured && game.location && <small>{game.location}</small>}
-          {(!featured || status !== "Upcoming") && <small>{status}</small>}
+          {!final && game.location && <small>{game.location}</small>}
+          {!final && status !== "Upcoming" && <small>{status}</small>}
         </span>
         <span className="teamScheduleArrow" aria-hidden="true">›</span>
       </button>
@@ -280,10 +293,12 @@ export default function TeamProfile({
   };
 
   return (
-    <div className="team-profile">
+    <div className="team-profile teamPage">
+      <header className="teamPageHero">
+        <div className="teamPageWatermark" aria-hidden="true"><TeamMascot teamName={teamName} /></div>
       <div className="teamProfileTopBar">
-        <button type="button" className="back-btn" onClick={onBack}>
-          ← Back
+        <button type="button" className="back-btn" aria-label="Back" onClick={onBack}>
+          ‹
         </button>
 
         <div className="teamProfileActions">
@@ -293,7 +308,7 @@ export default function TeamProfile({
             aria-label="Manage team alerts"
             onClick={() => window.dispatchEvent(new CustomEvent("lshq:manage-favorite-alerts", { detail: { teamName } }))}
           >
-            🔔
+            <svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></svg>
           </button>
 
           <button
@@ -309,42 +324,39 @@ export default function TeamProfile({
         </div>
       </div>
 
-      <div className="team-header">
-        <TeamMascot
-          teamName={teamName}
-          className={`team-logo ${teamName === "Benedictine" ? "team-logo-benedictine" : ""}`}
-        />
-
-        <div className="team-header-info">
-          <div className="team-name-record-row">
-            <h1>{teamName || "Unknown Team"}</h1>
-            <span className="team-header-record">
-              {wins}-{losses}{ties > 0 ? `-${ties}` : ""}
-            </span>
-          </div>
-
-          <span>
-            {teamSearchLabel({ sport, ageGroup, division })}{conferenceName !== "Independent" ? ` • ${conferenceName}` : ""}
-          </span>
+        <div className="teamPageIdentity">
+          <h1>{teamName || "Unknown Team"}</h1>
+          <p>{wins}-{losses}{ties > 0 ? `-${ties}` : ""} · {teamSearchLabel({ sport, ageGroup, division })}{conferenceName !== "Independent" ? ` · ${conferenceName}` : ""}</p>
         </div>
-      </div>
+      </header>
 
-      <section className="team-section teamSeasonSchedule" aria-label="Season schedule">
-        <h2>Season Schedule</h2>
-        {nextGame && renderMatch(nextGame, true)}
-        {scheduleGames.length === 0 && <p className="no-games">No games scheduled.</p>}
-        {orderedMonths.map(([month, monthGames]) => (
-          <section className="teamScheduleMonth" key={month}>
-            <h3>
-              {month ? new Date(`${month}-15T12:00:00`).toLocaleDateString("en-US", { month: "long", year: "numeric" }) : "Date TBD"}
-              <span>{monthGames.length} {monthGames.length === 1 ? "game" : "games"}</span>
-            </h3>
-            {monthGames.map((game) => renderMatch(game))}
-          </section>
-        ))}
-      </section>
+      <nav className="teamPageViews" aria-label="Team views">
+        <button type="button" aria-pressed={view === "scores"} onClick={() => setView("scores")}>Scores</button>
+        <button type="button" aria-pressed={view === "standings"} onClick={() => setView("standings")}>Standings</button>
+      </nav>
 
-      <div className="team-section">
+      {view === "scores" ? (
+        <section className="teamPageScores" aria-label="Season schedule">
+          {monthKeys.length > 0 ? (
+            <>
+              <div className="teamPageMonths" ref={monthRail} role="group" aria-label="Schedule month">
+                {monthKeys.map((key) => {
+                  const count = months.get(key).length;
+                  return <button type="button" key={key} aria-pressed={month === key}
+                    aria-label={`${monthLabel(key, "long")}, ${count} ${count === 1 ? "game" : "games"}`}
+                    onClick={() => setChosenMonth(key)}>
+                    <span>{monthLabel(key, "short")}</span>
+                    <small>{count} {count === 1 ? "game" : "games"}</small>
+                  </button>;
+                })}
+              </div>
+              <div className="teamPageGames">
+                {months.get(month)?.map((game) => renderMatch(game, game === nextGame))}
+              </div>
+            </>
+          ) : <p className="no-games">No games scheduled.</p>}
+        </section>
+      ) : <div className="team-section">
         <h2>Standings</h2>
 
         <div className="maxpreps-record-grid">
@@ -410,9 +422,7 @@ export default function TeamProfile({
             </div>
           </div>
         </div>
-      </div>
-
-
+      </div>}
     </div>
   );
 }
