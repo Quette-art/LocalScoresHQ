@@ -218,9 +218,10 @@
   z-index: -1;
   pointer-events: none;
   right: 4%;
-  top: -16px;
-  width: clamp(152px, 44vw, 250px);
-  aspect-ratio: 1;
+  /* Reserve the top row for Follow and alert controls. */
+  top: 68px;
+  bottom: 10px;
+  width: clamp(88px, 28vw, 140px);
   opacity: .31;
 }
 .teamPageWatermark .team-mascot { width: 100%; height: 100%; font-size: 64px; }
