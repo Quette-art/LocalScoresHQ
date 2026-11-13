@@ -1,3 +1,4 @@
+import { playoffRoundTwo2026 } from "./playoffRoundTwo2026.js";
 import { footballGames } from "./footballGamesAug22.js";
 import { marylandFootballGames } from "./marylandFootballGames.js";
 import { applyFootballScheduleCorrections } from "./footballScheduleCorrectionsAug28.js";
@@ -165,7 +166,7 @@ const footballGamesWithOct9Finals = applyFootballResultsOct9Finals(
   )
 );
 
-export const games = footballGamesWithOct9Finals.map(
+export const games = [...footballGamesWithOct9Finals, ...playoffRoundTwo2026].map(
   canonicalizeTeamNames
 );
 
