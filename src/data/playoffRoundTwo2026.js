@@ -8,17 +8,18 @@ export const playoffRoundTwo2026 = [
     "team2": "Maret",
     "location": "Barret Field",
     "sourceUrl": "https://www.instagram.com/maret.football/",
-    "sourceTier": "Official team schedule supplied by user",
-    "notes": "DCSAA quarterfinal: #4 KIPP College Prep at #1 Maret. Official Maret football graphic supplied by user confirms November 14 and corrected 12:30 PM Eastern kickoff. Schedule only; final score awaiting verification.",
+    "sourceTier": "Official team final supplied by user",
+    "notes": "DCSAA quarterfinal: #4 KIPP College Prep at #1 Maret. Official Maret football graphic supplied by user confirms November 14 and corrected 12:30 PM Eastern kickoff. Final confirmed by user-supplied official @maret.football Instagram graphic: Maret 22, KIPP College Prep 6.",
     "sport": "Football",
     "division": "Varsity",
     "ageGroup": "Varsity",
-    "score1": null,
-    "score2": null,
+    "score1": 6,
+    "score2": 22,
     "scheduleStatus": "Confirmed",
     "verificationStatus": "Published",
     "subjectToChange": false,
-    "lastChecked": "2026-11-14"
+    "lastChecked": "2026-11-14",
+    "status": "Final"
   },
   {
     "id": "md-fb-2026-11-13-clarksburg-quince-orchard",
