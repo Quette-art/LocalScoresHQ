@@ -1,6 +1,26 @@
 // Kickoffs use America/New_York. Blank scores are intentional.
 export const playoffRoundTwo2026 = [
   {
+    "id": "fb-2026-11-14-kipp-college-prep-maret",
+    "date": "2026-11-14",
+    "time": "12:30 PM",
+    "team1": "KIPP College Prep",
+    "team2": "Maret",
+    "location": "Barret Field",
+    "sourceUrl": "https://www.instagram.com/maret.football/",
+    "sourceTier": "Official team schedule supplied by user",
+    "notes": "DCSAA quarterfinal: #4 KIPP College Prep at #1 Maret. Official Maret football graphic supplied by user confirms November 14 and corrected 12:30 PM Eastern kickoff. Schedule only; final score awaiting verification.",
+    "sport": "Football",
+    "division": "Varsity",
+    "ageGroup": "Varsity",
+    "score1": null,
+    "score2": null,
+    "scheduleStatus": "Confirmed",
+    "verificationStatus": "Published",
+    "subjectToChange": false,
+    "lastChecked": "2026-11-14"
+  },
+  {
     "id": "md-fb-2026-11-13-clarksburg-quince-orchard",
     "date": "2026-11-13",
     "time": "7:00 PM",

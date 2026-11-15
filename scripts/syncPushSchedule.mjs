@@ -1,3 +1,4 @@
+import { runPushScheduleSync } from "./pushSyncBuildPolicy.mjs";
 import { classifyGameNotification } from "../src/notificationPolicy.js";
 
 // Preview builds must not update the live snapshot or send subscriber alerts.
@@ -13,6 +14,7 @@ if (!secret) {
   process.exit(0);
 }
 
+await runPushScheduleSync(async () => {
 const [{ games }, { getFirebaseAdmin }, { sendFavoritePush }] = await Promise.all([
   import("../src/data/games.js"),
   import("../server/firebaseAdmin.js"),
@@ -174,3 +176,5 @@ await snapshotRef.set(
 console.log(
   `Push schedule sync complete: ${alertCount} change(s), ${sentTotal} notification(s) sent.`
 );
+
+});
