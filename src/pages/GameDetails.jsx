@@ -257,6 +257,7 @@ const getInitials = (teamName = "") =>
     .toUpperCase();
 
 const GameDetails = ({
+  linkedGameId,
   game,
   games = [],
   onBack,
@@ -265,6 +266,7 @@ const GameDetails = ({
   onScoreSaved,
 }) => {
   const savedGame = useMemo(() => {
+    if (linkedGameId) return games.find(item => String(item.id) === linkedGameId) || (String(game?.id) === linkedGameId ? game : null);
     if (game) return game;
 
     try {
@@ -285,7 +287,7 @@ const GameDetails = ({
     } catch {
       return null;
     }
-  }, [game, games]);
+  }, [game, games, linkedGameId]);
 
   const [localGame, setLocalGame] =
     useState(savedGame);
@@ -536,14 +538,14 @@ const GameDetails = ({
         await navigator.share({
           title: `${localGame.team1} vs ${localGame.team2}`,
           text,
-          url: window.location.href,
+          url: window.location.origin + "/game?id=" + encodeURIComponent(localGame.id),
         });
 
         return;
       }
 
       await navigator.clipboard.writeText(
-        `${text}\n${window.location.href}`
+        `${text}\n${window.location.origin}/game?id=${encodeURIComponent(localGame.id)}`
       );
 
       alert("Game link copied.");
