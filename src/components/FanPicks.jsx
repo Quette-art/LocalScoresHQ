@@ -40,8 +40,15 @@ export default function FanPicks({game,onShare}){
   const closed=poll?.state==="closed"||pollState(game)==="closed";
   if(closed&&!total)return null;
   const canPick=poll?.state==="open"&&!closed&&poll.selected===null&&!busy;
-  return <section className="fan-picks" aria-label="Fan Picks"><header><div><small>FAN PICKS</small><h2>Who will win?</h2></div><button type="button" onClick={onShare}>Share</button></header>
-    {(poll?.teams||[game.team1,game.team2]).map((team,i)=><button key={i} type="button" className="fan-choice" disabled={!canPick} onClick={()=>pick(i)}>
+  const teams=poll?.teams||[game.team1,game.team2];
+  const share=total ? poll.counts[0]*100/total : 0;
+  const leading=total && poll.counts[0]!==poll.counts[1] ? teams[Number(poll.counts[1]>poll.counts[0])] : null;
+  return <section className="fan-picks" aria-label="Fan Picks"><header><div><small>FAN PICKS</small><h2>{total ? "Fan vote results" : "Who will win?"}</h2></div><button type="button" onClick={onShare}>Share</button></header>
+    {total>0 ? <div className="fan-results">
+      <div className="fan-pie" aria-hidden="true" style={{"--split":share+"%"}} />
+      <div className="fan-breakdown"><strong>{leading ? leading+" leads the fan vote" : "Fans are evenly split"}</strong>
+      {teams.map((team,i)=><div className="fan-legend" key={i}><i aria-hidden="true"/><span>{team}{poll.selected===i && <small> · Your pick</small>}</span><b>{Number((100*poll.counts[i]/total).toFixed(1))}%</b></div>)}</div>
+    </div> : teams.map((team,i)=><button key={i} type="button" className="fan-choice" disabled={!canPick} onClick={()=>pick(i)}>
       <span aria-hidden="true"><TeamMascot teamName={team}/></span><strong>{team}</strong>
       {poll?.selected===i&&<small>Your pick</small>}{total>0&&<b>{i===0?Math.round(100*poll.counts[0]/total):100-Math.round(100*poll.counts[0]/total)}%</b>}
     </button>)}
