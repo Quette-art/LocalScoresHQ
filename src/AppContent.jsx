@@ -363,7 +363,7 @@ export default function AppContent() {
     sessionStorage.setItem("selectedGame", JSON.stringify(game));
     sessionStorage.setItem("prevTab", activeTab);
     sessionStorage.setItem("gameReturnPath", `${location.pathname}${location.search}`);
-    navigate("/game");
+    navigate("/game?id=" + encodeURIComponent(game.id));
   };
 
   const teamMap = {};
@@ -386,6 +386,7 @@ export default function AppContent() {
     });
   });
 
+  const linkedGameId = new URLSearchParams(location.search).get("id");
   const query = searchTerm.trim().toLowerCase();
   const searchResults = Object.values(teamMap)
     .filter((team) => !query || team.teamName.toLowerCase().includes(query))
@@ -603,6 +604,8 @@ export default function AppContent() {
           path="/game"
           element={
             <GameDetails
+              key={linkedGameId || selectedGame?.id}
+              linkedGameId={linkedGameId}
               game={selectedGame}
               games={games}
               isAdmin={isAdmin}
