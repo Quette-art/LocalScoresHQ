@@ -1,3 +1,4 @@
+import FanPicks from "../components/FanPicks";
 import { resultValue } from "../dashboardUtils.js";
 import React, {
   useEffect,
@@ -1001,6 +1002,7 @@ const GameDetails = ({
           </article>
         </div>
       </section>
+      <FanPicks key={localGame.id} game={localGame} onShare={shareGame} />
 
       {showShareGraphic && createPortal(
         <div className="share-score-overlay" onMouseDown={(event) => {
