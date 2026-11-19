@@ -942,69 +942,12 @@ const GameDetails = ({
           })}
         </div>
 
-        <div className="game-details-info-grid">
-          <article className="game-details-info-card">
-            <span className="game-details-info-icon">
-              📍
-            </span>
-
-            <div>
-              <span>Location</span>
-
-              <strong>
-                {localGame.location ||
-                  "TBD"}
-              </strong>
-            </div>
-          </article>
-
-          <article className="game-details-info-card">
-            <span className="game-details-info-icon">
-              🏆
-            </span>
-
-            <div>
-              <span>Division</span>
-
-              <strong>
-                {localGame.division ||
-                  "Unknown"}
-              </strong>
-            </div>
-          </article>
-
-          <article className="game-details-info-card">
-            <span className="game-details-info-icon">
-              👥
-            </span>
-
-            <div>
-              <span>Age Group</span>
-
-              <strong>
-                {getAgeGroup(localGame)}
-              </strong>
-            </div>
-          </article>
-
-          <article className="game-details-info-card">
-            <span className="game-details-info-icon">
-              ●
-            </span>
-
-            <div>
-              <span>Status</span>
-
-              <strong>
-                {isFinal
-                  ? (localGame.forfeit ? "Forfeit" : "Final")
-                  : "Scheduled"}
-              </strong>
-            </div>
-          </article>
+        <div className="matchup-facts" aria-label="Game information">
+          <span><b>Venue</b> {localGame.location || "TBD"}</span>
+          <span><b>Level</b> {[...new Set([localGame.division, getAgeGroup(localGame)].filter(Boolean))].join(" · ") || "TBD"}</span>
         </div>
+        <FanPicks key={localGame.id} game={localGame} onShare={shareGame} />
       </section>
-      <FanPicks key={localGame.id} game={localGame} onShare={shareGame} />
 
       {showShareGraphic && createPortal(
         <div className="share-score-overlay" onMouseDown={(event) => {
