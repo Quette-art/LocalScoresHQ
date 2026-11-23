@@ -22,9 +22,9 @@ export default function FanPicks({game,onShare}){
       }catch{if(!ctrl.signal.aborted)setError(true);}
     }
     load();return ()=>ctrl.abort();
-  },[game.id,version]);
+  },[game.id,game.date,game.time,game.status,version]);
   useEffect(()=>{
-    if(poll?.state!=="open")return;
+    if(poll?.state!=="open" || poll.start == null)return;
     const timer=setTimeout(()=>reload(v=>v+1),Math.min(2147483647,Math.max(1000,poll.start-Date.now()+100)));
     return ()=>clearTimeout(timer);
   },[poll]);
@@ -67,7 +67,7 @@ export default function FanPicks({game,onShare}){
       <span aria-hidden="true"><TeamMascot teamName={team}/></span><strong>{team}</strong>
       {poll?.selected===i&&<small>Your pick</small>}{total>0&&<b>{i===0?Math.round(100*poll.counts[0]/total):100-Math.round(100*poll.counts[0]/total)}%</b>}
     </button>)}
-    <p role="status">{error?"Couldn’t load or save your pick.":busy?"Saving your pick…":!poll?"Loading fan picks…":closed?"Voting closed":poll.state==="pending"?"Voting opens when a start time is confirmed.":poll.selected!==null?"Pick saved":"Pick a team before the game starts."}{poll?.counts?" · "+total+" "+(total===1?"vote":"votes"):""}</p>
+    <p role="status">{error?"Couldn’t load or save your pick.":busy?"Saving your pick…":!poll?"Loading fan picks…":closed?"Voting closed":poll.selected!==null?"Pick saved":"Pick a team before the game starts."}{poll?.counts?" · "+total+" "+(total===1?"vote":"votes"):""}</p>
     {error&&<button type="button" onClick={()=>reload(v=>v+1)}>Retry</button>}
   </section>;
 }

@@ -1,4 +1,4 @@
-import { hasFinal } from "./dashboardUtils.js";
+import { hasFinal, todayEastern } from "./dashboardUtils.js";
 const eastern = new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",timeZoneName:"shortOffset"});
 export function kickoff(game) {
   const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(String(game.time || "").trim());
@@ -12,5 +12,7 @@ export function kickoff(game) {
 export function pollState(game,now=Date.now()) {
   const start=kickoff(game);
   if(hasFinal(game) || /^(final|live|in progress|in-progress|cancelled|canceled|postponed|forfeit)$/i.test(game.status||"")) return "closed";
-  return start===null?"pending":now>=start?"closed":"open";
+  if (start !== null) return now >= start ? "closed" : "open";
+  const dateHasPassed = /^\d{4}-\d{2}-\d{2}$/.test(game.date) && game.date < todayEastern(new Date(now));
+  return dateHasPassed ? "closed" : "open";
 }
