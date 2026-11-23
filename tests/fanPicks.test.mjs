@@ -6,10 +6,10 @@ const game={date:"2099-11-20",time:"7:00 PM",team1:"A",team2:"B"};
 test("Eastern kickoff handles daylight and standard time; closes at kickoff",()=>{
  for(const [date,h] of [["2026-11-20","00"],["2026-07-20","23"]])assert.equal(new Date(kickoff({...game,date})).getUTCHours(),+h);
  assert.equal(pollState(game,kickoff(game)-1),"open");assert.equal(pollState(game,kickoff(game)),"closed");
- assert.equal(pollState({...game,time:"TBD"}),"pending");
+ assert.equal(pollState({...game,time:"TBD"}),"open");
 });
 test("counts are hidden before voting, repeat votes do not increment, and closed polls reject new picks",async()=>{
- const data=new Map([["games/test",game]]);
+ const data=new Map([["games/test",{...game,date:"TBD",time:"TBD"}]]);
  const ref=path=>({path,collection:c=>({doc:id=>ref(path+"/"+c+"/"+id)})});
  const db={collection:c=>({doc:id=>ref(c+"/"+id)}),runTransaction:fn=>fn({
  getAll:(...refs)=>refs.map(r=>({exists:data.has(r.path),data:()=>structuredClone(data.get(r.path))})),
@@ -23,6 +23,7 @@ test("counts are hidden before voting, repeat votes do not increment, and closed
  }
  assert.equal((await call()).counts,null);
  assert.deepEqual((await call(0)).counts,[1,0]);
+ data.set("games/test",game);
  assert.equal((await call(1)).selected,0);
  assert.deepEqual((await call()).counts,[1,0]);
  data.set("gameStatus/test",{status:"live"});
