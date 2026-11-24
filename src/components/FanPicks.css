@@ -1,52 +1,56 @@
-/* Fan Picks + matchup polish — cleaner hierarchy, refined ring, better spacing */
+/* Fan Picks redesign — clearer hierarchy, modern ring, stronger visual separation */
 
 .fan-picks {
-  padding: 20px 16px 18px;
-  color: #f4f8ff;
-  background: #0b1520;
-  border-top: 1px solid #243447;
+  margin: 12px 12px 20px;
+  padding: 18px 16px 16px;
+  color: #f1f5f9;
+  background: #0c1622;
+  border: 1px solid #1e2f42;
+  border-radius: 18px;
 }
 
 .fan-picks header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .fan-picks header small {
   display: block;
-  color: #7eb4ff;
+  color: #60a5fa;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .fan-picks h2 {
-  margin: 4px 0 0;
-  font-size: 1.25rem;
+  margin: 5px 0 0;
+  font-size: 1.35rem;
   font-weight: 750;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: #f8fafc;
 }
 
 .fan-picks button {
-  border: 1px solid #2f455c;
+  border: 1px solid #2a3f55;
   border-radius: 12px;
-  background: #132233;
-  color: inherit;
+  background: #132536;
+  color: #e2e8f0;
   min-height: 40px;
   padding: 0 14px;
+  font-size: 14px;
   font-weight: 650;
   cursor: pointer;
   transition: background 140ms ease, border-color 140ms ease;
 }
 
 .fan-picks button:hover {
-  background: #1a2d42;
-  border-color: #3d5a78;
+  background: #1a3146;
+  border-color: #3b5670;
 }
 
 .fan-picks .fan-choice {
@@ -59,6 +63,8 @@
   padding: 10px 14px;
   text-align: left;
   border-radius: 14px;
+  background: #101e2c;
+  border: 1px solid #243447;
 }
 
 .fan-choice:disabled {
@@ -71,6 +77,7 @@
   min-width: 0;
   overflow-wrap: anywhere;
   font-size: 1.05rem;
+  font-weight: 700;
 }
 
 .fan-choice > span,
@@ -89,60 +96,60 @@
 
 .fan-picks p {
   font-size: 0.875rem;
-  color: #9fb0c3;
-  margin: 12px 0 0;
+  color: #94a3b8;
+  margin: 14px 0 0;
   line-height: 1.4;
 }
 
-/* Venue / Level row under matchup */
+/* Venue / Level under the matchup */
 .game-details-card .matchup-facts {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 28px;
-  padding: 14px 16px 6px;
-  color: #b8c7d9;
+  gap: 8px 24px;
+  padding: 12px 16px 4px;
+  color: #94a3b8;
   font-size: 0.875rem;
 }
 
 .matchup-facts b {
   font-weight: 600;
-  opacity: 0.75;
-  margin-right: 6px;
+  opacity: 0.8;
+  margin-right: 5px;
+  color: #cbd5e1;
 }
 
 .game-details-card .game-details-matchup {
-  padding-block: 10px;
-  gap: 6px;
+  padding-block: 8px;
+  gap: 4px;
 }
 
 @media (max-width: 600px) {
   .game-details-card .game-details-team {
-    min-height: 58px;
+    min-height: 56px;
     padding: 10px 14px;
   }
   .game-details-card .game-details-score-divider {
-    height: 26px;
+    height: 24px;
   }
   .game-details-card .game-details-matchup {
-    padding-inline: 14px;
+    padding-inline: 12px;
   }
 }
 
-/* Fan vote results ring */
+/* Vote results layout */
 .fan-matchup {
   --stripes: repeating-linear-gradient(
-    115deg,
-    var(--first, #e1eaf4) 0 5px,
-    #121e2b 5px 6px
+    120deg,
+    var(--first, #ef4444) 0 6px,
+    #1a0f12 6px 7px
   );
-  --accent: #48aaff;
+  --accent: #f97316;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 48%) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 52%) minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
-  margin: 8px 0 0;
-  padding: 20px 0 8px;
-  border-top: 1px solid #2a3d52;
+  gap: 6px 8px;
+  margin: 4px 0 0;
+  padding: 12px 0 4px;
 }
 
 .fan-ring {
@@ -150,32 +157,37 @@
   grid-area: 1 / 2;
   justify-self: center;
   width: 100%;
-  max-width: 220px;
+  max-width: 200px;
   aspect-ratio: 1;
   border-radius: 50%;
   background:
-    conic-gradient(var(--accent) 0 var(--solid), transparent var(--solid) 100%),
-    var(--stripes);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+    conic-gradient(
+      from -90deg,
+      var(--first, #ef4444) 0 var(--solid),
+      #1e293b var(--solid) 100%
+    );
+  box-shadow:
+    0 0 0 3px #0c1622,
+    0 0 0 5px rgba(239, 68, 68, 0.25);
 }
 
 .fan-ring-center {
   position: absolute;
-  inset: 12%;
+  inset: 14%;
   border-radius: 50%;
-  background: #0b1520;
+  background: #0c1622;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5%;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  gap: 6%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .fan-ring-center .team-mascot {
   display: grid;
   place-items: center;
-  width: 34%;
-  height: 40%;
+  width: 36%;
+  height: 42%;
   overflow: hidden;
 }
 
@@ -186,66 +198,79 @@
 }
 
 .fan-ring-center em {
-  height: 62%;
-  border-left: 1px dotted #6b7f96;
+  height: 58%;
+  border-left: 1px solid #334155;
+  opacity: 0.7;
 }
 
 .fan-side {
   grid-area: 1 / 1;
   min-width: 0;
   overflow-wrap: anywhere;
+  padding-right: 4px;
 }
 
 .fan-side.side-1 {
   grid-area: 1 / 3;
   text-align: right;
+  padding-right: 0;
+  padding-left: 4px;
 }
 
 .fan-side strong {
   display: block;
-  font-size: clamp(1.2rem, 5.2vw, 2.1rem);
+  font-size: clamp(1.35rem, 6vw, 2rem);
   font-variant-numeric: tabular-nums;
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #f8fafc;
 }
 
 .fan-side span {
-  display: block;
-  font-size: 0.82rem;
-  margin: 6px 0 2px;
-  color: #c5d4e6;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  margin: 7px 0 0;
+  color: #cbd5e1;
+  font-weight: 550;
+}
+
+.fan-side.side-1 span {
+  justify-content: flex-end;
 }
 
 .fan-side i {
   display: inline-block;
-  width: 9px;
-  height: 9px;
-  margin-right: 5px;
-  border-radius: 2px;
-  background: var(--stripes);
-  vertical-align: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--first, #ef4444);
+  flex-shrink: 0;
 }
 
 .side-1 i {
-  background: var(--accent);
-  margin-right: 0;
-  margin-left: 5px;
+  background: var(--accent, #f97316);
 }
 
 .fan-side small {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.75rem;
-  font-weight: 650;
-  color: #7eb4ff;
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.15);
+  border-radius: 6px;
+  letter-spacing: 0.02em;
 }
 
 .fan-matchup figcaption {
   grid-column: 1 / -1;
   text-align: center;
-  color: #9fb0c3;
+  color: #94a3b8;
   font-size: 0.875rem;
-  padding-top: 10px;
+  padding-top: 14px;
   font-weight: 500;
 }
