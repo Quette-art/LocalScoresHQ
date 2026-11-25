@@ -2,8 +2,6 @@
    Loaded last so it wins over the older overlapping game-details rules. */
 
 @media (max-width: 900px) {
-  /* Avoid creating an iOS scroll container just to hide horizontal overflow.
-     That can make sticky headers stop sticking. */
   html,
   body,
   #root {
@@ -34,86 +32,99 @@
     }
   }
 
-  /* /game is rendered outside .mainContent, so it does not inherit the normal
-     bottom-nav clearance. Older CSS also zeroes this page's padding with
-     !important. Restore enough bottom space to scroll every details card fully
-     above the fixed navigation and iPhone safe area. */
   .game-details-page {
     min-height: 100vh !important;
     padding-bottom: calc(150px + env(safe-area-inset-bottom)) !important;
   }
 
   .game-details-card {
-    margin-bottom: 0 !important;
+    margin: 0 12px 16px !important;
+    padding: 0 !important;
+    border-radius: 16px !important;
+    background: #0c1622 !important;
+    border: 1px solid #1e2f42 !important;
+    overflow: hidden !important;
   }
 
-  /* ===== Team positioning on the score card ===== */
+  /* ===== Horizontal matchup (logo + name | VS | logo + name) ===== */
   .game-details-matchup {
-    display: flex !important;
-    flex-direction: column !important;
+    display: grid !important;
+    grid-template-columns: 1fr auto 1fr !important;
+    align-items: center !important;
     gap: 0 !important;
-    padding: 8px 0 4px !important;
+    padding: 20px 12px 16px !important;
+    background: #0c1622 !important;
   }
 
   .game-details-team {
     display: flex !important;
-    flex-direction: row !important;
+    flex-direction: column !important;
     align-items: center !important;
-    justify-content: space-between !important;
+    justify-content: center !important;
     width: 100% !important;
-    min-height: 64px !important;
-    padding: 12px 16px !important;
+    min-height: 0 !important;
+    padding: 8px 6px !important;
     margin: 0 !important;
     border: none !important;
     border-radius: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
-    text-align: left !important;
-    gap: 12px !important;
+    text-align: center !important;
+    gap: 10px !important;
   }
 
-  .game-details-team + .game-details-team,
-  .game-details-score-divider + .game-details-team {
-    border-top: 1px solid rgba(148, 163, 184, 0.15) !important;
+  /* Hide the score dash on upcoming games so the card stays clean */
+  .game-details-team-score {
+    display: none !important;
   }
 
   .game-details-team-identity {
     display: flex !important;
+    flex-direction: column !important;
     align-items: center !important;
-    gap: 12px !important;
+    gap: 10px !important;
     min-width: 0 !important;
-    flex: 1 1 auto !important;
+    width: 100% !important;
   }
 
   .game-details-team-logo,
   .game-details-team-logo .team-mascot,
-  .game-details-team .team-mascot {
-    flex: 0 0 40px !important;
-    width: 40px !important;
-    height: 40px !important;
+  .game-details-team .team-mascot,
+  .game-details-team-identity .team-mascot {
+    flex: 0 0 auto !important;
+    width: 64px !important;
+    height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
     display: grid !important;
     place-items: center !important;
+    overflow: hidden !important;
   }
 
   .game-details-team-logo img,
-  .game-details-team .team-mascot img {
+  .game-details-team .team-mascot img,
+  .game-details-team-identity img {
     width: 100% !important;
     height: 100% !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
     object-fit: contain !important;
   }
 
   .game-details-team-identity strong {
     display: block !important;
-    font-size: 1.1rem !important;
-    font-weight: 750 !important;
-    line-height: 1.25 !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
     color: #f1f5f9 !important;
+    text-align: center !important;
     overflow-wrap: anywhere !important;
+    max-width: 100% !important;
   }
 
   .game-details-winner-label {
     display: block !important;
-    font-size: 0.7rem !important;
+    font-size: 0.65rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.04em !important;
     text-transform: uppercase !important;
@@ -121,28 +132,13 @@
     margin-bottom: 2px !important;
   }
 
-  .game-details-team-score {
-    flex: 0 0 auto !important;
-    min-width: 2.2em !important;
-    text-align: right !important;
-    font-size: 1.35rem !important;
-    font-weight: 800 !important;
-    font-variant-numeric: tabular-nums !important;
-    color: #94a3b8 !important;
-    line-height: 1 !important;
-  }
-
-  .game-details-team-winner .game-details-team-score {
-    color: #f8fafc !important;
-  }
-
   .game-details-score-divider {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    height: 28px !important;
+    height: auto !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 0 4px !important;
     border: none !important;
     background: transparent !important;
   }
@@ -151,14 +147,34 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
     min-width: 36px !important;
-    height: 24px !important;
-    padding: 0 10px !important;
-    border-radius: 999px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
     background: #1e293b !important;
     color: #94a3b8 !important;
     font-size: 0.7rem !important;
     font-weight: 800 !important;
-    letter-spacing: 0.06em !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  /* Venue / Level row under the matchup */
+  .game-details-card .matchup-facts {
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px 16px !important;
+    padding: 0 16px 16px !important;
+    color: #94a3b8 !important;
+    font-size: 0.8rem !important;
+    border-top: none !important;
+  }
+
+  .matchup-facts b {
+    font-weight: 600 !important;
+    opacity: 0.85 !important;
+    margin-right: 4px !important;
+    color: #cbd5e1 !important;
   }
 }
