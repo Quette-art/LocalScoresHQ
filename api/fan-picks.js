@@ -13,7 +13,8 @@ export const makeHandler=(admin=getFirebaseAdmin)=>async function handler(req,re
   const id=vote?req.body?.gameId:req.query.gameId;
   const device=req.headers["x-pick-device"];
   const choice=req.body?.choice;
-  if(typeof id!=="string" || !id || id.length>240 || /[/\x00-\x1f]/.test(id) || /^\.{1,2}$/.test(id) || !/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(device||"") || (vote && ![0,1].includes(choice))) return res.status(400).end();
+  const remove=vote && req.body?.remove === true;
+  if(typeof id!=="string" || !id || id.length>240 || /[/\x00-\x1f]/.test(id) || /^\.{1,2}$/.test(id) || !/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(device||"") || (vote && !remove && ![0,1].includes(choice))) return res.status(400).end();
   try {
     const {db}=admin();
     const result=await db.runTransaction(async tx=>{
@@ -28,14 +29,22 @@ export const makeHandler=(admin=getFirebaseAdmin)=>async function handler(req,re
       const counts=poll.data()?.counts||[0,0];
       let selected=previous.data()?.choice??null;
       const state=pollState(game);
-      if(vote && state==="open" && selected===null){
-        if(req.body.team!==teams[choice]) return {code:409};
-        counts[choice]++;
-        tx.set(ref,{gameId:id,teams,counts});
-        tx.create(voter,{choice});
-        selected=choice;
+      if(vote && state==="open"){
+        if(remove){
+          if(selected===null) return {code:200,state,start:kickoff(game),teams,selected:null,counts:counts.some(c=>c>0)?counts:null};
+          if(counts[selected]>0) counts[selected]--;
+          tx.set(ref,{gameId:id,teams,counts});
+          tx.delete(voter);
+          selected=null;
+        } else if(selected===null){
+          if(req.body.team!==teams[choice]) return {code:409};
+          counts[choice]++;
+          tx.set(ref,{gameId:id,teams,counts});
+          tx.create(voter,{choice});
+          selected=choice;
+        }
       }
-      return {code:200,state,start:kickoff(game),teams,selected,counts:selected!==null||state==="closed"?counts:null};
+      return {code:200,state,start:kickoff(game),teams,selected,counts:selected!==null||state==="closed"||counts.some(c=>c>0)?counts:null};
     });
     const {code,...data}=result;
     return res.status(code).json(data);

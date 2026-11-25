@@ -1,4 +1,4 @@
-/* Fan Picks redesign — clearer hierarchy, modern ring, stronger visual separation */
+/* Fan Picks — striped ring restored, remove-vote support */
 
 .fan-picks {
   margin: 12px 12px 20px;
@@ -101,6 +101,22 @@
   line-height: 1.4;
 }
 
+.fan-picks .fan-remove {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  background: transparent;
+  border: 1px solid #3b4a5c;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.fan-picks .fan-remove:hover {
+  background: #1a2433;
+  border-color: #4b5c70;
+  color: #e2e8f0;
+}
+
 /* Venue / Level under the matchup */
 .game-details-card .matchup-facts {
   display: flex;
@@ -118,30 +134,12 @@
   color: #cbd5e1;
 }
 
-.game-details-card .game-details-matchup {
-  padding-block: 8px;
-  gap: 4px;
-}
-
-@media (max-width: 600px) {
-  .game-details-card .game-details-team {
-    min-height: 56px;
-    padding: 10px 14px;
-  }
-  .game-details-card .game-details-score-divider {
-    height: 24px;
-  }
-  .game-details-card .game-details-matchup {
-    padding-inline: 12px;
-  }
-}
-
-/* Vote results layout */
+/* Vote results layout — striped red ring restored */
 .fan-matchup {
   --stripes: repeating-linear-gradient(
-    120deg,
-    var(--first, #ef4444) 0 6px,
-    #1a0f12 6px 7px
+    115deg,
+    var(--first, #e11d48) 0 5px,
+    #1a0f12 5px 6px
   );
   --accent: #f97316;
   display: grid;
@@ -161,33 +159,28 @@
   aspect-ratio: 1;
   border-radius: 50%;
   background:
-    conic-gradient(
-      from -90deg,
-      var(--first, #ef4444) 0 var(--solid),
-      #1e293b var(--solid) 100%
-    );
-  box-shadow:
-    0 0 0 3px #0c1622,
-    0 0 0 5px rgba(239, 68, 68, 0.25);
+    conic-gradient(var(--accent) 0 var(--solid), transparent var(--solid) 100%),
+    var(--stripes);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .fan-ring-center {
   position: absolute;
-  inset: 14%;
+  inset: 13%;
   border-radius: 50%;
   background: #0c1622;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6%;
+  gap: 5%;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .fan-ring-center .team-mascot {
   display: grid;
   place-items: center;
-  width: 36%;
-  height: 42%;
+  width: 34%;
+  height: 40%;
   overflow: hidden;
 }
 
@@ -198,9 +191,8 @@
 }
 
 .fan-ring-center em {
-  height: 58%;
-  border-left: 1px solid #334155;
-  opacity: 0.7;
+  height: 60%;
+  border-left: 1px dotted #64748b;
 }
 
 .fan-side {
@@ -219,11 +211,11 @@
 
 .fan-side strong {
   display: block;
-  font-size: clamp(1.35rem, 6vw, 2rem);
+  font-size: clamp(1.3rem, 5.5vw, 2rem);
   font-variant-numeric: tabular-nums;
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   color: #f8fafc;
 }
 
@@ -246,7 +238,7 @@
   width: 10px;
   height: 10px;
   border-radius: 3px;
-  background: var(--first, #ef4444);
+  background: var(--stripes);
   flex-shrink: 0;
 }
 
