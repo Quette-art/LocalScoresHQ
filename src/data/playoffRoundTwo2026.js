@@ -1,6 +1,26 @@
 // Kickoffs use America/New_York. Blank scores are intentional.
 export const playoffRoundTwo2026 = [
   {
+    "id": "fb-2026-11-28-digital-pioneers-anacostia",
+    "date": "2026-11-28",
+    "time": "3:30 PM",
+    "team1": "Digital Pioneers Academy",
+    "team2": "Anacostia",
+    "location": "Cardinal Stadium, Catholic University",
+    "notes": "DCSAA Class A state championship. Neutral site confirmed by the Digital Pioneers Football game announcement.",
+    "sourceUrl": "https://www.maxpreps.com/dc/football/game/anacostia-washington-vs-digital-pioneers-academy-washington/11-28-2026/?c=b2ae55fa-ca39-4b63-adcd-16fe1b000f95",
+    "sourceTier": "Team announcement and published playoff schedule",
+    "sport": "Football",
+    "division": "Varsity",
+    "ageGroup": "Varsity",
+    "score1": null,
+    "score2": null,
+    "scheduleStatus": "Confirmed",
+    "verificationStatus": "Published",
+    "subjectToChange": true,
+    "lastChecked": "2026-11-25"
+  },
+  {
     "id": "fb-2026-11-27-suitland-quince-orchard",
     "date": "2026-11-27",
     "time": "TBD",
